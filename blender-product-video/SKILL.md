@@ -124,6 +124,9 @@ Per **ogni** scena, prima di costruirla, chiedi:
 Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o `blender -b file.blend --python script.py` (script in `render_scripts/`). Skill: **animation**, **geometry-nodes**, **procedural-modeling**.
 - Animazione **procedurale** (driver + geometry nodes, niente simulazioni): così si può campionare a subframe e allungare i tempi senza toccare i keyframe.
 - Prima di patchare un .blend salvane una copia nello scratchpad. Ogni patch è uno script Python rieseguibile.
+- Proponi le inquadrature che una ripresa vera non può dare, sono il punto di forza del 3D:
+  - **sezione**: modificatore Boolean `DIFFERENCE` (solver `EXACT`, `material_mode='TRANSFER'`) con un cutter che toglie un quarto verso la camera; il materiale del cutter colora le facce tagliate, di solito un rosso scuro. Prima svuota i gusci, con un cutter interno che ha lo stesso materiale del pezzo, e aggiungi le parti interne che servono al racconto (albero, rotore, girante). Animare il cutter fa aprire la sezione in scena;
+  - **esploso** e rimontaggio, parti trasparenti o in radiografia, cambio di finitura o di colore.
 
 **Storyboard (1 frame al secondo)**, prima di qualunque anteprima animata:
 `$K/preview.sh <scena.blend> <first> <last> <fps_scena> preview/<n>_sb`

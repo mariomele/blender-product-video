@@ -4,15 +4,20 @@
 
 <h1 align="center">Blender Product Video</h1>
 
-<p align="center">
-  A <a href="https://claude.com/claude-code">Claude Code</a> skill that takes photos, a link, CAD files or technical drawings to a finished 3D product video,<br>
-  with storyboard, previews, motion graphics, voice-over, music, sound effects and delivery files.
+<p align="center"><b>Turn your machine into an explainer video.</b><br>
+  Got a machine or a mechanical part? Give <a href="https://claude.com/claude-code">Claude Code</a> photos, a CAD file or a drawing,<br>
+  and get an explainer video made with the power of Blender, in a few simple steps.<br>
+  All vibe coding: no Blender or CAD skills needed.
 </p>
 
 <p align="center"><i>
-  Una skill per Claude Code che porta da foto, link, file CAD o disegni tecnici a un video 3D di prodotto finito,<br>
-  con storyboard, anteprime, grafiche, voce fuori campo, musica, effetti sonori e file di consegna.
+  <b>Trasforma la tua macchina in un video explainer.</b><br>
+  Hai una macchina o un pezzo meccanico? Dai a Claude Code foto, un file CAD o un disegno,<br>
+  e ottieni un video explainer fatto con la potenza di Blender, in pochi passi semplici.<br>
+  Tutto in vibe coding: senza conoscere Blender o il CAD.
 </i></p>
+
+<p align="center">Created by / Ideata da <b>Mario Mele</b></p>
 
 <p align="center">
   <a href="https://mariomele.github.io/blender-product-video/"><b>Project page</b></a> ·
@@ -27,22 +32,27 @@
 
 ---
 
-## Examples · Esempi
+## How it works · Come funziona
 
-Every image below was made with the skill's scripts, from a procedurally modelled demo product ([`build_pump.py`](docs/assets/examples/build_pump.py)).
-*Tutte le immagini sono generate con gli script della skill, partendo da un prodotto dimostrativo modellato proceduralmente.*
+![From your part to an explainer video in three steps](docs/assets/examples/how_it_works_en.jpg)
+
+## What a real camera can't show · Quello che una ripresa vera non può mostrare
+
+Open the machine up, take it apart in mid-air, swap its finish in a click: shots that are impossible, or very expensive, with real footage.
+*Apri la macchina, smontala a mezz'aria, cambia finitura con un clic: inquadrature impossibili, o molto costose, con riprese reali.*
+
+| Cutaway · Sezione | Exploded view · Esploso | Materials and textures · Materiali e texture |
+|---|---|---|
+| ![Cutaway with red section faces](docs/assets/examples/sezione.jpg) | ![Exploded view](docs/assets/examples/esploso.jpg) | ![Stainless flange, RAL paint, zinc-plated bolts](docs/assets/examples/dettaglio_materiali.jpg) |
+
+**Any setting, realistic light · Qualsiasi ambiente, luce realistica**
 
 | Black studio · Studio nero | Limbo | Warehouse · Capannone |
 |---|---|---|
 | ![Black studio](docs/assets/examples/ambiente_nero.jpg) | ![Light limbo](docs/assets/examples/ambiente_limbo.jpg) | ![Warehouse](docs/assets/examples/ambiente_capannone.jpg) |
 
-**Storyboard, one frame per second · Storyboard, un frame al secondo**
-
-![Storyboard of a scene: orbit and exploded view](docs/assets/examples/storyboard.jpg)
-
-| Exploded view · Vista esplosa | Material detail · Dettaglio materiali |
-|---|---|
-| ![Exploded view](docs/assets/examples/esploso.jpg) | ![Detail: stainless flange and painted body](docs/assets/examples/dettaglio_materiali.jpg) |
+Every image was made with the skill's scripts, from a procedurally modelled demo product ([`build_pump.py`](docs/assets/examples/build_pump.py), [`cut.py`](docs/assets/examples/cut.py)).
+*Tutte le immagini sono generate con gli script della skill, partendo da un prodotto dimostrativo modellato proceduralmente.*
 
 ---
 
@@ -53,11 +63,14 @@ Every image below was made with the skill's scripts, from a procedurally modelle
 
 ### What it is
 
-A skill that guides Claude Code, and you, through the whole making of a 3D product video: machines, plants, components, industrial processes. Built for sales presentations, social content, trade fairs and websites.
+You have a machine, a plant or a mechanical part and want to explain how it works. This skill lets you do it by just chatting: Claude Code drives Blender for you, from the 3D model to the final video. You never touch Blender or a CAD program.
+
+It guides Claude Code, and you, through the whole making of a 3D product video: machines, plants, components, industrial processes. Built for sales presentations, social content, trade fairs and websites.
 
 - **Starts from any source:** CAD (GLB, STEP via export, STL, OBJ…), photos, the product's web page, technical drawings and dimensioned sketches.
 - **Asks questions at every phase** and stops for your approval before moving on, so fixes come when they are cheap.
 - **Remembers where you are:** every decision goes into `progetto.md`, and a request like "redo the intro" jumps straight to the right phase.
+- **Shows what a camera can't:** cutaways, exploded views, realistic materials and textures, any setting.
 - **Renders on Metal GPU** with a hang watchdog, resumable renders and the option to redo only the frames that changed.
 
 ### The phases
@@ -137,7 +150,7 @@ docs/                       project page (GitHub Pages), logo, sample images
 
 ### License
 
-[MIT](LICENSE)
+Created by Mario Mele. [MIT](LICENSE)
 
 ---
 
@@ -146,11 +159,14 @@ docs/                       project page (GitHub Pages), logo, sample images
 
 ### Cos'è
 
-Una skill che guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchine, impianti, componenti, processi industriali. Pensata per presentazioni commerciali, contenuti social, fiere e siti.
+Hai una macchina, un impianto o un pezzo meccanico e vuoi spiegare come funziona. Con questa skill lo fai parlando: Claude Code guida Blender al posto tuo, dal modello 3D al video finale. Non devi mai aprire Blender o un programma CAD.
+
+Guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchine, impianti, componenti, processi industriali. Pensata per presentazioni commerciali, contenuti social, fiere e siti.
 
 - **Parte da qualsiasi sorgente:** CAD (GLB, STEP via export, STL, OBJ…), foto, la pagina web del prodotto, disegni tecnici e schizzi quotati.
 - **Fa domande a ogni fase** e si ferma per un'approvazione prima di andare avanti, così le correzioni arrivano quando costano poco.
 - **Si ricorda dove sei:** tutte le decisioni finiscono in `progetto.md`, e una richiesta come "rifai l'intro" porta direttamente alla fase giusta.
+- **Mostra quello che una telecamera non può:** sezioni, esplosi, materiali e texture realistici, qualsiasi ambiente.
 - **Render su GPU Metal** con controllo anti-blocco, render ripartibili e la possibilità di rifare solo i frame cambiati.
 
 ### Il percorso
@@ -232,4 +248,4 @@ docs/                       pagina del progetto (GitHub Pages), logo, immagini d
 
 ### Licenza
 
-[MIT](LICENSE)
+Ideata da Mario Mele. [MIT](LICENSE)
