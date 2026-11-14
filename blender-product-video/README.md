@@ -131,6 +131,8 @@ Alla fine la skill prepara:
 
 Un altro formato dallo stesso progetto si può fare, ma richiede di reimpostare le inquadrature e rifare il render: non basta ritagliare.
 
+Se nel brief lo chiedi, come extra la skill prepara anche una **pagina 3D interattiva** del prodotto con [`/machine`](https://github.com/AirsupHQ/machine-skill): un file HTML con esploso, sezione e numeri di funzionamento, da usare sul sito o su un monitor in fiera. È una versione semplificata del pezzo, separata dal video.
+
 ## Gli strumenti inclusi
 
 Nella cartella `scripts/`:
@@ -189,6 +191,7 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 Facoltativi:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): leggere pagine prodotto e ricavare la palette da un sito (in alternativa Claude usa il browser integrato).
 - Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
+- [Machine skill](https://github.com/AirsupHQ/machine-skill): solo per la pagina interattiva extra. `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`; per screenshot e video della pagina serve Playwright: `npm i -D playwright && npx playwright install chromium` nella cartella della skill.
 
 Riferimento indicativo: su M1 Pro, 1080x1920 a 40 campioni, circa **10 secondi per frame** su GPU Metal, contro circa 40 su CPU. Un video di 60 secondi a 24 fps richiede quindi circa 4 ore di render finale. La skill dà sempre una stima prima di partire.
 

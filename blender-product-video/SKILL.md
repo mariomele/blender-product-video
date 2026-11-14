@@ -62,6 +62,7 @@ Chiedi, se non lo sai già:
   - codici Hex;
   - un sito di riferimento: ricava la palette con `firecrawl_scrape` (formato `branding`) o dal CSS, mostrala e falla confermare.
   Chiedi anche il logo (SVG/PNG) e i colori da evitare. Con l'ok salva la palette in memoria per i video successivi dello stesso cliente.
+- **Extra facoltativo**: chiedi se serve anche una pagina 3D interattiva (esploso, sezione, numeri di funzionamento) per sito o fiera. Si fa in fase 9 con la skill `/machine`, se è installata.
 Checkpoint: crea `progetto.md` con il brief e fallo confermare.
 
 ## 1. Il pezzo: modello, materiali, ambientazione
@@ -196,6 +197,8 @@ Più `sottotitoli.srt` dalla fase 5. Limiti utili delle piattaforme:
 | YouTube / sito | 16:9 1920x1080 | `.srt` separato |
 Altri formati dallo stesso progetto: chiedi se servono. Vuol dire reimpostare la camera nei .blend e rifare il render: non basta ritagliare.
 Manda il `light.mp4` con SendUserFile; per file oltre 30 MB indica il percorso.
+
+**Extra: pagina interattiva** (solo se chiesta nel brief e se `/machine` è installata). Usa `/machine` per creare `delivery/<nome>.html`: un file unico in three.js, da aprire nel browser o mettere in un iframe, con esploso, sezione, radiografia e numeri calcolati. Passale le misure, la distinta dei pezzi con i materiali e i dati tecnici raccolti in `progetto.md`. Avvisa che `/machine` ricostruisce il pezzo con forme proprie: è una versione semplificata, non carica il modello Blender e ha una resa diversa da Cycles. Per questo non va montata dentro il video. Mostrala con uno screenshot e falla approvare a parte.
 
 ## Trappole
 - Blender 5.x: action a livelli → `action.layers[].strips[].channelbags[].fcurves`; l'opzione MetalRT si chiama `metalrt` (non `metal_rt`).
