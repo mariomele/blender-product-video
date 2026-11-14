@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://hello-noor.github.io/blender-product-video/"><b>Pagina del progetto</b></a> ·
+  <a href="https://mariomele.github.io/blender-product-video/"><b>Pagina del progetto</b></a> ·
   <a href="#installazione">Installazione</a> ·
   <a href="blender-product-video/README.md">Documentazione completa</a>
 </p>
@@ -75,7 +75,7 @@ I dettagli di ogni fase, gli script e l'elenco di montaggio (EDL) sono nella [do
 ### 1. La skill
 
 ```bash
-git clone https://github.com/hello-noor/blender-product-video.git
+git clone https://github.com/mariomele/blender-product-video.git
 cp -r blender-product-video/blender-product-video ~/.claude/skills/
 ```
 
