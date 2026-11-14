@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="it">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blender Product Video</title>
-<meta name="description" content="Skill per Claude Code: da foto, CAD o disegni a un video 3D di prodotto finito, con storyboard, anteprime, grafiche HyperFrames, voce e musica ElevenLabs, render su GPU Metal.">
+<meta name="description" content="A Claude Code skill: from photos, CAD or drawings to a finished 3D product video, with storyboard, previews, HyperFrames graphics, ElevenLabs voice and music, Metal GPU render. Skill per Claude Code: da foto, CAD o disegni a un video 3D di prodotto finito.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="shortcut icon" href="assets/favicon.ico">
@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#0B0C0E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blender Product Video">
-<meta property="og:description" content="Da foto, CAD o disegni a un video 3D finito, con un percorso guidato in Claude Code.">
+<meta property="og:description" content="From photos, CAD or drawings to a finished 3D product video, with a guided workflow in Claude Code. · Da foto, CAD o disegni a un video 3D finito, con un percorso guidato in Claude Code.">
 <meta property="og:url" content="https://mariomele.github.io/blender-product-video/">
 <meta property="og:image" content="https://mariomele.github.io/blender-product-video/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -22,17 +22,21 @@
 <style>
 :root{--bg:#0B0C0E;--panel:#14161A;--line:#2A2D33;--text:#F4F1EA;--muted:#A9A59C;--accent:#F5A400}
 *{box-sizing:border-box}
+html[data-lang=en] body [lang=it],html[data-lang=it] body [lang=en]{display:none}
 body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 -apple-system,"Helvetica Neue",Arial,sans-serif}
 a{color:var(--accent)}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 header{padding:28px 0;display:flex;align-items:center;gap:14px}
 header img{width:40px;height:40px}
 header b{font-size:18px}
-header nav{margin-left:auto;display:flex;gap:20px;font-size:15px}
+header nav{margin-left:auto;display:flex;gap:20px;font-size:15px;align-items:center}
 header nav a{color:var(--muted);text-decoration:none}
+.langs{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-left:8px}
+.langs button{background:none;border:0;color:var(--muted);font:600 13px/1 inherit;padding:7px 10px;cursor:pointer}
+.langs button[aria-pressed=true]{background:var(--accent);color:#111}
 .hero{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center;padding:40px 0 64px}
 h1{font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-1.5px;margin:0 0 20px}
-h1 span{color:var(--accent)}
+h1 em{font-style:normal;color:var(--accent)}
 .lead{font-size:20px;color:#C9C5BC;margin:0 0 28px}
 .btn{display:inline-block;background:var(--accent);color:#111;font-weight:700;padding:12px 20px;border-radius:10px;text-decoration:none;margin-right:10px}
 .btn.ghost{background:none;color:var(--text);border:1.5px solid var(--line)}
@@ -56,53 +60,79 @@ td,th{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);verti
 th{color:var(--muted);font-weight:600}
 code{font-size:13px;background:var(--panel);padding:1px 5px;border-radius:5px}
 .tablewrap{overflow-x:auto}
+.note{font-size:15px;color:var(--muted)}
 footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
-@media (max-width:760px){.hero,.grid2,.grid3{grid-template-columns:1fr}header nav{display:none}}
+@media (max-width:760px){.hero,.grid2,.grid3{grid-template-columns:1fr}header nav{display:none}.langs{margin-left:auto}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header><img src="assets/logo.svg" alt=""><b>Blender Product Video</b>
-<nav><a href="#esempi">Esempi</a><a href="#percorso">Percorso</a><a href="#installazione">Installazione</a><a href="https://github.com/mariomele/blender-product-video">GitHub</a></nav></header>
+<nav>
+<a href="#esempi"><span lang="en">Examples</span><span lang="it">Esempi</span></a>
+<a href="#percorso"><span lang="en">Workflow</span><span lang="it">Percorso</span></a>
+<a href="#installazione"><span lang="en">Install</span><span lang="it">Installazione</span></a>
+<a href="https://github.com/mariomele/blender-product-video">GitHub</a>
+</nav>
+<div class="langs" role="group" aria-label="Language / Lingua"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="it" aria-pressed="false">IT</button></div>
+</header>
 
 <div class="hero">
 <div>
-<h1>Video 3D di prodotto, <span>guidati</span>.</h1>
-<p class="lead">Una skill per Claude Code che porta da foto, link, file CAD o disegni tecnici a un video finito: storyboard, anteprime, grafiche, voce, musica e file di consegna.</p>
-<a class="btn" href="#installazione">Installa</a><a class="btn ghost" href="https://github.com/mariomele/blender-product-video">Vedi su GitHub</a>
+<h1 lang="en">3D product videos, <em>guided</em>.</h1>
+<h1 lang="it">Video 3D di prodotto, <em>guidati</em>.</h1>
+<p class="lead" lang="en">A Claude Code skill that takes photos, a link, CAD files or technical drawings to a finished video: storyboard, previews, graphics, voice, music and delivery files.</p>
+<p class="lead" lang="it">Una skill per Claude Code che porta da foto, link, file CAD o disegni tecnici a un video finito: storyboard, anteprime, grafiche, voce, musica e file di consegna.</p>
+<a class="btn" href="#installazione"><span lang="en">Install</span><span lang="it">Installa</span></a><a class="btn ghost" href="https://github.com/mariomele/blender-product-video"><span lang="en">View on GitHub</span><span lang="it">Vedi su GitHub</span></a>
 </div>
-<img src="assets/examples/ambiente_nero.jpg" alt="Render di una pompa centrifuga con motore su sfondo nero">
+<img src="assets/examples/ambiente_nero.jpg" alt="Render of a centrifugal pump with motor on a black background">
 </div>
 
 <section id="esempi">
-<h2>Stesso prodotto, tre ambientazioni</h2>
-<p>Nel brief scegli dove mettere il prodotto e con che atmosfera, anche partendo da una foto di riferimento. Tutte le immagini sono generate con gli script della skill.</p>
+<h2><span lang="en">Same product, three settings</span><span lang="it">Stesso prodotto, tre ambientazioni</span></h2>
+<p lang="en">In the brief you choose where the product sits and the mood, even from a reference photo. Every image is made with the skill's scripts.</p>
+<p lang="it">Nel brief scegli dove mettere il prodotto e con che atmosfera, anche partendo da una foto di riferimento. Tutte le immagini sono generate con gli script della skill.</p>
 <div class="grid3">
-<figure><img src="assets/examples/ambiente_nero.jpg" alt="Studio con sfondo nero" loading="lazy"><figcaption>Studio nero</figcaption></figure>
-<figure><img src="assets/examples/ambiente_limbo.jpg" alt="Limbo chiaro" loading="lazy"><figcaption>Limbo</figcaption></figure>
-<figure><img src="assets/examples/ambiente_capannone.jpg" alt="Capannone industriale" loading="lazy"><figcaption>Capannone</figcaption></figure>
+<figure><img src="assets/examples/ambiente_nero.jpg" alt="Black studio" loading="lazy"><figcaption><span lang="en">Black studio</span><span lang="it">Studio nero</span></figcaption></figure>
+<figure><img src="assets/examples/ambiente_limbo.jpg" alt="Light limbo" loading="lazy"><figcaption>Limbo</figcaption></figure>
+<figure><img src="assets/examples/ambiente_capannone.jpg" alt="Industrial warehouse" loading="lazy"><figcaption><span lang="en">Warehouse</span><span lang="it">Capannone</span></figcaption></figure>
 </div>
 </section>
 
 <section>
-<h2>Storyboard in pochi secondi</h2>
-<p>Prima di ogni anteprima animata, un frame per ogni secondo della scena, compreso l'ultimo. Poi l'anteprima a 24, 12 o 6 fps, a scelta.</p>
-<figure><img src="assets/examples/storyboard.jpg" alt="Storyboard a griglia di una scena" loading="lazy"></figure>
+<h2><span lang="en">A storyboard in seconds</span><span lang="it">Storyboard in pochi secondi</span></h2>
+<p lang="en">Before every animated preview, one frame for each second of the scene, the last one included. Then the preview at 24, 12 or 6 fps, your choice.</p>
+<p lang="it">Prima di ogni anteprima animata, un frame per ogni secondo della scena, compreso l'ultimo. Poi l'anteprima a 24, 12 o 6 fps, a scelta.</p>
+<figure><img src="assets/examples/storyboard.jpg" alt="Grid storyboard of a scene" loading="lazy"></figure>
 </section>
 
 <section>
-<h2>Movimenti e materiali</h2>
-<p>Esplosi, montaggi e parti in movimento. Materiali fisici con i colori reali del prodotto e finiture procedurali, senza scartare il modello.</p>
+<h2><span lang="en">Motion and materials</span><span lang="it">Movimenti e materiali</span></h2>
+<p lang="en">Exploded views, assembly and moving parts. Physical materials with the product's real colours and procedural finishes, without throwing the model away.</p>
+<p lang="it">Esplosi, montaggi e parti in movimento. Materiali fisici con i colori reali del prodotto e finiture procedurali, senza scartare il modello.</p>
 <div class="grid2">
-<figure><img src="assets/examples/esploso.jpg" alt="Vista esplosa di motore e pompa" loading="lazy"><figcaption>Vista esplosa</figcaption></figure>
-<figure><img src="assets/examples/dettaglio_materiali.jpg" alt="Dettaglio di flangia inox e corpo verniciato" loading="lazy"><figcaption>Dettaglio materiali</figcaption></figure>
+<figure><img src="assets/examples/esploso.jpg" alt="Exploded view of motor and pump" loading="lazy"><figcaption><span lang="en">Exploded view</span><span lang="it">Vista esplosa</span></figcaption></figure>
+<figure><img src="assets/examples/dettaglio_materiali.jpg" alt="Detail of stainless flange and painted body" loading="lazy"><figcaption><span lang="en">Material detail</span><span lang="it">Dettaglio materiali</span></figcaption></figure>
 </div>
 </section>
 
 <section id="percorso">
-<h2>Un percorso a fasi, con domande e approvazioni</h2>
-<p>A ogni fase la skill chiede cosa serve e si ferma per un ok. Le decisioni restano in <code>progetto.md</code>, così puoi riprendere il lavoro quando vuoi.</p>
-<ol class="steps">
+<h2><span lang="en">A phased workflow, with questions and approvals</span><span lang="it">Un percorso a fasi, con domande e approvazioni</span></h2>
+<p lang="en">At every phase the skill asks what it needs and stops for your ok. Decisions live in <code>progetto.md</code>, so you can pick the work up whenever you like. The skill speaks Italian.</p>
+<p lang="it">A ogni fase la skill chiede cosa serve e si ferma per un ok. Le decisioni restano in <code>progetto.md</code>, così puoi riprendere il lavoro quando vuoi.</p>
+<ol class="steps" lang="en">
+<li><b><i>0</i>Brief</b><small>Format, length, environment and mood, infographic palette.</small></li>
+<li><b><i>1</i>The product</b><small>Real-scale model, materials and environment.</small></li>
+<li><b><i>2</i>The scenes</b><small>Length, motion, shots; storyboard and preview.</small></li>
+<li><b><i>3</i>Edit</b><small>All scenes in a single preview.</small></li>
+<li><b><i>4</i>Graphics</b><small>Titles, callouts, dimensions and subtitles in HyperFrames.</small></li>
+<li><b><i>5</i>Audio</b><small>Voice, music and effects with ElevenLabs; scenes fitted to the voice.</small></li>
+<li><b><i>6</i>Full review</b><small>The complete draft video, for approval.</small></li>
+<li><b><i>7</i>Final render</b><small>Cycles on Metal GPU, with a time estimate.</small></li>
+<li><b><i>8</i>Touch-ups</b><small>Only the changed frames are redone.</small></li>
+<li><b><i>9</i>Delivery</b><small>Master at −14 LUFS, light version, subtitles; optional interactive 3D page.</small></li>
+</ol>
+<ol class="steps" lang="it">
 <li><b><i>0</i>Brief</b><small>Formato, durata, ambiente e atmosfera, palette delle infografiche.</small></li>
 <li><b><i>1</i>Il pezzo</b><small>Modello in scala reale, materiali e ambientazione.</small></li>
 <li><b><i>2</i>Le scene</b><small>Durata, movimenti, inquadrature; storyboard e anteprima.</small></li>
@@ -112,31 +142,46 @@ footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var
 <li><b><i>6</i>Visione d'insieme</b><small>Il video completo in bozza, da approvare.</small></li>
 <li><b><i>7</i>Render finale</b><small>Cycles su GPU Metal, con stima dei tempi.</small></li>
 <li><b><i>8</i>Ritocchi</b><small>Si rifanno solo i frame cambiati.</small></li>
-<li><b><i>9</i>Consegna</b><small>Master a −14 LUFS, versione leggera, sottotitoli.</small></li>
+<li><b><i>9</i>Consegna</b><small>Master a −14 LUFS, versione leggera, sottotitoli; pagina 3D interattiva facoltativa.</small></li>
 </ol>
 </section>
 
 <section id="installazione">
-<h2>Installazione</h2>
-<p>Copia la skill nella cartella delle skill di Claude Code, poi installa le dipendenze.</p>
+<h2><span lang="en">Install</span><span lang="it">Installazione</span></h2>
+<p lang="en">Copy the skill into Claude Code's skills folder, then install the dependencies.</p>
+<p lang="it">Copia la skill nella cartella delle skill di Claude Code, poi installa le dipendenze.</p>
 <pre><code>git clone https://github.com/mariomele/blender-product-video.git
 cp -r blender-product-video/blender-product-video ~/.claude/skills/</code></pre>
 <div class="tablewrap"><table>
-<tr><th>Dipendenza</th><th>Serve per</th><th>Installazione</th></tr>
-<tr><td><a href="https://claude.com/claude-code">Claude Code</a></td><td>eseguire la skill</td><td>vedi il link</td></tr>
-<tr><td><a href="https://www.blender.org/download/">Blender 5.1+</a></td><td>modello, scene, render</td><td>in <code>/Applications</code> (altro percorso: variabile <code>BLENDER</code>)</td></tr>
-<tr><td><a href="https://www.blender.org/lab/mcp-server/">Blender MCP</a></td><td>Claude dentro Blender</td><td>add-on + server dalla <a href="https://projects.blender.org/lab/blender_mcp/releases">pagina release</a> (<code>.mcpb</code> per Claude Desktop) o da <a href="https://projects.blender.org/lab/blender_mcp/wiki/Setup">sorgente</a></td></tr>
-<tr><td><a href="https://brew.sh">Homebrew</a> + <a href="https://ffmpeg.org">FFmpeg</a></td><td>anteprime, montaggio, consegna</td><td><code>brew install ffmpeg</code></td></tr>
+<tr><th><span lang="en">Dependency</span><span lang="it">Dipendenza</span></th><th><span lang="en">Used for</span><span lang="it">Serve per</span></th><th><span lang="en">Install</span><span lang="it">Installazione</span></th></tr>
+<tr><td><a href="https://claude.com/claude-code">Claude Code</a></td><td><span lang="en">running the skill</span><span lang="it">eseguire la skill</span></td><td><span lang="en">see the link</span><span lang="it">vedi il link</span></td></tr>
+<tr><td><a href="https://www.blender.org/download/">Blender 5.1+</a></td><td><span lang="en">model, scenes, render</span><span lang="it">modello, scene, render</span></td><td><span lang="en">in <code>/Applications</code> (other path: <code>BLENDER</code> variable)</span><span lang="it">in <code>/Applications</code> (altro percorso: variabile <code>BLENDER</code>)</span></td></tr>
+<tr><td><a href="https://www.blender.org/lab/mcp-server/">Blender MCP</a></td><td><span lang="en">Claude inside Blender</span><span lang="it">Claude dentro Blender</span></td><td><span lang="en">add-on + server from the <a href="https://projects.blender.org/lab/blender_mcp/releases">releases page</a> (<code>.mcpb</code> for Claude Desktop) or from <a href="https://projects.blender.org/lab/blender_mcp/wiki/Setup">source</a></span><span lang="it">add-on + server dalla <a href="https://projects.blender.org/lab/blender_mcp/releases">pagina release</a> (<code>.mcpb</code> per Claude Desktop) o da <a href="https://projects.blender.org/lab/blender_mcp/wiki/Setup">sorgente</a></span></td></tr>
+<tr><td><a href="https://brew.sh">Homebrew</a> + <a href="https://ffmpeg.org">FFmpeg</a></td><td><span lang="en">previews, edit, delivery</span><span lang="it">anteprime, montaggio, consegna</span></td><td><code>brew install ffmpeg</code></td></tr>
 <tr><td><a href="https://nodejs.org/en/download">Node.js 22+</a></td><td>HyperFrames</td><td><code>brew install node</code></td></tr>
-<tr><td><a href="https://github.com/heygen-com/hyperframes">HyperFrames</a></td><td>grafiche, testi, mix audio</td><td><code>claude plugin marketplace add heygen-com/hyperframes</code><br><code>claude plugin install hyperframes@hyperframes</code></td></tr>
-<tr><td><a href="https://elevenlabs.io/mcp">ElevenLabs MCP</a></td><td>voce, musica, effetti</td><td><code>claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp</code></td></tr>
-<tr><td><a href="https://github.com/arjun988/blender-skills">Blender skills</a></td><td>skill di supporto (materials, lighting, lookdev…)</td><td>istruzioni nel repo</td></tr>
-<tr><td><a href="https://docs.firecrawl.dev/mcp-server">Firecrawl MCP</a> (facoltativo)</td><td>pagine prodotto, palette da un sito</td><td>istruzioni al link</td></tr>
-<tr><td><a href="https://github.com/AirsupHQ/machine-skill">Machine skill</a> (facoltativo)</td><td>pagina 3D interattiva extra, da consegnare insieme al video</td><td><code>git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine</code></td></tr>
+<tr><td><a href="https://github.com/heygen-com/hyperframes">HyperFrames</a></td><td><span lang="en">graphics, text, audio mix</span><span lang="it">grafiche, testi, mix audio</span></td><td><code>claude plugin marketplace add heygen-com/hyperframes</code><br><code>claude plugin install hyperframes@hyperframes</code></td></tr>
+<tr><td><a href="https://elevenlabs.io/mcp">ElevenLabs MCP</a></td><td><span lang="en">voice, music, effects</span><span lang="it">voce, musica, effetti</span></td><td><code>claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp</code></td></tr>
+<tr><td><a href="https://github.com/arjun988/blender-skills">Blender skills</a></td><td><span lang="en">support skills (materials, lighting, lookdev…)</span><span lang="it">skill di supporto (materials, lighting, lookdev…)</span></td><td><span lang="en">instructions in the repo</span><span lang="it">istruzioni nel repo</span></td></tr>
+<tr><td><a href="https://docs.firecrawl.dev/mcp-server">Firecrawl MCP</a> <span lang="en">(optional)</span><span lang="it">(facoltativo)</span></td><td><span lang="en">product pages, palette from a website</span><span lang="it">pagine prodotto, palette da un sito</span></td><td><span lang="en">instructions at the link</span><span lang="it">istruzioni al link</span></td></tr>
+<tr><td><a href="https://github.com/AirsupHQ/machine-skill">Machine skill</a> <span lang="en">(optional)</span><span lang="it">(facoltativo)</span></td><td><span lang="en">extra interactive 3D page, delivered with the video</span><span lang="it">pagina 3D interattiva extra, da consegnare insieme al video</span></td><td><code>git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine</code></td></tr>
 </table></div>
 </section>
 
-<footer>Licenza MIT · <a href="https://github.com/mariomele/blender-product-video">github.com/mariomele/blender-product-video</a></footer>
+<footer><span lang="en">MIT license</span><span lang="it">Licenza MIT</span> · <a href="https://github.com/mariomele/blender-product-video">github.com/mariomele/blender-product-video</a></footer>
 </div>
+<script>
+(function(){
+  var root=document.documentElement, btns=document.querySelectorAll('.langs button');
+  function set(l){
+    root.setAttribute('data-lang',l); root.lang=l;
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===l)});
+    try{localStorage.setItem('lang',l)}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem('lang')}catch(e){}
+  var q=new URLSearchParams(location.search).get('lang');
+  set(q==='it'||q==='en'?q:(saved==='it'?'it':'en'));
+  btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set)})});
+})();
+</script>
 </body>
 </html>
