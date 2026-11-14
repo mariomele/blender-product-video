@@ -1,0 +1,70 @@
+{
+  "skill_name": "blender-product-video",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Ho il file STEP di una pompa centrifuga, mi fai un video 3D di 30 secondi per LinkedIn?",
+      "expected_output": "Parte dal brief con domande guidate e spiega che lo STEP va esportato in GLB.",
+      "expectations": [
+        "Usa AskUserQuestion per il brief prima di toccare Blender",
+        "Chiede aspect ratio, risoluzione e fps prima di creare scene o render",
+        "Chiede ambiente/atmosfera e la palette delle infografiche (o la ricava dalla memoria)",
+        "Spiega che Blender non apre lo STEP e chiede l'export in GLB/OBJ/STL",
+        "Crea progetto.md con il brief"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Rifai l'intro del video, la camera deve partire più bassa",
+      "expected_output": "Entra nella fase 2 per la scena 1 senza rifare il brief.",
+      "expectations": [
+        "Legge progetto.md (o lo ricostruisce dai file) invece di rifare il brief",
+        "Non chiede di nuovo formato, palette o ambiente",
+        "Produce uno storyboard 1 fps con preview.sh prima dell'anteprima animata",
+        "Se il finale esiste già, propone --redo solo sul tratto cambiato"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Ecco 4 foto del nostro miscelatore, fai un video per Instagram",
+      "files": [],
+      "expected_output": "Chiede le foto mancanti e almeno una misura reale, e dichiara il livello di fedeltà C/B.",
+      "expectations": [
+        "Elenca le viste mancanti (fronte, retro, lati, alto, dettagli)",
+        "Chiede almeno una misura reale per la scala",
+        "Dichiara il livello di fedeltà ottenibile prima di modellare",
+        "Non usa image-to-3D a pagamento senza chiedere"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Fai partire il render finale",
+      "expected_output": "Controlla l'ok della fase 6 e l'assenza di Blender GUI, dà una stima e lancia in background.",
+      "expectations": [
+        "Verifica in progetto.md che la visione d'insieme sia stata approvata, altrimenti chiede",
+        "Dà una stima dei tempi prima di partire",
+        "Usa render_all.sh con run_in_background",
+        "Se esce GUI_BLENDER_OPEN o HANG, non ripiega in silenzio sulla CPU"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Aggiungi voce fuori campo e una musica di sottofondo",
+      "expected_output": "Fase 5: sceglie la voce, chiede l'ok per i crediti, adatta le scene e genera musica con ElevenLabs.",
+      "expectations": [
+        "Propone 2-3 voci da creative_list_voices e ne fa scegliere una",
+        "Chiede l'ok prima di generare (crediti)",
+        "Usa fit_vo.py per adattare extra alla durata della voce",
+        "Per la musica usa il nodo music (instrumental) o video-to-music"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Montami un reel con il girato della fiera",
+      "expected_output": "La skill non dovrebbe attivarsi: non c'è 3D/Blender.",
+      "expectations": [
+        "Non applica il flusso Blender (usa davinci-social o simili)"
+      ]
+    }
+  ]
+}
