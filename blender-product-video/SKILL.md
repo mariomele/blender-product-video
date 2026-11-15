@@ -199,15 +199,21 @@ Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei p
 Il render Blender resta la base, e l'AI si usa solo dove migliora qualcosa senza cambiare il prodotto. Prima di ogni generazione controlla i crediti con `balance`, di' quanto costa e chiedi l'ok. Controlla ogni risultato fotogramma per fotogramma: l'AI può cambiare forme, loghi, scritte e numero di pezzi.
 Usi consigliati:
 - **Upscale** (`upscale_video`, `upscale_image`): render a risoluzione più bassa e poi upscale. Si risparmiano ore di GPU, ma va provato su uno shot prima.
-- **Persone e contesto** (`generate_video` / `generate_image` da un frame Blender): un operatore alla macchina, mani che montano un pezzo, il prodotto in uso in un ambiente reale. Blender non le fa bene. Il prodotto deve restare piccolo nell'inquadratura o fuori fuoco.
+- **Il pezzo in un mondo più grande**: la fabbrica dove lavora, la linea intera, la città o il cantiere che la usa, il prodotto finito che esce dalla macchina e arriva al cliente. Sono scene troppo grandi o complesse da costruire in Blender. Due modi, in ordine di fedeltà:
+  1. **Composito**: Higgsfield genera solo il mondo (`generate_video` o `generate_image`, senza il prodotto, con camera e prospettiva descritte come la scena Blender), poi il prodotto renderizzato in Blender con sfondo trasparente (`film_transparent`, PNG RGBA) ci va sopra, con ombre da un piano shadow catcher. Il prodotto resta quello vero. Allinea altezza della camera, lunghezza focale e direzione della luce al plate generato.
+  2. **Video da frame Blender**: si parte (o si arriva) su un frame Blender e l'AI fa il resto, per esempio la camera che si allontana dal pezzo fino a mostrare tutta la fabbrica. Il prodotto deve diventare piccolo in fretta. Il taglio torna su Blender per ogni dettaglio.
+- **Persone** (`generate_video` / `generate_image` da un frame Blender): un operatore alla macchina, mani che montano un pezzo, il prodotto in uso. Blender non le fa bene. Il prodotto deve restare piccolo nell'inquadratura o fuori fuoco.
 - **Intro e chiusure d'atmosfera**: fumo, luce, ambiente, che partono da un frame Blender o finiscono su un frame Blender, così il passaggio è invisibile.
 - **Formati** (`reframe`, `outpaint_image`): da 16:9 a 9:16 o 1:1 senza ri-renderizzare, solo se il prodotto non viene tagliato.
 - **Ambiente**: sfondi, backplate o texture generati (cemento, capannone) da usare in Blender.
-Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: lì servono la geometria vera e i numeri veri, solo Blender. Segna in `progetto.md` quali scene contengono AI.
+Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: lì servono la geometria vera e i numeri veri, solo Blender. Segna in `progetto.md` quali scene contengono AI. Nella scaletta delle inquadrature proponi tu dove una scena AI farebbe la differenza (apertura nel mondo, chiusura sul prodotto in uso), perché l'utente spesso non sa che si può fare.
 
 ## 4. HyperFrames: testo e grafiche
 - Chiedi se il **testo del voice-over** lo dà l'utente o lo scrivi tu. In quel caso scrivilo scena per scena, entro la durata di `timings.json` (circa 2,5 parole al secondo), in `audio/vo.txt` con una riga per scena: `n|testo`. Fallo approvare.
 - Chiedi quali **grafiche** servono: titoli, callout, misure, conteggi, lower third, sottotitoli, logo finale.
+- Chiedi lo **stile delle grafiche**:
+  - **solo HyperFrames**: pulite, precise, sempre nella palette. È il default;
+  - **effetti Higgsfield + testo HyperFrames**: Higgsfield genera la parte spettacolare (transizioni, flussi di energia o di fluido, particelle, luci, sfondi animati per i titoli, intro d'impatto), sempre senza testo e senza numeri, chiedendo nel prompt i colori della palette. Sopra, HyperFrames mette titoli, numeri, misure e logo esatti. I modelli AI sbagliano le lettere e inventano cifre, quindi il testo non va mai generato. Costa crediti: chiedi l'ok, e prima prova un effetto solo. Gli effetti generati vanno in `hyperframes/assets/` e si usano come video di sfondo o in fusione (`screen`, `add`) sopra il render.
 - Costruisci in `hyperframes/` con la skill **hyperframes** (contratto di render, animazioni, overlay e audio), nel formato del brief, **solo con la palette confermata**, `final.mp4` come sfondo e i tempi presi da `timings.json`. Le misure a schermo vengono dalla sorgente, mai stimate.
 - **Verifica** prima di mostrare (skill **hyperframes-cli**):
   1. `npx hyperframes lint` dopo ogni modifica strutturale;
