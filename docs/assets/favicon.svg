@@ -1,8 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#14161A"/>
-  <g fill="none" stroke="#F4F1EA" stroke-width="2.2" stroke-linejoin="round">
-    <path d="M16 5 L26 10.8 L26 22 L16 27.5 L6 22 L6 10.8 Z"/>
-    <path d="M6 10.8 L16 16.5 L26 10.8 M16 16.5 L16 27.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Blender Product Video">
+  <rect width="128" height="128" rx="28" fill="#14161A"/>
+  <g stroke="#14161A" stroke-width="1.6" stroke-linejoin="round">
+  <path d="M64.0 23.0 L99.5 43.5 L81.8 53.8 L64.0 43.5 L46.2 53.8 L28.5 43.5 Z" fill="#F4F1EA"/>
+  <path d="M99.5 43.5 L99.5 84.5 L64.0 105.0 L64.0 84.5 L81.8 74.2 L81.8 53.8 Z" fill="#9C988F"/>
+  <path d="M28.5 43.5 L46.2 53.8 L46.2 74.2 L64.0 84.5 L64.0 105.0 L28.5 84.5 Z" fill="#CFCBC2"/>
+  <path d="M64.0 64.0 L81.8 74.2 L64.0 84.5 L46.2 74.2 Z" fill="#F5A400"/>
+  <path d="M64.0 64.0 L64.0 43.5 L46.2 53.8 L46.2 74.2 Z" fill="#C26A00"/>
+  <path d="M64.0 64.0 L81.8 74.2 L81.8 53.8 L64.0 43.5 Z" fill="#E08600"/>
   </g>
-  <path d="M18.6 18.6 L18.6 24.6 L23.4 21.6 Z" fill="#F5A400"/>
 </svg>

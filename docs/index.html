@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blender Product Video</title>
-<meta name="description" content="Turn your machine into an explainer video: from photos, CAD or a drawing to a Blender video with cutaways, exploded views and real materials. All vibe coding with Claude Code, no Blender or CAD skills needed. Created by Mario Mele.">
+<meta name="description" content="Turn your machine into an explainer video: from photos, STEP/CAD, DWG or a drawing to a Blender video with cutaways, exploded views, real materials, spectacular camera moves and real stress analyses. All vibe coding with Claude Code, no Blender or CAD skills needed. Created by Mario Mele.">
 <meta name="author" content="Mario Mele">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#0B0C0E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blender Product Video: turn your machine into an explainer video">
-<meta property="og:description" content="Photos, a CAD file or a drawing in. A Blender explainer out, with cutaways, exploded views and real materials. All vibe coding, no Blender or CAD skills needed. · Trasforma la tua macchina in un video explainer.">
+<meta property="og:description" content="Photos, STEP, DWG or a drawing in. A Blender explainer out: cutaways, exploded views, real materials, cinematic camera moves, stress analyses, AI worlds. All vibe coding, no Blender or CAD skills needed. · Trasforma la tua macchina in un video explainer.">
 <meta property="og:url" content="https://mariomele.github.io/blender-product-video/">
 <meta property="og:image" content="https://mariomele.github.io/blender-product-video/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -62,6 +62,25 @@ th{color:var(--muted);font-weight:600}
 code{font-size:13px;background:var(--panel);padding:1px 5px;border-radius:5px}
 .tablewrap{overflow-x:auto}
 .note{font-size:15px;color:var(--muted)}
+h3{font-size:19px;margin:36px 0 14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.cards div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+.cards b{display:block;margin-bottom:4px}
+.cards small{color:var(--muted);font-size:14px;line-height:1.45;display:block}
+.deps{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.dep{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.dep header{display:flex;align-items:center;gap:10px;padding:0;margin-bottom:4px}
+.dep header a{color:var(--text);text-decoration:none;font-size:17px}
+.dep p{margin:0;font-size:15px;color:#C9C5BC}
+.dep p>b:first-child{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.dep pre{margin:8px 0 0}
+.tag{margin-left:auto;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.tag.core{background:var(--accent);color:#111}.tag.video{border:1px solid var(--accent);color:var(--accent)}.tag.opt{border:1px solid var(--line);color:var(--muted)}
+pre.cmd{position:relative;padding-right:64px;white-space:pre-wrap;word-break:break-all}
+pre.cmd code{background:none;padding:0;font-size:13px}
+.copy{position:absolute;top:8px;right:8px;background:var(--line);color:var(--text);border:0;border-radius:6px;font:600 12px/1 inherit;padding:6px 8px;cursor:pointer}
+.copy.ok{background:var(--accent);color:#111}
+.needs td:last-child{white-space:nowrap;color:var(--accent);font-weight:600}
 footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
 @media (max-width:760px){.hero,.grid2,.grid3{grid-template-columns:1fr}header nav{display:none}.langs{margin-left:auto}}
 </style>
@@ -72,6 +91,7 @@ footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var
 <nav>
 <a href="#come"><span lang="en">How it works</span><span lang="it">Come funziona</span></a>
 <a href="#impossibile"><span lang="en">Examples</span><span lang="it">Esempi</span></a>
+<a href="#ingegneria"><span lang="en">Engineering</span><span lang="it">Ingegneria</span></a>
 <a href="#percorso"><span lang="en">Workflow</span><span lang="it">Percorso</span></a>
 <a href="#installazione"><span lang="en">Install</span><span lang="it">Installazione</span></a>
 <a href="https://github.com/mariomele/blender-product-video">GitHub</a>
@@ -83,8 +103,8 @@ footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var
 <div>
 <h1 lang="en">Turn your machine into an <em>explainer video</em>.</h1>
 <h1 lang="it">Trasforma la tua macchina in un <em>video explainer</em>.</h1>
-<p class="lead" lang="en">Got a machine or a mechanical part? Give Claude Code photos, a CAD file or a drawing, and get an explainer video made with the power of Blender, in a few simple steps. It is all vibe coding: you chat, Claude drives Blender. No Blender or CAD skills needed.</p>
-<p class="lead" lang="it">Hai una macchina o un pezzo meccanico? Dai a Claude Code foto, un file CAD o un disegno, e ottieni un video explainer fatto con la potenza di Blender, in pochi passi semplici. Tutto in vibe coding: tu parli, Claude guida Blender. Senza conoscere Blender o il CAD.</p>
+<p class="lead" lang="en">Got a machine or a mechanical part? Give Claude Code photos, a STEP or CAD file, a DWG or a drawing, and get an explainer video made with the power of Blender, in a few simple steps. It is all vibe coding: you chat, Claude drives Blender. No Blender or CAD skills needed.</p>
+<p class="lead" lang="it">Hai una macchina o un pezzo meccanico? Dai a Claude Code foto, uno STEP o un file CAD, un DWG o un disegno, e ottieni un video explainer fatto con la potenza di Blender, in pochi passi semplici. Tutto in vibe coding: tu parli, Claude guida Blender. Senza conoscere Blender o il CAD.</p>
 <a class="btn" href="#installazione"><span lang="en">Install</span><span lang="it">Installa</span></a><a class="btn ghost" href="https://github.com/mariomele/blender-product-video"><span lang="en">View on GitHub</span><span lang="it">Vedi su GitHub</span></a>
 <p class="note" style="margin-top:22px"><span lang="en">Created by <b>Mario Mele</b>.</span><span lang="it">Ideata da <b>Mario Mele</b>.</span></p>
 </div>
@@ -97,6 +117,8 @@ footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var
 <p lang="it">Porti quello che hai. Claude fa le domande giuste, costruisce il modello 3D, imposta le scene e ti mostra uno storyboard prima di qualsiasi render lungo.</p>
 <figure lang="en"><img src="assets/examples/how_it_works_en.jpg" alt="Three steps: CAD view of the part, storyboard frames, explainer frame with labelled parts" loading="lazy"></figure>
 <figure lang="it"><img src="assets/examples/how_it_works_it.jpg" alt="Tre passi: vista CAD del pezzo, frame dello storyboard, frame explainer con le parti etichettate" loading="lazy"></figure>
+<h3><span lang="en">Start from what you have</span><span lang="it">Parti da quello che hai</span></h3>
+<div class="cards"><div><b><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></b><small><span lang="en">Opened directly, real scale, parts kept separate for exploded views.</span><span lang="it">Aperti direttamente, in scala reale, con le parti separate per gli esplosi.</span></small></div><div><b><span lang="en">DWG, SVG, drawings</span><span lang="it">DWG, SVG, disegni</span></b><small><span lang="en">2D profiles read at real scale; dimensioned drawings rebuilt in parametric CAD.</span><span lang="it">Profili 2D letti in scala reale; disegni quotati ricostruiti in CAD parametrico.</span></small></div><div><b><span lang="en">Photos</span><span lang="it">Foto</span></b><small><span lang="en">Modelled from your shots plus one real measurement. The slowest route, and Claude says so.</span><span lang="it">Modellato dalle tue foto più una misura reale. La strada più lenta, e Claude te lo dice.</span></small></div><div><b><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></b><small><span lang="en">Photos, data sheets and brand colours read from the link.</span><span lang="it">Foto, schede tecniche e colori del brand letti dal link.</span></small></div></div>
 </section>
 
 <section id="impossibile">
@@ -108,6 +130,37 @@ footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var
 <figure><img src="assets/examples/esploso.jpg" alt="Exploded view" loading="lazy"><figcaption><b><span lang="en">Exploded views</span><span lang="it">Esplosi</span></b><br><span lang="en">Parts slide apart and back together, in order.</span><span lang="it">I pezzi si separano e si rimontano, in ordine.</span></figcaption></figure>
 <figure><img src="assets/examples/dettaglio_materiali.jpg" alt="Material detail" loading="lazy"><figcaption><b><span lang="en">Realistic materials and textures</span><span lang="it">Materiali e texture realistici</span></b><br><span lang="en">Paint in the real RAL colour, brushed steel, rubber, zinc-plated bolts.</span><span lang="it">Vernice nel colore RAL reale, acciaio spazzolato, gomma, bulloni zincati.</span></figcaption></figure>
 </div>
+</section>
+
+<section id="riprese">
+<h2><span lang="en">Camera work that tells a story</span><span lang="it">Riprese che raccontano</span></h2>
+<p lang="en">Not a list of views: a story, with classic establishing shots and, every two or three scenes, a shot that looks impossible or made with a motion-control rig.</p>
+<p lang="it">Non una lista di viste ma un racconto, con le riprese classiche di presentazione e, ogni due o tre scene, una ripresa che sembra impossibile o fatta con un braccio robotico.</p>
+<div class="cards"><div><b><span lang="en">Narrative and shot sizes</span><span lang="it">Racconto e piani</span></b><small><span lang="en">A shot list before the first scene: hook, the whole machine, inside, the key number, the logo. LS, MS, MCU, CU, ECU and POV alternate, never two alike in a row.</span><span lang="it">Una scaletta prima della prima scena: aggancio, la macchina intera, il dentro, il numero chiave, il logo. LS, MS, MCU, CU, ECU e POV si alternano, mai due uguali di fila.</span></small></div><div><b><span lang="en">Slow-mo and speed ramps</span><span lang="it">Slow-mo e speed ramp</span></b><small><span lang="en">A key instant stretched to slow motion, then a sudden rush. In 3D it costs nothing: time is remapped, not reshot.</span><span lang="it">Un istante chiave allungato in slow motion, poi un'accelerazione improvvisa. In 3D non costa niente: si rimappa il tempo, non si rigira.</span></small></div><div><b><span lang="en">Follow and POV</span><span lang="it">Follow e POV</span></b><small><span lang="en">The camera rides the conveyor, slips through a gap, follows the fluid down the pipe.</span><span lang="it">La camera viaggia sul nastro, passa da una fessura, segue il fluido nel tubo.</span></small></div><div><b><span lang="en">Robotic-arm moves</span><span lang="it">Movimenti da braccio robotico</span></b><small><span lang="en">Long precise paths that skim the parts, stop dead on a detail and take off again.</span><span lang="it">Traiettorie lunghe e precise che sfiorano le parti, si fermano di colpo su un dettaglio e ripartono.</span></small></div><div><b><span lang="en">Counter-movement</span><span lang="it">Contromovimento</span></b><small><span lang="en">The camera orbits against the machine's rotation, so the motion feels doubled.</span><span lang="it">La camera gira in senso opposto alla rotazione della macchina, così il movimento sembra doppio.</span></small></div><div><b><span lang="en">Exploded to cutaway, no cut</span><span lang="it">Da esploso a sezione, senza stacchi</span></b><small><span lang="en">One continuous shot: parts fly apart, then the section opens as the camera moves in.</span><span lang="it">Un'unica ripresa: i pezzi si separano, poi la sezione si apre mentre la camera entra.</span></small></div></div>
+</section>
+
+<section id="ingegneria">
+<h2><span lang="en">Show the engineering</span><span lang="it">Mostra l'ingegneria</span></h2>
+<p lang="en">Optional, with text-to-cad. A real stress analysis becomes a shot: the part bends under load (exaggerated, and the video says so) while it turns from metal to blue, then red where it yields. Load, material and safety factor come from the client and go on screen.</p>
+<p lang="it">Facoltativo, con text-to-cad. Un calcolo di resistenza vero diventa una ripresa: il pezzo si piega sotto carico (in modo esagerato, e il video lo dice) mentre passa dal metallo al blu, poi al rosso dove cede. Carico, materiale e coefficiente di sicurezza li dà il cliente e vanno a schermo.</p>
+<figure><img src="assets/examples/fea_staffa.jpg" alt="L-bracket under an 800 N load in three frames: plain metal, then bending while the stress colours rise, red at the corner where it yields" loading="lazy"><figcaption><span lang="en">Test bracket, S235 steel, 800 N on the tip: it yields at the corner (safety factor 0.66).</span><span lang="it">Staffa di prova, acciaio S235, 800 N sulla punta: cede nell'angolo (coefficiente di sicurezza 0,66).</span></figcaption></figure>
+<div class="cards" style="margin-top:16px">
+<div><b><span lang="en">Technical drawing</span><span lang="it">Tavola tecnica</span></b><small><span lang="en">A dimensioned PDF made from the model, which can dissolve into the 3D part on screen, and is delivered with the video.</span><span lang="it">Un PDF quotato fatto dal modello, che a schermo può dissolversi nel pezzo 3D, e si consegna con il video.</span></small></div>
+<div><b><span lang="en">Real standard parts</span><span lang="it">Parti normalizzate vere</span></b><small><span lang="en">Screws, bearings, gears and flanges at true ISO sizes, so cutaways show real components, not invented shapes.</span><span lang="it">Viti, cuscinetti, ingranaggi e flange a misura ISO vera, così le sezioni mostrano componenti reali e non forme inventate.</span></small></div>
+</div>
+</section>
+
+<section id="ai">
+<h2><span lang="en">Bigger than the studio: AI extras</span><span lang="it">Oltre lo studio: extra AI</span></h2>
+<p lang="en">Optional, with the Higgsfield MCP and only after you OK the credits. Blender stays the base; AI goes where it adds scale and wow without touching the product.</p>
+<p lang="it">Facoltativo, con Higgsfield MCP e solo dopo il tuo ok sui crediti. La base resta Blender; l'AI va dove aggiunge scala ed effetto senza toccare il prodotto.</p>
+<div class="cards">
+<div><b><span lang="en">The part in its world</span><span lang="it">Il pezzo nel suo mondo</span></b><small><span lang="en">The factory, the whole line, the site that uses it: the world is generated, the real Blender product is composited on top.</span><span lang="it">La fabbrica, la linea intera, il cantiere che lo usa: il mondo è generato, il prodotto vero di Blender va sopra.</span></small></div>
+<div><b><span lang="en">People</span><span lang="it">Persone</span></b><small><span lang="en">An operator at the machine, hands fitting a part, grown from a Blender frame.</span><span lang="it">Un operatore alla macchina, mani che montano un pezzo, partendo da un frame Blender.</span></small></div>
+<div><b><span lang="en">Spectacular graphics</span><span lang="it">Grafiche spettacolari</span></b><small><span lang="en">Energy flows, particles, transitions and title backgrounds from AI; exact text and numbers from HyperFrames on top.</span><span lang="it">Flussi, particelle, transizioni e sfondi dei titoli dall'AI; testi e numeri esatti da HyperFrames sopra.</span></small></div>
+<div><b><span lang="en">Upscale and formats</span><span lang="it">Upscale e formati</span></b><small><span lang="en">Render smaller and upscale, or turn 16:9 into 9:16 without rendering again.</span><span lang="it">Render più piccolo e poi upscale, o da 16:9 a 9:16 senza ri-renderizzare.</span></small></div>
+</div>
+<p class="note" style="margin-top:14px"><span lang="en">Never on cutaways, exploded views, calculations, dimensions or logos: there, only real geometry and real numbers.</span><span lang="it">Mai su sezioni, esplosi, calcoli, quote o loghi: lì servono solo la geometria vera e i numeri veri.</span></p>
 </section>
 
 <section id="esempi">
@@ -134,53 +187,99 @@ footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var
 <p lang="en">At every phase the skill asks what it needs and stops for your ok. Decisions live in <code>progetto.md</code>, so you can pick the work up whenever you like. The skill speaks Italian.</p>
 <p lang="it">A ogni fase la skill chiede cosa serve e si ferma per un ok. Le decisioni restano in <code>progetto.md</code>, così puoi riprendere il lavoro quando vuoi.</p>
 <ol class="steps" lang="en">
-<li><b><i>0</i>Brief</b><small>Format, length, environment and mood, infographic palette.</small></li>
-<li><b><i>1</i>The product</b><small>Real-scale model, materials and environment.</small></li>
-<li><b><i>2</i>The scenes</b><small>Length, motion, shots; storyboard and preview.</small></li>
+<li><b><i>0</i>Brief</b><small>Format, length, setting and mood, story arc, palette; optional calculations and drawings.</small></li>
+<li><b><i>1</i>The product</b><small>Real-scale model from STEP, DWG, drawings or photos; materials and setting.</small></li>
+<li><b><i>2</i>The scenes</b><small>Shot list with alternating shot sizes and spectacular moves; storyboard and preview.</small></li>
 <li><b><i>3</i>Edit</b><small>All scenes in a single preview.</small></li>
-<li><b><i>4</i>Graphics</b><small>Titles, callouts, dimensions and subtitles in HyperFrames.</small></li>
+<li><b><i>4</i>Graphics</b><small>Titles, callouts, dimensions and subtitles in HyperFrames, optionally over AI effects.</small></li>
 <li><b><i>5</i>Audio</b><small>Voice, music and effects with ElevenLabs; scenes fitted to the voice.</small></li>
 <li><b><i>6</i>Full review</b><small>The complete draft video, for approval.</small></li>
 <li><b><i>7</i>Final render</b><small>Cycles on Metal GPU, with a time estimate.</small></li>
 <li><b><i>8</i>Touch-ups</b><small>Only the changed frames are redone.</small></li>
-<li><b><i>9</i>Delivery</b><small>Master at −14 LUFS, light version, subtitles; optional interactive 3D page.</small></li>
+<li><b><i>9</i>Delivery</b><small>Master at −14 LUFS, light version, subtitles; optional drawing PDF and interactive 3D page.</small></li>
 </ol>
 <ol class="steps" lang="it">
-<li><b><i>0</i>Brief</b><small>Formato, durata, ambiente e atmosfera, palette delle infografiche.</small></li>
-<li><b><i>1</i>Il pezzo</b><small>Modello in scala reale, materiali e ambientazione.</small></li>
-<li><b><i>2</i>Le scene</b><small>Durata, movimenti, inquadrature; storyboard e anteprima.</small></li>
+<li><b><i>0</i>Brief</b><small>Formato, durata, ambiente e atmosfera, arco del racconto, palette; calcoli e tavole facoltativi.</small></li>
+<li><b><i>1</i>Il pezzo</b><small>Modello in scala reale da STEP, DWG, disegni o foto; materiali e ambientazione.</small></li>
+<li><b><i>2</i>Le scene</b><small>Scaletta con piani alternati e riprese spettacolari; storyboard e anteprima.</small></li>
 <li><b><i>3</i>Montaggio</b><small>Tutte le scene in un'anteprima unica.</small></li>
-<li><b><i>4</i>Grafiche</b><small>Titoli, callout, misure e sottotitoli in HyperFrames.</small></li>
+<li><b><i>4</i>Grafiche</b><small>Titoli, callout, misure e sottotitoli in HyperFrames, anche sopra effetti AI.</small></li>
 <li><b><i>5</i>Audio</b><small>Voce, musica ed effetti con ElevenLabs; scene adattate alla voce.</small></li>
 <li><b><i>6</i>Visione d'insieme</b><small>Il video completo in bozza, da approvare.</small></li>
 <li><b><i>7</i>Render finale</b><small>Cycles su GPU Metal, con stima dei tempi.</small></li>
 <li><b><i>8</i>Ritocchi</b><small>Si rifanno solo i frame cambiati.</small></li>
-<li><b><i>9</i>Consegna</b><small>Master a −14 LUFS, versione leggera, sottotitoli; pagina 3D interattiva facoltativa.</small></li>
+<li><b><i>9</i>Consegna</b><small>Master a −14 LUFS, versione leggera, sottotitoli; tavola PDF e pagina 3D interattiva facoltative.</small></li>
 </ol>
 </section>
 
 <section id="installazione">
 <h2><span lang="en">Install</span><span lang="it">Installazione</span></h2>
-<p lang="en">Copy the skill into Claude Code's skills folder, then install the dependencies.</p>
-<p lang="it">Copia la skill nella cartella delle skill di Claude Code, poi installa le dipendenze.</p>
-<pre><code>git clone https://github.com/mariomele/blender-product-video.git
+<p lang="en">macOS on Apple Silicon. Every command is here, with a copy button: nothing to look up elsewhere. Install the skill and the required tools, then add what your project needs.</p>
+<p lang="it">macOS con Apple Silicon. Tutti i comandi sono qui, con un pulsante per copiarli: non serve cercare altrove. Installa la skill e le dipendenze necessarie, poi aggiungi quello che serve al tuo progetto.</p>
+<h3><span lang="en">1. The skill</span><span lang="it">1. La skill</span></h3>
+<pre class="cmd"><code>git clone https://github.com/mariomele/blender-product-video.git
 cp -r blender-product-video/blender-product-video ~/.claude/skills/</code></pre>
-<div class="tablewrap"><table>
-<tr><th><span lang="en">Dependency</span><span lang="it">Dipendenza</span></th><th><span lang="en">Used for</span><span lang="it">Serve per</span></th><th><span lang="en">Install</span><span lang="it">Installazione</span></th></tr>
-<tr><td><a href="https://claude.com/claude-code">Claude Code</a></td><td><span lang="en">running the skill</span><span lang="it">eseguire la skill</span></td><td><span lang="en">see the link</span><span lang="it">vedi il link</span></td></tr>
-<tr><td><a href="https://www.blender.org/download/">Blender 5.1+</a></td><td><span lang="en">model, scenes, render</span><span lang="it">modello, scene, render</span></td><td><span lang="en">in <code>/Applications</code> (other path: <code>BLENDER</code> variable)</span><span lang="it">in <code>/Applications</code> (altro percorso: variabile <code>BLENDER</code>)</span></td></tr>
-<tr><td><a href="https://www.blender.org/lab/mcp-server/">Blender MCP</a></td><td><span lang="en">Claude inside Blender</span><span lang="it">Claude dentro Blender</span></td><td><span lang="en">add-on + server from the <a href="https://projects.blender.org/lab/blender_mcp/releases">releases page</a> (<code>.mcpb</code> for Claude Desktop) or from <a href="https://projects.blender.org/lab/blender_mcp/wiki/Setup">source</a></span><span lang="it">add-on + server dalla <a href="https://projects.blender.org/lab/blender_mcp/releases">pagina release</a> (<code>.mcpb</code> per Claude Desktop) o da <a href="https://projects.blender.org/lab/blender_mcp/wiki/Setup">sorgente</a></span></td></tr>
-<tr><td><a href="https://brew.sh">Homebrew</a> + <a href="https://ffmpeg.org">FFmpeg</a></td><td><span lang="en">previews, edit, delivery</span><span lang="it">anteprime, montaggio, consegna</span></td><td><code>brew install ffmpeg</code></td></tr>
-<tr><td><a href="https://nodejs.org/en/download">Node.js 22+</a></td><td>HyperFrames</td><td><code>brew install node</code></td></tr>
-<tr><td><a href="https://github.com/heygen-com/hyperframes">HyperFrames</a></td><td><span lang="en">graphics, text, audio mix</span><span lang="it">grafiche, testi, mix audio</span></td><td><code>claude plugin marketplace add heygen-com/hyperframes</code><br><code>claude plugin install hyperframes@hyperframes</code></td></tr>
-<tr><td><a href="https://elevenlabs.io/mcp">ElevenLabs MCP</a></td><td><span lang="en">voice, music, effects</span><span lang="it">voce, musica, effetti</span></td><td><code>claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp</code></td></tr>
-<tr><td><a href="https://github.com/arjun988/blender-skills">Blender skills</a></td><td><span lang="en">support skills (materials, lighting, lookdev…)</span><span lang="it">skill di supporto (materials, lighting, lookdev…)</span></td><td><span lang="en">instructions in the repo</span><span lang="it">istruzioni nel repo</span></td></tr>
-<tr><td><a href="https://docs.firecrawl.dev/mcp-server">Firecrawl MCP</a> <span lang="en">(optional)</span><span lang="it">(facoltativo)</span></td><td><span lang="en">product pages, palette from a website</span><span lang="it">pagine prodotto, palette da un sito</span></td><td><span lang="en">instructions at the link</span><span lang="it">istruzioni al link</span></td></tr>
-<tr><td><a href="https://higgsfield.ai">Higgsfield MCP</a> <span lang="en">(optional)</span><span lang="it">(facoltativo)</span></td><td><span lang="en">AI extras: the part in its factory or a bigger world, people, spectacular graphics and effects, upscale, reframing. Never on the product itself</span><span lang="it">extra AI: il pezzo nella fabbrica o in un mondo più grande, persone, grafiche ed effetti spettacolari, upscale, cambi di formato. Mai sul prodotto</span></td><td><span lang="en">credits, asked first</span><span lang="it">crediti, chiesti prima</span></td></tr>
-<tr><td><a href="https://github.com/earthtojake/text-to-cad">text-to-cad</a> <span lang="en">(optional)</span><span lang="it">(facoltativo)</span></td><td><span lang="en">STEP to GLB, stress analysis animations, dimensioned drawings, parametric CAD parts with <a href="https://github.com/gumyr/build123d">build123d</a>, real screws, bearings and gears from <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a></span><span lang="it">da STEP a GLB, animazioni dei calcoli di resistenza, tavole quotate, parti in CAD parametrico con <a href="https://github.com/gumyr/build123d">build123d</a>, viti, cuscinetti e ingranaggi veri da <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a></span></td><td><a href="https://github.com/earthtojake/text-to-cad">README</a></td></tr>
-<tr><td><a href="https://www.gnu.org/software/libredwg/">LibreDWG</a> <span lang="en">(optional)</span><span lang="it">(facoltativo)</span></td><td><span lang="en">reading AutoCAD DWG drawings, 2D only</span><span lang="it">leggere i disegni DWG di AutoCAD, solo 2D</span></td><td><code>brew install libredwg</code></td></tr>
-<tr><td><a href="https://github.com/AirsupHQ/machine-skill">Machine skill</a> <span lang="en">(optional)</span><span lang="it">(facoltativo)</span></td><td><span lang="en">extra interactive 3D page, delivered with the video</span><span lang="it">pagina 3D interattiva extra, da consegnare insieme al video</span></td><td><code>git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine</code></td></tr>
+<p class="note"><span lang="en">Restart Claude Code: the skill turns on by itself when you ask for a 3D product video.</span><span lang="it">Riavvia Claude Code: la skill si attiva da sola quando chiedi un video 3D di un prodotto.</span></p>
+<h3><span lang="en">2. What do you need?</span><span lang="it">2. Cosa ti serve?</span></h3>
+<div class="tablewrap"><table class="needs"><tr><th><span lang="en">You want…</span><span lang="it">Vuoi…</span></th><th><span lang="en">Install</span><span lang="it">Installa</span></th></tr>
+<tr><td><span lang="en">A quick look, a storyboard</span><span lang="it">Una prova veloce, uno storyboard</span></td><td><span lang="en">the required set</span><span lang="it">le necessarie</span></td></tr><tr><td><span lang="en">A finished video with text and voice</span><span lang="it">Un video finito con testi e voce</span></td><td>+ HyperFrames, ElevenLabs</td></tr><tr><td><span lang="en">You have a STEP, a drawing or a sketch</span><span lang="it">Hai uno STEP, un disegno o uno schizzo</span></td><td>+ text-to-cad</td></tr><tr><td><span lang="en">You have an AutoCAD DWG</span><span lang="it">Hai un DWG di AutoCAD</span></td><td>+ LibreDWG</td></tr><tr><td><span lang="en">You start from a product web page</span><span lang="it">Parti dalla pagina web del prodotto</span></td><td>+ Firecrawl</td></tr><tr><td><span lang="en">Show strength or a technical drawing</span><span lang="it">Mostrare la resistenza o una tavola</span></td><td>+ text-to-cad</td></tr><tr><td><span lang="en">Factory, world, people, flashier graphics</span><span lang="it">Fabbrica, mondo, persone, grafiche più spettacolari</span></td><td>+ Higgsfield</td></tr><tr><td><span lang="en">Also an interactive 3D page</span><span lang="it">Anche una pagina 3D interattiva</span></td><td>+ Machine</td></tr>
 </table></div>
+<h3><span lang="en">3. Required</span><span lang="it">3. Necessarie</span></h3>
+<div class="deps"><article class="dep"><header><a href="https://brew.sh"><b>Homebrew</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Installs the other tools on macOS with one command each.</span><span lang="it">Installa gli altri strumenti su macOS, con un comando ciascuno.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Once, before everything else. Skip it if <code>brew -v</code> already answers.</span><span lang="it">Una volta, prima di tutto. Saltalo se <code>brew -v</code> risponde già.</span></p>
+<pre class="cmd"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre></article><article class="dep"><header><a href="https://claude.com/claude-code"><b>Claude Code</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">The assistant you talk to. It reads the skill and drives Blender, FFmpeg and the other tools for you.</span><span lang="it">L'assistente con cui parli. Legge la skill e guida al posto tuo Blender, FFmpeg e gli altri strumenti.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Always: every phase runs through it.</span><span lang="it">Sempre: ogni fase passa da qui.</span></p>
+<pre class="cmd"><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></article><article class="dep"><header><a href="https://www.blender.org/download/"><b>Blender 5.1+</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Builds the 3D model, materials, scenes and the final Cycles render on the Metal GPU.</span><span lang="it">Costruisce modello 3D, materiali, scene e il render finale Cycles su GPU Metal.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Always, from phase 1 to 8. It must sit in <code>/Applications</code>, or set the <code>BLENDER</code> variable to its path.</span><span lang="it">Sempre, dalla fase 1 alla 8. Deve stare in <code>/Applications</code>, oppure imposta la variabile <code>BLENDER</code> con il suo percorso.</span></p>
+<pre class="cmd"><code>brew install --cask blender</code></pre></article><article class="dep"><header><a href="https://www.blender.org/lab/mcp-server/"><b>Blender MCP (Blender Lab)</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Lets Claude look inside the open Blender file and change it live: objects, materials, cameras.</span><span lang="it">Permette a Claude di guardare dentro il file Blender aperto e modificarlo dal vivo: oggetti, materiali, camere.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">When you work with Blender open (scenes, fixes). Headless renders do not need it. Two parts: the server, then the add-on inside Blender.</span><span lang="it">Quando lavori con Blender aperto (scene, correzioni). I render in background non ne hanno bisogno. Due parti: il server, poi l'add-on dentro Blender.</span></p>
+<pre class="cmd"><code>brew install uv
+git clone https://projects.blender.org/lab/blender_mcp.git ~/blender_mcp
+claude mcp add blender -- uv --directory ~/blender_mcp/mcp run blender-mcp</code></pre><pre class="cmd"><code>curl -L -o ~/Downloads/blender-mcp-addon.zip "https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip"</code></pre><p class="note"><span lang="en">Then in Blender: <i>Edit → Preferences → Get Extensions → Install from Disk</i> and pick the zip.</span><span lang="it">Poi in Blender: <i>Edit → Preferences → Get Extensions → Install from Disk</i> e scegli lo zip.</span></p></article><article class="dep"><header><a href="https://ffmpeg.org"><b>FFmpeg</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Turns frames into previews, joins the scenes, mixes audio and writes the delivery files.</span><span lang="it">Trasforma i frame in anteprime, unisce le scene, mixa l'audio e scrive i file di consegna.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Always: storyboard, previews, edit and delivery.</span><span lang="it">Sempre: storyboard, anteprime, montaggio e consegna.</span></p>
+<pre class="cmd"><code>brew install ffmpeg</code></pre></article><article class="dep"><header><a href="https://github.com/arjun988/blender-skills"><b>Blender skills</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Expert know-how Claude reads on demand: materials, lighting, lookdev, camera work, modelling.</span><span lang="it">Competenze che Claude legge al bisogno: materiali, luci, lookdev, camera, modellazione.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phases 1 and 2, whenever a material, a light or a camera move has to look professional.</span><span lang="it">Fasi 1 e 2, ogni volta che un materiale, una luce o un movimento di camera deve sembrare professionale.</span></p>
+<pre class="cmd"><code>git clone https://github.com/arjun988/blender-skills.git /tmp/blender-skills
+cp -r /tmp/blender-skills/.claude/skills/* ~/.claude/skills/</code></pre></article></div>
+<h3><span lang="en">4. For the finished video</span><span lang="it">4. Per il video finito</span></h3>
+<div class="deps"><article class="dep"><header><a href="https://github.com/heygen-com/hyperframes"><b>Node.js 22+ · HyperFrames</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Draws titles, callouts, measurements, counters, subtitles and the end logo over the render, in your palette, with exact text.</span><span lang="it">Disegna sopra il render titoli, callout, misure, contatori, sottotitoli e il logo finale, nella tua palette e con il testo esatto.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phase 4. Skip it only for a video with no text at all.</span><span lang="it">Fase 4. Saltalo solo per un video senza nessun testo.</span></p>
+<pre class="cmd"><code>brew install node
+claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes</code></pre></article><article class="dep"><header><a href="https://elevenlabs.io/mcp"><b>ElevenLabs MCP</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Voice-over, music and sound effects. The skill then stretches the scenes to fit the voice.</span><span lang="it">Voce fuori campo, musica ed effetti sonori. Poi la skill allunga le scene per seguire la voce.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phase 5, if the video has sound. Needs an ElevenLabs account with credits; every generation is asked first.</span><span lang="it">Fase 5, se il video ha l'audio. Serve un account ElevenLabs con crediti; ogni generazione viene chiesta prima.</span></p>
+<pre class="cmd"><code>claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp</code></pre><p class="note"><span lang="en">Then type <code>/mcp</code> in Claude Code and sign in.</span><span lang="it">Poi scrivi <code>/mcp</code> in Claude Code e accedi.</span></p></article></div>
+<h3><span lang="en">5. Optional, by use</span><span lang="it">5. Facoltative, in base all'uso</span></h3>
+<div class="deps"><article class="dep"><header><a href="https://github.com/earthtojake/text-to-cad"><b>text-to-cad · build123d · bd_warehouse</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Opens STEP files (parts kept separate, real scale); models parts in parametric CAD with <a href="https://github.com/gumyr/build123d">build123d</a>; adds real ISO screws, bearings, gears and flanges from <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a>; runs stress analyses and makes dimensioned drawings.</span><span lang="it">Apre gli STEP (parti separate, scala reale); modella i pezzi in CAD parametrico con <a href="https://github.com/gumyr/build123d">build123d</a>; aggiunge viti, cuscinetti, ingranaggi e flange ISO veri da <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a>; fa calcoli di resistenza e tavole quotate.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">You have a <b>STEP</b> file · you start from a drawing or a sketch · a cutaway needs real internals · you want to <b>show how much a part holds</b> or a technical drawing in the video. build123d and bd_warehouse come with it.</span><span lang="it">Hai un file <b>STEP</b> · parti da un disegno o uno schizzo · una sezione ha bisogno di interni veri · vuoi <b>mostrare quanto regge un pezzo</b> o una tavola tecnica nel video. build123d e bd_warehouse arrivano con lui.</span></p>
+<pre class="cmd"><code>curl -fsSL https://texttocad.dev/install.sh | sh</code></pre></article><article class="dep"><header><a href="https://www.gnu.org/software/libredwg/"><b>LibreDWG</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Reads AutoCAD DWG drawings (2D lines, arcs, polylines) at real scale.</span><span lang="it">Legge i disegni DWG di AutoCAD (linee, archi, polilinee 2D) in scala reale.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Only when your source is a <b>.dwg</b>. Dimensions and text are not read; 3D DWGs need a STEP instead.</span><span lang="it">Solo se la sorgente è un <b>.dwg</b>. Quote e testi non vengono letti; per i DWG 3D serve uno STEP.</span></p>
+<pre class="cmd"><code>brew install libredwg</code></pre></article><article class="dep"><header><a href="https://docs.firecrawl.dev/mcp-server"><b>Firecrawl MCP</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Reads product pages and data sheets, and pulls the brand palette from a website.</span><span lang="it">Legge pagine prodotto e schede tecniche, e ricava la palette del brand da un sito.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">You start from a <b>link</b>, or want the infographic colours taken from the client's site. Without it Claude uses the built-in browser.</span><span lang="it">Parti da un <b>link</b>, o vuoi i colori delle infografiche presi dal sito del cliente. Senza, Claude usa il browser integrato.</span></p>
+<pre class="cmd"><code>claude mcp add --transport http firecrawl https://mcp.firecrawl.dev/v2/mcp-oauth</code></pre><p class="note"><span lang="en">Then <code>/mcp</code> to sign in.</span><span lang="it">Poi <code>/mcp</code> per accedere.</span></p></article><article class="dep"><header><a href="https://higgsfield.ai/mcp"><b>Higgsfield MCP</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Generative AI on top of Blender: the part inside its factory or a bigger world (AI world, real Blender product composited on top), people at the machine, spectacular effects and transitions under exact HyperFrames text, upscale, new aspect ratios.</span><span lang="it">AI generativa sopra Blender: il pezzo dentro la fabbrica o in un mondo più grande (mondo AI, prodotto vero da Blender sopra), persone alla macchina, effetti e transizioni spettacolari sotto il testo esatto di HyperFrames, upscale, nuovi formati.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Social and launch videos that need scale and wow. Never on cutaways, exploded views, calculations, dimensions or logos. Uses credits, asked first.</span><span lang="it">Video social e di lancio che hanno bisogno di scala e di effetto. Mai su sezioni, esplosi, calcoli, quote o loghi. Usa crediti, chiesti prima.</span></p>
+<pre class="cmd"><code>claude mcp add --transport http higgsfield https://mcp.higgsfield.ai/mcp</code></pre><p class="note"><span lang="en">Then <code>/mcp</code> to sign in.</span><span lang="it">Poi <code>/mcp</code> per accedere.</span></p></article><article class="dep"><header><a href="https://github.com/AirsupHQ/machine-skill"><b>Machine skill</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Builds an interactive 3D web page of the product: exploded view, section, working numbers.</span><span lang="it">Crea una pagina web 3D interattiva del prodotto: esploso, sezione, numeri di funzionamento.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Only if you also want a page for the website or a trade-fair screen, delivered next to the video.</span><span lang="it">Solo se vuoi anche una pagina per il sito o per uno schermo in fiera, consegnata accanto al video.</span></p>
+<pre class="cmd"><code>git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine
+cd ~/.claude/skills/machine && npm i -D playwright && npx playwright install chromium</code></pre></article></div>
+<h3><span lang="en">6. Quick check</span><span lang="it">6. Verifica rapida</span></h3>
+<pre class="cmd"><code>/Applications/Blender.app/Contents/MacOS/Blender --version
+ffmpeg -version | head -1
+node -v
+claude mcp list</code></pre>
 </section>
 
 <footer><span lang="en">Created by Mario Mele · MIT license</span><span lang="it">Ideata da Mario Mele · Licenza MIT</span> · <a href="https://github.com/mariomele/blender-product-video">github.com/mariomele/blender-product-video</a></footer>
@@ -188,15 +287,26 @@ cp -r blender-product-video/blender-product-video ~/.claude/skills/</code></pre>
 <script>
 (function(){
   var root=document.documentElement, btns=document.querySelectorAll('.langs button');
+  function lbl(){return root.getAttribute('data-lang')==='it'?'Copia':'Copy'}
   function set(l){
     root.setAttribute('data-lang',l); root.lang=l;
     btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===l)});
+    document.querySelectorAll('.copy').forEach(function(b){b.textContent=lbl()});
     try{localStorage.setItem('lang',l)}catch(e){}
   }
   var saved=null; try{saved=localStorage.getItem('lang')}catch(e){}
   var q=new URLSearchParams(location.search).get('lang');
   set(q==='it'||q==='en'?q:(saved==='it'?'it':'en'));
   btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set)})});
+  document.querySelectorAll('pre.cmd').forEach(function(p){
+    var b=document.createElement('button'); b.type='button'; b.className='copy'; b.textContent=lbl();
+    b.addEventListener('click',function(){
+      navigator.clipboard.writeText(p.querySelector('code').textContent).then(function(){
+        b.textContent='✓'; b.classList.add('ok'); setTimeout(function(){b.textContent=lbl();b.classList.remove('ok')},1500);
+      });
+    });
+    p.appendChild(b);
+  });
 })();
 </script>
 </body>

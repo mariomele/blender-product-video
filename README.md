@@ -67,9 +67,10 @@ You have a machine, a plant or a mechanical part and want to explain how it work
 
 It guides Claude Code, and you, through the whole making of a 3D product video: machines, plants, components, industrial processes. Built for sales presentations, social content, trade fairs and websites.
 
-- **Starts from any source:** CAD (STEP, GLB, STL, OBJ…), photos, the product's web page, technical drawings (SVG, AutoCAD DWG) and dimensioned sketches.
+- **Starts from any source:** CAD (STEP opened directly, GLB, STL, OBJ…), photos, the product's web page, technical drawings (SVG, AutoCAD DWG) and dimensioned sketches.
 - **Asks questions at every phase** and stops for your approval before moving on, so fixes come when they are cheap.
 - **Remembers where you are:** every decision goes into `progetto.md`, and a request like "redo the intro" jumps straight to the right phase.
+- **Tells a story with the camera:** a shot list with alternating shot sizes (LS, MS, CU, ECU, POV) and, every few scenes, a spectacular move: slow-mo and speed ramps, follow shots, robotic-arm paths, counter-movement, exploded view to cutaway in one shot.
 - **Shows what a camera can't:** cutaways, exploded views, realistic materials and textures, any setting.
 - **Shows the engineering (optional):** a real stress analysis turned into an animation, the part bending under load as it turns from blue to red, and the dimensioned drawing that becomes the 3D model.
 - **AI extras (optional):** with the Higgsfield MCP, the part inside its factory or a bigger world (AI world, real Blender product composited on top), people, flashier graphics and effects with exact text laid on by HyperFrames, upscaled renders, new aspect ratios. Never on the product's geometry, numbers or logos.
@@ -103,26 +104,123 @@ Restart Claude Code: the skill turns on by itself when you ask for a 3D product 
 
 **2. Dependencies**
 
-System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS.
+System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS. Every command is below, ready to paste.
 
-| Dependency | Used for | Install |
-|---|---|---|
-| [Claude Code](https://claude.com/claude-code) | running the skill | see the link |
-| [Blender 5.1 or later](https://www.blender.org/download/) | model, scenes, render | download and move to `/Applications` (other path: `BLENDER` variable) |
-| [Blender MCP (Blender Lab)](https://www.blender.org/lab/mcp-server/) | letting Claude work inside Blender | 1) the add-on in Blender, following the page; 2) the MCP server: the `.mcpb` package from the [releases page](https://projects.blender.org/lab/blender_mcp/releases) opens with Claude Desktop, or install from source with the [setup guide](https://projects.blender.org/lab/blender_mcp/wiki/Setup) |
-| [Homebrew](https://brew.sh) + [FFmpeg](https://ffmpeg.org) | previews, edit, delivery | `brew install ffmpeg` (includes ffprobe) |
-| [Node.js 22+](https://nodejs.org/en/download) | HyperFrames | installer from the link, or `brew install node` |
-| [HyperFrames](https://github.com/heygen-com/hyperframes) | graphics, text, audio mix | `claude plugin marketplace add heygen-com/hyperframes` then `claude plugin install hyperframes@hyperframes` |
-| [ElevenLabs MCP](https://elevenlabs.io/mcp) | voice, music, sound effects | `claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp`, then `/mcp` in Claude Code to sign in |
-| [Blender skills](https://github.com/arjun988/blender-skills) | support skills (blender-director, materials, lighting, lookdev, camera-cinematography, environment-artist…) | instructions in the repo README |
+| You want… | Install |
+|---|---|
+| a quick look, a storyboard | the required set |
+| a finished video with text and voice | + HyperFrames, ElevenLabs |
+| to start from a STEP, a drawing or a sketch | + text-to-cad |
+| to start from an AutoCAD DWG | + LibreDWG |
+| to start from a product web page | + Firecrawl |
+| to show strength or a technical drawing | + text-to-cad |
+| the factory, a bigger world, people, flashier graphics | + Higgsfield |
+| an interactive 3D page too | + Machine |
 
-Optional:
-- [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): read product pages and pull a palette from a website (otherwise Claude uses the built-in browser).
-- An [ElevenLabs](https://elevenlabs.io) account with credits, for voice, music and effects.
-- [Higgsfield MCP](https://higgsfield.ai): optional AI extras (the part in its factory or a bigger world, people, spectacular graphics and effects, upscale, reframing), each one only after you OK the credits.
-- [text-to-cad](https://github.com/earthtojake/text-to-cad): converts STEP files to GLB, runs stress analyses, draws dimensioned sheets and models mechanical parts in parametric CAD with [build123d](https://github.com/gumyr/build123d). Standard parts (screws, bearings, gears, pipes, flanges) come from [bd_warehouse](https://github.com/gumyr/bd_warehouse) at true ISO sizes, so exploded views and cutaways show real components.
-- [LibreDWG](https://www.gnu.org/software/libredwg/): read AutoCAD DWG drawings directly (2D only). `brew install libredwg`
-- [Machine skill](https://github.com/AirsupHQ/machine-skill): only for the extra interactive 3D page (exploded view, section, working numbers). `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`
+**Required**
+
+- **[Homebrew](https://brew.sh)**: installs the other tools. *When:* once, before everything else (skip if `brew -v` answers).
+
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+
+- **[Claude Code](https://claude.com/claude-code)**: the assistant you talk to: it reads the skill and drives every tool. *When:* always.
+
+  ```bash
+  curl -fsSL https://claude.ai/install.sh | bash
+  ```
+
+- **[Blender 5.1+](https://www.blender.org/download/)**: model, materials, scenes, Cycles render on Metal. *When:* always (in `/Applications`, or set the `BLENDER` variable).
+
+  ```bash
+  brew install --cask blender
+  ```
+
+- **[Blender MCP (Blender Lab)](https://www.blender.org/lab/mcp-server/)**: lets Claude see and change the open Blender file live. *When:* when you work with Blender open; headless renders don't need it.
+
+  ```bash
+  brew install uv
+  git clone https://projects.blender.org/lab/blender_mcp.git ~/blender_mcp
+  claude mcp add blender -- uv --directory ~/blender_mcp/mcp run blender-mcp
+  ```
+
+  ```bash
+  curl -L -o ~/Downloads/blender-mcp-addon.zip "https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip"
+  ```
+
+  Then in Blender: *Edit → Preferences → Get Extensions → Install from Disk*, pick the zip.
+
+- **[FFmpeg](https://ffmpeg.org)**: previews, edit, audio mix, delivery files. *When:* always.
+
+  ```bash
+  brew install ffmpeg
+  ```
+
+- **[Blender skills](https://github.com/arjun988/blender-skills)**: expert know-how on materials, lighting, lookdev, camera, modelling. *When:* phases 1 and 2.
+
+  ```bash
+  git clone https://github.com/arjun988/blender-skills.git /tmp/blender-skills
+  cp -r /tmp/blender-skills/.claude/skills/* ~/.claude/skills/
+  ```
+
+
+**For the finished video**
+
+- **[Node.js 22+ and HyperFrames](https://github.com/heygen-com/hyperframes)**: titles, callouts, measurements, subtitles, end logo, with exact text in your palette. *When:* phase 4; skip only for a video with no text.
+
+  ```bash
+  brew install node
+  claude plugin marketplace add heygen-com/hyperframes
+  claude plugin install hyperframes@hyperframes
+  ```
+
+- **[ElevenLabs MCP](https://elevenlabs.io/mcp)**: voice-over, music, sound effects; scenes stretched to fit the voice. *When:* phase 5, if the video has sound; needs an account with credits, asked each time.
+
+  ```bash
+  claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp
+  ```
+
+  Then `/mcp` in Claude Code to sign in.
+
+
+**Optional, by use**
+
+- **[text-to-cad (with build123d and bd_warehouse)](https://github.com/earthtojake/text-to-cad)**: opens STEP files with separate parts at real scale; parametric CAD with [build123d](https://github.com/gumyr/build123d); real ISO screws, bearings, gears from [bd_warehouse](https://github.com/gumyr/bd_warehouse); stress analyses and dimensioned drawings. *When:* you have a STEP, a drawing or a sketch; a cutaway needs real internals; you want to show strength or a drawing.
+
+  ```bash
+  curl -fsSL https://texttocad.dev/install.sh | sh
+  ```
+
+- **[LibreDWG](https://www.gnu.org/software/libredwg/)**: reads AutoCAD DWG drawings, 2D only, at real scale. *When:* your source is a `.dwg`.
+
+  ```bash
+  brew install libredwg
+  ```
+
+- **[Firecrawl MCP](https://docs.firecrawl.dev/mcp-server)**: reads product pages and data sheets, pulls a palette from a website. *When:* you start from a link (otherwise Claude uses the built-in browser).
+
+  ```bash
+  claude mcp add --transport http firecrawl https://mcp.firecrawl.dev/v2/mcp-oauth
+  ```
+
+  Then `/mcp` to sign in.
+
+- **[Higgsfield MCP](https://higgsfield.ai/mcp)**: AI on top of Blender: the part in its factory or a bigger world, people, spectacular effects under exact HyperFrames text, upscale, reframing. *When:* social and launch videos that need scale; never on cutaways, exploded views, numbers or logos; credits asked first.
+
+  ```bash
+  claude mcp add --transport http higgsfield https://mcp.higgsfield.ai/mcp
+  ```
+
+  Then `/mcp` to sign in.
+
+- **[Machine skill](https://github.com/AirsupHQ/machine-skill)**: an interactive 3D web page of the product. *When:* you also want a page for a website or a trade-fair screen.
+
+  ```bash
+  git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine
+  cd ~/.claude/skills/machine && npm i -D playwright && npx playwright install chromium
+  ```
+
 
 **3. Quick check**
 
@@ -130,6 +228,7 @@ Optional:
 /Applications/Blender.app/Contents/MacOS/Blender --version
 ffmpeg -version | head -1
 node -v
+claude mcp list
 ```
 
 ### How to use it
@@ -171,6 +270,7 @@ Guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchi
 - **Parte da qualsiasi sorgente:** CAD (STEP, GLB, STL, OBJ…), foto, la pagina web del prodotto, disegni tecnici (SVG, DWG di AutoCAD) e schizzi quotati.
 - **Fa domande a ogni fase** e si ferma per un'approvazione prima di andare avanti, così le correzioni arrivano quando costano poco.
 - **Si ricorda dove sei:** tutte le decisioni finiscono in `progetto.md`, e una richiesta come "rifai l'intro" porta direttamente alla fase giusta.
+- **Racconta con la camera:** una scaletta con piani alternati (LS, MS, CU, ECU, POV) e, ogni poche scene, una ripresa spettacolare: slow-mo e speed ramp, camera che segue il pezzo, traiettorie da braccio robotico, contromovimento, da esploso a sezione in un'unica ripresa.
 - **Mostra quello che una telecamera non può:** sezioni, esplosi, materiali e texture realistici, qualsiasi ambiente.
 - **Mostra l'ingegneria (facoltativo):** un calcolo di resistenza vero diventa un'animazione, con il pezzo che si piega sotto carico passando dal blu al rosso, e la tavola quotata diventa il modello 3D.
 - **Extra AI (facoltativo):** con Higgsfield MCP, il pezzo dentro la fabbrica o in un mondo più grande (mondo generato, prodotto vero da Blender sopra), persone, grafiche ed effetti più spettacolari con il testo esatto messo da HyperFrames, upscale dei render, nuovi formati. Mai sulla geometria del prodotto, sui numeri o sui loghi.
@@ -206,26 +306,123 @@ Riavvia Claude Code: la skill si attiva da sola quando chiedi un video 3D di un 
 
 **2. Le dipendenze**
 
-Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso in macOS.
+Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso in macOS. Tutti i comandi sono qui sotto, pronti da incollare.
 
-| Dipendenza | Serve per | Installazione |
-|---|---|---|
-| [Claude Code](https://claude.com/claude-code) | eseguire la skill | vedi il link |
-| [Blender 5.1 o successivo](https://www.blender.org/download/) | modello, scene, render | scarica e sposta in `/Applications` (altro percorso: variabile `BLENDER`) |
-| [Blender MCP (Blender Lab)](https://www.blender.org/lab/mcp-server/) | far lavorare Claude dentro Blender | 1) add-on in Blender, seguendo la pagina; 2) server MCP: il pacchetto `.mcpb` dalla [pagina release](https://projects.blender.org/lab/blender_mcp/releases) si apre con Claude Desktop, oppure si installa da sorgente con la [guida di setup](https://projects.blender.org/lab/blender_mcp/wiki/Setup) |
-| [Homebrew](https://brew.sh) + [FFmpeg](https://ffmpeg.org) | anteprime, montaggio, consegna | `brew install ffmpeg` (include ffprobe) |
-| [Node.js 22+](https://nodejs.org/en/download) | HyperFrames | installer dal link, oppure `brew install node` |
-| [HyperFrames](https://github.com/heygen-com/hyperframes) | grafiche, testi, mix audio | `claude plugin marketplace add heygen-com/hyperframes` poi `claude plugin install hyperframes@hyperframes` |
-| [ElevenLabs MCP](https://elevenlabs.io/mcp) | voce, musica, effetti sonori | `claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp`, poi `/mcp` in Claude Code per accedere |
-| [Blender skills](https://github.com/arjun988/blender-skills) | skill di supporto (blender-director, materials, lighting, lookdev, camera-cinematography, environment-artist…) | istruzioni nel README del repo |
+| Vuoi… | Installa |
+|---|---|
+| una prova veloce, uno storyboard | le necessarie |
+| un video finito con testi e voce | + HyperFrames, ElevenLabs |
+| partire da uno STEP, un disegno o uno schizzo | + text-to-cad |
+| partire da un DWG di AutoCAD | + LibreDWG |
+| partire dalla pagina web del prodotto | + Firecrawl |
+| mostrare la resistenza o una tavola tecnica | + text-to-cad |
+| la fabbrica, un mondo più grande, persone, grafiche più spettacolari | + Higgsfield |
+| anche una pagina 3D interattiva | + Machine |
 
-Facoltativi:
-- [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): leggere pagine prodotto e ricavare la palette da un sito (in alternativa Claude usa il browser integrato).
-- Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
-- [Higgsfield MCP](https://higgsfield.ai): extra AI facoltativi (il pezzo nella fabbrica o in un mondo più grande, persone, grafiche ed effetti spettacolari, upscale, cambi di formato), ognuno solo dopo il tuo ok sui crediti.
-- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB, fa calcoli di resistenza e tavole quotate e modella le parti meccaniche in CAD parametrico con [build123d](https://github.com/gumyr/build123d). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse) a misura ISO vera, così esplosi e sezioni mostrano componenti reali.
-- [LibreDWG](https://www.gnu.org/software/libredwg/): leggere direttamente i disegni DWG di AutoCAD (solo 2D). `brew install libredwg`
-- [Machine skill](https://github.com/AirsupHQ/machine-skill): solo se vuoi anche la pagina 3D interattiva extra (esploso, sezione, numeri di funzionamento). `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`
+**Necessarie**
+
+- **[Homebrew](https://brew.sh)**: installa gli altri strumenti. *Quando:* una volta, prima di tutto (saltalo se `brew -v` risponde).
+
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+
+- **[Claude Code](https://claude.com/claude-code)**: l'assistente con cui parli: legge la skill e guida tutti gli strumenti. *Quando:* sempre.
+
+  ```bash
+  curl -fsSL https://claude.ai/install.sh | bash
+  ```
+
+- **[Blender 5.1+](https://www.blender.org/download/)**: modello, materiali, scene, render Cycles su Metal. *Quando:* sempre (in `/Applications`, oppure imposta la variabile `BLENDER`).
+
+  ```bash
+  brew install --cask blender
+  ```
+
+- **[Blender MCP (Blender Lab)](https://www.blender.org/lab/mcp-server/)**: fa vedere e modificare a Claude il file Blender aperto, dal vivo. *Quando:* quando lavori con Blender aperto; i render in background non ne hanno bisogno.
+
+  ```bash
+  brew install uv
+  git clone https://projects.blender.org/lab/blender_mcp.git ~/blender_mcp
+  claude mcp add blender -- uv --directory ~/blender_mcp/mcp run blender-mcp
+  ```
+
+  ```bash
+  curl -L -o ~/Downloads/blender-mcp-addon.zip "https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip"
+  ```
+
+  Poi in Blender: *Edit → Preferences → Get Extensions → Install from Disk*, scegli lo zip.
+
+- **[FFmpeg](https://ffmpeg.org)**: anteprime, montaggio, mix audio, file di consegna. *Quando:* sempre.
+
+  ```bash
+  brew install ffmpeg
+  ```
+
+- **[Blender skills](https://github.com/arjun988/blender-skills)**: competenze su materiali, luci, lookdev, camera, modellazione. *Quando:* fasi 1 e 2.
+
+  ```bash
+  git clone https://github.com/arjun988/blender-skills.git /tmp/blender-skills
+  cp -r /tmp/blender-skills/.claude/skills/* ~/.claude/skills/
+  ```
+
+
+**Per il video finito**
+
+- **[Node.js 22+ and HyperFrames](https://github.com/heygen-com/hyperframes)**: titoli, callout, misure, sottotitoli, logo finale, con testo esatto nella tua palette. *Quando:* fase 4; saltalo solo per un video senza testo.
+
+  ```bash
+  brew install node
+  claude plugin marketplace add heygen-com/hyperframes
+  claude plugin install hyperframes@hyperframes
+  ```
+
+- **[ElevenLabs MCP](https://elevenlabs.io/mcp)**: voce fuori campo, musica, effetti; scene allungate per la voce. *Quando:* fase 5, se il video ha l'audio; serve un account con crediti, chiesti ogni volta.
+
+  ```bash
+  claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp
+  ```
+
+  Poi `/mcp` in Claude Code per accedere.
+
+
+**Facoltative, in base all'uso**
+
+- **[text-to-cad (with build123d and bd_warehouse)](https://github.com/earthtojake/text-to-cad)**: apre gli STEP con le parti separate in scala reale; CAD parametrico con [build123d](https://github.com/gumyr/build123d); viti, cuscinetti, ingranaggi ISO veri da [bd_warehouse](https://github.com/gumyr/bd_warehouse); calcoli di resistenza e tavole quotate. *Quando:* hai uno STEP, un disegno o uno schizzo; una sezione ha bisogno di interni veri; vuoi mostrare la resistenza o una tavola.
+
+  ```bash
+  curl -fsSL https://texttocad.dev/install.sh | sh
+  ```
+
+- **[LibreDWG](https://www.gnu.org/software/libredwg/)**: legge i disegni DWG di AutoCAD, solo 2D, in scala reale. *Quando:* la sorgente è un `.dwg`.
+
+  ```bash
+  brew install libredwg
+  ```
+
+- **[Firecrawl MCP](https://docs.firecrawl.dev/mcp-server)**: legge pagine prodotto e schede tecniche, ricava la palette da un sito. *Quando:* parti da un link (altrimenti Claude usa il browser integrato).
+
+  ```bash
+  claude mcp add --transport http firecrawl https://mcp.firecrawl.dev/v2/mcp-oauth
+  ```
+
+  Poi `/mcp` per accedere.
+
+- **[Higgsfield MCP](https://higgsfield.ai/mcp)**: AI sopra Blender: il pezzo nella fabbrica o in un mondo più grande, persone, effetti spettacolari sotto il testo esatto di HyperFrames, upscale, cambi di formato. *Quando:* video social e di lancio che hanno bisogno di scala; mai su sezioni, esplosi, numeri o loghi; crediti chiesti prima.
+
+  ```bash
+  claude mcp add --transport http higgsfield https://mcp.higgsfield.ai/mcp
+  ```
+
+  Poi `/mcp` per accedere.
+
+- **[Machine skill](https://github.com/AirsupHQ/machine-skill)**: una pagina web 3D interattiva del prodotto. *Quando:* vuoi anche una pagina per il sito o per uno schermo in fiera.
+
+  ```bash
+  git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine
+  cd ~/.claude/skills/machine && npm i -D playwright && npx playwright install chromium
+  ```
+
 
 **3. Verifica rapida**
 
@@ -233,6 +430,7 @@ Facoltativi:
 /Applications/Blender.app/Contents/MacOS/Blender --version
 ffmpeg -version | head -1
 node -v
+claude mcp list
 ```
 
 ### Come si usa
