@@ -26,7 +26,7 @@ Ambiente: … · Atmosfera: … · Foto ref: source/…
 Palette infografiche (solo HyperFrames): #…, #… · Logo: source/… · Da evitare: …
 Racconto: …
 ## Scene
-| n | file | frame | durata | movimento / camera | storyboard | anteprima | finale |
+| n | file | frame | durata | piano | movimento / camera | cosa racconta | storyboard | anteprima | finale |
 ## Audio
 Voce: <nome, voice_id> · Musica: … · SFX: …
 ## Decisioni e note
@@ -56,7 +56,7 @@ Chiedi, se non lo sai già:
   - atmosfera e luce: tecnica e pulita, cinematografica e contrastata, calda o fredda, giorno o notte, fumo/polvere/riflessi a terra;
   - foto di riferimento dell'ambientazione o del look (facoltativa).
   Proponi 2–3 combinazioni adatte all'uso (social → scuro e contrastato; catalogo → limbo chiaro).
-- **Racconto**: cosa deve capire chi guarda, scene di massima, testo del voice-over se c'è già.
+- **Racconto**: cosa deve capire chi guarda, scene di massima, testo del voice-over se c'è già. Costruiscilo come un arco, non come una lista di viste: aggancio (1–3 s, un dettaglio o un movimento che incuriosisce) → presentazione del pezzo intero → come funziona, dal fuori al dentro (sezione, esploso) → il beneficio o il numero chiave → chiusura con il prodotto intero e il logo.
 - **Palette delle infografiche** (vale **solo per HyperFrames**: in Blender prodotto e ambiente hanno i loro colori reali). Se il cliente è in memoria usa i suoi colori e i suoi divieti. Altrimenti chiedi sempre, in uno di tre modi:
   - a parole ("blu scuro e bianco"): proponi tu gli Hex e falli confermare;
   - codici Hex;
@@ -117,10 +117,26 @@ Dal brief, con **environment-artist**, **set-dressing**, **lighting**, **lookdev
 Checkpoint: 3–4 viste statiche (fronte, 3/4, dettaglio, materiale da vicino) nell'ambientazione scelta, accanto alla foto di riferimento se c'è, con `preview.sh` su un frame (`<f> <f> 1`). Chiedi se forma, proporzioni, materiali e atmosfera vanno bene.
 
 ## 2. Le scene, una alla volta
+**Scaletta delle inquadrature**, prima della prima scena: una tabella con tutte le scene in ordine, e per ognuna il piano, il movimento di camera e cosa racconta (la frase del voice-over, se c'è). Falla approvare e copiala nella tabella Scene di `progetto.md`. Piani, tradotti per una macchina (skill **camera-cinematography**):
+- **ELS/LS** (totale): la macchina intera nel suo ambiente, con la scala umana se serve;
+- **MS** (figura intera): la macchina riempie il quadro;
+- **MCU**: un gruppo o un'unità (motore + pompa, la testa di taglio);
+- **CU**: un componente (girante, ingranaggio, comando);
+- **ECU/macro**: materiale, saldatura, logo, una vite che entra;
+- **POV**: il punto di vista di un pezzo o del prodotto lavorato (la camera viaggia sul nastro, dentro il condotto, segue il fluido);
+- **dall'alto / dal basso**: per il layout di un impianto o per dare imponenza.
+Regole del montaggio:
+- **Alterna i piani**: mai due tagli di fila con lo stesso piano e la stessa altezza di camera. Fra due scene cambia almeno piano o angolo di 30° o più.
+- **Apri largo, poi stringi**: LS → MS → CU. Dopo 2–3 piani stretti torna a un piano largo, così chi guarda si riorienta e capisce dove si trova il dettaglio.
+- **Il piano segue il racconto**: largo per presentare e dare contesto, stretto per spiegare e per i dettagli, POV o sezione per il momento "wow", largo per chiudere.
+- **Durata secondo il piano**: i piani larghi e quelli con molte informazioni durano di più (4–6 s), i dettagli meno (1,5–3 s). Per i social il primo taglio arriva entro 2–3 s.
+- **Continuità**: resta dallo stesso lato della macchina (regola dei 180°) e mantieni la direzione del movimento fra un taglio e l'altro. Taglia sul movimento (match cut) quando un pezzo si muove in due piani di fila.
+- **Movimenti di camera**: alterna anche questi (orbita, dolly-in, carrello laterale, camera ferma). Non mettere due orbite di fila nello stesso verso.
+
 Per **ogni** scena, prima di costruirla, chiedi:
 - **Durata** in secondi.
 - **Movimenti della macchina/del prodotto**: cosa si muove, a che velocità, in che ordine (es. nastro che scorre, sportello che si apre, esploso, montaggio dei pezzi).
-- **Inquadrature**: tipo (totale, dettaglio, orbita, carrello, dolly-in, POV) e movimento della camera. Proponi 2–3 opzioni con **camera-cinematography**.
+- **Inquadrature**: il piano dalla scaletta (LS, MS, MCU, CU, ECU, POV, alto/basso) e il movimento della camera. Proponi 2–3 opzioni con **camera-cinematography**, sempre guardando i piani della scena prima e di quella dopo.
 Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o `blender -b file.blend --python script.py` (script in `render_scripts/`). Skill: **animation**, **geometry-nodes**, **procedural-modeling**.
 - Animazione **procedurale** (driver + geometry nodes, niente simulazioni): così si può campionare a subframe e allungare i tempi senza toccare i keyframe.
 - Prima di patchare un .blend salvane una copia nello scratchpad. Ogni patch è uno script Python rieseguibile.
@@ -130,7 +146,7 @@ Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o
 
 **Storyboard (1 frame al secondo)**, prima di qualunque anteprima animata:
 `$K/preview.sh <scena.blend> <first> <last> <fps_scena> preview/<n>_sb`
-Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. Guarda tu la griglia, poi mandala all'utente come storyboard. Ripeti finché non la approva.
+Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. Guarda tu la griglia e controlla che il piano sia quello della scaletta e che non si ripeta con la scena vicina, poi mandala all'utente come storyboard. Ripeti finché non la approva.
 
 **Anteprima animata.** Chiedi la qualità:
 - **Real time**: tutti i frame (step 1 → 24 fps su una scena a 24);
@@ -146,7 +162,7 @@ Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla succ
 - Anteprima di tutto: `$K/render_all.sh <progetto> edl.txt 50 <fps>` (res 50%, 12 spp) → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
 - `$K/contact_sheet.sh preview_jpg/final.mp4 preview/montaggio.jpg 1` per un provino.
 - Se cambiano `first`, `last`, `extra` o la risoluzione di uno shot, `render_all.sh` sposta i frame vecchi in `<shot>.old_<data>` e rifà lo shot (i vecchi frame non corrispondono più agli stessi istanti).
-Checkpoint: ordine, ritmo, transizioni.
+Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei piani: niente due piani uguali di fila, un piano largo almeno ogni 2–3 piani stretti.
 
 ## 4. HyperFrames: testo e grafiche
 - Chiedi se il **testo del voice-over** lo dà l'utente o lo scrivi tu. In quel caso scrivilo scena per scena, entro la durata di `timings.json` (circa 2,5 parole al secondo), in `audio/vo.txt` con una riga per scena: `n|testo`. Fallo approvare.
