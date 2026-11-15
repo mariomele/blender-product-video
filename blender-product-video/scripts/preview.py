@@ -1,5 +1,5 @@
 # Renders frames a..b every `step` frames at low quality, with frame/time stamped on each image. Resumable.
-# usage: blender -b file.blend --python gpu_setup.py --python preview.py -- a b step outdir [res%=25] [spp=8] [env JPG_Q=85]
+# usage: blender -b file.blend --python gpu_setup.py --python preview.py -- a b step outdir [res%=25] [spp=8] [env JPG_Q=50]
 import bpy, sys, os
 args = sys.argv[sys.argv.index('--') + 1:]
 a, b, step = map(int, args[:3]); out = args[3]
@@ -16,7 +16,7 @@ r.use_stamp = True; r.use_stamp_note = False
 for k in ("date", "render_time", "camera", "lens", "scene", "filename", "memory", "hostname", "marker", "sequencer_strip", "time"):
     setattr(r, "use_stamp_" + k, False)
 r.use_stamp_frame = True; r.stamp_font_size = max(10, r.resolution_y * res // 100 // 40)  # ~1/40 of the image height
-r.image_settings.file_format = 'JPEG'; r.image_settings.quality = int(os.environ.get('JPG_Q', 85))
+r.image_settings.file_format = 'JPEG'; r.image_settings.quality = int(os.environ.get('JPG_Q', 50))
 os.makedirs(out, exist_ok=True)
 for f in frames:
     path = os.path.join(out, f"f{f:05d}.jpg")

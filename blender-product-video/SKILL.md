@@ -11,7 +11,7 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 - **Guida con domande.** All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
-- **Ogni render parte da una domanda sola, con tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Vale per storyboard, anteprime, montaggio e finale. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; vanno bene anche valori liberi, per esempio `1440x2560-24-JPG80/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
+- **Ogni render parte da una domanda sola, con tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Vale per storyboard, anteprime, montaggio e finale. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; vanno bene anche valori liberi, per esempio `1440x2560-24-JPG70/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
 
   ```
   Render <cosa> — rispondi risoluzione-fps-qualità (es. 2-4-1)
@@ -23,10 +23,10 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 
   | qualità | quando | variabili |
   |---|---|---|
-  | 1 Ultra veloce | prove di camera e tempi, bozze da buttare | `SPP=12 JPG_Q=65` (circa un terzo del tempo dello Standard, rumore visibile) |
-  | 2 Veloce | bozza da mostrare al cliente, scadenza stretta | `SPP=24 JPG_Q=85` (circa metà tempo, un po' di rumore nelle zone scure) |
-  | 3 Standard | web e social | `SPP=40 JPG_Q=95` |
-  | 4 Massima | fiere, schermi grandi, color grading o archivio | `SPP=96 JPG_Q=100` (circa 2,5× il tempo) |
+  | 1 Ultra veloce | prove di camera e tempi, bozze da buttare | `SPP=12 JPG_Q=50` (circa un terzo del tempo dello Standard, rumore visibile) |
+  | 2 Veloce | bozza da mostrare al cliente, scadenza stretta | `SPP=24 JPG_Q=60` (circa metà tempo, un po' di rumore nelle zone scure) |
+  | 3 Standard | web e social | `SPP=40 JPG_Q=75` |
+  | 4 Massima | fiere, schermi grandi, color grading o archivio | `SPP=96 JPG_Q=95` (circa 2,5× il tempo) |
 
   Proposte di partenza: storyboard `1-·-1` (fps fisso a 1 frame al secondo), anteprima di una scena `1-3-1`, anteprima del montaggio `2-4-1`, render finale `4-4-3`.
   Come si applica:
@@ -211,7 +211,7 @@ Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla succ
 - `edl.txt`, una scena per riga: `n file.blend first last [extra] [skip_head]`.
   - `extra`: frame aggiunti tramite subframe per dare respiro alla voce.
   - `skip_head`: primi N frame esclusi dal montaggio, senza cancellarli.
-- Anteprima di tutto (domanda delle tre scale, proposta `2-4-1`): `SPP=12 JPG_Q=65 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
+- Anteprima di tutto (domanda delle tre scale, proposta `2-4-1`): `SPP=12 JPG_Q=50 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
 - `$K/contact_sheet.sh preview_jpg/final.mp4 preview/montaggio.jpg 1` per un provino.
 - Se cambiano `first`, `last`, `extra` o la risoluzione di uno shot, `render_all.sh` sposta i frame vecchi in `<shot>.old_<data>` e rifà lo shot (i vecchi frame non corrispondono più agli stessi istanti).
 Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei piani: niente due piani uguali di fila, un piano largo almeno ogni 2–3 piani stretti.
