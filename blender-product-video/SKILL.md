@@ -68,7 +68,7 @@ Checkpoint: crea `progetto.md` con il brief e fallo confermare.
 ## 1. Il pezzo: modello, materiali, ambientazione
 
 ### 1a. Modello
-Obiettivo: il prodotto in **metri reali**, centrato sull'origine e appoggiato a terra. Per modelli 3D e SVG:
+Obiettivo: il prodotto in **metri reali**, centrato sull'origine e appoggiato a terra. Per modelli 3D, SVG e DWG 2D:
 `blender -b --factory-startup --python $K/import_model.py -- <file> <out.blend> [m|cm|mm|in]`
 Stampa `SIZE_M L x P x H`: confrontalo con una misura nota. Se è sbagliata di 10, 100 o 1000 volte, hai sbagliato l'unità.
 
@@ -76,7 +76,7 @@ Stampa `SIZE_M L x P x H`: confrontalo con una misura nota. Se è sbagliata di 1
 |---|---|
 | **GLB/glTF, FBX, OBJ, STL, PLY, USD, ABC** | `import_model.py`. STL e OBJ da CAD sono quasi sempre in `mm`. |
 | **CAD nativo** (STEP, IGES, SolidWorks, Inventor, Onshape, Fusion) | Blender non li apre. Chiedi l'export in **GLB** (tiene colori e parti separate) oppure OBJ/STL. Fallback senza CAD: `pip install cadquery-ocp` in un venv nello scratchpad e tassellatura STEP→STL (chiedi prima, circa 100 MB). |
-| **Disegno vettoriale** (DXF, DWG, SVG, PDF vettoriale) | SVG → `import_model.py`. DXF/DWG → chiedi l'export in SVG o PDF, oppure installa l'estensione "Import AutoCAD DXF" (con ok). Poi estrudi i profili o ricostruisci le parti. |
+| **Disegno vettoriale** (DXF, DWG, SVG, PDF vettoriale) | SVG e DWG → `import_model.py` (unità di default per il DWG: mm; chiedi in che unità è il disegno). Il DWG passa da `dwg2SVG` di **LibreDWG** (`brew install libredwg`, chiedi l'ok se manca): legge solo il 2D, cioè linee, archi e polilinee. Quote, testi e retini non vengono letti, e un DWG solo 3D, vuoto o di una versione recente non letta dà errore: in quel caso chiedi un export in SVG, PDF o STEP. Controlla sempre la scala su una quota nota. DXF → chiedi l'export in SVG, DWG o PDF, oppure installa l'estensione "Import AutoCAD DXF" (con ok). Poi estrudi i profili o ricostruisci le parti. |
 | **Disegno raster o schizzo** | Leggilo, trascrivi le quote in una tabella dentro `progetto.md` e **modella proceduralmente** in Python (geometry nodes / bmesh). Le quote mancanti si chiedono, non si inventano. |
 | **Foto** | Vedi sotto. |
 | **Link** | Pagina prodotto → leggila (`firecrawl_scrape` o il browser integrato) per foto, misure, schede tecniche, codici colore; poi procedi come per foto/disegni. Link a un modello (GrabCAD, TraceParts, produttore, Sketchfab) → chiedi l'ok, controlla la licenza, poi `import_model.py`. Salva tutto in `source/`. |

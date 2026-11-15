@@ -47,7 +47,7 @@ Il render finale parte **solo** dopo un ok esplicito. Prima di cancellare file l
 |---|---|
 | **Un modello 3D** (GLB, glTF, FBX, OBJ, STL, PLY, USD, ABC) | Lo importa direttamente in scala reale. |
 | **Un file CAD nativo** (STEP, IGES, SolidWorks, Inventor, Onshape, Fusion) | Ti chiede di esportarlo in GLB (meglio) o OBJ/STL dal programma CAD. Se non hai il CAD a disposizione, può convertire uno STEP in locale, previo ok. |
-| **Un disegno vettoriale** (SVG, DXF, DWG, PDF vettoriale) | Importa gli SVG direttamente; per DXF/DWG chiede un export in SVG o PDF. Poi estrude i profili e ricostruisce le parti. |
+| **Un disegno vettoriale** (SVG, DXF, DWG, PDF vettoriale) | Importa direttamente SVG e DWG. Il DWG viene letto con [LibreDWG](https://www.gnu.org/software/libredwg/) e solo nella parte 2D; per i DXF chiede un export in SVG o DWG. Poi estrude i profili e ricostruisce le parti. |
 | **Un disegno scansionato o uno schizzo quotato** | Legge le quote e modella il pezzo a partire da quelle. Le quote mancanti le chiede, non le inventa. |
 | **Delle foto** | Le usa come riferimento per modellare. Ti dice quali viste mancano (fronte, retro, lati, alto, dettagli) e chiede almeno una misura reale per la scala. |
 | **Un link** | Dalla pagina prodotto ricava foto, misure, schede tecniche e codici colore. Se il link punta a un modello 3D scaricabile, chiede l'ok e controlla la licenza. |
@@ -139,7 +139,7 @@ Nella cartella `scripts/`:
 
 | Script | A cosa serve |
 |---|---|
-| `import_model.py` | Importa un modello 3D o un SVG in scala reale e stampa le dimensioni, per controllare subito la scala. |
+| `import_model.py` | Importa un modello 3D, un SVG o un DWG 2D in scala reale e stampa le dimensioni, per controllare subito la scala. |
 | `preview.sh` (+ `preview.py`) | Storyboard a griglia e anteprima animata a 24, 12 o 6 fps. |
 | `render_all.sh` | Renderizza tutte le scene, controlla che non manchino frame, monta il video e scrive `timings.json` con i tempi di ogni scena. Si accorge se cambi la durata di una scena e rifà solo quella. |
 | `render_seg_gpu.py` | Renderizza una scena, eventualmente allungandola per la voce. Con `--redo` rifà solo il tratto modificato. |
@@ -191,6 +191,7 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 Facoltativi:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): leggere pagine prodotto e ricavare la palette da un sito (in alternativa Claude usa il browser integrato).
 - Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
+- [LibreDWG](https://www.gnu.org/software/libredwg/): per leggere i disegni DWG di AutoCAD, solo la parte 2D. `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): solo per la pagina interattiva extra. `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`; per screenshot e video della pagina serve Playwright: `npm i -D playwright && npx playwright install chromium` nella cartella della skill.
 
 Riferimento indicativo: su M1 Pro, 1080x1920 a 40 campioni, circa **10 secondi per frame** su GPU Metal, contro circa 40 su CPU. Un video di 60 secondi a 24 fps richiede quindi circa 4 ore di render finale. La skill dà sempre una stima prima di partire.
