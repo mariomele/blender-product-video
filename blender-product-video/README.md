@@ -46,7 +46,7 @@ Il render finale parte **solo** dopo un ok esplicito. Prima di cancellare file l
 | Hai… | La skill… |
 |---|---|
 | **Un modello 3D** (GLB, glTF, FBX, OBJ, STL, PLY, USD, ABC) | Lo importa direttamente in scala reale. |
-| **Un file CAD nativo** (STEP, IGES, SolidWorks, Inventor, Onshape, Fusion) | Ti chiede di esportarlo in GLB (meglio) o OBJ/STL dal programma CAD. Se non hai il CAD a disposizione, può convertire uno STEP in locale, previo ok. |
+| **Un file CAD nativo** (STEP, IGES, SolidWorks, Inventor, Onshape, Fusion) | Lo STEP lo converte da solo in GLB con [text-to-cad](https://github.com/earthtojake/text-to-cad), con le parti separate e in scala reale. Per gli altri formati ti chiede un export in STEP o GLB dal programma CAD. |
 | **Un disegno vettoriale** (SVG, DXF, DWG, PDF vettoriale) | Importa direttamente SVG e DWG. Il DWG viene letto con [LibreDWG](https://www.gnu.org/software/libredwg/) e solo nella parte 2D; per i DXF chiede un export in SVG o DWG. Poi estrude i profili e ricostruisce le parti. |
 | **Un disegno scansionato o uno schizzo quotato** | Legge le quote e modella il pezzo a partire da quelle. Le quote mancanti le chiede, non le inventa. |
 | **Delle foto** | Le usa come riferimento per modellare. Ti dice quali viste mancano (fronte, retro, lati, alto, dettagli) e chiede almeno una misura reale per la scala. |
@@ -191,6 +191,7 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 Facoltativi:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): leggere pagine prodotto e ricavare la palette da un sito (in alternativa Claude usa il browser integrato).
 - Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
+- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB e modella le parti meccaniche in CAD parametrico con [build123d](https://github.com/gumyr/build123d) (incluso). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse), che `cad run` scarica da solo la prima volta. Installazione: vedi il README del repo.
 - [LibreDWG](https://www.gnu.org/software/libredwg/): per leggere i disegni DWG di AutoCAD, solo la parte 2D. `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): solo per la pagina interattiva extra. `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`; per screenshot e video della pagina serve Playwright: `npm i -D playwright && npx playwright install chromium` nella cartella della skill.
 

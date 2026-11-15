@@ -75,9 +75,10 @@ Stampa `SIZE_M L x P x H`: confrontalo con una misura nota. Se è sbagliata di 1
 | Sorgente | Come procedere |
 |---|---|
 | **GLB/glTF, FBX, OBJ, STL, PLY, USD, ABC** | `import_model.py`. STL e OBJ da CAD sono quasi sempre in `mm`. |
-| **CAD nativo** (STEP, IGES, SolidWorks, Inventor, Onshape, Fusion) | Blender non li apre. Chiedi l'export in **GLB** (tiene colori e parti separate) oppure OBJ/STL. Fallback senza CAD: `pip install cadquery-ocp` in un venv nello scratchpad e tassellatura STEP→STL (chiedi prima, circa 100 MB). |
+| **STEP/STP** | Con **text-to-cad** installato (comando `cad`): `cad step export <file>.step <file>.glb` (aggiungi `--tolerance 0.05` per curve più lisce nei primi piani), poi `import_model.py` con unità `m`: il GLB è già in metri e le parti restano separate con il loro nome. Senza `cad`, chiedi l'export GLB dal CAD. |
+| **Altro CAD nativo** (IGES, SolidWorks, Inventor, Onshape, Fusion) | Blender non li apre. Chiedi l'export in **STEP** (poi come sopra) o in **GLB** (tiene colori e parti separate). |
 | **Disegno vettoriale** (DXF, DWG, SVG, PDF vettoriale) | SVG e DWG → `import_model.py` (unità di default per il DWG: mm; chiedi in che unità è il disegno). Il DWG passa da `dwg2SVG` di **LibreDWG** (`brew install libredwg`, chiedi l'ok se manca): legge solo il 2D, cioè linee, archi e polilinee. Quote, testi e retini non vengono letti, e un DWG solo 3D, vuoto o di una versione recente non letta dà errore: in quel caso chiedi un export in SVG, PDF o STEP. Controlla sempre la scala su una quota nota. DXF → chiedi l'export in SVG, DWG o PDF, oppure installa l'estensione "Import AutoCAD DXF" (con ok). Poi estrudi i profili o ricostruisci le parti. |
-| **Disegno raster o schizzo** | Leggilo, trascrivi le quote in una tabella dentro `progetto.md` e **modella proceduralmente** in Python (geometry nodes / bmesh). Le quote mancanti si chiedono, non si inventano. |
+| **Disegno raster o schizzo** | Leggilo, trascrivi le quote in una tabella dentro `progetto.md` e modella in **build123d** (vedi sotto) con quelle quote come parametri. Le quote mancanti si chiedono, non si inventano. Senza `cad`, modella in Blender in Python (bmesh / geometry nodes). |
 | **Foto** | Vedi sotto. |
 | **Link** | Pagina prodotto → leggila (`firecrawl_scrape` o il browser integrato) per foto, misure, schede tecniche, codici colore; poi procedi come per foto/disegni. Link a un modello (GrabCAD, TraceParts, produttore, Sketchfab) → chiedi l'ok, controlla la licenza, poi `import_model.py`. Salva tutto in `source/`. |
 
@@ -86,6 +87,18 @@ Stampa `SIZE_M L x P x H`: confrontalo con una misura nota. Se è sbagliata di 1
 - Almeno **una misura reale** (lunghezza totale o altezza): senza, la scala è inventata.
 - Monta le foto come riferimento (`bpy.ops.image.import_as_mesh_planes` o Empty immagine sugli assi) e modella a blocchi, poi dettaglia. Skill: **blender-director**, **hard-surface**, **prop-artist**.
 - L'image-to-3D con AI (Higgsfield `generate_3d`, Magnific `models3d_generate`) serve solo per una bozza o per oggetti di contorno, mai per parti tecniche. Costa crediti: chiedi.
+
+**Modellare in CAD parametrico (build123d)**, se è installato text-to-cad: per le parti meccaniche è più preciso e più veloce che modellare in Blender. Vale per disegni, schizzi, foto con misure e per le parti interne di una sezione.
+- Script Python in `source/cad/<nome>.py`, eseguito con `cad run`: build123d è già incluso. Per le regole di modellazione usa la skill **text-to-cad:cad**.
+- **Parti normalizzate da bd_warehouse**, a misura ISO vera, invece di inventarle: viti, dadi, rondelle, cuscinetti, ingranaggi, pulegge, filetti, tubi, flange. Lo script lo dichiara in testa:
+  ```python
+  # /// script
+  # dependencies = ["bd_warehouse"]
+  # ///
+  ```
+  Per esempio: `SpurGear(module=2, tooth_count=24, pressure_angle=20, root_fillet=0.5, thickness=10)`, `SingleRowDeepGrooveBallBearing(size="M8-22-7")`, `SocketHeadCapScrew(size="M6-1", length=20)`.
+- **Una parte, un oggetto**: dai un `label` a ogni parte e salva il gruppo con `export_step(Compound(children=[...], label="Gruppo"), "<nome>.step")`. Con `Compound([...])`, senza `children`, le parti si fondono in una sola mesh, e poi esploso e animazione non si possono fare. Poi `cad step export` → GLB → `import_model.py`. Lo stesso cuscinetto arriva in Blender con anelli e sfere separati.
+- Per controllare forma e misure prima di Blender: `cad step snapshot` (veduta rapida) e `cad step inspect` (ingombri).
 
 **Livello di fedeltà**, da concordare e scrivere in `progetto.md`:
 - **A — da CAD**: geometria esatta.
@@ -151,7 +164,7 @@ Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o
 - Animazione **procedurale** (driver + geometry nodes, niente simulazioni): così si può campionare a subframe e allungare i tempi senza toccare i keyframe.
 - Prima di patchare un .blend salvane una copia nello scratchpad. Ogni patch è uno script Python rieseguibile.
 - Proponi le inquadrature che una ripresa vera non può dare, sono il punto di forza del 3D:
-  - **sezione**: modificatore Boolean `DIFFERENCE` (solver `EXACT`, `material_mode='TRANSFER'`) con un cutter che toglie un quarto verso la camera; il materiale del cutter colora le facce tagliate, di solito un rosso scuro. Prima svuota i gusci, con un cutter interno che ha lo stesso materiale del pezzo, e aggiungi le parti interne che servono al racconto (albero, rotore, girante). Animare il cutter fa aprire la sezione in scena;
+  - **sezione**: modificatore Boolean `DIFFERENCE` (solver `EXACT`, `material_mode='TRANSFER'`) con un cutter che toglie un quarto verso la camera; il materiale del cutter colora le facce tagliate, di solito un rosso scuro. Prima svuota i gusci, con un cutter interno che ha lo stesso materiale del pezzo, e aggiungi le parti interne che servono al racconto (albero, rotore, girante). Se mancano dal CAD, falle in build123d, con cuscinetti, ingranaggi e viti veri presi da bd_warehouse. Animare il cutter fa aprire la sezione in scena;
   - **esploso** e rimontaggio, parti trasparenti o in radiografia, cambio di finitura o di colore.
 
 **Storyboard (1 frame al secondo)**, prima di qualunque anteprima animata:

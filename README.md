@@ -67,7 +67,7 @@ You have a machine, a plant or a mechanical part and want to explain how it work
 
 It guides Claude Code, and you, through the whole making of a 3D product video: machines, plants, components, industrial processes. Built for sales presentations, social content, trade fairs and websites.
 
-- **Starts from any source:** CAD (GLB, STEP via export, STL, OBJ…), photos, the product's web page, technical drawings (SVG, AutoCAD DWG) and dimensioned sketches.
+- **Starts from any source:** CAD (STEP, GLB, STL, OBJ…), photos, the product's web page, technical drawings (SVG, AutoCAD DWG) and dimensioned sketches.
 - **Asks questions at every phase** and stops for your approval before moving on, so fixes come when they are cheap.
 - **Remembers where you are:** every decision goes into `progetto.md`, and a request like "redo the intro" jumps straight to the right phase.
 - **Shows what a camera can't:** cutaways, exploded views, realistic materials and textures, any setting.
@@ -117,6 +117,7 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS.
 Optional:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): read product pages and pull a palette from a website (otherwise Claude uses the built-in browser).
 - An [ElevenLabs](https://elevenlabs.io) account with credits, for voice, music and effects.
+- [text-to-cad](https://github.com/earthtojake/text-to-cad): converts STEP files to GLB and models mechanical parts in parametric CAD with [build123d](https://github.com/gumyr/build123d). Standard parts (screws, bearings, gears, pipes, flanges) come from [bd_warehouse](https://github.com/gumyr/bd_warehouse) at true ISO sizes, so exploded views and cutaways show real components.
 - [LibreDWG](https://www.gnu.org/software/libredwg/): read AutoCAD DWG drawings directly (2D only). `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): only for the extra interactive 3D page (exploded view, section, working numbers). `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`
 
@@ -164,7 +165,7 @@ Hai una macchina, un impianto o un pezzo meccanico e vuoi spiegare come funziona
 
 Guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchine, impianti, componenti, processi industriali. Pensata per presentazioni commerciali, contenuti social, fiere e siti.
 
-- **Parte da qualsiasi sorgente:** CAD (GLB, STEP via export, STL, OBJ…), foto, la pagina web del prodotto, disegni tecnici (SVG, DWG di AutoCAD) e schizzi quotati.
+- **Parte da qualsiasi sorgente:** CAD (STEP, GLB, STL, OBJ…), foto, la pagina web del prodotto, disegni tecnici (SVG, DWG di AutoCAD) e schizzi quotati.
 - **Fa domande a ogni fase** e si ferma per un'approvazione prima di andare avanti, così le correzioni arrivano quando costano poco.
 - **Si ricorda dove sei:** tutte le decisioni finiscono in `progetto.md`, e una richiesta come "rifai l'intro" porta direttamente alla fase giusta.
 - **Mostra quello che una telecamera non può:** sezioni, esplosi, materiali e texture realistici, qualsiasi ambiente.
@@ -216,6 +217,7 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 Facoltativi:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): leggere pagine prodotto e ricavare la palette da un sito (in alternativa Claude usa il browser integrato).
 - Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
+- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB e modella le parti meccaniche in CAD parametrico con [build123d](https://github.com/gumyr/build123d). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse) a misura ISO vera, così esplosi e sezioni mostrano componenti reali.
 - [LibreDWG](https://www.gnu.org/software/libredwg/): leggere direttamente i disegni DWG di AutoCAD (solo 2D). `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): solo se vuoi anche la pagina 3D interattiva extra (esploso, sezione, numeri di funzionamento). `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`
 
