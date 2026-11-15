@@ -73,7 +73,7 @@ Se manca `progetto.md` ma il progetto esiste (ci sono .blend ed EDL), ricostruis
 ## 0. Brief
 Chiedi, se non lo sai già:
 - **Sorgenti**: foto, link, CAD o disegno. Cosa deve essere fedele (misure, colori, loghi) e cosa può essere approssimato.
-- **Formato, prima di qualunque scena o render**: aspect ratio (9:16 1080x1920 · 16:9 1920x1080 · 1:1 1080x1080 · 4:5 1080x1350), risoluzione e fps (24 · 25 · 30). Vanno impostati in ogni .blend.
+- **Formato, prima di qualunque scena o render**: aspect ratio (9:16 1080x1920 · 16:9 1920x1080 · 1:1 1080x1080 · 4:5 1080x1350), risoluzione; gli fps sono sempre 24. Vanno impostati in ogni .blend.
 - **Durata totale** e uso (social, sito, fiera, presentazione).
 - **Ambiente e atmosfera**:
   - ambiente: capannone o reparto produttivo, studio con sfondo nero, limbo bianco/grigio, esterno (cantiere, campo, piazzale), showroom o ufficio, sfondo astratto;
