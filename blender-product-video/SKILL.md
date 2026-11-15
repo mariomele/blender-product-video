@@ -242,8 +242,17 @@ Checkpoint: **ok esplicito al render finale**, scritto in `progetto.md`. Senza q
 ## 7. Render finale (GPU Metal)
 - **Chiudi ogni Blender con GUI aperto** (anche quello dell'MCP): se è aperto, Metal in headless si blocca all'avvio (0% CPU). `render_all.sh` lo controlla e si ferma (`GUI_BLENDER_OPEN`, exit 3). Se si blocca durante il render, il watchdog lo interrompe dopo `HANG_MIN` minuti (default 10) senza frame nuovi ed esce con `HANG` (exit 2). Allora diagnostica (cubo con `--factory-startup`, `ps` per altri Blender): non ripiegare in silenzio sulla CPU.
 - Se c'è Ponytail, prima del render passa `/ponytail-review` su `render_scripts/` e sugli script delle scene, e correggi quello che trova.
-- Prima di partire dai una stima: frame totali × s/frame. Riferimento: M1 Pro, 1080x1920, 40 spp → circa 10 s/frame su Metal, circa 40 s su CPU.
-- `$K/render_all.sh <progetto> edl.txt 100 <fps> [WxH]` con Bash `run_in_background`, così arriva la notifica a fine render. Avanzamento: `ls final_jpg/*/f*.jpg | wc -l`. Usa `gpu_setup.py` (Metal on, CPU off, MetalRT off su M1/M2 e automatico su M3+) e `render_seg_gpu.py` (shot `[a,b]` allungato di `extra` frame tramite subframe, JPG q95, ripartibile).
+- **Chiedi la qualità** in base all'uso e ai tempi, e scrivila in `progetto.md`. Il tempo dipende quasi tutto dai campioni (`SPP_FINAL`); la qualità JPG (`JPG_Q`) cambia peso dei file e dettaglio, non il tempo di render.
+
+  | profilo | quando | variabili |
+  |---|---|---|
+  | Veloce | bozza da mostrare al cliente, scadenza stretta | `SPP_FINAL=24 JPG_Q=85` (circa metà tempo, un po' di rumore nelle zone scure) |
+  | Standard (default) | web e social | `SPP_FINAL=40 JPG_Q=95` |
+  | Massima | fiere, schermi grandi, color grading o archivio | `SPP_FINAL=96 JPG_Q=100` (circa 2,5× il tempo) |
+
+  Le variabili vanno davanti al comando: `SPP_FINAL=24 JPG_Q=85 $K/render_all.sh …`. Valgono anche per le anteprime (`JPG_Q=70 $K/preview.sh …` per bozze più leggere; default 85). I frame già fatti non si rifanno: per cambiare profilo su uno shot già renderizzato, sposta da parte la sua cartella in `final_jpg/`.
+- Prima di partire dai una stima: frame totali × s/frame. Riferimento: M1 Pro, 1080x1920, 40 spp → circa 10 s/frame su Metal, circa 40 s su CPU. Il tempo cresce circa in proporzione agli spp.
+- `$K/render_all.sh <progetto> edl.txt 100 <fps> [WxH]` con Bash `run_in_background`, così arriva la notifica a fine render. Avanzamento: `ls final_jpg/*/f*.jpg | wc -l`. Usa `gpu_setup.py` (Metal on, CPU off, MetalRT off su M1/M2 e automatico su M3+) e `render_seg_gpu.py` (shot `[a,b]` allungato di `extra` frame tramite subframe, JPG con qualità `JPG_Q`, ripartibile).
 - Poi la composizione HyperFrames finale con `final_jpg/final.mp4` come sfondo: `npx hyperframes render --quality delivery -o delivery/video.mp4`. Controlla che la durata (`ffprobe`) coincida con quella della composizione.
 
 ## 8. Rifare un pezzo senza ri-renderizzare tutto
