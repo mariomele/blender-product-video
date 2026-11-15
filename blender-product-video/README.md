@@ -14,6 +14,7 @@ Una skill per Claude Code che porta dal materiale grezzo di un prodotto (foto, l
 - **Costruisce le scene una alla volta**, con storyboard e anteprime veloci da approvare prima di spendere ore di render.
 - **Monta le scene** in un'unica animazione.
 - **Aggiunge grafiche e testi** (titoli, callout, misure, sottotitoli, logo) con HyperFrames.
+- **Mostra calcoli e tavole** (facoltativo, con text-to-cad): il pezzo che si piega sotto carico colorato dal blu al rosso, da un calcolo di resistenza vero, e la tavola tecnica quotata che si trasforma nel modello 3D.
 - **Genera voce, musica ed effetti sonori** con ElevenLabs e adatta la durata delle scene alla voce.
 - **Fa il render finale** in alta qualità sulla GPU del Mac (Metal).
 - **Prepara i file di consegna:** video master, versione leggera da mandare al telefono, sottotitoli.
@@ -140,6 +141,7 @@ Nella cartella `scripts/`:
 | Script | A cosa serve |
 |---|---|
 | `import_model.py` | Importa un modello 3D, un SVG o un DWG 2D in scala reale e stampa le dimensioni, per controllare subito la scala. |
+| `fea_surface.py`, `fea_to_blend.py` | Portano in Blender il risultato di un calcolo di resistenza di text-to-cad: superficie del pezzo, deformazione esagerata e colori della tensione, animati mentre entra il carico. |
 | `preview.sh` (+ `preview.py`) | Storyboard a griglia e anteprima animata a 24, 12 o 6 fps. |
 | `render_all.sh` | Renderizza tutte le scene, controlla che non manchino frame, monta il video e scrive `timings.json` con i tempi di ogni scena. Si accorge se cambi la durata di una scena e rifà solo quella. |
 | `render_seg_gpu.py` | Renderizza una scena, eventualmente allungandola per la voce. Con `--redo` rifà solo il tratto modificato. |
@@ -191,7 +193,8 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 Facoltativi:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): leggere pagine prodotto e ricavare la palette da un sito (in alternativa Claude usa il browser integrato).
 - Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
-- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB e modella le parti meccaniche in CAD parametrico con [build123d](https://github.com/gumyr/build123d) (incluso). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse), che `cad run` scarica da solo la prima volta. Installazione: vedi il README del repo.
+- [Higgsfield MCP](https://higgsfield.ai): extra AI facoltativi, sempre previo ok per i crediti: upscale dei render, persone e contesto partendo da un frame Blender, cambi di formato. Mai su sezioni, esplosi, calcoli, quote o loghi.
+- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB modella le parti meccaniche in CAD parametrico, fa calcoli di resistenza e tavole tecniche, con [build123d](https://github.com/gumyr/build123d) (incluso). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse), che `cad run` scarica da solo la prima volta. Installazione: vedi il README del repo.
 - [LibreDWG](https://www.gnu.org/software/libredwg/): per leggere i disegni DWG di AutoCAD, solo la parte 2D. `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): solo per la pagina interattiva extra. `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`; per screenshot e video della pagina serve Playwright: `npm i -D playwright && npx playwright install chromium` nella cartella della skill.
 

@@ -62,6 +62,7 @@ Chiedi, se non lo sai già:
   - codici Hex;
   - un sito di riferimento: ricava la palette con `firecrawl_scrape` (formato `branding`) o dal CSS, mostrala e falla confermare.
   Chiedi anche il logo (SVG/PNG) e i colori da evitare. Con l'ok salva la palette in memoria per i video successivi dello stesso cliente.
+- **Calcoli e tavole (facoltativo, con text-to-cad)**: chiedi se il video deve mostrare quanto regge un pezzo, sotto quale carico e con quale materiale, o una tavola tecnica quotata. Diventano scene in fase 2.
 - **Extra facoltativo**: chiedi se serve anche una pagina 3D interattiva (esploso, sezione, numeri di funzionamento) per sito o fiera. Si fa in fase 9 con la skill `/machine`, se è installata.
 Checkpoint: crea `progetto.md` con il brief e fallo confermare.
 
@@ -176,6 +177,13 @@ Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. G
 - **Medio**: un frame ogni 2 (step 2 → 12 fps). Consigliato;
 - **Basso**: un frame ogni 4 (step 4 → 6 fps), il più veloce.
 `$K/preview.sh <scena.blend> <first> <last> <step> preview/<n>_p [res%=25] [spp=8]` → `preview.mp4` a velocità reale.
+**Scene facoltative con text-to-cad** (servono il comando `cad` e il pezzo in STEP):
+- **Resistenza (FEA)**: il pezzo che si piega sotto carico mentre si colora dal blu al rosso, dove regge e dove è al limite. Con la skill **text-to-cad:fea**: scegli le facce bloccate e caricate (`cad step solve <pezzo>.step` le elenca), e prendi carico e materiale dal cliente: non si inventano. Poi `cad step solve <pezzo>.step --study study.json --out fea/`, e da lì:
+  `cad run --with meshio $K/fea_surface.py fea/result.vtu fea/surface.npz`
+  `blender -b --factory-startup --python $K/fea_to_blend.py -- fea/surface.npz fea/fea.blend <snervamento_MPa> [scala|auto] [first] [last]`
+  Il .blend contiene l'oggetto `FEA`. Fra `first` e `last` il carico entra: il pezzo si deforma e passa dal metallo ai colori. Il rosso corrisponde allo snervamento, quindi rosso vuol dire "qui cede". Aggiungi camera e luci come in ogni scena, o collega l'oggetto (`Append`) nella scena del prodotto. In sovrimpressione, con HyperFrames, metti la scala colori, il carico in N o kg e il coefficiente di sicurezza da `result.json`. La deformazione è esagerata (il fattore lo stampa lo script): dillo in un testo a schermo. Fai approvare i numeri al cliente prima del render.
+- **Tavola tecnica**: con la skill **text-to-cad:engineering-drawing** crea il PDF quotato dal modello, e convertilo in immagine con `sips -s format png`. Usi possibili nel video: la tavola che si dissolve nel pezzo 3D con la camera allineata alla vista frontale, oppure la tavola come piano in scena, con le linee che si accendono. Il PDF si consegna anche in fase 9.
+
 Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla successiva.
 
 ## 3. Montaggio multi-scena
@@ -186,6 +194,16 @@ Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla succ
 - `$K/contact_sheet.sh preview_jpg/final.mp4 preview/montaggio.jpg 1` per un provino.
 - Se cambiano `first`, `last`, `extra` o la risoluzione di uno shot, `render_all.sh` sposta i frame vecchi in `<shot>.old_<data>` e rifà lo shot (i vecchi frame non corrispondono più agli stessi istanti).
 Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei piani: niente due piani uguali di fila, un piano largo almeno ogni 2–3 piani stretti.
+
+### Extra AI con Higgsfield MCP (facoltativo, costa crediti)
+Il render Blender resta la base, e l'AI si usa solo dove migliora qualcosa senza cambiare il prodotto. Prima di ogni generazione controlla i crediti con `balance`, di' quanto costa e chiedi l'ok. Controlla ogni risultato fotogramma per fotogramma: l'AI può cambiare forme, loghi, scritte e numero di pezzi.
+Usi consigliati:
+- **Upscale** (`upscale_video`, `upscale_image`): render a risoluzione più bassa e poi upscale. Si risparmiano ore di GPU, ma va provato su uno shot prima.
+- **Persone e contesto** (`generate_video` / `generate_image` da un frame Blender): un operatore alla macchina, mani che montano un pezzo, il prodotto in uso in un ambiente reale. Blender non le fa bene. Il prodotto deve restare piccolo nell'inquadratura o fuori fuoco.
+- **Intro e chiusure d'atmosfera**: fumo, luce, ambiente, che partono da un frame Blender o finiscono su un frame Blender, così il passaggio è invisibile.
+- **Formati** (`reframe`, `outpaint_image`): da 16:9 a 9:16 o 1:1 senza ri-renderizzare, solo se il prodotto non viene tagliato.
+- **Ambiente**: sfondi, backplate o texture generati (cemento, capannone) da usare in Blender.
+Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: lì servono la geometria vera e i numeri veri, solo Blender. Segna in `progetto.md` quali scene contengono AI.
 
 ## 4. HyperFrames: testo e grafiche
 - Chiedi se il **testo del voice-over** lo dà l'utente o lo scrivi tu. In quel caso scrivilo scena per scena, entro la durata di `timings.json` (circa 2,5 parole al secondo), in `audio/vo.txt` con una riga per scena: `n|testo`. Fallo approvare.
@@ -239,6 +257,8 @@ Più `sottotitoli.srt` dalla fase 5. Limiti utili delle piattaforme:
 | YouTube / sito | 16:9 1920x1080 | `.srt` separato |
 Altri formati dallo stesso progetto: chiedi se servono. Vuol dire reimpostare la camera nei .blend e rifare il render: non basta ritagliare.
 Manda il `light.mp4` con SendUserFile; per file oltre 30 MB indica il percorso.
+
+**Tavola tecnica**: se è stata fatta, consegna anche `delivery/<nome>_tavola.pdf`.
 
 **Extra: pagina interattiva** (solo se chiesta nel brief e se `/machine` è installata). Usa `/machine` per creare `delivery/<nome>.html`: un file unico in three.js, da aprire nel browser o mettere in un iframe, con esploso, sezione, radiografia e numeri calcolati. Passale le misure, la distinta dei pezzi con i materiali e i dati tecnici raccolti in `progetto.md`. Avvisa che `/machine` ricostruisce il pezzo con forme proprie: è una versione semplificata, non carica il modello Blender e ha una resa diversa da Cycles. Per questo non va montata dentro il video. Mostrala con uno screenshot e falla approvare a parte.
 

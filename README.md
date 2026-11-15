@@ -71,6 +71,8 @@ It guides Claude Code, and you, through the whole making of a 3D product video: 
 - **Asks questions at every phase** and stops for your approval before moving on, so fixes come when they are cheap.
 - **Remembers where you are:** every decision goes into `progetto.md`, and a request like "redo the intro" jumps straight to the right phase.
 - **Shows what a camera can't:** cutaways, exploded views, realistic materials and textures, any setting.
+- **Shows the engineering (optional):** a real stress analysis turned into an animation, the part bending under load as it turns from blue to red, and the dimensioned drawing that becomes the 3D model.
+- **AI extras (optional):** with the Higgsfield MCP, upscaled renders, people and real settings grown from a Blender frame, new aspect ratios. Never on the product's geometry, numbers or logos.
 - **Renders on Metal GPU** with a hang watchdog, resumable renders and the option to redo only the frames that changed.
 
 ### The phases
@@ -117,7 +119,8 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS.
 Optional:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): read product pages and pull a palette from a website (otherwise Claude uses the built-in browser).
 - An [ElevenLabs](https://elevenlabs.io) account with credits, for voice, music and effects.
-- [text-to-cad](https://github.com/earthtojake/text-to-cad): converts STEP files to GLB and models mechanical parts in parametric CAD with [build123d](https://github.com/gumyr/build123d). Standard parts (screws, bearings, gears, pipes, flanges) come from [bd_warehouse](https://github.com/gumyr/bd_warehouse) at true ISO sizes, so exploded views and cutaways show real components.
+- [Higgsfield MCP](https://higgsfield.ai): optional AI extras (upscale, people and settings, reframing), each one only after you OK the credits.
+- [text-to-cad](https://github.com/earthtojake/text-to-cad): converts STEP files to GLB, runs stress analyses, draws dimensioned sheets and models mechanical parts in parametric CAD with [build123d](https://github.com/gumyr/build123d). Standard parts (screws, bearings, gears, pipes, flanges) come from [bd_warehouse](https://github.com/gumyr/bd_warehouse) at true ISO sizes, so exploded views and cutaways show real components.
 - [LibreDWG](https://www.gnu.org/software/libredwg/): read AutoCAD DWG drawings directly (2D only). `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): only for the extra interactive 3D page (exploded view, section, working numbers). `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`
 
@@ -169,6 +172,8 @@ Guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchi
 - **Fa domande a ogni fase** e si ferma per un'approvazione prima di andare avanti, così le correzioni arrivano quando costano poco.
 - **Si ricorda dove sei:** tutte le decisioni finiscono in `progetto.md`, e una richiesta come "rifai l'intro" porta direttamente alla fase giusta.
 - **Mostra quello che una telecamera non può:** sezioni, esplosi, materiali e texture realistici, qualsiasi ambiente.
+- **Mostra l'ingegneria (facoltativo):** un calcolo di resistenza vero diventa un'animazione, con il pezzo che si piega sotto carico passando dal blu al rosso, e la tavola quotata diventa il modello 3D.
+- **Extra AI (facoltativo):** con Higgsfield MCP, upscale dei render, persone e ambienti reali partendo da un frame Blender, nuovi formati. Mai sulla geometria del prodotto, sui numeri o sui loghi.
 - **Render su GPU Metal** con controllo anti-blocco, render ripartibili e la possibilità di rifare solo i frame cambiati.
 
 ### Il percorso
@@ -217,7 +222,8 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 Facoltativi:
 - [Firecrawl MCP](https://docs.firecrawl.dev/mcp-server): leggere pagine prodotto e ricavare la palette da un sito (in alternativa Claude usa il browser integrato).
 - Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
-- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB e modella le parti meccaniche in CAD parametrico con [build123d](https://github.com/gumyr/build123d). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse) a misura ISO vera, così esplosi e sezioni mostrano componenti reali.
+- [Higgsfield MCP](https://higgsfield.ai): extra AI facoltativi (upscale, persone e ambienti, cambi di formato), ognuno solo dopo il tuo ok sui crediti.
+- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB, fa calcoli di resistenza e tavole quotate e modella le parti meccaniche in CAD parametrico con [build123d](https://github.com/gumyr/build123d). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse) a misura ISO vera, così esplosi e sezioni mostrano componenti reali.
 - [LibreDWG](https://www.gnu.org/software/libredwg/): leggere direttamente i disegni DWG di AutoCAD (solo 2D). `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): solo se vuoi anche la pagina 3D interattiva extra (esploso, sezione, numeri di funzionamento). `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`
 
