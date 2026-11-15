@@ -110,6 +110,7 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS. Ev
 |---|---|
 | a quick look, a storyboard | the required set |
 | a finished video with text and voice | + HyperFrames, ElevenLabs |
+| leaner, faster code from Claude | + Ponytail |
 | to start from a STEP, a drawing or a sketch | + text-to-cad |
 | to start from an AutoCAD DWG | + LibreDWG |
 | to start from a product web page | + Firecrawl |
@@ -183,6 +184,13 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS. Ev
 
   Then `/mcp` in Claude Code to sign in.
 
+
+- **[Ponytail](https://github.com/DietrichGebert/ponytail)**: makes Claude write the shortest code that works and reuse the skill's scripts first: fewer tokens, fewer bugs, faster previews; `/ponytail-review` checks the project's scripts. *When:* every phase where Claude writes scripts, plus a review before the final render.
+
+  ```bash
+  claude plugin marketplace add DietrichGebert/ponytail
+  claude plugin install ponytail@ponytail
+  ```
 
 **Optional, by use**
 
@@ -312,6 +320,7 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 |---|---|
 | una prova veloce, uno storyboard | le necessarie |
 | un video finito con testi e voce | + HyperFrames, ElevenLabs |
+| codice più snello e veloce da Claude | + Ponytail |
 | partire da uno STEP, un disegno o uno schizzo | + text-to-cad |
 | partire da un DWG di AutoCAD | + LibreDWG |
 | partire dalla pagina web del prodotto | + Firecrawl |
@@ -385,6 +394,13 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 
   Poi `/mcp` in Claude Code per accedere.
 
+
+- **[Ponytail](https://github.com/DietrichGebert/ponytail)**: fa scrivere a Claude il codice più corto che funziona e riusare prima gli script della skill: meno token, meno errori, anteprime più veloci; `/ponytail-review` controlla gli script del progetto. *Quando:* in ogni fase in cui Claude scrive script, più un controllo prima del render finale.
+
+  ```bash
+  claude plugin marketplace add DietrichGebert/ponytail
+  claude plugin install ponytail@ponytail
+  ```
 
 **Facoltative, in base all'uso**
 
