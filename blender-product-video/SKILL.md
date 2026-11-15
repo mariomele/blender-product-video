@@ -11,12 +11,12 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 - **Guida con domande.** All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
-- **Ogni render parte da una domanda sola, con tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Vale per storyboard, anteprime, montaggio e finale. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; vanno bene anche valori liberi, per esempio `1440x2560-50-JPG80/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
+- **Ogni render parte da una domanda sola, con tre scale** (1 = più leggero): risoluzione e qualità da 1 a 4, fps da 1 a 3. Vale per storyboard, anteprime, montaggio e finale. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; vanno bene anche valori liberi, per esempio `1440x2560-50-JPG80/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
 
   ```
   Render <cosa> — rispondi risoluzione-fps-qualità (es. 2-3-1)
   Risoluzione  1) 25%   2) 50%   3) 75%   4) 100% (<WxH del progetto>)
-  Fps          1) 6     2) 12    3) <fps del progetto>    4) 60
+  Fps          1) 6     2) 12    3) 24 (max; o gli fps del progetto se sono 25 o 30)
   Qualità      1) Ultra veloce   2) Veloce   3) Standard   4) Massima
   Proposta: <codice> · circa <tempo>
   ```
@@ -31,7 +31,7 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
   Proposte di partenza: storyboard `1-·-1` (fps fisso a 1 frame al secondo), anteprima di una scena `1-2-1`, anteprima del montaggio `2-3-1`, render finale `4-3-3`.
   Come si applica:
   - `render_all.sh` (montaggio e finale) accetta qualsiasi combinazione: `SPP=<n> JPG_Q=<q> $K/render_all.sh <progetto> edl.txt <res%> <fps> [WxH]`. Se gli fps scelti sono diversi da quelli del .blend, ogni shot viene ricampionato con i subframe e dura gli stessi secondi. Se cambi anche solo una variabile su uno shot già fatto, i vecchi frame vengono spostati in `<shot>.old_<data>` e lo shot si rifà. Al 100% i frame vanno in `final_jpg/`, sotto il 100% in `preview_jpg/`.
-  - `preview.sh` (storyboard e anteprima di una scena): `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> <out> <res%> <spp>` con step = fps del progetto ÷ fps scelti (arrotondato). Per fps più alti di quelli del progetto, o che non dividono quelli del progetto, usa `render_all.sh` con un `edl.txt` di una sola riga.
+  - `preview.sh` (storyboard e anteprima di una scena): `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> <out> <res%> <spp>` con step = fps del progetto ÷ fps scelti (arrotondato). Per fps che non dividono quelli del progetto (valori liberi), usa `render_all.sh` con un `edl.txt` di una sola riga.
   - `fit_vo.py` vuole gli fps del .blend, non quelli scelti per il render.
   - Il tempo dipende quasi tutto da risoluzione, campioni e numero di frame (fps). La qualità JPG cambia il peso dei file e il dettaglio, non il tempo.
 - **Codice minimo con Ponytail** (se il plugin è installato; consigliato): ogni script che scrivi per il progetto (scene, patch, build123d, composizioni HyperFrames) segue `/ponytail`. Usa prima gli script di `$K` e quelli già in `render_scripts/`, poi la patch più corta che funziona; niente astrazioni, opzioni o codice "per dopo". Script brevi vuol dire meno token, meno errori e anteprime più veloci da rifare. Prima del render finale (fase 7) passa `/ponytail-review` sugli script del progetto: un errore trovato lì vale ore di GPU.
