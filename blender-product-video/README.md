@@ -144,7 +144,7 @@ Nella cartella `scripts/`:
 | `fea_surface.py`, `fea_to_blend.py` | Portano in Blender il risultato di un calcolo di resistenza di text-to-cad: superficie del pezzo, deformazione esagerata e colori della tensione, animati mentre entra il carico. |
 | `preview.sh` (+ `preview.py`) | Storyboard a griglia e anteprima animata a 24, 12 o 6 fps. |
 | `render_all.sh` | Renderizza tutte le scene, controlla che non manchino frame, monta il video e scrive `timings.json` con i tempi di ogni scena. Si accorge se cambi la durata di una scena e rifà solo quella. |
-| `render_seg_gpu.py` | Renderizza una scena, eventualmente allungandola per la voce. Con `--redo` rifà solo il tratto modificato. Qualità con `SPP_FINAL` e `JPG_Q` (profili Veloce, Standard, Massima). |
+| `render_seg_gpu.py` | Renderizza una scena, eventualmente allungandola per la voce. Con `--redo` rifà solo il tratto modificato. Qualità con `SPP_FINAL` e `JPG_Q` (profili Ultra veloce, Veloce, Standard, Massima, chiesti a ogni render con risoluzione e fps). |
 | `gpu_setup.py` | Attiva il render su GPU Metal, con le impostazioni migliori per il chip del Mac. |
 | `fit_vo.py` | Allunga ogni scena quanto basta perché ci stia la sua voce fuori campo. |
 | `make_srt.py` | Crea i sottotitoli dal testo della voce e dai tempi delle scene. |
