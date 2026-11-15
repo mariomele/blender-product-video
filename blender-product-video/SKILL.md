@@ -11,12 +11,12 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 - **Guida con domande.** All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
-- **Ogni render parte da una domanda sola, con tre scale** (1 = più leggero): risoluzione e qualità da 1 a 4, fps da 1 a 3. Vale per storyboard, anteprime, montaggio e finale. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; vanno bene anche valori liberi, per esempio `1440x2560-50-JPG80/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
+- **Ogni render parte da una domanda sola, con tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Vale per storyboard, anteprime, montaggio e finale. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; vanno bene anche valori liberi, per esempio `1440x2560-24-JPG80/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
 
   ```
-  Render <cosa> — rispondi risoluzione-fps-qualità (es. 2-3-1)
+  Render <cosa> — rispondi risoluzione-fps-qualità (es. 2-4-1)
   Risoluzione  1) 25%   2) 50%   3) 75%   4) 100% (<WxH del progetto>)
-  Fps          1) 6     2) 12    3) 24 (max; o gli fps del progetto se sono 25 o 30)
+  Fps          1) 3     2) 6     3) 12    4) 24 (massimo)
   Qualità      1) Ultra veloce   2) Veloce   3) Standard   4) Massima
   Proposta: <codice> · circa <tempo>
   ```
@@ -28,10 +28,10 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
   | 3 Standard | web e social | `SPP=40 JPG_Q=95` |
   | 4 Massima | fiere, schermi grandi, color grading o archivio | `SPP=96 JPG_Q=100` (circa 2,5× il tempo) |
 
-  Proposte di partenza: storyboard `1-·-1` (fps fisso a 1 frame al secondo), anteprima di una scena `1-2-1`, anteprima del montaggio `2-3-1`, render finale `4-3-3`.
+  Proposte di partenza: storyboard `1-·-1` (fps fisso a 1 frame al secondo), anteprima di una scena `1-3-1`, anteprima del montaggio `2-4-1`, render finale `4-4-3`.
   Come si applica:
   - `render_all.sh` (montaggio e finale) accetta qualsiasi combinazione: `SPP=<n> JPG_Q=<q> $K/render_all.sh <progetto> edl.txt <res%> <fps> [WxH]`. Se gli fps scelti sono diversi da quelli del .blend, ogni shot viene ricampionato con i subframe e dura gli stessi secondi. Se cambi anche solo una variabile su uno shot già fatto, i vecchi frame vengono spostati in `<shot>.old_<data>` e lo shot si rifà. Al 100% i frame vanno in `final_jpg/`, sotto il 100% in `preview_jpg/`.
-  - `preview.sh` (storyboard e anteprima di una scena): `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> <out> <res%> <spp>` con step = fps del progetto ÷ fps scelti (arrotondato). Per fps che non dividono quelli del progetto (valori liberi), usa `render_all.sh` con un `edl.txt` di una sola riga.
+  - `preview.sh` (storyboard e anteprima di una scena): `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> <out> <res%> <spp>` con step = 24 ÷ fps scelti (3 → 8, 6 → 4, 12 → 2, 24 → 1).
   - `fit_vo.py` vuole gli fps del .blend, non quelli scelti per il render.
   - Il tempo dipende quasi tutto da risoluzione, campioni e numero di frame (fps). La qualità JPG cambia il peso dei file e il dettaglio, non il tempo.
 - **Codice minimo con Ponytail** (se il plugin è installato; consigliato): ogni script che scrivi per il progetto (scene, patch, build123d, composizioni HyperFrames) segue `/ponytail`. Usa prima gli script di `$K` e quelli già in `render_scripts/`, poi la patch più corta che funziona; niente astrazioni, opzioni o codice "per dopo". Script brevi vuol dire meno token, meno errori e anteprime più veloci da rifare. Prima del render finale (fase 7) passa `/ponytail-review` sugli script del progetto: un errore trovato lì vale ore di GPU.
@@ -196,7 +196,7 @@ Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o
 `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <fps_scena> preview/<n>_sb <res%> <spp>` (domanda con risoluzione e qualità, proposta `1-·-1`)
 Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. Guarda tu la griglia e controlla che il piano sia quello della scaletta e che non si ripeta con la scena vicina, poi mandala all'utente come storyboard. Ripeti finché non la approva.
 
-**Anteprima animata.** Fai la domanda delle tre scale (proposta `1-2-1`: 25%, 12 fps, Ultra veloce), poi:
+**Anteprima animata.** Fai la domanda delle tre scale (proposta `1-3-1`: 25%, 12 fps, Ultra veloce), poi:
 `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> preview/<n>_p <res%> <spp>` → `preview.mp4` a velocità reale.
 **Scene facoltative con text-to-cad** (servono il comando `cad` e il pezzo in STEP):
 - **Resistenza (FEA)**: il pezzo che si piega sotto carico mentre si colora dal blu al rosso, dove regge e dove è al limite. Con la skill **text-to-cad:fea**: scegli le facce bloccate e caricate (`cad step solve <pezzo>.step` le elenca), e prendi carico e materiale dal cliente: non si inventano. Poi `cad step solve <pezzo>.step --study study.json --out fea/`, e da lì:
@@ -211,7 +211,7 @@ Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla succ
 - `edl.txt`, una scena per riga: `n file.blend first last [extra] [skip_head]`.
   - `extra`: frame aggiunti tramite subframe per dare respiro alla voce.
   - `skip_head`: primi N frame esclusi dal montaggio, senza cancellarli.
-- Anteprima di tutto (domanda delle tre scale, proposta `2-3-1`): `SPP=12 JPG_Q=65 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
+- Anteprima di tutto (domanda delle tre scale, proposta `2-4-1`): `SPP=12 JPG_Q=65 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
 - `$K/contact_sheet.sh preview_jpg/final.mp4 preview/montaggio.jpg 1` per un provino.
 - Se cambiano `first`, `last`, `extra` o la risoluzione di uno shot, `render_all.sh` sposta i frame vecchi in `<shot>.old_<data>` e rifà lo shot (i vecchi frame non corrispondono più agli stessi istanti).
 Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei piani: niente due piani uguali di fila, un piano largo almeno ogni 2–3 piani stretti.
@@ -262,7 +262,7 @@ Checkpoint: **ok esplicito al render finale**, scritto in `progetto.md`. Senza q
 ## 7. Render finale (GPU Metal)
 - **Chiudi ogni Blender con GUI aperto** (anche quello dell'MCP): se è aperto, Metal in headless si blocca all'avvio (0% CPU). `render_all.sh` lo controlla e si ferma (`GUI_BLENDER_OPEN`, exit 3). Se si blocca durante il render, il watchdog lo interrompe dopo `HANG_MIN` minuti (default 10) senza frame nuovi ed esce con `HANG` (exit 2). Allora diagnostica (cubo con `--factory-startup`, `ps` per altri Blender): non ripiegare in silenzio sulla CPU.
 - Se c'è Ponytail, prima del render passa `/ponytail-review` su `render_scripts/` e sugli script delle scene, e correggi quello che trova.
-- **Domanda delle tre scale** (vedi "Come lavorare"), proposta `4-3-3`, o `4-3-4` per schermi grandi e color grading.
+- **Domanda delle tre scale** (vedi "Come lavorare"), proposta `4-4-3`, o `4-4-4` per schermi grandi e color grading.
 - Prima di partire dai una stima: frame totali × s/frame. Riferimento: M1 Pro, 1080x1920, 40 spp → circa 10 s/frame su Metal, circa 40 s su CPU. Il tempo cresce circa in proporzione agli spp.
 - `$K/render_all.sh <progetto> edl.txt 100 <fps> [WxH]` con Bash `run_in_background`, così arriva la notifica a fine render. Avanzamento: `ls final_jpg/*/f*.jpg | wc -l`. Usa `gpu_setup.py` (Metal on, CPU off, MetalRT off su M1/M2 e automatico su M3+) e `render_seg_gpu.py` (shot `[a,b]` allungato di `extra` frame tramite subframe, JPG con qualità `JPG_Q`, ripartibile).
 - Poi la composizione HyperFrames finale con `final_jpg/final.mp4` come sfondo: `npx hyperframes render --quality delivery -o delivery/video.mp4`. Controlla che la durata (`ffprobe`) coincida con quella della composizione.
