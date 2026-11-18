@@ -84,7 +84,7 @@ It guides Claude Code, and you, through the whole making of a 3D product video: 
 | 1 | **The product** | real-scale model, materials and environment, shown as still views |
 | 2 | **The scenes** | for each one: 1 fps storyboard, then a preview at 24, 12 or 6 fps |
 | 3 | **Edit** | all scenes in one preview, with timings in `timings.json` |
-| 4 | **Graphics and text** | titles, callouts, dimensions and subtitles in [HyperFrames](https://github.com/heygen-com/hyperframes) |
+| 4 | **Graphics and text** | titles, callouts, dimensions and subtitles in [HyperFrames](https://github.com/heygen-com/hyperframes); in 9:16 it follows the Reels, Stories and TikTok safe zones, so the app interface never covers important text |
 | 5 | **Audio** | voice, music and sound effects with [ElevenLabs](https://elevenlabs.io/mcp); scenes fitted to the voice |
 | 6 | **Full review** | the complete draft video, for approval |
 | 7 | **Final render** | Cycles on Metal GPU, with a time estimate and a notification when done |
@@ -292,7 +292,7 @@ Guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchi
 | 1 | **Il pezzo** | modello in scala reale, materiali e ambientazione, mostrati in viste statiche |
 | 2 | **Le scene** | per ognuna: storyboard 1 fps, poi anteprima a 24, 12 o 6 fps |
 | 3 | **Montaggio** | tutte le scene in un'anteprima unica, con i tempi in `timings.json` |
-| 4 | **Grafiche e testo** | titoli, callout, misure e sottotitoli in [HyperFrames](https://github.com/heygen-com/hyperframes) |
+| 4 | **Grafiche e testo** | titoli, callout, misure e sottotitoli in [HyperFrames](https://github.com/heygen-com/hyperframes); nel 9:16 rispetta le zone sicure di Reels, Stories e TikTok, così l'interfaccia delle app non copre mai i testi importanti |
 | 5 | **Audio** | voce, musica ed effetti con [ElevenLabs](https://elevenlabs.io/mcp); scene adattate alla voce |
 | 6 | **Visione d'insieme** | il video completo in bozza, da approvare |
 | 7 | **Render finale** | Cycles su GPU Metal, con stima dei tempi e notifica a fine render |
