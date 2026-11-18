@@ -163,7 +163,7 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS. Ev
   brew install ffmpeg
   ```
 
-- **[Blender skills](https://github.com/arjun988/blender-skills)**: expert know-how on materials, lighting, lookdev, camera, modelling. *When:* phases 1 and 2.
+- **[Blender skills](https://github.com/arjun988/blender-skills)**: **required.** The skill pilots them: at each step it loads the right one (blender-director and hard-surface for modelling, materials and lookdev for shading, lighting, camera-cinematography, animation, rendering). At the start it runs `scripts/check_skills.sh` and stops if any is missing. *When:* phases 1, 2 and 7.
 
   ```bash
   git clone https://github.com/arjun988/blender-skills.git /tmp/blender-skills
@@ -380,7 +380,7 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
   brew install ffmpeg
   ```
 
-- **[Blender skills](https://github.com/arjun988/blender-skills)**: competenze su materiali, luci, lookdev, camera, modellazione. *Quando:* fasi 1 e 2.
+- **[Blender skills](https://github.com/arjun988/blender-skills)**: **obbligatorie.** La skill le pilota: a ogni passo carica quella giusta (blender-director e hard-surface per il modello, materials e lookdev per i materiali, lighting, camera-cinematography, animation, rendering). All'avvio lancia `scripts/check_skills.sh` e si ferma se ne manca una. *Quando:* fasi 1, 2 e 7.
 
   ```bash
   git clone https://github.com/arjun988/blender-skills.git /tmp/blender-skills

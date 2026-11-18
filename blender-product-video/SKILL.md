@@ -73,6 +73,22 @@ Voce: <nome, voice_id> · Musica: … · SFX: …
 | "esporta", "mandamelo", "versione per Instagram" | 9 |
 Se manca `progetto.md` ma il progetto esiste (ci sono .blend ed EDL), ricostruiscilo dai file e chiedi conferma solo dei buchi. Se per la richiesta serve un dato che manca (es. formato prima di un render), chiedi solo quello.
 
+## Skill Blender: obbligatorie, le piloti tu
+Questa skill è il regista: decide fasi, domande, checkpoint e stato. Il mestiere Blender (modellazione, materiali, luce, camera, animazione, render) sta nelle skill di [arjun988/blender-skills](https://github.com/arjun988/blender-skills) (MIT), che sono **obbligatorie**.
+- **All'avvio di ogni sessione** lancia `$K/check_skills.sh`. Se stampa `MISSING`, fermati: mostra all'utente quali mancano e i comandi di installazione che stampa, e installale solo dopo il suo ok. Senza quelle skill non si va oltre il brief.
+- **Prima di iniziare ogni passo della tabella, caricala con lo strumento Skill** (non basta averla nominata): una volta per sessione, poi tienine le regole. Le sue regole valgono dentro i limiti di questa skill: domande, checkpoint, `progetto.md`, scala reale, regole di render e consegna restano quelli scritti qui. Se una sua regola va contro questa skill, vince questa; se va contro una richiesta dell'utente, vince l'utente.
+- Non seguire il routing di **blender-director** verso stili da videogioco, LOD, export per motori o retopologia: qui si fa un video, con materiali e misure veri.
+
+| Passo | Carica |
+|---|---|
+| 1a modello da foto, link o disegno | **blender-director**, poi **hard-surface** e **prop-artist** |
+| 1a modello da CAD (import o pulizia) | **hard-surface** |
+| 1b materiali e texture | **materials**, **texture-workflow**, **lookdev** |
+| 1c ambientazione e luce | **lighting**, **lookdev** |
+| 2 scaletta, piani e camera | **camera-cinematography** |
+| 2 animazione, esploso, cavi, scatter | **animation**, **geometry-nodes**, **procedural-modeling** |
+| 2 anteprime, 7 render finale | **rendering** |
+
 ## 0. Brief
 Chiedi, se non lo sai già:
 - **Sorgenti**: foto, link, CAD o disegno. Cosa deve essere fedele (misure, colori, loghi) e cosa può essere approssimato.

@@ -140,6 +140,7 @@ Nella cartella `scripts/`:
 
 | Script | A cosa serve |
 |---|---|
+| `check_skills.sh` | Controlla che ci siano le skill Blender obbligatorie (arjun988/blender-skills) e, se mancano, stampa i comandi per installarle. |
 | `import_model.py` | Importa in scala reale qualsiasi file accettato (STEP, 3MF, GLB, FBX, OBJ, STL, PLY, USD, ABC, .blend, DWG, SVG, PDF vettoriale) e stampa le dimensioni, per controllare subito la scala. |
 | `fea_surface.py`, `fea_to_blend.py` | Portano in Blender il risultato di un calcolo di resistenza di text-to-cad: superficie del pezzo, deformazione esagerata e colori della tensione, animati mentre entra il carico. |
 | `preview.sh` (+ `preview.py`) | Storyboard a griglia e anteprima animata a 24, 12 o 6 fps. |
