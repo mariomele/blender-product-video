@@ -20,301 +20,670 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mariomele.github.io/blender-product-video/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="preload" as="image" href="assets/examples/cad_view.jpg">
 <style>
-:root{--bg:#0B0C0E;--panel:#14161A;--line:#2A2D33;--text:#F4F1EA;--muted:#A9A59C;--accent:#F5A400}
+/* Dark-only on purpose: the page is a showcase of renders shot on black. */
+:root{
+  --bg:#0B0C0E;--bg2:#101216;--panel:#15171C;--panel2:#1B1E24;--line:#262A31;--line2:#343943;
+  --text:#F2EFE8;--soft:#C9C5BC;--muted:#9A968D;--accent:#F5A400;--accentInk:#141006;
+  --r:16px;--rs:10px;--mono:"Geist Mono",ui-monospace,Menlo,monospace;
+}
 *{box-sizing:border-box}
-html[data-lang=en] body [lang=it],html[data-lang=it] body [lang=en]{display:none}
-body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 -apple-system,"Helvetica Neue",Arial,sans-serif}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+html[data-lang=en] body [lang=it],html[data-lang=it] body [lang=en]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 "Geist",-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
 a{color:var(--accent)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-header{padding:28px 0;display:flex;align-items:center;gap:14px}
-header img{width:40px;height:40px}
-header b{font-size:18px}
-header nav{margin-left:auto;display:flex;gap:20px;font-size:15px;align-items:center}
-header nav a{color:var(--muted);text-decoration:none}
-.langs{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-left:8px}
-.langs button{background:none;border:0;color:var(--muted);font:600 13px/1 inherit;padding:7px 10px;cursor:pointer}
-.langs button[aria-pressed=true]{background:var(--accent);color:#111}
-.hero{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center;padding:40px 0 64px}
-h1{font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-1.5px;margin:0 0 20px}
-h1 em{font-style:normal;color:var(--accent)}
-.lead{font-size:20px;color:#C9C5BC;margin:0 0 28px}
-.btn{display:inline-block;background:var(--accent);color:#111;font-weight:700;padding:12px 20px;border-radius:10px;text-decoration:none;margin-right:10px}
-.btn.ghost{background:none;color:var(--text);border:1.5px solid var(--line)}
-.hero img{width:100%;border-radius:16px;display:block}
-h2{font-size:30px;letter-spacing:-.5px;margin:0 0 8px}
-section{padding:56px 0;border-top:1px solid var(--line)}
-section>p{color:var(--muted);max-width:720px;margin:0 0 28px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-figure{margin:0}
-figure img{width:100%;border-radius:12px;display:block}
-figcaption{font-size:14px;color:var(--muted);margin-top:8px}
-.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;padding:0;list-style:none;margin:0}
-.steps li{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-.steps b{display:block;margin-bottom:4px}
-.steps small{color:var(--muted);font-size:14px;line-height:1.45;display:block}
-.steps i{font-style:normal;color:var(--accent);font-weight:700;margin-right:6px}
-pre{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font-size:14px}
-table{width:100%;border-collapse:collapse;font-size:15px}
-td,th{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--muted);font-weight:600}
-code{font-size:13px;background:var(--panel);padding:1px 5px;border-radius:5px}
-.tablewrap{overflow-x:auto}
-.note{font-size:15px;color:var(--muted)}
-h3{font-size:19px;margin:36px 0 14px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-.cards div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-.cards b{display:block;margin-bottom:4px}
-.cards small{color:var(--muted);font-size:14px;line-height:1.45;display:block}
-.deps{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.dep{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px;min-width:0}
-.dep header{display:flex;align-items:center;gap:10px;padding:0;margin-bottom:4px}
-.dep header a{color:var(--text);text-decoration:none;font-size:17px}
-.dep p{margin:0;font-size:15px;color:#C9C5BC}
-.dep p>b:first-child{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
-.dep pre{margin:8px 0 0}
-.tag{margin-left:auto;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap}
-.tag.core{background:var(--accent);color:#111}.tag.video{border:1px solid var(--accent);color:var(--accent)}.tag.opt{border:1px solid var(--line);color:var(--muted)}
-pre.cmd{position:relative;padding-right:64px;white-space:pre-wrap;word-break:break-all}
-pre.cmd code{background:none;padding:0;font-size:13px}
-.copy{position:absolute;top:8px;right:8px;background:var(--line);color:var(--text);border:0;border-radius:6px;font:600 12px/1 inherit;padding:6px 8px;cursor:pointer}
-.copy.ok{background:var(--accent);color:#111}
-.needs td:last-child{white-space:nowrap;color:var(--accent);font-weight:600}
-footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
-@media (max-width:760px){.hero,.grid2,.grid3{grid-template-columns:1fr}header nav{display:none}.langs{margin-left:auto}}
+code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:1px 6px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+h1,h2,h3{letter-spacing:-.02em;margin:0}
+h2{font-size:clamp(30px,4vw,46px);line-height:1.08;font-weight:700;max-width:22ch}
+h3{font-size:19px;font-weight:600}
+.sub{color:var(--muted);max-width:62ch;margin:14px 0 0;font-size:18px}
+section{padding:112px 0 0}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--accent);text-transform:uppercase}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgb(11 12 14 / .78);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgb(255 255 255 / .06)}
+.nav .wrap{display:flex;align-items:center;gap:14px;height:66px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap}
+.brand img{width:30px;height:30px}
+.nav nav{margin-left:auto;display:flex;gap:22px;font-size:14.5px}
+.nav nav a{color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav nav a:hover{color:var(--text)}
+.langs{display:flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin-left:6px}
+.langs button{background:none;border:0;color:var(--muted);font:600 12.5px/1 "Geist",sans-serif;padding:8px 12px;cursor:pointer}
+.langs button[aria-pressed=true]{background:var(--accent);color:var(--accentInk)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accentInk);font-weight:650;padding:13px 22px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s}
+.btn:hover{background:#FFB61F}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line2)}
+.btn.ghost:hover{border-color:var(--muted);background:rgb(255 255 255 / .03)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center;padding:72px 0 40px;min-height:calc(100dvh - 66px)}
+.hero h1{font-size:clamp(40px,4.4vw,58px);line-height:1.02;font-weight:800;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:19px;color:var(--soft);margin:22px 0 32px;max-width:40ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.viewer{position:relative}
+.screen{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 40px 120px -40px rgb(245 164 0 / .28),0 0 0 1px rgb(255 255 255 / .03) inset}
+.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .9s ease,transform 4s ease}
+.screen img.on{opacity:1;transform:scale(1)}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;padding:0;list-style:none}
+.stages button{width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--muted);font:500 13.5px/1.3 "Geist",sans-serif;cursor:pointer;position:relative;overflow:hidden;transition:border-color .3s,color .3s}
+.stages button b{display:block;font-family:var(--mono);font-weight:500;font-size:11.5px;color:var(--muted);margin-bottom:2px}
+.stages button[aria-current=true]{color:var(--text);border-color:var(--line2)}
+.stages button[aria-current=true] b{color:var(--accent)}
+.stages button::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
+.stages button[aria-current=true]::after{animation:fill var(--dur,3.6s) linear forwards}
+.paused .stages button::after{animation:none;transform:scaleX(1)}
+@keyframes fill{to{transform:scaleX(1)}}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:24px}
+.facts div{padding:28px 24px;border-left:1px solid var(--line)}
+.facts div:first-child{border-left:0;padding-left:0}
+.facts b{display:block;font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.facts span{color:var(--muted);font-size:15px;display:block;margin-top:8px}
+
+/* sources */
+.sources{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+.src{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:10px}
+.src i.ph-icon{font-size:28px;color:var(--accent)}
+.src p{margin:0;color:var(--soft);font-size:15px;line-height:1.5}
+.src .need{margin-top:auto;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.src .need b{color:var(--text);font-weight:500}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(180px,auto);gap:14px;margin-top:44px}
+.tile{position:relative;border-radius:var(--r);overflow:hidden;background:var(--panel);border:1px solid var(--line);min-height:240px}
+.tile>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.tile:hover>img{transform:scale(1.035)}
+.tile .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 20px;background:linear-gradient(to top,rgb(11 12 14 / .92) 20%,rgb(11 12 14 / 0))}
+.tile .cap p{margin:4px 0 0;color:var(--soft);font-size:15px;line-height:1.45;max-width:46ch}
+.t-cut{grid-column:span 4;grid-row:span 2}
+.t-exp{grid-column:span 2;grid-row:span 1}
+.t-mat{grid-column:span 2;grid-row:span 1}
+.t-env{grid-column:span 3;background:var(--bg2);padding:22px;display:flex;flex-direction:column;gap:14px}
+.t-env .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:auto}
+.t-env .thumbs figure{margin:0}
+.t-env .thumbs img{border-radius:8px;aspect-ratio:16/10;object-fit:cover;width:100%}
+.t-env figcaption{font-size:12.5px;color:var(--muted);margin-top:6px}
+.t-env p,.t-sb p{margin:0;color:var(--soft);font-size:15px}
+.t-sb{grid-column:span 3;background:linear-gradient(160deg,#1a1608 0%,var(--panel) 55%);padding:22px;display:flex;flex-direction:column;gap:14px}
+.t-sb .strip{margin-top:auto;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.t-sb .strip img{width:200%;max-width:none;animation:pan 26s linear infinite alternate}
+@keyframes pan{to{transform:translateX(-50%)}}
+
+/* camera moves: scroll-snap rail */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 18px;margin-top:44px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.move{scroll-snap-align:start;border-top:2px solid var(--accent);background:var(--panel);border-radius:0 0 var(--r) var(--r);padding:22px 22px 26px}
+.move i{font-size:26px;color:var(--accent)}
+.move h3{margin:12px 0 6px}
+.move p{margin:0;color:var(--soft);font-size:15px;line-height:1.5}
+
+/* engineering */
+.eng{margin-top:44px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#F4F4F2}
+.eng img{width:100%}
+.eng-cap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px;margin-top:22px}
+.eng-cap p{margin:6px 0 0;color:var(--soft);font-size:15px}
+.eng-cap .num{font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+/* AI layer */
+.ai{margin-top:44px;display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px dashed var(--line2);border-radius:20px;overflow:hidden}
+.ai div{padding:26px;border-top:1px dashed var(--line2);border-left:1px dashed var(--line2)}
+.ai div:nth-child(-n+2){border-top:0}
+.ai div:nth-child(odd){border-left:0}
+.ai i{font-size:24px;color:var(--accent)}
+.ai h3{margin:10px 0 4px}
+.ai p{margin:0;color:var(--soft);font-size:15px}
+.rule{display:flex;gap:12px;align-items:flex-start;margin-top:16px;color:var(--soft);font-size:15px}
+.rule i{color:#ff6b57;font-size:20px;margin-top:1px}
+
+/* workflow map */
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;font-size:14px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.k{display:inline-block;width:26px;height:0;border-top:3px solid var(--accent)}
+.k.opt{border-top:2px dashed var(--soft)}
+.k.alt{border-top:2px dotted #6FA8FF}
+.k.ok{width:auto;height:auto;border:0;font-family:var(--mono);font-size:11px;color:var(--accentInk);background:var(--accent);padding:2px 6px;border-radius:5px}
+.fast{margin-top:36px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;border:1px dotted #6FA8FF;border-radius:var(--r);padding:18px 22px;background:rgb(111 168 255 / .05)}
+.fast i{font-size:26px;color:#6FA8FF}
+.fast p{margin:2px 0 0;color:var(--soft);font-size:15px}
+.fast .tool{font-family:var(--mono);font-size:12.5px;color:#9cc2ff;border:1px solid rgb(111 168 255 / .4);border-radius:999px;padding:5px 12px;white-space:nowrap}
+.acts{margin-top:28px;display:grid;gap:28px}
+.act{display:grid;grid-template-columns:200px 1fr;gap:28px}
+.act>header h3{font-size:22px}
+.act>header p{margin:6px 0 0;color:var(--muted);font-size:14.5px}
+.line{position:relative;list-style:none;margin:0;padding:0}
+.line::before{content:"";position:absolute;left:21px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:3px}
+.phase{position:relative;display:grid;grid-template-columns:46px minmax(0,1fr) minmax(0,1fr);gap:18px;padding:12px 0}
+.dot{position:relative;z-index:1;width:46px;height:46px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:16px}
+.phase h4{margin:2px 0 4px;font-size:18px;font-weight:600;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.phase h4 .k.ok{font-weight:600}
+.phase p{margin:0;color:var(--soft);font-size:15px;line-height:1.5}
+.branches{display:flex;flex-direction:column;gap:8px;padding-top:2px}
+.br{position:relative;display:flex;gap:10px;align-items:flex-start;border:1px dashed var(--line2);border-radius:12px;padding:10px 12px;font-size:14px;color:var(--soft);line-height:1.4;background:var(--bg2)}
+.br i{color:var(--muted);font-size:18px;margin-top:1px}
+.br b{color:var(--text);font-weight:600}
+.br .t{display:block;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:2px}
+.br.always{border-style:solid;border-color:rgb(245 164 0 / .45)}
+.br.always i{color:var(--accent)}
+.enter{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.enter div{background:var(--panel);border-radius:12px;padding:16px;border:1px solid var(--line)}
+.enter q{display:block;color:var(--text);font-size:15px;quotes:"\201C" "\201D"}
+.enter span{display:block;margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+
+/* render configurator */
+.cfg{margin-top:44px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px}
+.scales{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px;display:grid;gap:22px}
+.scale>div:first-child{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.scale label{font-weight:600}
+.scale small{color:var(--muted);font-size:13px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg.five{grid-template-columns:repeat(5,1fr)}
+.seg button{background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--soft);padding:10px 6px;font:500 13.5px/1.25 "Geist",sans-serif;cursor:pointer;transition:border-color .2s,background .2s}
+.seg button b{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:500}
+.seg button[aria-pressed=true]{border-color:var(--accent);background:rgb(245 164 0 / .1);color:var(--text)}
+.seg button[aria-pressed=true] b{color:var(--accent)}
+.seg button:active{transform:scale(.98)}
+.out{border-radius:20px;padding:26px;background:radial-gradient(120% 90% at 100% 0%,rgb(245 164 0 / .16),transparent 60%),var(--bg2);border:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+.code{font-family:var(--mono);font-size:56px;font-weight:600;letter-spacing:-.02em;color:var(--accent);line-height:1}
+.out dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0;font-size:15px}
+.out dt{color:var(--muted)}
+.out dd{margin:0;font-family:var(--mono);font-size:14px}
+.big{font-size:28px;font-weight:700;letter-spacing:-.02em}
+.out .note{color:var(--muted);font-size:13px;margin:auto 0 0}
+
+/* install */
+.goals{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.goals button{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line2);color:var(--soft);border-radius:999px;padding:9px 16px;font:500 14px/1 "Geist",sans-serif;cursor:pointer;transition:all .2s}
+.goals button i{font-size:16px}
+.goals button[aria-pressed=true]{background:var(--accent);color:var(--accentInk);border-color:var(--accent)}
+.goals .reset{background:none;border-style:dashed;color:var(--muted)}
+.goalnote{color:var(--muted);font-size:14px;margin:12px 0 0;min-height:1.4em}
+.step1{margin-top:36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px}
+.step1 p{margin:6px 0 0;color:var(--soft);font-size:15px}
+.group{margin-top:44px}
+.group>header{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+.group>header p{margin:0;color:var(--muted);font-size:14.5px}
+.deps{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.dep{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0;transition:opacity .3s,border-color .3s,transform .3s}
+.dep>header{display:flex;align-items:center;gap:10px}
+.dep>header a{color:var(--text);text-decoration:none;font-size:17px}
+.dep>header a:hover{color:var(--accent)}
+.dep p{margin:0;font-size:15px;color:var(--soft)}
+.dep p>b:first-child{display:block;color:var(--muted);font-family:var(--mono);font-size:11.5px;font-weight:500;margin-bottom:1px}
+.tag{margin-left:auto;font-size:11.5px;font-weight:600;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.tag.core{background:var(--accent);color:var(--accentInk)}
+.tag.video{border:1px solid var(--accent);color:var(--accent)}
+.tag.opt{border:1px dashed var(--line2);color:var(--muted)}
+.filtering .dep{opacity:.28}
+.filtering .dep.hit{opacity:1;border-color:var(--accent);transform:translateY(-2px)}
+pre{margin:8px 0 0;background:#0E1013;border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px}
+pre.cmd{position:relative;padding-right:70px;white-space:pre-wrap;word-break:break-all}
+pre.cmd code{background:none;padding:0;font-size:12.5px;line-height:1.6}
+.copy{position:absolute;top:8px;right:8px;background:var(--panel2);color:var(--text);border:1px solid var(--line2);border-radius:8px;font:600 12px/1 "Geist",sans-serif;padding:7px 9px;cursor:pointer}
+.copy.ok{background:var(--accent);color:var(--accentInk);border-color:var(--accent)}
+.dep .note,.mini{font-size:13.5px;color:var(--muted);margin:6px 0 0}
+
+footer{margin-top:120px;border-top:1px solid var(--line);padding:36px 0 48px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--soft)}
+
+/* motion: only when the user allows it */
+@media (prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+  .rv.in{opacity:1;transform:none}
+  .phase.rv{transition-delay:calc(var(--i,0) * 60ms)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .screen img{transition:none}
+  .t-sb .strip img{animation:none;width:100%}
+  .stages button::after{animation:none!important}
+}
+
+/* responsive */
+@media (max-width:1080px){
+  .nav nav{display:none}
+  .langs{margin-left:auto}
+  .hero{grid-template-columns:1fr;gap:36px;min-height:0;padding-top:48px}
+  .act{grid-template-columns:1fr;gap:12px}
+}
+@media (max-width:860px){
+  section{padding-top:84px}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .facts div:nth-child(3){border-left:0;padding-left:0}
+  .facts div:nth-child(n+3){border-top:1px solid var(--line)}
+  .sources{grid-template-columns:repeat(2,1fr)}
+  .bento{grid-template-columns:1fr}
+  .t-cut,.t-exp,.t-mat,.t-env,.t-sb{grid-column:auto;grid-row:auto}
+  .t-cut{min-height:340px}
+  .eng-cap{grid-template-columns:1fr;gap:16px}
+  .ai{grid-template-columns:1fr}
+  .ai div{border-left:0!important;border-top:1px dashed var(--line2)!important}
+  .ai div:first-child{border-top:0!important}
+  .phase{grid-template-columns:46px minmax(0,1fr)}
+  .branches{grid-column:2}
+  .enter{grid-template-columns:repeat(2,1fr)}
+  .cfg{grid-template-columns:1fr}
+  .step1{grid-template-columns:1fr}
+  .fast{grid-template-columns:auto 1fr}
+  .fast .tool{grid-column:2;justify-self:start}
+  .deps{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .wrap{padding:0 16px}
+  .stages{grid-template-columns:repeat(2,1fr)}
+  .sources,.enter{grid-template-columns:1fr}
+  .facts b{font-size:32px}
+  .code{font-size:44px}
+  .seg.five{grid-template-columns:repeat(3,1fr)}
+  .brand span{display:none}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header><img src="assets/logo.svg" alt=""><b>Blender Product Video</b>
+
+<div class="nav"><div class="wrap">
+<a class="brand" href="#top"><img src="assets/logo.svg" alt=""><span>Blender Product Video</span></a>
 <nav>
-<a href="#come"><span lang="en">How it works</span><span lang="it">Come funziona</span></a>
-<a href="#impossibile"><span lang="en">Examples</span><span lang="it">Esempi</span></a>
-<a href="#ingegneria"><span lang="en">Engineering</span><span lang="it">Ingegneria</span></a>
+<a href="#impossibile"><span lang="en">What it makes</span><span lang="it">Cosa crea</span></a>
 <a href="#percorso"><span lang="en">Workflow</span><span lang="it">Percorso</span></a>
+<a href="#render"><span lang="en">Render</span><span lang="it">Render</span></a>
 <a href="#installazione"><span lang="en">Install</span><span lang="it">Installazione</span></a>
 <a href="https://github.com/mariomele/blender-product-video">GitHub</a>
 </nav>
 <div class="langs" role="group" aria-label="Language / Lingua"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="it" aria-pressed="false">IT</button></div>
-</header>
+</div></div>
+
+<main id="top" class="wrap">
 
 <div class="hero">
 <div>
 <h1 lang="en">Turn your machine into an <em>explainer video</em>.</h1>
 <h1 lang="it">Trasforma la tua macchina in un <em>video explainer</em>.</h1>
-<p class="lead" lang="en">Got a machine or a mechanical part? Give Claude Code photos, a STEP or CAD file, a DWG or a drawing, and get an explainer video made with the power of Blender, in a few simple steps. It is all vibe coding: you chat, Claude drives Blender. No Blender or CAD skills needed.</p>
-<p class="lead" lang="it">Hai una macchina o un pezzo meccanico? Dai a Claude Code foto, uno STEP o un file CAD, un DWG o un disegno, e ottieni un video explainer fatto con la potenza di Blender, in pochi passi semplici. Tutto in vibe coding: tu parli, Claude guida Blender. Senza conoscere Blender o il CAD.</p>
-<a class="btn" href="#installazione"><span lang="en">Install</span><span lang="it">Installa</span></a><a class="btn ghost" href="https://github.com/mariomele/blender-product-video"><span lang="en">View on GitHub</span><span lang="it">Vedi su GitHub</span></a>
-<p class="note" style="margin-top:22px"><span lang="en">Created by <b>Mario Mele</b>.</span><span lang="it">Ideata da <b>Mario Mele</b>.</span></p>
+<p class="lead" lang="en">Photos, a STEP, a DWG or a drawing in. A Blender film out. You chat, Claude Code drives Blender.</p>
+<p class="lead" lang="it">Foto, uno STEP, un DWG o un disegno. Esce un film fatto in Blender. Tu parli, Claude Code guida Blender.</p>
+<div class="cta"><a class="btn" href="#installazione"><i class="ph ph-download-simple"></i><span lang="en">Install</span><span lang="it">Installa</span></a><a class="btn ghost" href="https://github.com/mariomele/blender-product-video"><i class="ph ph-github-logo"></i><span lang="en">View on GitHub</span><span lang="it">Vedi su GitHub</span></a></div>
 </div>
-<img src="assets/examples/sezione.jpg" alt="Cutaway render of a centrifugal pump with motor: red section faces show the rotor, shaft and impeller">
+<div class="viewer" id="viewer">
+<div class="screen">
+<img class="on" src="assets/examples/cad_view.jpg" alt="The pump as plain CAD geometry">
+<img src="assets/examples/esploso.jpg" alt="Exploded view of the pump with real materials">
+<img src="assets/examples/sezione.jpg" alt="Cutaway of the pump: red section faces show the rotor, shaft and impeller">
+<img src="assets/examples/dettaglio_materiali.jpg" alt="Close-up of the painted casing and zinc-plated bolts">
+</div>
+<ol class="stages">
+<li><button type="button" aria-current="true"><b>CAD</b><span lang="en">Your file</span><span lang="it">Il tuo file</span></button></li>
+<li><button type="button"><b>01</b><span lang="en">Exploded</span><span lang="it">Esploso</span></button></li>
+<li><button type="button"><b>02</b><span lang="en">Cutaway</span><span lang="it">Sezione</span></button></li>
+<li><button type="button"><b>03</b><span lang="en">Real materials</span><span lang="it">Materiali veri</span></button></li>
+</ol>
+</div>
+</div>
+
+<div class="facts rv">
+<div><b>4</b><span lang="en">ways in: STEP, DWG, photos, a link</span><span lang="it">punti di partenza: STEP, DWG, foto, un link</span></div>
+<div><b>10</b><span lang="en">phases, each closed by your ok</span><span lang="it">fasi, ognuna chiusa dal tuo ok</span></div>
+<div><b>24 fps</b><span lang="en">Cycles render on the Metal GPU</span><span lang="it">render Cycles su GPU Metal</span></div>
+<div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5</span></div>
 </div>
 
 <section id="come">
-<h2><span lang="en">From your part to a video, in three steps</span><span lang="it">Dal tuo pezzo al video, in tre passi</span></h2>
-<p lang="en">You bring what you have. Claude asks the right questions, builds the 3D model, sets up the scenes and shows you a storyboard before anything long is rendered.</p>
-<p lang="it">Porti quello che hai. Claude fa le domande giuste, costruisce il modello 3D, imposta le scene e ti mostra uno storyboard prima di qualsiasi render lungo.</p>
-<figure lang="en"><img src="assets/examples/how_it_works_en.jpg" alt="Three steps: CAD view of the part, storyboard frames, explainer frame with labelled parts" loading="lazy"></figure>
-<figure lang="it"><img src="assets/examples/how_it_works_it.jpg" alt="Tre passi: vista CAD del pezzo, frame dello storyboard, frame explainer con le parti etichettate" loading="lazy"></figure>
-<h3><span lang="en">Start from what you have</span><span lang="it">Parti da quello che hai</span></h3>
-<div class="cards"><div><b><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></b><small><span lang="en">Opened directly, real scale, parts kept separate for exploded views.</span><span lang="it">Aperti direttamente, in scala reale, con le parti separate per gli esplosi.</span></small></div><div><b><span lang="en">DWG, SVG, drawings</span><span lang="it">DWG, SVG, disegni</span></b><small><span lang="en">2D profiles read at real scale; dimensioned drawings rebuilt in parametric CAD.</span><span lang="it">Profili 2D letti in scala reale; disegni quotati ricostruiti in CAD parametrico.</span></small></div><div><b><span lang="en">Photos</span><span lang="it">Foto</span></b><small><span lang="en">Modelled from your shots plus one real measurement. The slowest route, and Claude says so.</span><span lang="it">Modellato dalle tue foto più una misura reale. La strada più lenta, e Claude te lo dice.</span></small></div><div><b><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></b><small><span lang="en">Photos, data sheets and brand colours read from the link.</span><span lang="it">Foto, schede tecniche e colori del brand letti dal link.</span></small></div></div>
+<h2 class="rv"><span lang="en">Start from whatever you have.</span><span lang="it">Parti da quello che hai.</span></h2>
+<p class="sub rv"><span lang="en">Claude asks the right questions, builds the 3D model at real scale and shows a storyboard before anything long is rendered.</span><span lang="it">Claude fa le domande giuste, costruisce il modello 3D in scala reale e mostra uno storyboard prima di ogni render lungo.</span></p>
+<div class="sources">
+<div class="src rv"><i class="ph ph-cube ph-icon"></i><h3><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></h3><p lang="en">Opened directly, real scale, parts kept separate for exploded views.</p><p lang="it">Aperti direttamente, in scala reale, con le parti separate per gli esplosi.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>text-to-cad</b></span></div>
+<div class="src rv"><i class="ph ph-ruler ph-icon"></i><h3><span lang="en">DWG and drawings</span><span lang="it">DWG e disegni</span></h3><p lang="en">2D profiles read at real scale; dimensioned drawings rebuilt in parametric CAD.</p><p lang="it">Profili 2D letti in scala reale; disegni quotati ricostruiti in CAD parametrico.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>LibreDWG</b></span></div>
+<div class="src rv"><i class="ph ph-camera ph-icon"></i><h3><span lang="en">Photos</span><span lang="it">Foto</span></h3><p lang="en">Modelled from your shots plus one real measurement. The slowest route, and Claude says so.</p><p lang="it">Modellato dalle tue foto più una misura reale. La strada più lenta, e Claude te lo dice.</p><span class="need"><span lang="en">nothing extra</span><span lang="it">niente in più</span></span></div>
+<div class="src rv"><i class="ph ph-link ph-icon"></i><h3><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></h3><p lang="en">Photos, data sheets and brand colours read straight from the link.</p><p lang="it">Foto, schede tecniche e colori del brand letti direttamente dal link.</p><span class="need"><span lang="en">best with</span><span lang="it">meglio con</span> <b>Firecrawl</b></span></div>
+</div>
 </section>
 
 <section id="impossibile">
-<h2><span lang="en">What a real camera can't show</span><span lang="it">Quello che una ripresa vera non può mostrare</span></h2>
-<p lang="en">Open the machine up, take it apart in mid-air, swap its finish in a click. Shots that would be impossible, or very expensive, with real footage.</p>
-<p lang="it">Apri la macchina, smontala a mezz'aria, cambia finitura con un clic. Inquadrature impossibili, o molto costose, con riprese reali.</p>
-<div class="grid3">
-<figure><img src="assets/examples/sezione.jpg" alt="Cutaway view" loading="lazy"><figcaption><b><span lang="en">Cutaways</span><span lang="it">Sezioni</span></b><br><span lang="en">See inside: rotor, shaft, impeller, section faces in colour.</span><span lang="it">Vedi dentro: rotore, albero, girante, facce di sezione colorate.</span></figcaption></figure>
-<figure><img src="assets/examples/esploso.jpg" alt="Exploded view" loading="lazy"><figcaption><b><span lang="en">Exploded views</span><span lang="it">Esplosi</span></b><br><span lang="en">Parts slide apart and back together, in order.</span><span lang="it">I pezzi si separano e si rimontano, in ordine.</span></figcaption></figure>
-<figure><img src="assets/examples/dettaglio_materiali.jpg" alt="Material detail" loading="lazy"><figcaption><b><span lang="en">Realistic materials and textures</span><span lang="it">Materiali e texture realistici</span></b><br><span lang="en">Paint in the real RAL colour, brushed steel, rubber, zinc-plated bolts.</span><span lang="it">Vernice nel colore RAL reale, acciaio spazzolato, gomma, bulloni zincati.</span></figcaption></figure>
+<h2 class="rv"><span lang="en">Shots a real camera can't take.</span><span lang="it">Riprese che una camera vera non può fare.</span></h2>
+<p class="sub rv"><span lang="en">Open the machine up, take it apart in mid-air, swap its finish in a click. Every image here is made with the skill's own scripts.</span><span lang="it">Apri la macchina, smontala a mezz'aria, cambia finitura con un clic. Ogni immagine qui è fatta con gli script della skill.</span></p>
+<div class="bento">
+<figure class="tile t-cut rv"><img src="assets/examples/sezione.jpg" alt="Cutaway view of the pump" loading="lazy"><figcaption class="cap"><h3><span lang="en">Cutaways</span><span lang="it">Sezioni</span></h3><p lang="en">See inside: rotor, shaft and impeller, with the section faces in colour.</p><p lang="it">Vedi dentro: rotore, albero e girante, con le facce di sezione colorate.</p></figcaption></figure>
+<figure class="tile t-exp rv"><img src="assets/examples/esploso.jpg" alt="Exploded view" loading="lazy"><figcaption class="cap"><h3><span lang="en">Exploded views</span><span lang="it">Esplosi</span></h3><p lang="en">Parts slide apart and back, in order.</p><p lang="it">I pezzi si separano e si rimontano, in ordine.</p></figcaption></figure>
+<figure class="tile t-mat rv"><img src="assets/examples/dettaglio_materiali.jpg" alt="Material close-up" loading="lazy"><figcaption class="cap"><h3><span lang="en">Real materials</span><span lang="it">Materiali veri</span></h3><p lang="en">RAL paint, brushed steel, rubber, zinc-plated bolts.</p><p lang="it">Vernice RAL, acciaio spazzolato, gomma, bulloni zincati.</p></figcaption></figure>
+<div class="tile t-env rv" id="esempi"><h3><span lang="en">Any setting, realistic light</span><span lang="it">Qualsiasi ambiente, luce realistica</span></h3><p lang="en">Chosen in the brief, even from a reference photo.</p><p lang="it">Si sceglie nel brief, anche da una foto di riferimento.</p>
+<div class="thumbs"><figure><img src="assets/examples/ambiente_nero.jpg" alt="Black studio" loading="lazy"><figcaption><span lang="en">Black studio</span><span lang="it">Studio nero</span></figcaption></figure><figure><img src="assets/examples/ambiente_limbo.jpg" alt="Light limbo" loading="lazy"><figcaption>Limbo</figcaption></figure><figure><img src="assets/examples/ambiente_capannone.jpg" alt="Industrial warehouse" loading="lazy"><figcaption><span lang="en">Warehouse</span><span lang="it">Capannone</span></figcaption></figure></div></div>
+<div class="tile t-sb rv"><h3><span lang="en">A storyboard in seconds</span><span lang="it">Storyboard in pochi secondi</span></h3><p lang="en">One frame per second of the scene, before every animated preview.</p><p lang="it">Un frame per ogni secondo della scena, prima di ogni anteprima animata.</p><div class="strip"><img src="assets/examples/storyboard.jpg" alt="Storyboard strip of a scene" loading="lazy"></div></div>
 </div>
 </section>
 
 <section id="riprese">
-<h2><span lang="en">Camera work that tells a story</span><span lang="it">Riprese che raccontano</span></h2>
-<p lang="en">Not a list of views: a story, with classic establishing shots and, every two or three scenes, a shot that looks impossible or made with a motion-control rig.</p>
-<p lang="it">Non una lista di viste ma un racconto, con le riprese classiche di presentazione e, ogni due o tre scene, una ripresa che sembra impossibile o fatta con un braccio robotico.</p>
-<div class="cards"><div><b><span lang="en">Narrative and shot sizes</span><span lang="it">Racconto e piani</span></b><small><span lang="en">A shot list before the first scene: hook, the whole machine, inside, the key number, the logo. LS, MS, MCU, CU, ECU and POV alternate, never two alike in a row.</span><span lang="it">Una scaletta prima della prima scena: aggancio, la macchina intera, il dentro, il numero chiave, il logo. LS, MS, MCU, CU, ECU e POV si alternano, mai due uguali di fila.</span></small></div><div><b><span lang="en">Slow-mo and speed ramps</span><span lang="it">Slow-mo e speed ramp</span></b><small><span lang="en">A key instant stretched to slow motion, then a sudden rush. In 3D it costs nothing: time is remapped, not reshot.</span><span lang="it">Un istante chiave allungato in slow motion, poi un'accelerazione improvvisa. In 3D non costa niente: si rimappa il tempo, non si rigira.</span></small></div><div><b><span lang="en">Follow and POV</span><span lang="it">Follow e POV</span></b><small><span lang="en">The camera rides the conveyor, slips through a gap, follows the fluid down the pipe.</span><span lang="it">La camera viaggia sul nastro, passa da una fessura, segue il fluido nel tubo.</span></small></div><div><b><span lang="en">Robotic-arm moves</span><span lang="it">Movimenti da braccio robotico</span></b><small><span lang="en">Long precise paths that skim the parts, stop dead on a detail and take off again.</span><span lang="it">Traiettorie lunghe e precise che sfiorano le parti, si fermano di colpo su un dettaglio e ripartono.</span></small></div><div><b><span lang="en">Counter-movement</span><span lang="it">Contromovimento</span></b><small><span lang="en">The camera orbits against the machine's rotation, so the motion feels doubled.</span><span lang="it">La camera gira in senso opposto alla rotazione della macchina, così il movimento sembra doppio.</span></small></div><div><b><span lang="en">Exploded to cutaway, no cut</span><span lang="it">Da esploso a sezione, senza stacchi</span></b><small><span lang="en">One continuous shot: parts fly apart, then the section opens as the camera moves in.</span><span lang="it">Un'unica ripresa: i pezzi si separano, poi la sezione si apre mentre la camera entra.</span></small></div></div>
+<h2 class="rv"><span lang="en">Camera work that tells a story.</span><span lang="it">Riprese che raccontano.</span></h2>
+<p class="sub rv"><span lang="en">A shot list before the first scene, and every two or three scenes a move that looks impossible.</span><span lang="it">Una scaletta prima della prima scena e, ogni due o tre scene, un movimento che sembra impossibile.</span></p>
+<div class="rail rv" tabindex="0" aria-label="Camera moves">
+<article class="move"><i class="ph ph-film-strip"></i><h3><span lang="en">Narrative and shot sizes</span><span lang="it">Racconto e piani</span></h3><p lang="en">Hook, the whole machine, inside, the key number, the logo. LS, MS, CU, ECU and POV alternate, never two alike in a row.</p><p lang="it">Aggancio, la macchina intera, il dentro, il numero chiave, il logo. LS, MS, CU, ECU e POV si alternano, mai due uguali di fila.</p></article>
+<article class="move"><i class="ph ph-timer"></i><h3><span lang="en">Slow-mo and speed ramps</span><span lang="it">Slow-mo e speed ramp</span></h3><p lang="en">A key instant stretched, then a sudden rush. In 3D time is remapped, not reshot.</p><p lang="it">Un istante chiave allungato, poi un'accelerazione improvvisa. In 3D si rimappa il tempo, non si rigira.</p></article>
+<article class="move"><i class="ph ph-path"></i><h3><span lang="en">Follow and POV</span><span lang="it">Follow e POV</span></h3><p lang="en">The camera rides the conveyor, slips through a gap, follows the fluid down the pipe.</p><p lang="it">La camera viaggia sul nastro, passa da una fessura, segue il fluido nel tubo.</p></article>
+<article class="move"><i class="ph ph-robot"></i><h3><span lang="en">Robotic-arm moves</span><span lang="it">Braccio robotico</span></h3><p lang="en">Long precise paths that skim the parts, stop dead on a detail and take off again.</p><p lang="it">Traiettorie lunghe e precise che sfiorano le parti, si fermano su un dettaglio e ripartono.</p></article>
+<article class="move"><i class="ph ph-arrows-counter-clockwise"></i><h3><span lang="en">Counter-movement</span><span lang="it">Contromovimento</span></h3><p lang="en">The camera orbits against the machine's rotation, so the motion feels doubled.</p><p lang="it">La camera gira contro la rotazione della macchina, così il movimento sembra doppio.</p></article>
+<article class="move"><i class="ph ph-arrows-out"></i><h3><span lang="en">Exploded to cutaway</span><span lang="it">Da esploso a sezione</span></h3><p lang="en">One continuous shot: parts fly apart, then the section opens as the camera moves in.</p><p lang="it">Un'unica ripresa: i pezzi si separano, poi la sezione si apre mentre la camera entra.</p></article>
+</div>
 </section>
 
 <section id="ingegneria">
-<h2><span lang="en">Show the engineering</span><span lang="it">Mostra l'ingegneria</span></h2>
-<p lang="en">Optional, with text-to-cad. A real stress analysis becomes a shot: the part bends under load (exaggerated, and the video says so) while it turns from metal to blue, then red where it yields. Load, material and safety factor come from the client and go on screen.</p>
-<p lang="it">Facoltativo, con text-to-cad. Un calcolo di resistenza vero diventa una ripresa: il pezzo si piega sotto carico (in modo esagerato, e il video lo dice) mentre passa dal metallo al blu, poi al rosso dove cede. Carico, materiale e coefficiente di sicurezza li dà il cliente e vanno a schermo.</p>
-<figure><img src="assets/examples/fea_staffa.jpg" alt="L-bracket under an 800 N load in three frames: plain metal, then bending while the stress colours rise, red at the corner where it yields" loading="lazy"><figcaption><span lang="en">Test bracket, S235 steel, 800 N on the tip: it yields at the corner (safety factor 0.66).</span><span lang="it">Staffa di prova, acciaio S235, 800 N sulla punta: cede nell'angolo (coefficiente di sicurezza 0,66).</span></figcaption></figure>
-<div class="cards" style="margin-top:16px">
-<div><b><span lang="en">Technical drawing</span><span lang="it">Tavola tecnica</span></b><small><span lang="en">A dimensioned PDF made from the model, which can dissolve into the 3D part on screen, and is delivered with the video.</span><span lang="it">Un PDF quotato fatto dal modello, che a schermo può dissolversi nel pezzo 3D, e si consegna con il video.</span></small></div>
-<div><b><span lang="en">Real standard parts</span><span lang="it">Parti normalizzate vere</span></b><small><span lang="en">Screws, bearings, gears and flanges at true ISO sizes, so cutaways show real components, not invented shapes.</span><span lang="it">Viti, cuscinetti, ingranaggi e flange a misura ISO vera, così le sezioni mostrano componenti reali e non forme inventate.</span></small></div>
+<h2 class="rv"><span lang="en">Show the engineering, with real numbers.</span><span lang="it">Mostra l'ingegneria, con numeri veri.</span></h2>
+<p class="sub rv"><span lang="en">Optional, with text-to-cad. A real stress analysis becomes a shot: the part bends under load and turns red where it yields.</span><span lang="it">Facoltativo, con text-to-cad. Un calcolo di resistenza vero diventa una ripresa: il pezzo si piega sotto carico e diventa rosso dove cede.</span></p>
+<figure class="eng rv"><img src="assets/examples/fea_staffa.jpg" alt="L-bracket under an 800 N load in three frames: plain metal, then bending while the stress colours rise, red at the corner where it yields" loading="lazy"></figure>
+<div class="eng-cap rv">
+<div><span class="num">S235 · 800 N · SF 0.66</span><p lang="en">Test bracket: it yields at the corner. Load, material and safety factor come from the client and go on screen; the bend is exaggerated and the video says so.</p><p lang="it">Staffa di prova: cede nell'angolo. Carico, materiale e coefficiente di sicurezza li dà il cliente e vanno a schermo; la piega è esagerata e il video lo dice.</p></div>
+<div><h3><span lang="en">Technical drawing</span><span lang="it">Tavola tecnica</span></h3><p lang="en">A dimensioned PDF from the model, which can dissolve into the 3D part on screen.</p><p lang="it">Un PDF quotato dal modello, che a schermo può dissolversi nel pezzo 3D.</p></div>
+<div><h3><span lang="en">Real standard parts</span><span lang="it">Parti normalizzate vere</span></h3><p lang="en">Screws, bearings, gears and flanges at true ISO sizes, so cutaways show real components.</p><p lang="it">Viti, cuscinetti, ingranaggi e flange a misura ISO, così le sezioni mostrano componenti veri.</p></div>
 </div>
 </section>
 
 <section id="ai">
-<h2><span lang="en">Bigger than the studio: AI extras</span><span lang="it">Oltre lo studio: extra AI</span></h2>
-<p lang="en">Optional, with the Higgsfield MCP and only after you OK the credits. Blender stays the base; AI goes where it adds scale and wow without touching the product.</p>
-<p lang="it">Facoltativo, con Higgsfield MCP e solo dopo il tuo ok sui crediti. La base resta Blender; l'AI va dove aggiunge scala ed effetto senza toccare il prodotto.</p>
-<div class="cards">
-<div><b><span lang="en">The part in its world</span><span lang="it">Il pezzo nel suo mondo</span></b><small><span lang="en">The factory, the whole line, the site that uses it: the world is generated, the real Blender product is composited on top.</span><span lang="it">La fabbrica, la linea intera, il cantiere che lo usa: il mondo è generato, il prodotto vero di Blender va sopra.</span></small></div>
-<div><b><span lang="en">People</span><span lang="it">Persone</span></b><small><span lang="en">An operator at the machine, hands fitting a part, grown from a Blender frame.</span><span lang="it">Un operatore alla macchina, mani che montano un pezzo, partendo da un frame Blender.</span></small></div>
-<div><b><span lang="en">Spectacular graphics</span><span lang="it">Grafiche spettacolari</span></b><small><span lang="en">Energy flows, particles, transitions and title backgrounds from AI; exact text and numbers from HyperFrames on top.</span><span lang="it">Flussi, particelle, transizioni e sfondi dei titoli dall'AI; testi e numeri esatti da HyperFrames sopra.</span></small></div>
-<div><b><span lang="en">Upscale and formats</span><span lang="it">Upscale e formati</span></b><small><span lang="en">Render smaller and upscale, or turn 16:9 into 9:16 without rendering again.</span><span lang="it">Render più piccolo e poi upscale, o da 16:9 a 9:16 senza ri-renderizzare.</span></small></div>
+<h2 class="rv"><span lang="en">Bigger than the studio: an optional AI layer.</span><span lang="it">Oltre lo studio: uno strato AI facoltativo.</span></h2>
+<p class="sub rv"><span lang="en">With the Higgsfield MCP, only after you OK the credits. Blender stays the base.</span><span lang="it">Con Higgsfield MCP, solo dopo il tuo ok sui crediti. La base resta Blender.</span></p>
+<div class="ai rv">
+<div><i class="ph ph-factory"></i><h3><span lang="en">The part in its world</span><span lang="it">Il pezzo nel suo mondo</span></h3><p lang="en">The factory or the site is generated; the real Blender product goes on top.</p><p lang="it">La fabbrica o il cantiere sono generati; il prodotto vero di Blender va sopra.</p></div>
+<div><i class="ph ph-hand"></i><h3><span lang="en">People</span><span lang="it">Persone</span></h3><p lang="en">An operator at the machine, hands fitting a part, grown from a Blender frame.</p><p lang="it">Un operatore alla macchina, mani che montano un pezzo, partendo da un frame Blender.</p></div>
+<div><i class="ph ph-sparkle"></i><h3><span lang="en">Spectacular graphics</span><span lang="it">Grafiche spettacolari</span></h3><p lang="en">Energy flows, particles, transitions from AI; exact text and numbers from HyperFrames on top.</p><p lang="it">Flussi, particelle, transizioni dall'AI; testi e numeri esatti da HyperFrames sopra.</p></div>
+<div><i class="ph ph-frame-corners"></i><h3><span lang="en">Upscale and formats</span><span lang="it">Upscale e formati</span></h3><p lang="en">Render smaller and upscale, or turn 16:9 into 9:16 without rendering again.</p><p lang="it">Render più piccolo e poi upscale, o da 16:9 a 9:16 senza ri-renderizzare.</p></div>
 </div>
-<p class="note" style="margin-top:14px"><span lang="en">Never on cutaways, exploded views, calculations, dimensions or logos: there, only real geometry and real numbers.</span><span lang="it">Mai su sezioni, esplosi, calcoli, quote o loghi: lì servono solo la geometria vera e i numeri veri.</span></p>
+<p class="rule rv"><i class="ph ph-prohibit"></i><span lang="en">Never on cutaways, exploded views, calculations, dimensions or logos: there, only real geometry and real numbers.</span><span lang="it">Mai su sezioni, esplosi, calcoli, quote o loghi: lì solo geometria vera e numeri veri.</span></p>
 </section>
-
-<section id="esempi">
-<h2><span lang="en">Any setting, realistic light</span><span lang="it">Qualsiasi ambiente, luce realistica</span></h2>
-<p lang="en">In the brief you choose where the product sits and the mood, even from a reference photo. Every image is made with the skill's scripts.</p>
-<p lang="it">Nel brief scegli dove mettere il prodotto e con che atmosfera, anche partendo da una foto di riferimento. Tutte le immagini sono generate con gli script della skill.</p>
-<div class="grid3">
-<figure><img src="assets/examples/ambiente_nero.jpg" alt="Black studio" loading="lazy"><figcaption><span lang="en">Black studio</span><span lang="it">Studio nero</span></figcaption></figure>
-<figure><img src="assets/examples/ambiente_limbo.jpg" alt="Light limbo" loading="lazy"><figcaption>Limbo</figcaption></figure>
-<figure><img src="assets/examples/ambiente_capannone.jpg" alt="Industrial warehouse" loading="lazy"><figcaption><span lang="en">Warehouse</span><span lang="it">Capannone</span></figcaption></figure>
-</div>
-</section>
-
-<section>
-<h2><span lang="en">A storyboard in seconds</span><span lang="it">Storyboard in pochi secondi</span></h2>
-<p lang="en">Before every animated preview, one frame for each second of the scene, the last one included. Then the preview at 24, 12 or 6 fps, your choice.</p>
-<p lang="it">Prima di ogni anteprima animata, un frame per ogni secondo della scena, compreso l'ultimo. Poi l'anteprima a 24, 12 o 6 fps, a scelta.</p>
-<figure><img src="assets/examples/storyboard.jpg" alt="Grid storyboard of a scene" loading="lazy"></figure>
-</section>
-
 
 <section id="percorso">
-<h2><span lang="en">A phased workflow, with questions and approvals</span><span lang="it">Un percorso a fasi, con domande e approvazioni</span></h2>
-<p lang="en">At every phase the skill asks what it needs and stops for your ok. Decisions live in <code>progetto.md</code>, so you can pick the work up whenever you like. The skill speaks Italian.</p>
-<p lang="it">A ogni fase la skill chiede cosa serve e si ferma per un ok. Le decisioni restano in <code>progetto.md</code>, così puoi riprendere il lavoro quando vuoi.</p>
-<ol class="steps" lang="en">
-<li><b><i>0</i>Brief</b><small>Format, length, setting and mood, story arc, palette; optional calculations and drawings.</small></li>
-<li><b><i>1</i>The product</b><small>Real-scale model from STEP, DWG, drawings or photos; materials and setting.</small></li>
-<li><b><i>2</i>The scenes</b><small>Shot list with alternating shot sizes and spectacular moves; storyboard and preview.</small></li>
-<li><b><i>3</i>Edit</b><small>All scenes in a single preview.</small></li>
-<li><b><i>4</i>Graphics</b><small>Titles, callouts, dimensions and subtitles in HyperFrames, optionally over AI effects. In 9:16 it keeps important text inside the Reels, Stories and TikTok safe zones.</small></li>
-<li><b><i>5</i>Audio</b><small>Voice, music and effects with ElevenLabs; scenes fitted to the voice.</small></li>
-<li><b><i>6</i>Full review</b><small>The complete draft video, for approval.</small></li>
-<li><b><i>7</i>Final render</b><small>Cycles on Metal GPU, with a time estimate.</small></li>
-<li><b><i>8</i>Touch-ups</b><small>Only the changed frames are redone.</small></li>
-<li><b><i>9</i>Delivery</b><small>Master at −14 LUFS, light version, subtitles; optional drawing PDF and interactive 3D page.</small></li>
-</ol>
-<ol class="steps" lang="it">
-<li><b><i>0</i>Brief</b><small>Formato, durata, ambiente e atmosfera, arco del racconto, palette; calcoli e tavole facoltativi.</small></li>
-<li><b><i>1</i>Il pezzo</b><small>Modello in scala reale da STEP, DWG, disegni o foto; materiali e ambientazione.</small></li>
-<li><b><i>2</i>Le scene</b><small>Scaletta con piani alternati e riprese spettacolari; storyboard e anteprima.</small></li>
-<li><b><i>3</i>Montaggio</b><small>Tutte le scene in un'anteprima unica.</small></li>
-<li><b><i>4</i>Grafiche</b><small>Titoli, callout, misure e sottotitoli in HyperFrames, anche sopra effetti AI. Nel 9:16 tiene i testi importanti dentro le zone sicure di Reels, Stories e TikTok.</small></li>
-<li><b><i>5</i>Audio</b><small>Voce, musica ed effetti con ElevenLabs; scene adattate alla voce.</small></li>
-<li><b><i>6</i>Visione d'insieme</b><small>Il video completo in bozza, da approvare.</small></li>
-<li><b><i>7</i>Render finale</b><small>Cycles su GPU Metal, con stima dei tempi.</small></li>
-<li><b><i>8</i>Ritocchi</b><small>Si rifanno solo i frame cambiati.</small></li>
-<li><b><i>9</i>Consegna</b><small>Master a −14 LUFS, versione leggera, sottotitoli; tavola PDF e pagina 3D interattiva facoltative.</small></li>
-</ol>
+<span class="eyebrow rv"><span lang="en">The workflow</span><span lang="it">Il percorso</span></span>
+<h2 class="rv" style="margin-top:12px"><span lang="en">One main line. Branches only when you need them.</span><span lang="it">Una linea principale. Rami solo quando servono.</span></h2>
+<p class="sub rv"><span lang="en">Ten phases. At each one the skill asks what it needs and stops for your ok. Decisions live in <code>progetto.md</code>, so you can pick up the work at any time.</span><span lang="it">Dieci fasi. In ognuna la skill chiede cosa serve e si ferma per il tuo ok. Le decisioni restano in <code>progetto.md</code>, così riprendi il lavoro quando vuoi.</span></p>
+<div class="legend rv">
+<span><i class="k"></i><span lang="en">Core phase</span><span lang="it">Fase base</span></span>
+<span><i class="k opt"></i><span lang="en">Optional branch</span><span lang="it">Ramo facoltativo</span></span>
+<span><i class="k alt"></i><span lang="en">Fast route without Blender</span><span lang="it">Strada veloce senza Blender</span></span>
+<span><i class="k ok">OK</i><span lang="en">Stops for your approval</span><span lang="it">Si ferma per la tua approvazione</span></span>
+</div>
+
+<div class="fast rv"><i class="ph ph-lightning"></i><div><h3><span lang="en">Need it in minutes, not hours?</span><span lang="it">Ti serve in minuti, non in ore?</span></h3><p lang="en">For a pitch or a "how it works" where fidelity doesn't matter, the brief can switch to Teardown: the machine is rebuilt in three.js and a tour video is recorded. Shapes are approximate, and it never mixes with Blender scenes.</p><p lang="it">Per un pitch o un "come funziona" dove la fedeltà non conta, il brief può passare a Teardown: la macchina viene ricostruita in three.js e si registra un video del tour. Forme approssimate, e non si mescola con scene Blender.</p></div><span class="tool">Brief → Teardown → 9</span></div>
+
+<div class="acts">
+
+<div class="act rv"><header><h3><span lang="en">Prepare</span><span lang="it">Prepara</span></h3><p lang="en">What, for whom, from what.</p><p lang="it">Cosa, per chi, da cosa.</p></header>
+<ol class="line">
+<li class="phase rv" style="--i:0"><span class="dot">0</span><div><h4>Brief <i class="k ok">OK</i></h4><p lang="en">Format, length, setting and mood, story arc, palette of the graphics.</p><p lang="it">Formato, durata, ambiente e atmosfera, arco del racconto, palette delle grafiche.</p></div>
+<div class="branches"><span class="br"><i class="ph ph-chart-line-up"></i><span><b lang="en">Stress analysis or drawing</b><b lang="it">Calcolo o tavola tecnica</b><span class="t">text-to-cad</span></span></span><span class="br"><i class="ph ph-cursor-click"></i><span><b lang="en">Also an interactive 3D page</b><b lang="it">Anche una pagina 3D interattiva</b><span class="t">Machine · Teardown</span></span></span></div></li>
+<li class="phase rv" style="--i:1"><span class="dot">1</span><div><h4><span lang="en">The product</span><span lang="it">Il pezzo</span> <i class="k ok">OK</i></h4><p lang="en">Real-scale model, materials checked against the reference, the setting. Ends with 3 or 4 still views.</p><p lang="it">Modello in scala reale, materiali confrontati col riferimento, ambientazione. Si chiude con 3 o 4 viste statiche.</p></div>
+<div class="branches"><span class="br"><i class="ph ph-cube"></i><span><b lang="en">From STEP or a drawing</b><b lang="it">Da STEP o da disegno</b><span class="t">text-to-cad</span></span></span><span class="br"><i class="ph ph-ruler"></i><span><b lang="en">From a DWG</b><b lang="it">Da un DWG</b><span class="t">LibreDWG</span></span></span><span class="br"><i class="ph ph-link"></i><span><b lang="en">From a product page</b><b lang="it">Da una pagina prodotto</b><span class="t">Firecrawl</span></span></span></div></li>
+</ol></div>
+
+<div class="act rv"><header><h3><span lang="en">Create</span><span lang="it">Crea</span></h3><p lang="en">The film, one scene at a time.</p><p lang="it">Il film, una scena alla volta.</p></header>
+<ol class="line">
+<li class="phase rv" style="--i:2"><span class="dot">2</span><div><h4><span lang="en">The scenes</span><span lang="it">Le scene</span> <i class="k ok">OK</i></h4><p lang="en">Shot list, then each scene: storyboard first, animated preview after. One ok per scene.</p><p lang="it">Scaletta, poi ogni scena: prima lo storyboard, poi l'anteprima animata. Un ok per scena.</p></div>
+<div class="branches"><span class="br always"><i class="ph ph-sliders-horizontal"></i><span><b lang="en">Every render asks resolution, fps, quality</b><b lang="it">Ogni render chiede risoluzione, fps, qualità</b><span class="t"><a href="#render">2-4-1</a></span></span></span></div></li>
+<li class="phase rv" style="--i:3"><span class="dot">3</span><div><h4><span lang="en">Edit</span><span lang="it">Montaggio</span> <i class="k ok">OK</i></h4><p lang="en">All scenes in one preview: order, rhythm, transitions, shot sizes never repeated.</p><p lang="it">Tutte le scene in un'anteprima: ordine, ritmo, transizioni, piani mai ripetuti.</p></div>
+<div class="branches"><span class="br"><i class="ph ph-sparkle"></i><span><b lang="en">AI world, people, effects, upscale</b><b lang="it">Mondo AI, persone, effetti, upscale</b><span class="t">Higgsfield</span></span></span></div></li>
+</ol></div>
+
+<div class="act rv"><header><h3><span lang="en">Finish</span><span lang="it">Rifinisci</span></h3><p lang="en">Words, numbers, sound.</p><p lang="it">Parole, numeri, suono.</p></header>
+<ol class="line">
+<li class="phase rv" style="--i:4"><span class="dot">4</span><div><h4><span lang="en">Graphics</span><span lang="it">Grafiche</span> <i class="k ok">OK</i></h4><p lang="en">Titles, callouts, dimensions and subtitles in HyperFrames, in your palette, with exact text.</p><p lang="it">Titoli, callout, misure e sottotitoli in HyperFrames, nella tua palette e con il testo esatto.</p></div>
+<div class="branches"><span class="br always"><i class="ph ph-device-mobile"></i><span><b lang="en">9:16: text inside the Reels, Stories and TikTok safe zones</b><b lang="it">9:16: testi dentro le zone sicure di Reels, Stories e TikTok</b><span class="t">safe_zone.sh</span></span></span></div></li>
+<li class="phase rv" style="--i:5"><span class="dot">5</span><div><h4>Audio</h4><p lang="en">Voice-over, music and effects; the scenes stretch to follow the voice.</p><p lang="it">Voce, musica ed effetti; le scene si allungano per seguire la voce.</p></div>
+<div class="branches"><span class="br"><i class="ph ph-waveform"></i><span><b lang="en">Only if the video has sound</b><b lang="it">Solo se il video ha l'audio</b><span class="t">ElevenLabs</span></span></span></div></li>
+<li class="phase rv" style="--i:6"><span class="dot">6</span><div><h4><span lang="en">Full review</span><span lang="it">Visione d'insieme</span> <i class="k ok">OK</i></h4><p lang="en">The complete draft with graphics and audio. Without this ok the final render never starts.</p><p lang="it">La bozza completa con grafiche e audio. Senza questo ok il render finale non parte.</p></div><div></div></li>
+</ol></div>
+
+<div class="act rv"><header><h3><span lang="en">Deliver</span><span lang="it">Consegna</span></h3><p lang="en">Hours of GPU, spent once.</p><p lang="it">Ore di GPU, spese una volta.</p></header>
+<ol class="line">
+<li class="phase rv" style="--i:7"><span class="dot">7</span><div><h4><span lang="en">Final render</span><span lang="it">Render finale</span></h4><p lang="en">Cycles on the Metal GPU, with a time estimate before it starts.</p><p lang="it">Cycles su GPU Metal, con la stima dei tempi prima di partire.</p></div>
+<div class="branches"><span class="br"><i class="ph ph-magnifying-glass"></i><span><b lang="en">Code review of the scripts first</b><b lang="it">Controllo degli script prima</b><span class="t">Ponytail</span></span></span></div></li>
+<li class="phase rv" style="--i:8"><span class="dot">8</span><div><h4><span lang="en">Touch-ups</span><span lang="it">Ritocchi</span></h4><p lang="en">Only the frames that changed are rendered again.</p><p lang="it">Si rifanno solo i frame cambiati.</p></div><div></div></li>
+<li class="phase rv" style="--i:9"><span class="dot">9</span><div><h4><span lang="en">Delivery</span><span lang="it">Consegna</span></h4><p lang="en">Master at −14 LUFS, a light version for the phone, subtitles.</p><p lang="it">Master a −14 LUFS, una versione leggera per il telefono, sottotitoli.</p></div>
+<div class="branches"><span class="br"><i class="ph ph-file-pdf"></i><span><b lang="en">Technical drawing PDF</b><b lang="it">Tavola tecnica in PDF</b><span class="t">text-to-cad</span></span></span><span class="br"><i class="ph ph-cursor-click"></i><span><b lang="en">Interactive 3D page</b><b lang="it">Pagina 3D interattiva</b><span class="t">Machine · Teardown</span></span></span></div></li>
+</ol></div>
+</div>
+
+<h3 class="rv" style="margin-top:72px;font-size:24px"><span lang="en">Or jump straight in, at the right phase.</span><span lang="it">Oppure entra direttamente nella fase giusta.</span></h3>
+<div class="enter">
+<div class="rv"><q lang="en">Make me a 3D video of this pump</q><q lang="it">Fammi un video 3D di questa pompa</q><span>→ 0 Brief</span></div>
+<div class="rv"><q lang="en">Redo the intro</q><q lang="it">Rifai l'intro</q><span>→ 2 <span lang="en">Scenes</span><span lang="it">Scene</span>, 8</span></div>
+<div class="rv"><q lang="en">Add the subtitles</q><q lang="it">Metti i sottotitoli</q><span>→ 4 <span lang="en">Graphics</span><span lang="it">Grafiche</span></span></div>
+<div class="rv"><q lang="en">Make a version for Instagram</q><q lang="it">Fai una versione per Instagram</q><span>→ 9 <span lang="en">Delivery</span><span lang="it">Consegna</span></span></div>
+</div>
+</section>
+
+<section id="render">
+<h2 class="rv"><span lang="en">Every render starts with one answer.</span><span lang="it">Ogni render parte da una risposta.</span></h2>
+<p class="sub rv"><span lang="en">Three numbers from 1 to 4: resolution, fps, quality. Try it: the times are measured on a real machine scene.</span><span lang="it">Tre numeri da 1 a 4: risoluzione, fps, qualità. Provalo: i tempi sono misurati su una scena reale di macchina.</span></p>
+<div class="cfg rv" id="cfg">
+<div class="scales">
+<div class="scale" data-k="res"><div><label lang="en">Resolution</label><label lang="it">Risoluzione</label><small>1080x1920</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>25%</button><button type="button" data-v="2"><b>2</b>50%</button><button type="button" data-v="3"><b>3</b>75%</button><button type="button" data-v="4"><b>4</b>100%</button></div></div>
+<div class="scale" data-k="fps"><div><label>Fps</label><small lang="en">24 is the project rate</small><small lang="it">24 è la velocità del progetto</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>3</button><button type="button" data-v="2"><b>2</b>6</button><button type="button" data-v="3"><b>3</b>12</button><button type="button" data-v="4"><b>4</b>24</button></div></div>
+<div class="scale" data-k="q"><div><label lang="en">Quality</label><label lang="it">Qualità</label><small lang="en">samples · JPG</small><small lang="it">campioni · JPG</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>8 · 50</button><button type="button" data-v="2"><b>2</b>24 · 60</button><button type="button" data-v="3"><b>3</b>40 · 75</button><button type="button" data-v="4"><b>4</b>96 · 95</button></div></div>
+<div class="scale" data-k="jpg"><div><label lang="en">JPG, optional 4th number</label><label lang="it">JPG, quarto numero facoltativo</label><small lang="en">file size only</small><small lang="it">solo il peso</small></div><div class="seg five"><button type="button" data-v="0"><b>·</b><span lang="en">auto</span><span lang="it">auto</span></button><button type="button" data-v="1"><b>1</b>50</button><button type="button" data-v="2"><b>2</b>60</button><button type="button" data-v="3"><b>3</b>75</button><button type="button" data-v="4"><b>4</b>95</button></div></div>
+</div>
+<div class="out" aria-live="polite">
+<div><span class="eyebrow"><span lang="en">Your answer</span><span lang="it">La tua risposta</span></span><div class="code" id="code">2-4-1</div></div>
+<dl>
+<dt lang="en">Frame</dt><dt lang="it">Frame</dt><dd id="o-size"></dd>
+<dt lang="en">Samples, JPG</dt><dt lang="it">Campioni, JPG</dt><dd id="o-q"></dd>
+<dt lang="en">Per frame</dt><dt lang="it">Per frame</dt><dd id="o-t"></dd>
+</dl>
+<div><span class="big" id="o-10"></span><div class="mini"><span lang="en">to render 10 seconds of video, M1 Pro, Metal</span><span lang="it">per 10 secondi di video, M1 Pro, Metal</span></div></div>
+<p class="note"><span lang="en">Measured at 100%: 9, 19, 25 and 56 s per frame. Lower resolutions are estimated; heavier scenes take longer.</span><span lang="it">Misurati al 100%: 9, 19, 25 e 56 s per frame. Le risoluzioni più basse sono stimate; scene più pesanti richiedono di più.</span></p>
+</div>
+</div>
 </section>
 
 <section id="installazione">
-<h2><span lang="en">Install</span><span lang="it">Installazione</span></h2>
-<p lang="en">macOS on Apple Silicon. Every command is here, with a copy button: nothing to look up elsewhere. Install the skill and the required tools, then add what your project needs.</p>
-<p lang="it">macOS con Apple Silicon. Tutti i comandi sono qui, con un pulsante per copiarli: non serve cercare altrove. Installa la skill e le dipendenze necessarie, poi aggiungi quello che serve al tuo progetto.</p>
-<h3><span lang="en">1. The skill</span><span lang="it">1. La skill</span></h3>
+<h2 class="rv"><span lang="en">Install what your video needs. Nothing more.</span><span lang="it">Installa quello che serve al tuo video. Niente di più.</span></h2>
+<p class="sub rv"><span lang="en">macOS on Apple Silicon. Pick what you want to make and the tools you need light up. Every command has a copy button.</span><span lang="it">macOS con Apple Silicon. Scegli cosa vuoi fare e si accendono gli strumenti che servono. Ogni comando ha il pulsante per copiarlo.</span></p>
+<div class="goals rv" id="goals">
+<button type="button" data-d="core"><i class="ph ph-play"></i><span lang="en">A storyboard or quick test</span><span lang="it">Uno storyboard o una prova</span></button>
+<button type="button" data-d="core hf el"><i class="ph ph-film-slate"></i><span lang="en">A finished video with text and voice</span><span lang="it">Un video finito con testi e voce</span></button>
+<button type="button" data-d="tcad"><i class="ph ph-cube"></i><span lang="en">I have a STEP or a drawing</span><span lang="it">Ho uno STEP o un disegno</span></button>
+<button type="button" data-d="dwg"><i class="ph ph-ruler"></i><span lang="en">I have a DWG</span><span lang="it">Ho un DWG</span></button>
+<button type="button" data-d="fc"><i class="ph ph-link"></i><span lang="en">I start from a web page</span><span lang="it">Parto da una pagina web</span></button>
+<button type="button" data-d="tcad"><i class="ph ph-chart-line-up"></i><span lang="en">Show strength or a drawing</span><span lang="it">Mostrare resistenza o una tavola</span></button>
+<button type="button" data-d="hig"><i class="ph ph-sparkle"></i><span lang="en">AI worlds and effects</span><span lang="it">Mondi ed effetti AI</span></button>
+<button type="button" data-d="mach td"><i class="ph ph-cursor-click"></i><span lang="en">An interactive 3D page</span><span lang="it">Una pagina 3D interattiva</span></button>
+<button type="button" data-d="td"><i class="ph ph-lightning"></i><span lang="en">A fast video without Blender</span><span lang="it">Un video veloce senza Blender</span></button>
+<button type="button" data-d="pony"><i class="ph ph-scissors"></i><span lang="en">Leaner code from Claude</span><span lang="it">Codice più snello da Claude</span></button>
+<button type="button" class="reset" hidden><i class="ph ph-x"></i><span lang="en">Clear</span><span lang="it">Azzera</span></button>
+</div>
+<p class="goalnote" id="goalnote"></p>
+
+<div class="step1 rv"><div><span class="eyebrow"><span lang="en">First</span><span lang="it">Prima di tutto</span></span><h3 style="margin-top:8px"><span lang="en">The skill</span><span lang="it">La skill</span></h3><p lang="en">Restart Claude Code: it turns on by itself when you ask for a 3D product video.</p><p lang="it">Riavvia Claude Code: si attiva da sola quando chiedi un video 3D di un prodotto.</p></div>
 <pre class="cmd"><code>git clone https://github.com/mariomele/blender-product-video.git
-cp -r blender-product-video/blender-product-video ~/.claude/skills/</code></pre>
-<p class="note"><span lang="en">Restart Claude Code: the skill turns on by itself when you ask for a 3D product video.</span><span lang="it">Riavvia Claude Code: la skill si attiva da sola quando chiedi un video 3D di un prodotto.</span></p>
-<h3><span lang="en">2. What do you need?</span><span lang="it">2. Cosa ti serve?</span></h3>
-<div class="tablewrap"><table class="needs"><tr><th><span lang="en">You want…</span><span lang="it">Vuoi…</span></th><th><span lang="en">Install</span><span lang="it">Installa</span></th></tr>
-<tr><td><span lang="en">A quick look, a storyboard</span><span lang="it">Una prova veloce, uno storyboard</span></td><td><span lang="en">the required set</span><span lang="it">le necessarie</span></td></tr><tr><td><span lang="en">A finished video with text and voice</span><span lang="it">Un video finito con testi e voce</span></td><td>+ HyperFrames, ElevenLabs</td></tr><tr><td><span lang="en">Leaner, faster code from Claude</span><span lang="it">Codice più snello e veloce da Claude</span></td><td>+ Ponytail</td></tr>
-<tr><td><span lang="en">You have a STEP, a drawing or a sketch</span><span lang="it">Hai uno STEP, un disegno o uno schizzo</span></td><td>+ text-to-cad</td></tr><tr><td><span lang="en">You have an AutoCAD DWG</span><span lang="it">Hai un DWG di AutoCAD</span></td><td>+ LibreDWG</td></tr><tr><td><span lang="en">You start from a product web page</span><span lang="it">Parti dalla pagina web del prodotto</span></td><td>+ Firecrawl</td></tr><tr><td><span lang="en">Show strength or a technical drawing</span><span lang="it">Mostrare la resistenza o una tavola</span></td><td>+ text-to-cad</td></tr><tr><td><span lang="en">Factory, world, people, flashier graphics</span><span lang="it">Fabbrica, mondo, persone, grafiche più spettacolari</span></td><td>+ Higgsfield</td></tr><tr><td><span lang="en">Also an interactive 3D page</span><span lang="it">Anche una pagina 3D interattiva</span></td><td>+ Machine</td></tr>
-</table></div>
-<h3><span lang="en">3. Required</span><span lang="it">3. Necessarie</span></h3>
-<div class="deps"><article class="dep"><header><a href="https://brew.sh"><b>Homebrew</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+cp -r blender-product-video/blender-product-video ~/.claude/skills/</code></pre></div>
+
+<div class="group" id="deps">
+<header><h3><span lang="en">Required</span><span lang="it">Necessarie</span></h3><p lang="en">For every project.</p><p lang="it">Per ogni progetto.</p></header>
+<div class="deps">
+<article class="dep" data-id="core"><header><a href="https://brew.sh"><b>Homebrew</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Installs the other tools on macOS with one command each.</span><span lang="it">Installa gli altri strumenti su macOS, con un comando ciascuno.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Once, before everything else. Skip it if <code>brew -v</code> already answers.</span><span lang="it">Una volta, prima di tutto. Saltalo se <code>brew -v</code> risponde già.</span></p>
-<pre class="cmd"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre></article><article class="dep"><header><a href="https://claude.com/claude-code"><b>Claude Code</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<pre class="cmd"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre></article>
+<article class="dep" data-id="core"><header><a href="https://claude.com/claude-code"><b>Claude Code</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">The assistant you talk to. It reads the skill and drives Blender, FFmpeg and the other tools for you.</span><span lang="it">L'assistente con cui parli. Legge la skill e guida al posto tuo Blender, FFmpeg e gli altri strumenti.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Always: every phase runs through it.</span><span lang="it">Sempre: ogni fase passa da qui.</span></p>
-<pre class="cmd"><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></article><article class="dep"><header><a href="https://www.blender.org/download/"><b>Blender 5.1+</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<pre class="cmd"><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></article>
+<article class="dep" data-id="core"><header><a href="https://www.blender.org/download/"><b>Blender 5.1+</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Builds the 3D model, materials, scenes and the final Cycles render on the Metal GPU.</span><span lang="it">Costruisce modello 3D, materiali, scene e il render finale Cycles su GPU Metal.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Always, from phase 1 to 8. It must sit in <code>/Applications</code>, or set the <code>BLENDER</code> variable to its path.</span><span lang="it">Sempre, dalla fase 1 alla 8. Deve stare in <code>/Applications</code>, oppure imposta la variabile <code>BLENDER</code> con il suo percorso.</span></p>
-<pre class="cmd"><code>brew install --cask blender</code></pre></article><article class="dep"><header><a href="https://www.blender.org/lab/mcp-server/"><b>Blender MCP (Blender Lab)</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<pre class="cmd"><code>brew install --cask blender</code></pre></article>
+<article class="dep" data-id="core"><header><a href="https://www.blender.org/lab/mcp-server/"><b>Blender MCP (Blender Lab)</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Lets Claude look inside the open Blender file and change it live: objects, materials, cameras.</span><span lang="it">Permette a Claude di guardare dentro il file Blender aperto e modificarlo dal vivo: oggetti, materiali, camere.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">When you work with Blender open (scenes, fixes). Headless renders do not need it. Two parts: the server, then the add-on inside Blender.</span><span lang="it">Quando lavori con Blender aperto (scene, correzioni). I render in background non ne hanno bisogno. Due parti: il server, poi l'add-on dentro Blender.</span></p>
 <pre class="cmd"><code>brew install uv
 git clone https://projects.blender.org/lab/blender_mcp.git ~/blender_mcp
-claude mcp add blender -- uv --directory ~/blender_mcp/mcp run blender-mcp</code></pre><pre class="cmd"><code>curl -L -o ~/Downloads/blender-mcp-addon.zip "https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip"</code></pre><p class="note"><span lang="en">Then in Blender: <i>Edit → Preferences → Get Extensions → Install from Disk</i> and pick the zip.</span><span lang="it">Poi in Blender: <i>Edit → Preferences → Get Extensions → Install from Disk</i> e scegli lo zip.</span></p></article><article class="dep"><header><a href="https://ffmpeg.org"><b>FFmpeg</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+claude mcp add blender -- uv --directory ~/blender_mcp/mcp run blender-mcp</code></pre><pre class="cmd"><code>curl -L -o ~/Downloads/blender-mcp-addon.zip "https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip"</code></pre><p class="note"><span lang="en">Then in Blender: <i>Edit → Preferences → Get Extensions → Install from Disk</i> and pick the zip.</span><span lang="it">Poi in Blender: <i>Edit → Preferences → Get Extensions → Install from Disk</i> e scegli lo zip.</span></p></article>
+<article class="dep" data-id="core"><header><a href="https://ffmpeg.org"><b>FFmpeg</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Turns frames into previews, joins the scenes, mixes audio and writes the delivery files.</span><span lang="it">Trasforma i frame in anteprime, unisce le scene, mixa l'audio e scrive i file di consegna.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Always: storyboard, previews, edit and delivery.</span><span lang="it">Sempre: storyboard, anteprime, montaggio e consegna.</span></p>
-<pre class="cmd"><code>brew install ffmpeg</code></pre></article><article class="dep"><header><a href="https://github.com/arjun988/blender-skills"><b>Blender skills</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
+<pre class="cmd"><code>brew install ffmpeg</code></pre></article>
+<article class="dep" data-id="core"><header><a href="https://github.com/arjun988/blender-skills"><b>Blender skills</b></a><span class="tag core"><span lang="en">Required</span><span lang="it">Necessaria</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Expert know-how Claude reads on demand: materials, lighting, lookdev, camera work, modelling.</span><span lang="it">Competenze che Claude legge al bisogno: materiali, luci, lookdev, camera, modellazione.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phases 1 and 2, whenever a material, a light or a camera move has to look professional.</span><span lang="it">Fasi 1 e 2, ogni volta che un materiale, una luce o un movimento di camera deve sembrare professionale.</span></p>
 <pre class="cmd"><code>git clone https://github.com/arjun988/blender-skills.git /tmp/blender-skills
-cp -r /tmp/blender-skills/.claude/skills/* ~/.claude/skills/</code></pre></article></div>
-<h3><span lang="en">4. For the finished video</span><span lang="it">4. Per il video finito</span></h3>
-<div class="deps"><article class="dep"><header><a href="https://github.com/heygen-com/hyperframes"><b>Node.js 22+ · HyperFrames</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
+cp -r /tmp/blender-skills/.claude/skills/* ~/.claude/skills/</code></pre></article>
+</div></div>
+
+<div class="group">
+<header><h3><span lang="en">For the finished video</span><span lang="it">Per il video finito</span></h3><p lang="en">Recommended: text, voice and cleaner code.</p><p lang="it">Consigliate: testi, voce e codice più pulito.</p></header>
+<div class="deps">
+<article class="dep" data-id="hf"><header><a href="https://github.com/heygen-com/hyperframes"><b>Node.js 22+ · HyperFrames</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Draws titles, callouts, measurements, counters, subtitles and the end logo over the render, in your palette, with exact text.</span><span lang="it">Disegna sopra il render titoli, callout, misure, contatori, sottotitoli e il logo finale, nella tua palette e con il testo esatto.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phase 4. Skip it only for a video with no text at all.</span><span lang="it">Fase 4. Saltalo solo per un video senza nessun testo.</span></p>
 <pre class="cmd"><code>brew install node
 claude plugin marketplace add heygen-com/hyperframes
-claude plugin install hyperframes@hyperframes</code></pre></article><article class="dep"><header><a href="https://elevenlabs.io/mcp"><b>ElevenLabs MCP</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
+claude plugin install hyperframes@hyperframes</code></pre></article>
+<article class="dep" data-id="el"><header><a href="https://elevenlabs.io/mcp"><b>ElevenLabs MCP</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Voice-over, music and sound effects. The skill then stretches the scenes to fit the voice.</span><span lang="it">Voce fuori campo, musica ed effetti sonori. Poi la skill allunga le scene per seguire la voce.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phase 5, if the video has sound. Needs an ElevenLabs account with credits; every generation is asked first.</span><span lang="it">Fase 5, se il video ha l'audio. Serve un account ElevenLabs con crediti; ogni generazione viene chiesta prima.</span></p>
-<pre class="cmd"><code>claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp</code></pre><p class="note"><span lang="en">Then type <code>/mcp</code> in Claude Code and sign in.</span><span lang="it">Poi scrivi <code>/mcp</code> in Claude Code e accedi.</span></p></article><article class="dep"><header><a href="https://github.com/DietrichGebert/ponytail"><b>Ponytail</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
+<pre class="cmd"><code>claude mcp add --transport http elevenlabs https://api.elevenlabs.io/v1/mcp</code></pre><p class="note"><span lang="en">Then type <code>/mcp</code> in Claude Code and sign in.</span><span lang="it">Poi scrivi <code>/mcp</code> in Claude Code e accedi.</span></p></article>
+<article class="dep" data-id="pony"><header><a href="https://github.com/DietrichGebert/ponytail"><b>Ponytail</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Makes Claude write the shortest code that works and reuse the skill's scripts first: fewer tokens, fewer bugs, faster previews to redo. <code>/ponytail-review</code> checks the project's scripts.</span><span lang="it">Fa scrivere a Claude il codice più corto che funziona e riusare prima gli script della skill: meno token, meno errori, anteprime più veloci da rifare. <code>/ponytail-review</code> controlla gli script del progetto.</span></p>
-<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Every phase where Claude writes scripts (scenes, patches, CAD, graphics), and a review before the final render: a bug caught there saves hours of GPU.</span><span lang="it">In ogni fase in cui Claude scrive script (scene, patch, CAD, grafiche), più un controllo prima del render finale: un errore trovato lì fa risparmiare ore di GPU.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Every phase where Claude writes scripts, and a review before the final render: a bug caught there saves hours of GPU.</span><span lang="it">In ogni fase in cui Claude scrive script, più un controllo prima del render finale: un errore trovato lì fa risparmiare ore di GPU.</span></p>
 <pre class="cmd"><code>claude plugin marketplace add DietrichGebert/ponytail
-claude plugin install ponytail@ponytail</code></pre></article></div>
-<h3><span lang="en">5. Optional, by use</span><span lang="it">5. Facoltative, in base all'uso</span></h3>
-<div class="deps"><article class="dep"><header><a href="https://github.com/earthtojake/text-to-cad"><b>text-to-cad · build123d · bd_warehouse</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+claude plugin install ponytail@ponytail</code></pre></article>
+</div></div>
+
+<div class="group">
+<header><h3><span lang="en">Optional, by use</span><span lang="it">Facoltative, in base all'uso</span></h3><p lang="en">Only when your source or your idea asks for them.</p><p lang="it">Solo se la sorgente o l'idea le richiede.</p></header>
+<div class="deps">
+<article class="dep" data-id="tcad"><header><a href="https://github.com/earthtojake/text-to-cad"><b>text-to-cad · build123d · bd_warehouse</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Opens STEP files (parts kept separate, real scale); models parts in parametric CAD with <a href="https://github.com/gumyr/build123d">build123d</a>; adds real ISO screws, bearings, gears and flanges from <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a>; runs stress analyses and makes dimensioned drawings.</span><span lang="it">Apre gli STEP (parti separate, scala reale); modella i pezzi in CAD parametrico con <a href="https://github.com/gumyr/build123d">build123d</a>; aggiunge viti, cuscinetti, ingranaggi e flange ISO veri da <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a>; fa calcoli di resistenza e tavole quotate.</span></p>
-<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">You have a <b>STEP</b> file · you start from a drawing or a sketch · a cutaway needs real internals · you want to <b>show how much a part holds</b> or a technical drawing in the video. build123d and bd_warehouse come with it.</span><span lang="it">Hai un file <b>STEP</b> · parti da un disegno o uno schizzo · una sezione ha bisogno di interni veri · vuoi <b>mostrare quanto regge un pezzo</b> o una tavola tecnica nel video. build123d e bd_warehouse arrivano con lui.</span></p>
-<pre class="cmd"><code>curl -fsSL https://texttocad.dev/install.sh | sh</code></pre></article><article class="dep"><header><a href="https://www.gnu.org/software/libredwg/"><b>LibreDWG</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">You have a <b>STEP</b> file, a drawing or a sketch; a cutaway needs real internals; you want to <b>show how much a part holds</b> or a technical drawing. build123d and bd_warehouse come with it.</span><span lang="it">Hai un file <b>STEP</b>, un disegno o uno schizzo; una sezione ha bisogno di interni veri; vuoi <b>mostrare quanto regge un pezzo</b> o una tavola tecnica. build123d e bd_warehouse arrivano con lui.</span></p>
+<pre class="cmd"><code>curl -fsSL https://texttocad.dev/install.sh | sh</code></pre></article>
+<article class="dep" data-id="dwg"><header><a href="https://www.gnu.org/software/libredwg/"><b>LibreDWG</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Reads AutoCAD DWG drawings (2D lines, arcs, polylines) at real scale.</span><span lang="it">Legge i disegni DWG di AutoCAD (linee, archi, polilinee 2D) in scala reale.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Only when your source is a <b>.dwg</b>. Dimensions and text are not read; 3D DWGs need a STEP instead.</span><span lang="it">Solo se la sorgente è un <b>.dwg</b>. Quote e testi non vengono letti; per i DWG 3D serve uno STEP.</span></p>
-<pre class="cmd"><code>brew install libredwg</code></pre></article><article class="dep"><header><a href="https://docs.firecrawl.dev/mcp-server"><b>Firecrawl MCP</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<pre class="cmd"><code>brew install libredwg</code></pre></article>
+<article class="dep" data-id="fc"><header><a href="https://docs.firecrawl.dev/mcp-server"><b>Firecrawl MCP</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Reads product pages and data sheets, and pulls the brand palette from a website.</span><span lang="it">Legge pagine prodotto e schede tecniche, e ricava la palette del brand da un sito.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">You start from a <b>link</b>, or want the infographic colours taken from the client's site. Without it Claude uses the built-in browser.</span><span lang="it">Parti da un <b>link</b>, o vuoi i colori delle infografiche presi dal sito del cliente. Senza, Claude usa il browser integrato.</span></p>
-<pre class="cmd"><code>claude mcp add --transport http firecrawl https://mcp.firecrawl.dev/v2/mcp-oauth</code></pre><p class="note"><span lang="en">Then <code>/mcp</code> to sign in.</span><span lang="it">Poi <code>/mcp</code> per accedere.</span></p></article><article class="dep"><header><a href="https://higgsfield.ai/mcp"><b>Higgsfield MCP</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
-<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Generative AI on top of Blender: the part inside its factory or a bigger world (AI world, real Blender product composited on top), people at the machine, spectacular effects and transitions under exact HyperFrames text, upscale, new aspect ratios.</span><span lang="it">AI generativa sopra Blender: il pezzo dentro la fabbrica o in un mondo più grande (mondo AI, prodotto vero da Blender sopra), persone alla macchina, effetti e transizioni spettacolari sotto il testo esatto di HyperFrames, upscale, nuovi formati.</span></p>
+<pre class="cmd"><code>claude mcp add --transport http firecrawl https://mcp.firecrawl.dev/v2/mcp-oauth</code></pre><p class="note"><span lang="en">Then <code>/mcp</code> to sign in.</span><span lang="it">Poi <code>/mcp</code> per accedere.</span></p></article>
+<article class="dep" data-id="hig"><header><a href="https://higgsfield.ai/mcp"><b>Higgsfield MCP</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Generative AI on top of Blender: the part in its factory or a bigger world, people at the machine, spectacular effects under exact HyperFrames text, upscale, new aspect ratios.</span><span lang="it">AI generativa sopra Blender: il pezzo nella fabbrica o in un mondo più grande, persone alla macchina, effetti spettacolari sotto il testo esatto di HyperFrames, upscale, nuovi formati.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Social and launch videos that need scale and wow. Never on cutaways, exploded views, calculations, dimensions or logos. Uses credits, asked first.</span><span lang="it">Video social e di lancio che hanno bisogno di scala e di effetto. Mai su sezioni, esplosi, calcoli, quote o loghi. Usa crediti, chiesti prima.</span></p>
-<pre class="cmd"><code>claude mcp add --transport http higgsfield https://mcp.higgsfield.ai/mcp</code></pre><p class="note"><span lang="en">Then <code>/mcp</code> to sign in.</span><span lang="it">Poi <code>/mcp</code> per accedere.</span></p></article><article class="dep"><header><a href="https://github.com/AirsupHQ/machine-skill"><b>Machine skill</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+<pre class="cmd"><code>claude mcp add --transport http higgsfield https://mcp.higgsfield.ai/mcp</code></pre><p class="note"><span lang="en">Then <code>/mcp</code> to sign in.</span><span lang="it">Poi <code>/mcp</code> per accedere.</span></p></article>
+<article class="dep" data-id="mach"><header><a href="https://github.com/AirsupHQ/machine-skill"><b>Machine skill</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Builds an interactive 3D web page of the product: exploded view, section, working numbers.</span><span lang="it">Crea una pagina web 3D interattiva del prodotto: esploso, sezione, numeri di funzionamento.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Only if you also want a page for the website or a trade-fair screen, delivered next to the video.</span><span lang="it">Solo se vuoi anche una pagina per il sito o per uno schermo in fiera, consegnata accanto al video.</span></p>
 <pre class="cmd"><code>git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine
-cd ~/.claude/skills/machine && npm i -D playwright && npx playwright install chromium</code></pre></article><article class="dep"><header><a href="https://github.com/elvarofficial/teardown"><b>Teardown skill</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
+cd ~/.claude/skills/machine && npm i -D playwright && npx playwright install chromium</code></pre></article>
+<article class="dep" data-id="td"><header><a href="https://github.com/elvarofficial/teardown"><b>Teardown skill</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Fast alternative without Blender: rebuilds the machine in three.js and records a tour video in minutes, or makes an interactive page. Shapes are approximate.</span><span lang="it">Alternativa veloce senza Blender: ricostruisce la macchina in three.js e registra un video del tour in pochi minuti, o crea una pagina interattiva. Le forme sono approssimate.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">A quick &ldquo;how it works&rdquo; video or a pitch, where the real product&rsquo;s fidelity doesn&rsquo;t matter.</span><span lang="it">Un video veloce di &ldquo;come funziona&rdquo; o un pitch, dove la fedelt&agrave; al prodotto vero non conta.</span></p>
-<pre class="cmd"><code>npx skills add elvarofficial/teardown -g -a claude-code</code></pre><p class="note"><span lang="en">Then, once, in the installed folder: <code>npm install &amp;&amp; npx playwright install chromium</code>.</span><span lang="it">Poi, una volta, nella cartella installata: <code>npm install &amp;&amp; npx playwright install chromium</code>.</span></p></article></div>
-<h3><span lang="en">6. Quick check</span><span lang="it">6. Verifica rapida</span></h3>
+<pre class="cmd"><code>npx skills add elvarofficial/teardown -g -a claude-code</code></pre><p class="note"><span lang="en">Then, once, in the installed folder: <code>npm install &amp;&amp; npx playwright install chromium</code>.</span><span lang="it">Poi, una volta, nella cartella installata: <code>npm install &amp;&amp; npx playwright install chromium</code>.</span></p></article>
+</div></div>
+
+<div class="group">
+<header><h3><span lang="en">Quick check</span><span lang="it">Verifica rapida</span></h3><p lang="en">Each line should print a version.</p><p lang="it">Ogni riga deve stampare una versione.</p></header>
 <pre class="cmd"><code>/Applications/Blender.app/Contents/MacOS/Blender --version
 ffmpeg -version | head -1
 node -v
 claude mcp list</code></pre>
-</section>
-
-<footer><span lang="en">Created by Mario Mele · MIT license</span><span lang="it">Ideata da Mario Mele · Licenza MIT</span> · <a href="https://github.com/mariomele/blender-product-video">github.com/mariomele/blender-product-video</a></footer>
 </div>
+</section>
+</main>
+
+<footer><div class="wrap"><img src="assets/logo.svg" alt="" width="22" height="22"><span lang="en">Created by Mario Mele. MIT license.</span><span lang="it">Ideata da Mario Mele. Licenza MIT.</span><a href="https://github.com/mariomele/blender-product-video">github.com/mariomele/blender-product-video</a></div></footer>
+
 <script>
 (function(){
-  var root=document.documentElement, btns=document.querySelectorAll('.langs button');
-  function lbl(){return root.getAttribute('data-lang')==='it'?'Copia':'Copy'}
-  function set(l){
+  var root=document.documentElement, langBtns=document.querySelectorAll('.langs button');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function it(){return root.getAttribute('data-lang')==='it'}
+  function lbl(){return it()?'Copia':'Copy'}
+
+  // language
+  function setLang(l){
     root.setAttribute('data-lang',l); root.lang=l;
-    btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===l)});
-    document.querySelectorAll('.copy').forEach(function(b){b.textContent=lbl()});
+    langBtns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===l)});
+    document.querySelectorAll('.copy:not(.ok)').forEach(function(b){b.textContent=lbl()});
     try{localStorage.setItem('lang',l)}catch(e){}
+    render(); note();
   }
-  var saved=null; try{saved=localStorage.getItem('lang')}catch(e){}
-  var q=new URLSearchParams(location.search).get('lang');
-  set(q==='it'||q==='en'?q:(saved==='it'?'it':'en'));
-  btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set)})});
+
+  // copy buttons
   document.querySelectorAll('pre.cmd').forEach(function(p){
     var b=document.createElement('button'); b.type='button'; b.className='copy'; b.textContent=lbl();
     b.addEventListener('click',function(){
       navigator.clipboard.writeText(p.querySelector('code').textContent).then(function(){
-        b.textContent='✓'; b.classList.add('ok'); setTimeout(function(){b.textContent=lbl();b.classList.remove('ok')},1500);
+        b.textContent='✓'; b.classList.add('ok'); setTimeout(function(){b.classList.remove('ok');b.textContent=lbl()},1500);
       });
     });
     p.appendChild(b);
   });
+
+  // hero viewer: source to film, one stage at a time
+  var viewer=document.getElementById('viewer'), imgs=viewer.querySelectorAll('.screen img'), stages=viewer.querySelectorAll('.stages button'), cur=0, timer=null, DUR=3600;
+  function show(i){
+    cur=i; imgs.forEach(function(im,k){im.classList.toggle('on',k===i)});
+    stages.forEach(function(b,k){b.setAttribute('aria-current',k===i);b.style.animation='none';b.offsetHeight;b.style.animation=''});
+  }
+  function play(){ if(reduce) return; clearInterval(timer); timer=setInterval(function(){show((cur+1)%imgs.length)},DUR); }
+  stages.forEach(function(b,k){b.addEventListener('click',function(){clearInterval(timer);viewer.classList.add('paused');show(k)})});
+  if(reduce) viewer.classList.add('paused'); else play();
+  document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(timer); else if(!viewer.classList.contains('paused')) play(); });
+
+  // render configurator, times measured on M1 Pro at 100%
+  var S={res:2,fps:4,q:1,jpg:0};
+  var RES=[.25,.5,.75,1], FPS=[3,6,12,24], SPP=[8,24,40,96], JPG=[50,60,75,95], T=[9,19,25,56];
+  function fmt(s){ if(s<90) return Math.round(s)+' s'; var m=s/60; return m<90?Math.round(m)+' min':(m/60).toFixed(1).replace('.',it()?',':'.')+' h'; }
+  function render(){
+    var r=RES[S.res-1], t=6+(T[S.q-1]-6)*r*r; // ~6 s fixed per frame, the rest scales with the pixels
+    document.getElementById('code').textContent=S.res+'-'+S.fps+'-'+S.q+(S.jpg?'-'+S.jpg:'');
+    document.getElementById('o-size').textContent=Math.round(1080*r)+'x'+Math.round(1920*r)+', '+FPS[S.fps-1]+' fps';
+    document.getElementById('o-q').textContent=SPP[S.q-1]+' spp, JPG '+(S.jpg?JPG[S.jpg-1]:JPG[S.q-1]);
+    document.getElementById('o-t').textContent=(S.res===4?'':'≈ ')+t.toFixed(t<10?1:0).replace('.',it()?',':'.')+' s';
+    document.getElementById('o-10').textContent='≈ '+fmt(t*FPS[S.fps-1]*10);
+    document.querySelectorAll('#cfg .scale').forEach(function(sc){
+      sc.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.v===S[sc.dataset.k])});
+    });
+  }
+  document.querySelectorAll('#cfg .scale').forEach(function(sc){
+    sc.addEventListener('click',function(e){var b=e.target.closest('button'); if(!b) return; S[sc.dataset.k]=+b.dataset.v; render();});
+  });
+
+  // goal chooser: light up the tools a goal needs
+  var goals=document.getElementById('goals'), reset=goals.querySelector('.reset'), deps=document.querySelectorAll('.dep'), grid=document.getElementById('installazione');
+  function picked(){ var ids={}; goals.querySelectorAll('button[aria-pressed=true]').forEach(function(b){b.dataset.d.split(' ').forEach(function(d){ids[d]=1})}); return ids; }
+  function note(){
+    var ids=picked(), n=0; deps.forEach(function(d){ if(ids[d.dataset.id]) n++; });
+    var any=Object.keys(ids).length;
+    document.getElementById('goalnote').textContent=any?(it()?n+' strumenti evidenziati qui sotto.':n+' tools highlighted below.'):'';
+  }
+  goals.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    if(b===reset){ goals.querySelectorAll('button[aria-pressed]').forEach(function(x){x.setAttribute('aria-pressed','false')}); }
+    else b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');
+    var ids=picked(), any=Object.keys(ids).length;
+    if(any) ids.core=1; // the required set is always part of the answer
+    grid.classList.toggle('filtering',!!any); reset.hidden=!any;
+    deps.forEach(function(d){d.classList.toggle('hit',!!ids[d.dataset.id])});
+    note();
+    if(any && b!==reset) document.getElementById('deps').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+  goals.querySelectorAll('button:not(.reset)').forEach(function(b){b.setAttribute('aria-pressed','false')});
+
+  // reveal on scroll
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} })},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  } else document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});
+
+  var saved=null; try{saved=localStorage.getItem('lang')}catch(e){}
+  var q=new URLSearchParams(location.search).get('lang');
+  langBtns.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
+  setLang(q==='it'||q==='en'?q:(saved==='it'?'it':'en'));
 })();
 </script>
 </body>
