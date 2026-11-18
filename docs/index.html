@@ -85,6 +85,7 @@ section{padding:112px 0 0}
 }
 .hero h1{font-size:clamp(40px,4.4vw,58px);line-height:1.02;font-weight:800;letter-spacing:-.035em}
 .hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead strong{color:var(--text);font-weight:600}
 .hero .lead{font-size:18px;color:var(--soft);margin:22px 0 32px;max-width:40ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
 .viewer{position:relative}
@@ -373,8 +374,8 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <div>
 <h1 lang="en">Turn your machine into an <em>explainer video</em>.</h1>
 <h1 lang="it">Trasforma la tua macchina in un <em>video explainer</em>.</h1>
-<p class="lead" lang="en">Photos, a STEP, a DWG or a drawing in. A Blender film out. You chat, Claude Code drives Blender.</p>
-<p class="lead" lang="it">Foto, uno STEP, un DWG o un disegno. Esce un film fatto in Blender. Tu parli, Claude Code guida Blender.</p>
+<p class="lead" lang="en">The whole process, from CAD file to finished explainer video, in one skill. <strong>Weeks or months of work, done in a few hours.</strong></p>
+<p class="lead" lang="it">Tutto il processo, dal file CAD al video infografico finito, in una skill. <strong>Settimane o mesi di lavoro, in poche ore.</strong></p>
 <div class="cta"><a class="btn" href="#installazione"><i class="ph ph-download-simple"></i><span lang="en">Install</span><span lang="it">Installa</span></a><a class="btn ghost" href="https://github.com/mariomele/blender-product-video"><i class="ph ph-github-logo"></i><span lang="en">View on GitHub</span><span lang="it">Vedi su GitHub</span></a></div>
 </div>
 <div class="viewer" id="viewer">
@@ -410,7 +411,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 </div>
 
 <div class="facts rv">
-<div><b>4</b><span lang="en">ways in: STEP, DWG, photos, a link</span><span lang="it">punti di partenza: STEP, DWG, foto, un link</span></div>
+<div><b lang="en">Hours</b><b lang="it">Ore</b><span lang="en">not weeks: CAD to finished video</span><span lang="it">non settimane: dal CAD al video finito</span></div>
 <div><b>10</b><span lang="en">phases, each closed by your ok</span><span lang="it">fasi, ognuna chiusa dal tuo ok</span></div>
 <div><b>24 fps</b><span lang="en">Cycles render on the Metal GPU</span><span lang="it">render Cycles su GPU Metal</span></div>
 <div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5</span></div>
