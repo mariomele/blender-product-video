@@ -27,7 +27,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/assets/og.png" alt="Blender Product Video: sample render of a centrifugal pump" width="820">
+  <img src="docs/assets/og.png" alt="Blender Product Video: sample renders of a 6-axis robot arm" width="820">
 </p>
 
 ---
@@ -36,6 +36,9 @@
 
 ![From your part to an explainer video in three steps](docs/assets/examples/how_it_works_en.jpg)
 
+▶ **[Watch the 17-second demo](https://mariomele.github.io/blender-product-video/assets/examples/demo.mp4)**: CAD, motion, exploded view, cutaway and settings, all made by the skill.
+*Guarda la demo di 17 secondi: CAD, movimento, esploso, sezione e ambienti, tutto fatto dalla skill.*
+
 ## What a real camera can't show · Quello che una ripresa vera non può mostrare
 
 Open the machine up, take it apart in mid-air, swap its finish in a click: shots that are impossible, or very expensive, with real footage.
@@ -43,16 +46,18 @@ Open the machine up, take it apart in mid-air, swap its finish in a click: shots
 
 | Cutaway · Sezione | Exploded view · Esploso | Materials and textures · Materiali e texture |
 |---|---|---|
-| ![Cutaway with red section faces](docs/assets/examples/sezione.jpg) | ![Exploded view](docs/assets/examples/esploso.jpg) | ![Stainless flange, RAL paint, zinc-plated bolts](docs/assets/examples/dettaglio_materiali.jpg) |
+| ![Cutaway of the shoulder: motor, gearbox and bearing with red section faces](docs/assets/examples/sezione.jpg) | ![Exploded view](docs/assets/examples/esploso.jpg) | ![Painted joint, finned servo motor, zinc-plated bolts](docs/assets/examples/dettaglio_materiali.jpg) |
 
 **Any setting, realistic light · Qualsiasi ambiente, luce realistica**
 
 | Black studio · Studio nero | Limbo | Warehouse · Capannone |
 |---|---|---|
 | ![Black studio](docs/assets/examples/ambiente_nero.jpg) | ![Light limbo](docs/assets/examples/ambiente_limbo.jpg) | ![Warehouse](docs/assets/examples/ambiente_capannone.jpg) |
+| **Laboratory · Laboratorio** | **Outdoors at sunset · Esterno al tramonto** | **Trade-show stand · Stand in fiera** |
+| ![Laboratory](docs/assets/examples/ambiente_laboratorio.jpg) | ![Outdoors at sunset](docs/assets/examples/ambiente_tramonto.jpg) | ![Trade-show stand](docs/assets/examples/ambiente_fiera.jpg) |
 
-Every image was made with the skill's scripts, from a procedurally modelled demo product ([`build_pump.py`](docs/assets/examples/build_pump.py), [`cut.py`](docs/assets/examples/cut.py)).
-*Tutte le immagini sono generate con gli script della skill, partendo da un prodotto dimostrativo modellato proceduralmente.*
+Every image was made with the skill's scripts, from a procedurally modelled 6-axis robot arm ([`build_robot.py`](docs/assets/examples/build_robot.py), [`cut_robot.py`](docs/assets/examples/cut_robot.py)).
+*Tutte le immagini sono generate con gli script della skill, partendo da un braccio robotico a 6 assi modellato proceduralmente.*
 
 ---
 
@@ -67,7 +72,7 @@ You have a machine, a plant or a mechanical part and want to explain how it work
 
 It guides Claude Code, and you, through the whole making of a 3D product video: machines, plants, components, industrial processes. Built for sales presentations, social content, trade fairs and websites.
 
-- **Starts from any source:** CAD (STEP opened directly, GLB, STL, OBJ…), photos, the product's web page, technical drawings (SVG, AutoCAD DWG) and dimensioned sketches.
+- **Starts from any source:** CAD (STEP, 3MF, GLB, FBX, OBJ, STL, USD or a .blend, all opened with one command; SolidWorks, Inventor, Fusion, CATIA and the like via a STEP export), photos, the product's web page, technical drawings (DWG, SVG, vector PDF) and dimensioned sketches.
 - **Asks questions at every phase** and stops for your approval before moving on, so fixes come when they are cheap.
 - **Remembers where you are:** every decision goes into `progetto.md`, and a request like "redo the intro" jumps straight to the right phase.
 - **Tells a story with the camera:** a shot list with alternating shot sizes (LS, MS, CU, ECU, POV) and, every few scenes, a spectacular move: slow-mo and speed ramps, follow shots, robotic-arm paths, counter-movement, exploded view to cutaway in one shot.
@@ -282,7 +287,7 @@ Hai una macchina, un impianto o un pezzo meccanico e vuoi spiegare come funziona
 
 Guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchine, impianti, componenti, processi industriali. Pensata per presentazioni commerciali, contenuti social, fiere e siti.
 
-- **Parte da qualsiasi sorgente:** CAD (STEP, GLB, STL, OBJ…), foto, la pagina web del prodotto, disegni tecnici (SVG, DWG di AutoCAD) e schizzi quotati.
+- **Parte da qualsiasi sorgente:** CAD (STEP, 3MF, GLB, FBX, OBJ, STL, USD o un .blend, tutti aperti con un solo comando; SolidWorks, Inventor, Fusion, CATIA e simili passando da un export STEP), foto, la pagina web del prodotto, disegni tecnici (DWG, SVG, PDF vettoriale) e schizzi quotati.
 - **Fa domande a ogni fase** e si ferma per un'approvazione prima di andare avanti, così le correzioni arrivano quando costano poco.
 - **Si ricorda dove sei:** tutte le decisioni finiscono in `progetto.md`, e una richiesta come "rifai l'intro" porta direttamente alla fase giusta.
 - **Racconta con la camera:** una scaletta con piani alternati (LS, MS, CU, ECU, POV) e, ogni poche scene, una ripresa spettacolare: slow-mo e speed ramp, camera che segue il pezzo, traiettorie da braccio robotico, contromovimento, da esploso a sezione in un'unica ripresa.

@@ -118,6 +118,7 @@ section{padding:112px 0 0}
 .t-env figcaption{font-size:12.5px;color:var(--muted);margin-top:6px}
 .t-env p,.t-sb p{margin:0;color:var(--soft);font-size:15px}
 .t-sb{grid-column:span 3;background:linear-gradient(160deg,#1a1608 0%,var(--panel) 55%);padding:22px;display:flex;flex-direction:column;gap:14px}
+.film video{display:block;width:100%;aspect-ratio:16/9;margin-top:36px;border-radius:var(--r);border:1px solid var(--line);background:#000}
 .t-sb .strip{margin-top:auto;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
 .t-sb .strip img{width:200%;max-width:none;animation:pan 26s linear infinite alternate}
 @keyframes pan{to{transform:translateX(-50%)}}
@@ -317,10 +318,10 @@ footer a{color:var(--soft)}
 </div>
 <div class="viewer" id="viewer">
 <div class="screen">
-<img class="on" src="assets/examples/cad_view.jpg" alt="The pump as plain CAD geometry">
-<img src="assets/examples/esploso.jpg" alt="Exploded view of the pump with real materials">
-<img src="assets/examples/sezione.jpg" alt="Cutaway of the pump: red section faces show the rotor, shaft and impeller">
-<img src="assets/examples/dettaglio_materiali.jpg" alt="Close-up of the painted casing and zinc-plated bolts">
+<img class="on" src="assets/examples/cad_view.jpg" alt="The robot arm as plain CAD geometry">
+<img src="assets/examples/esploso.jpg" alt="Exploded view of the robot arm: links and motors pulled apart">
+<img src="assets/examples/sezione.jpg" alt="Cutaway of the shoulder joint: red section faces show the servo motor, strain-wave gearbox and bearing">
+<img src="assets/examples/dettaglio_materiali.jpg" alt="Close-up of the painted joint, motor fins and zinc-plated bolts">
 </div>
 <ol class="stages">
 <li><button type="button" aria-current="true"><b>CAD</b><span lang="en">Your file</span><span lang="it">Il tuo file</span></button></li>
@@ -338,12 +339,18 @@ footer a{color:var(--soft)}
 <div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5</span></div>
 </div>
 
+<section id="film">
+<h2 class="rv"><span lang="en">17 seconds, all made by the skill.</span><span lang="it">17 secondi, tutti fatti dalla skill.</span></h2>
+<p class="sub rv"><span lang="en">A quick low-res demo: CAD, motion, exploded view, cutaway and settings, with HyperFrames graphics on top. Same robot as every image on this page.</span><span lang="it">Una demo veloce in bassa risoluzione: CAD, movimento, esploso, sezione e ambienti, con le grafiche HyperFrames sopra. È lo stesso robot di tutte le immagini della pagina.</span></p>
+<div class="film rv"><video src="assets/examples/demo.mp4" poster="assets/examples/ambiente_nero.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Demo video of the 6-axis robot arm"></video></div>
+</section>
+
 <section id="come">
 <h2 class="rv"><span lang="en">Start from whatever you have.</span><span lang="it">Parti da quello che hai.</span></h2>
 <p class="sub rv"><span lang="en">Claude asks the right questions, builds the 3D model at real scale and shows a storyboard before anything long is rendered.</span><span lang="it">Claude fa le domande giuste, costruisce il modello 3D in scala reale e mostra uno storyboard prima di ogni render lungo.</span></p>
 <div class="sources">
-<div class="src rv"><i class="ph ph-cube ph-icon"></i><h3><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></h3><p lang="en">Opened directly, real scale, parts kept separate for exploded views.</p><p lang="it">Aperti direttamente, in scala reale, con le parti separate per gli esplosi.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>text-to-cad</b></span></div>
-<div class="src rv"><i class="ph ph-ruler ph-icon"></i><h3><span lang="en">DWG and drawings</span><span lang="it">DWG e disegni</span></h3><p lang="en">2D profiles read at real scale; dimensioned drawings rebuilt in parametric CAD.</p><p lang="it">Profili 2D letti in scala reale; disegni quotati ricostruiti in CAD parametrico.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>LibreDWG</b></span></div>
+<div class="src rv"><i class="ph ph-cube ph-icon"></i><h3><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></h3><p lang="en">STEP, 3MF, GLB, FBX, OBJ, STL, USD or .blend, opened at real scale with parts kept separate. SolidWorks, Inventor, Fusion, CATIA: export a STEP.</p><p lang="it">STEP, 3MF, GLB, FBX, OBJ, STL, USD o .blend, aperti in scala reale con le parti separate. SolidWorks, Inventor, Fusion, CATIA: esporta uno STEP.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>text-to-cad</b></span></div>
+<div class="src rv"><i class="ph ph-ruler ph-icon"></i><h3><span lang="en">DWG and drawings</span><span lang="it">DWG e disegni</span></h3><p lang="en">DWG, SVG and vector PDF read at real scale; dimensioned drawings rebuilt in parametric CAD.</p><p lang="it">DWG, SVG e PDF vettoriale letti in scala reale; disegni quotati ricostruiti in CAD parametrico.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>LibreDWG</b></span></div>
 <div class="src rv"><i class="ph ph-camera ph-icon"></i><h3><span lang="en">Photos</span><span lang="it">Foto</span></h3><p lang="en">Modelled from your shots plus one real measurement. The slowest route, and Claude says so.</p><p lang="it">Modellato dalle tue foto più una misura reale. La strada più lenta, e Claude te lo dice.</p><span class="need"><span lang="en">nothing extra</span><span lang="it">niente in più</span></span></div>
 <div class="src rv"><i class="ph ph-link ph-icon"></i><h3><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></h3><p lang="en">Photos, data sheets and brand colours read straight from the link.</p><p lang="it">Foto, schede tecniche e colori del brand letti direttamente dal link.</p><span class="need"><span lang="en">best with</span><span lang="it">meglio con</span> <b>Firecrawl</b></span></div>
 </div>
@@ -353,11 +360,11 @@ footer a{color:var(--soft)}
 <h2 class="rv"><span lang="en">Shots a real camera can't take.</span><span lang="it">Riprese che una camera vera non può fare.</span></h2>
 <p class="sub rv"><span lang="en">Open the machine up, take it apart in mid-air, swap its finish in a click. Every image here is made with the skill's own scripts.</span><span lang="it">Apri la macchina, smontala a mezz'aria, cambia finitura con un clic. Ogni immagine qui è fatta con gli script della skill.</span></p>
 <div class="bento">
-<figure class="tile t-cut rv"><img src="assets/examples/sezione.jpg" alt="Cutaway view of the pump" loading="lazy"><figcaption class="cap"><h3><span lang="en">Cutaways</span><span lang="it">Sezioni</span></h3><p lang="en">See inside: rotor, shaft and impeller, with the section faces in colour.</p><p lang="it">Vedi dentro: rotore, albero e girante, con le facce di sezione colorate.</p></figcaption></figure>
+<figure class="tile t-cut rv"><img src="assets/examples/sezione.jpg" alt="Cutaway view of the robot shoulder" loading="lazy"><figcaption class="cap"><h3><span lang="en">Cutaways</span><span lang="it">Sezioni</span></h3><p lang="en">See inside: motor windings, gearbox and bearings, with the section faces in colour.</p><p lang="it">Vedi dentro: avvolgimenti del motore, riduttore e cuscinetti, con le facce di sezione colorate.</p></figcaption></figure>
 <figure class="tile t-exp rv"><img src="assets/examples/esploso.jpg" alt="Exploded view" loading="lazy"><figcaption class="cap"><h3><span lang="en">Exploded views</span><span lang="it">Esplosi</span></h3><p lang="en">Parts slide apart and back, in order.</p><p lang="it">I pezzi si separano e si rimontano, in ordine.</p></figcaption></figure>
 <figure class="tile t-mat rv"><img src="assets/examples/dettaglio_materiali.jpg" alt="Material close-up" loading="lazy"><figcaption class="cap"><h3><span lang="en">Real materials</span><span lang="it">Materiali veri</span></h3><p lang="en">RAL paint, brushed steel, rubber, zinc-plated bolts.</p><p lang="it">Vernice RAL, acciaio spazzolato, gomma, bulloni zincati.</p></figcaption></figure>
 <div class="tile t-env rv" id="esempi"><h3><span lang="en">Any setting, realistic light</span><span lang="it">Qualsiasi ambiente, luce realistica</span></h3><p lang="en">Chosen in the brief, even from a reference photo.</p><p lang="it">Si sceglie nel brief, anche da una foto di riferimento.</p>
-<div class="thumbs"><figure><img src="assets/examples/ambiente_nero.jpg" alt="Black studio" loading="lazy"><figcaption><span lang="en">Black studio</span><span lang="it">Studio nero</span></figcaption></figure><figure><img src="assets/examples/ambiente_limbo.jpg" alt="Light limbo" loading="lazy"><figcaption>Limbo</figcaption></figure><figure><img src="assets/examples/ambiente_capannone.jpg" alt="Industrial warehouse" loading="lazy"><figcaption><span lang="en">Warehouse</span><span lang="it">Capannone</span></figcaption></figure></div></div>
+<div class="thumbs"><figure><img src="assets/examples/ambiente_nero.jpg" alt="Black studio" loading="lazy"><figcaption><span lang="en">Black studio</span><span lang="it">Studio nero</span></figcaption></figure><figure><img src="assets/examples/ambiente_limbo.jpg" alt="Light limbo" loading="lazy"><figcaption>Limbo</figcaption></figure><figure><img src="assets/examples/ambiente_capannone.jpg" alt="Industrial warehouse" loading="lazy"><figcaption><span lang="en">Warehouse</span><span lang="it">Capannone</span></figcaption></figure><figure><img src="assets/examples/ambiente_laboratorio.jpg" alt="Clean laboratory" loading="lazy"><figcaption><span lang="en">Laboratory</span><span lang="it">Laboratorio</span></figcaption></figure><figure><img src="assets/examples/ambiente_tramonto.jpg" alt="Outdoors at sunset" loading="lazy"><figcaption><span lang="en">Outdoors at sunset</span><span lang="it">Esterno al tramonto</span></figcaption></figure><figure><img src="assets/examples/ambiente_fiera.jpg" alt="Trade-show stand" loading="lazy"><figcaption><span lang="en">Trade-show stand</span><span lang="it">Stand in fiera</span></figcaption></figure></div></div>
 <div class="tile t-sb rv"><h3><span lang="en">A storyboard in seconds</span><span lang="it">Storyboard in pochi secondi</span></h3><p lang="en">One frame per second of the scene, before every animated preview.</p><p lang="it">Un frame per ogni secondo della scena, prima di ogni anteprima animata.</p><div class="strip"><img src="assets/examples/storyboard.jpg" alt="Storyboard strip of a scene" loading="lazy"></div></div>
 </div>
 </section>
@@ -450,7 +457,7 @@ footer a{color:var(--soft)}
 
 <h3 class="rv" style="margin-top:72px;font-size:24px"><span lang="en">Or jump straight in, at the right phase.</span><span lang="it">Oppure entra direttamente nella fase giusta.</span></h3>
 <div class="enter">
-<div class="rv"><q lang="en">Make me a 3D video of this pump</q><q lang="it">Fammi un video 3D di questa pompa</q><span>→ 0 Brief</span></div>
+<div class="rv"><q lang="en">Make me a 3D video of this robot arm</q><q lang="it">Fammi un video 3D di questo braccio robotico</q><span>→ 0 Brief</span></div>
 <div class="rv"><q lang="en">Redo the intro</q><q lang="it">Rifai l'intro</q><span>→ 2 <span lang="en">Scenes</span><span lang="it">Scene</span>, 8</span></div>
 <div class="rv"><q lang="en">Add the subtitles</q><q lang="it">Metti i sottotitoli</q><span>→ 4 <span lang="en">Graphics</span><span lang="it">Grafiche</span></span></div>
 <div class="rv"><q lang="en">Make a version for Instagram</q><q lang="it">Fai una versione per Instagram</q><span>→ 9 <span lang="en">Delivery</span><span lang="it">Consegna</span></span></div>

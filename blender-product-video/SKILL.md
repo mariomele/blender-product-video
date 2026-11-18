@@ -1,6 +1,6 @@
 ---
 name: blender-product-video
-description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, GLB, STL, OBJ…) o disegni tecnici. Fa domande a ogni fase e tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
+description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, 3MF, GLB, FBX, STL, OBJ, USD, .blend…) o disegni tecnici (DWG, SVG, PDF). Fa domande a ogni fase e tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
 ---
 
 # Blender product video
@@ -97,16 +97,34 @@ Checkpoint: crea `progetto.md` con il brief e fallo confermare.
 ## 1. Il pezzo: modello, materiali, ambientazione
 
 ### 1a. Modello
-Obiettivo: il prodotto in **metri reali**, centrato sull'origine e appoggiato a terra. Per modelli 3D, SVG e DWG 2D:
+Obiettivo: il prodotto in **metri reali**, centrato sull'origine e appoggiato a terra. Un solo comando per ogni file 3D o disegno 2D:
 `blender -b --factory-startup --python $K/import_model.py -- <file> <out.blend> [m|cm|mm|in]`
 Stampa `SIZE_M L x P x H`: confrontalo con una misura nota. Se è sbagliata di 10, 100 o 1000 volte, hai sbagliato l'unità.
 
+**Formati accettati.** Quando l'utente chiede cosa mandare: **STEP** è il migliore (misure esatte, parti separate con il loro nome, pronto per esplosi e sezioni), poi **GLB**.
+
+| Formato | Entra con `import_model.py` | Serve | Unità |
+|---|---|---|---|
+| **STEP / STP** | sì | **text-to-cad** (comando `cad`) | automatica: le parti restano separate con il loro nome |
+| **3MF** | sì | **text-to-cad** | automatica |
+| **GLB / glTF** | sì | niente | `m` (tiene colori e parti) |
+| **FBX, OBJ, STL, PLY, USD/USDZ/USDC, ABC** | sì | niente | STL e OBJ da CAD sono quasi sempre in `mm` |
+| **.blend** | sì, viene aperto e centrato | niente | `m` |
+| **DWG** (solo 2D) | sì | **LibreDWG** (`brew install libredwg`, chiedi l'ok) | `mm` di default: chiedi l'unità del disegno |
+| **SVG** | sì | niente | chiedi l'unità del disegno |
+| **PDF vettoriale** | sì, la pagina 1, a grandezza reale sulla carta | **poppler** (`brew install poppler`, chiedi l'ok) | se il disegno è in scala 1:N, moltiplica per N e controlla una quota |
+| **DXF** | no | chiedi l'export in SVG, DWG o PDF, oppure installa l'estensione "Import AutoCAD DXF" (con ok) | |
+| **IGES/IGS, SolidWorks (SLDPRT/SLDASM), Inventor (IPT/IAM), Fusion (F3D), CATIA (CATPart), Creo (PRT/ASM), Parasolid (X_T), Rhino (3DM), SketchUp (SKP), Onshape** | no, Blender non li apre | chiedi l'export in **STEP** (con l'assieme, non il pezzo singolo) o in **GLB** | |
+
+Note:
+- STEP e 3MF passano da `cad ... export` in un GLB in metri (tolleranza 0,05 mm, curve lisce anche nei primi piani). Senza `cad` lo script lo dice: chiedi l'export GLB dal CAD.
+- DWG: legge solo il 2D, cioè linee, archi e polilinee. Quote, testi e retini non vengono letti, e un DWG solo 3D, vuoto o di una versione recente non letta dà errore: in quel caso chiedi un export in SVG, PDF o STEP.
+- Dai disegni 2D (DWG, SVG, PDF) si estrudono i profili o si ricostruiscono le parti in build123d (sotto). Controlla sempre la scala su una quota nota.
+
+Altre sorgenti:
+
 | Sorgente | Come procedere |
 |---|---|
-| **GLB/glTF, FBX, OBJ, STL, PLY, USD, ABC** | `import_model.py`. STL e OBJ da CAD sono quasi sempre in `mm`. |
-| **STEP/STP** | Con **text-to-cad** installato (comando `cad`): `cad step export <file>.step <file>.glb` (aggiungi `--tolerance 0.05` per curve più lisce nei primi piani), poi `import_model.py` con unità `m`: il GLB è già in metri e le parti restano separate con il loro nome. Senza `cad`, chiedi l'export GLB dal CAD. |
-| **Altro CAD nativo** (IGES, SolidWorks, Inventor, Onshape, Fusion) | Blender non li apre. Chiedi l'export in **STEP** (poi come sopra) o in **GLB** (tiene colori e parti separate). |
-| **Disegno vettoriale** (DXF, DWG, SVG, PDF vettoriale) | SVG e DWG → `import_model.py` (unità di default per il DWG: mm; chiedi in che unità è il disegno). Il DWG passa da `dwg2SVG` di **LibreDWG** (`brew install libredwg`, chiedi l'ok se manca): legge solo il 2D, cioè linee, archi e polilinee. Quote, testi e retini non vengono letti, e un DWG solo 3D, vuoto o di una versione recente non letta dà errore: in quel caso chiedi un export in SVG, PDF o STEP. Controlla sempre la scala su una quota nota. DXF → chiedi l'export in SVG, DWG o PDF, oppure installa l'estensione "Import AutoCAD DXF" (con ok). Poi estrudi i profili o ricostruisci le parti. |
 | **Disegno raster o schizzo** | Leggilo, trascrivi le quote in una tabella dentro `progetto.md` e modella in **build123d** (vedi sotto) con quelle quote come parametri. Le quote mancanti si chiedono, non si inventano. Senza `cad`, modella in Blender in Python (bmesh / geometry nodes). |
 | **Foto** | Vedi sotto. |
 | **Link** | Pagina prodotto → leggila (`firecrawl_scrape` o il browser integrato) per foto, misure, schede tecniche, codici colore; poi procedi come per foto/disegni. Link a un modello (GrabCAD, TraceParts, produttore, Sketchfab) → chiedi l'ok, controlla la licenza, poi `import_model.py`. Salva tutto in `source/`. |

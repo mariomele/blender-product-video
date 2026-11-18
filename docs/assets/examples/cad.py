@@ -1,4 +1,4 @@
-# CAD-viewport look of the demo pump: -- frame out.png
+# CAD-viewport look of the demo robot: -- frame out.png
 import bpy, sys
 a = sys.argv[sys.argv.index('--') + 1:]
 s = bpy.context.scene

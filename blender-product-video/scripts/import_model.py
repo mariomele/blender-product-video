@@ -1,12 +1,29 @@
 # Imports a model or 2D drawing into an empty scene at real scale, centred on the floor, and saves a .blend.
 # usage: blender -b --factory-startup --python import_model.py -- <file> <out.blend> [unit: m|cm|mm|in]
-# .dwg (2D only) goes through LibreDWG's dwg2SVG; its unit defaults to mm.
+# .step/.stp/.3mf go through text-to-cad (cad ... export to GLB, unit m); .pdf (vector) through pdftocairo; .dwg (2D only) through LibreDWG's dwg2SVG, unit mm by default.
 # Prints the size in metres: check it against a real dimension before going on.
 import bpy, sys, os, re, subprocess
 from mathutils import Vector
 src, out, *rest = sys.argv[sys.argv.index('--') + 1:]
+ext0 = os.path.splitext(src)[1].lower()
+if ext0 in ('.step', '.stp', '.3mf'):  # exact CAD: text-to-cad meshes it into a metre-scaled GLB, parts and names kept
+    glb = os.path.splitext(os.path.abspath(out))[0] + '.glb'
+    try:
+        r = subprocess.run(['cad', 'threemf' if ext0 == '.3mf' else 'step', 'export', src, glb, '--tolerance', '0.05'], capture_output=True, text=True)
+    except FileNotFoundError:
+        sys.exit("ERR per STEP e 3MF serve text-to-cad (comando cad), oppure chiedi un export GLB dal CAD")
+    if r.returncode: sys.exit("ERR cad export: " + (r.stderr or r.stdout)[-400:])
+    src, rest = glb, ['m']
+elif ext0 == '.pdf':  # vector PDF page 1 -> SVG; PDF points are 1/72 in
+    svg = os.path.splitext(os.path.abspath(out))[0] + '.svg'
+    try:
+        subprocess.run(['pdftocairo', '-svg', '-f', '1', '-l', '1', src, svg], check=True)
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        sys.exit("ERR per i PDF serve poppler (brew install poppler), oppure chiedi un SVG")
+    src = svg
 unit = rest[0] if rest else ('mm' if src.lower().endswith('.dwg') else 'm')
 scale = {'m': 1, 'cm': 0.01, 'mm': 0.001, 'in': 0.0254}[unit]
+if ext0 == '.pdf': scale *= 72 / 25.4  # Blender reads pdftocairo's pt-sized SVG this much too small; 1:1 on paper -> real size
 if src.lower().endswith('.dwg'):
     try:
         svg = subprocess.run(['dwg2SVG', src], capture_output=True, text=True).stdout
@@ -27,9 +44,10 @@ ext = os.path.splitext(src)[1].lower()
 imp = {'.glb': bpy.ops.import_scene.gltf, '.gltf': bpy.ops.import_scene.gltf, '.fbx': bpy.ops.import_scene.fbx,
        '.obj': bpy.ops.wm.obj_import, '.stl': bpy.ops.wm.stl_import, '.ply': bpy.ops.wm.ply_import,
        '.usd': bpy.ops.wm.usd_import, '.usdz': bpy.ops.wm.usd_import, '.usdc': bpy.ops.wm.usd_import,
-       '.abc': bpy.ops.wm.alembic_import, '.svg': bpy.ops.import_curve.svg}.get(ext)
+       '.abc': bpy.ops.wm.alembic_import, '.svg': bpy.ops.import_curve.svg,
+       '.blend': lambda filepath: bpy.ops.wm.open_mainfile(filepath=filepath)}.get(ext)
 if not imp:
-    sys.exit(f"ERR formato {ext} non importabile: esportalo come GLB/OBJ/STL (3D) o SVG (2D) dal CAD")
+    sys.exit(f"ERR formato {ext} non importabile: esportalo come STEP o GLB (3D) o SVG/PDF (2D) dal CAD")
 imp(filepath=os.path.abspath(src))
 root = bpy.data.objects.new("PRODUCT", None)
 bpy.context.scene.collection.objects.link(root)

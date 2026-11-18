@@ -140,7 +140,7 @@ Nella cartella `scripts/`:
 
 | Script | A cosa serve |
 |---|---|
-| `import_model.py` | Importa un modello 3D, un SVG o un DWG 2D in scala reale e stampa le dimensioni, per controllare subito la scala. |
+| `import_model.py` | Importa in scala reale qualsiasi file accettato (STEP, 3MF, GLB, FBX, OBJ, STL, PLY, USD, ABC, .blend, DWG, SVG, PDF vettoriale) e stampa le dimensioni, per controllare subito la scala. |
 | `fea_surface.py`, `fea_to_blend.py` | Portano in Blender il risultato di un calcolo di resistenza di text-to-cad: superficie del pezzo, deformazione esagerata e colori della tensione, animati mentre entra il carico. |
 | `preview.sh` (+ `preview.py`) | Storyboard a griglia e anteprima animata a 24, 12 o 6 fps. |
 | `render_all.sh` | Renderizza tutte le scene, controlla che non manchino frame, monta il video e scrive `timings.json` con i tempi di ogni scena. Si accorge se cambi la durata di una scena e rifà solo quella. |
