@@ -1,7 +1,7 @@
 # Renders shot [a,b] stretched to (b-a+1+extra) frames via subframe sampling (motion is procedural, no sims), JPG, resumable.
 # usage: blender -b file.blend --python render_seg_gpu.py -- a b extra outdir [res%=100] [WxH] [--redo x y]
 # Without WxH the resolution saved in the .blend is kept.
-# Env: SPP (samples, default 40 at 100% else 12; SPP_FINAL still works), JPG_Q (1-100, default 75),
+# Env: SPP (samples, default 40 at 100% else 8; SPP_FINAL still works), JPG_Q (1-100, default 75),
 #      OUT_FPS (output fps; if it differs from the .blend fps the shot is resampled via subframes, same duration).
 # Writes <outdir>/n with the number of output frames.
 # --redo x y: re-render (overwrite) only the output frames sampling master frames x..y; same a, b, extra as before.
@@ -17,7 +17,7 @@ r = s.render
 if len(args) > 5: r.resolution_x, r.resolution_y = map(int, args[5].split('x'))
 r.resolution_percentage = int(res)
 s.cycles.device = "GPU"; s.cycles.use_denoising = True
-s.cycles.samples = int(os.environ.get('SPP') or os.environ.get('SPP_FINAL') or (40 if res == 100 else 12))
+s.cycles.samples = int(os.environ.get('SPP') or os.environ.get('SPP_FINAL') or (40 if res == 100 else 8))
 r.image_settings.file_format = 'JPEG'; r.image_settings.quality = int(os.environ.get('JPG_Q', 75))
 os.makedirs(out, exist_ok=True)
 L = b - a + 1; fps = r.fps / r.fps_base

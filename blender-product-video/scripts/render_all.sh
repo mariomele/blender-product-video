@@ -1,7 +1,7 @@
 #!/bin/bash
 # usage: [SPP=n] [JPG_Q=1-100] render_all.sh <project_dir> <edl.txt> [res%=100] [fps=24] [WxH]
 #   Any combination: res% (100 -> final_jpg, else preview_jpg), output fps (a shot whose .blend has another fps is
-#   resampled via subframes, same duration), SPP (default 40 at 100%, else 12), JPG_Q (default 75).
+#   resampled via subframes, same duration), SPP (default 40 at 100%, else 8), JPG_Q (default 75).
 #   WxH overrides the resolution saved in each .blend (e.g. 1920x1080, 1080x1920, 1080x1080).
 # EDL line: <n> <file.blend> <first> <last> [extra=0] [skip_head=0]
 #   extra: frames added by subframe stretch (voice-over room); skip_head: rendered frames left out of the edit.
@@ -11,7 +11,7 @@ P=$1; EDL=$2; RES=${3:-100}; FPS=${4:-24}; WH=$5; HANG=$(( ${HANG_MIN:-10} * 60 
 B=${BLENDER:-/Applications/Blender.app/Contents/MacOS/Blender}; FF=$(command -v ffmpeg || echo /opt/homebrew/bin/ffmpeg)
 GUI=$(ps -axo pid=,command= | grep -e "$B" -e 'MacOS/Blender' | grep -v -e ' -b' -e grep)
 [ -n "$GUI" ] && { echo "GUI_BLENDER_OPEN: chiudilo prima (Metal headless si blocca):"; echo "$GUI"; exit 3; }
-SPP=${SPP:-${SPP_FINAL:-$([ "$RES" = 100 ] && echo 40 || echo 12)}}; export SPP JPG_Q=${JPG_Q:-75} OUT_FPS=$FPS
+SPP=${SPP:-${SPP_FINAL:-$([ "$RES" = 100 ] && echo 40 || echo 8)}}; export SPP JPG_Q=${JPG_Q:-75} OUT_FPS=$FPS
 cd "$P" || exit 1
 OUT=final_jpg; [ "$RES" != 100 ] && OUT=preview_jpg; mkdir -p "$OUT"; L=$OUT/list.txt; : > $L
 T=$OUT/timings.json; echo "[" > $T; start=0; sep=""
