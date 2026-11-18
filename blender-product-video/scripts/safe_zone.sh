@@ -1,7 +1,7 @@
 #!/bin/bash
 # usage: safe_zone.sh <WxH> [reels|stories|tiktok|all] [in out]   safe zone of a 9:16 frame
 # Prints the margins in px and the CSS insets for HyperFrames. With in/out (image or video) it draws the guides:
-# green = safe line (texts and infographics inside), red = limit with the tolerance (20% top/bottom, 10% sides) (nothing important past it).
+# green = safe line (important texts always inside), red = limit for secondary elements and graphics (tolerance 20% top/bottom, 10% sides).
 # Margins measured on 1080x1920 (platform UI, 2026), scaled to WxH. "all" = the strictest of the three, the default.
 WH=$1; P=${2:-all}; W=${WH%x*}; H=${WH#*x}; FF=$(command -v ffmpeg || echo /opt/homebrew/bin/ffmpeg)
 case $P in            # top bottom left right
