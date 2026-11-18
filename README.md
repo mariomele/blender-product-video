@@ -222,6 +222,13 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS. Ev
 
   Then `/mcp` to sign in.
 
+- **[Teardown skill](https://github.com/elvarofficial/teardown)**: fast alternative without Blender: rebuilds the machine in three.js and records a tour video in minutes, or makes an interactive page. Shapes are approximate. *When:* a quick "how it works" video or a pitch where the real product's fidelity doesn't matter.
+
+  ```bash
+  npx skills add elvarofficial/teardown -g -a claude-code
+  ```
+  Then, once, in the installed folder: `npm install && npx playwright install chromium`.
+
 - **[Machine skill](https://github.com/AirsupHQ/machine-skill)**: an interactive 3D web page of the product. *When:* you also want a page for a website or a trade-fair screen.
 
   ```bash
@@ -431,6 +438,13 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
   ```
 
   Poi `/mcp` per accedere.
+
+- **[Teardown skill](https://github.com/elvarofficial/teardown)**: alternativa veloce senza Blender: ricostruisce la macchina in three.js e registra un video del tour in pochi minuti, o crea una pagina interattiva. Le forme sono approssimate. *Quando:* un video veloce di "come funziona" o un pitch, dove la fedeltà al prodotto vero non conta.
+
+  ```bash
+  npx skills add elvarofficial/teardown -g -a claude-code
+  ```
+  Poi, una volta, nella cartella installata: `npm install && npx playwright install chromium`.
 
 - **[Machine skill](https://github.com/AirsupHQ/machine-skill)**: una pagina web 3D interattiva del prodotto. *Quando:* vuoi anche una pagina per il sito o per uno schermo in fiera.
 

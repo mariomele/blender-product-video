@@ -11,13 +11,14 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 - **Guida con domande.** All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
-- **Ogni render parte da una domanda sola, con tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Vale per storyboard, anteprime, montaggio e finale. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; vanno bene anche valori liberi, per esempio `1440x2560-24-JPG70/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
+- **Ogni render parte da una domanda sola, con tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Vale per storyboard, anteprime, montaggio, finale e redo, ogni volta, anche quando l'utente dice solo "renderizza": non lanciare mai un render senza la risposta. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; un quarto numero facoltativo cambia solo il JPG (`2-3-4-1` = qualità 4 con JPG 50); vanno bene anche valori liberi, per esempio `1440x2560-24-JPG70/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
 
   ```
   Render <cosa> — rispondi risoluzione-fps-qualità (es. 2-4-1)
   Risoluzione  1) 25%   2) 50%   3) 75%   4) 100% (<WxH del progetto>)
   Fps          1) 3     2) 6     3) 12    4) 24 (massimo)
   Qualità      1) Ultra veloce   2) Veloce   3) Standard   4) Massima
+  JPG (facoltativo) 1) 50   2) 60   3) 75   4) 95
   Proposta: <codice> · circa <tempo>
   ```
 
@@ -87,7 +88,8 @@ Chiedi, se non lo sai già:
   - un sito di riferimento: ricava la palette con `firecrawl_scrape` (formato `branding`) o dal CSS, mostrala e falla confermare.
   Chiedi anche il logo (SVG/PNG) e i colori da evitare. Con l'ok salva la palette in memoria per i video successivi dello stesso cliente.
 - **Calcoli e tavole (facoltativo, con text-to-cad)**: chiedi se il video deve mostrare quanto regge un pezzo, sotto quale carico e con quale materiale, o una tavola tecnica quotata. Diventano scene in fase 2.
-- **Extra facoltativo**: chiedi se serve anche una pagina 3D interattiva (esploso, sezione, numeri di funzionamento) per sito o fiera. Si fa in fase 9 con la skill `/machine`, se è installata.
+- **Alternativa veloce con `/teardown`** (se è installata): quando serve un video di "come funziona" in poco tempo e la fedeltà al prodotto vero non conta (idea, pitch, spiegazione di un principio), proponila al posto di Blender. `/teardown` ricostruisce la macchina a codice in three.js e registra un tour in mp4 con il suo sonoro: minuti invece di ore di render, ma forme e proporzioni sono approssimate e la resa non è quella di Cycles. Non usarla se servono misure, loghi o materiali veri, né mescolarla con scene Blender nello stesso video. Se l'utente la sceglie, segui la sua skill; da questa riprendi la domanda del render (risoluzione e durata; fps e qualità se `/teardown` li supporta), le zone sicure del 9:16 per i testi e la consegna (fase 9).
+- **Extra facoltativo**: chiedi se serve anche una pagina 3D interattiva (esploso, sezione, numeri di funzionamento) per sito o fiera. Si fa in fase 9 con la skill `/machine` o `/teardown`, se installate.
 Checkpoint: crea `progetto.md` con il brief e fallo confermare.
 
 ## 1. Il pezzo: modello, materiali, ambientazione
@@ -290,7 +292,7 @@ Manda il `light.mp4` con SendUserFile; per file oltre 30 MB indica il percorso.
 
 **Tavola tecnica**: se è stata fatta, consegna anche `delivery/<nome>_tavola.pdf`.
 
-**Extra: pagina interattiva** (solo se chiesta nel brief e se `/machine` è installata). Usa `/machine` per creare `delivery/<nome>.html`: un file unico in three.js, da aprire nel browser o mettere in un iframe, con esploso, sezione, radiografia e numeri calcolati. Passale le misure, la distinta dei pezzi con i materiali e i dati tecnici raccolti in `progetto.md`. Avvisa che `/machine` ricostruisce il pezzo con forme proprie: è una versione semplificata, non carica il modello Blender e ha una resa diversa da Cycles. Per questo non va montata dentro il video. Mostrala con uno screenshot e falla approvare a parte.
+**Extra: pagina interattiva** (solo se chiesta nel brief e se `/machine` o `/teardown` è installata; con tutte e due chiedi quale). Usa la skill scelta per creare `delivery/<nome>.html`: un file unico in three.js, da aprire nel browser o mettere in un iframe, con esploso, sezione, radiografia e numeri calcolati. Passale le misure, la distinta dei pezzi con i materiali e i dati tecnici raccolti in `progetto.md`. Avvisa che la skill ricostruisce il pezzo con forme proprie: è una versione semplificata, non carica il modello Blender e ha una resa diversa da Cycles. Per questo non va montata dentro il video. Mostrala con uno screenshot e falla approvare a parte.
 
 ## Trappole
 - Blender 5.x: action a livelli → `action.layers[].strips[].channelbags[].fcurves`; l'opzione MetalRT si chiama `metalrt` (non `metal_rt`).
