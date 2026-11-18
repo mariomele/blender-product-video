@@ -34,9 +34,9 @@
 
 ## How it works · Come funziona
 
-![From your part to an explainer video in three steps](docs/assets/examples/how_it_works_en.jpg)
+![From your part to an explainer video in three steps](docs/assets/examples/how_it_works_en.jpg?v=3)
 
-▶ **[Watch the 17-second demo](https://mariomele.github.io/blender-product-video/assets/examples/demo.mp4)**: CAD, motion, exploded view, cutaway and settings, all made by the skill.
+▶ **[Watch the 17-second demo](https://mariomele.github.io/blender-product-video/assets/examples/demo.mp4?v=3)**: CAD, motion, exploded view, cutaway and settings, all made by the skill.
 *Guarda la demo di 17 secondi: CAD, movimento, esploso, sezione e ambienti, tutto fatto dalla skill.*
 
 ## What a real camera can't show · Quello che una ripresa vera non può mostrare
@@ -46,15 +46,15 @@ Open the machine up, take it apart in mid-air, swap its finish in a click: shots
 
 | Cutaway · Sezione | Exploded view · Esploso | Materials and textures · Materiali e texture |
 |---|---|---|
-| ![Cutaway of the shoulder: motor, gearbox and bearing with red section faces](docs/assets/examples/sezione.jpg) | ![Exploded view](docs/assets/examples/esploso.jpg) | ![Painted joint, finned servo motor, zinc-plated bolts](docs/assets/examples/dettaglio_materiali.jpg) |
+| ![Cutaway of the shoulder: motor, gearbox and bearing with red section faces](docs/assets/examples/sezione.jpg?v=3) | ![Exploded view](docs/assets/examples/esploso.jpg?v=3) | ![Painted joint, finned servo motor, zinc-plated bolts](docs/assets/examples/dettaglio_materiali.jpg?v=3) |
 
 **Any setting, realistic light · Qualsiasi ambiente, luce realistica**
 
 | Black studio · Studio nero | Limbo | Warehouse · Capannone |
 |---|---|---|
-| ![Black studio](docs/assets/examples/ambiente_nero.jpg) | ![Light limbo](docs/assets/examples/ambiente_limbo.jpg) | ![Warehouse](docs/assets/examples/ambiente_capannone.jpg) |
+| ![Black studio](docs/assets/examples/ambiente_nero.jpg?v=3) | ![Light limbo](docs/assets/examples/ambiente_limbo.jpg?v=3) | ![Warehouse](docs/assets/examples/ambiente_capannone.jpg?v=3) |
 | **Laboratory · Laboratorio** | **Outdoors at sunset · Esterno al tramonto** | **Trade-show stand · Stand in fiera** |
-| ![Laboratory](docs/assets/examples/ambiente_laboratorio.jpg) | ![Outdoors at sunset](docs/assets/examples/ambiente_tramonto.jpg) | ![Trade-show stand](docs/assets/examples/ambiente_fiera.jpg) |
+| ![Laboratory](docs/assets/examples/ambiente_laboratorio.jpg?v=3) | ![Outdoors at sunset](docs/assets/examples/ambiente_tramonto.jpg?v=3) | ![Trade-show stand](docs/assets/examples/ambiente_fiera.jpg?v=3) |
 
 Every image was made with the skill's scripts, from a procedurally modelled 6-axis robot arm ([`build_robot.py`](docs/assets/examples/build_robot.py), [`cut_robot.py`](docs/assets/examples/cut_robot.py)).
 *Tutte le immagini sono generate con gli script della skill, partendo da un braccio robotico a 6 assi modellato proceduralmente.*
