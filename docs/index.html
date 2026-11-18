@@ -48,7 +48,7 @@ section{padding:112px 0 0}
 .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--accent);text-transform:uppercase}
 
 /* nav */
-.nav{position:sticky;top:0;z-index:20;background:rgb(11 12 14 / .78);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgb(255 255 255 / .06)}
+.nav{position:sticky;top:0;z-index:20;background:rgb(9 11 16 / .78);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgb(255 255 255 / .06)}
 .nav .wrap{display:flex;align-items:center;gap:14px;height:66px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap}
 .brand img{width:30px;height:30px}
@@ -68,6 +68,21 @@ section{padding:112px 0 0}
 
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center;padding:72px 0 40px;min-height:calc(100dvh - 66px)}
+#apri{height:260vh;position:relative}
+#apri .pin{position:sticky;top:66px;height:calc(100dvh - 66px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:48px;align-items:center}
+.scrub{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#000}
+.scrub img{display:block;width:100%;height:auto}
+.scrub-txt{position:relative;min-height:9em}
+.cap{position:absolute;inset:0 0 auto;margin:0;font-size:clamp(26px,2.6vw,38px);line-height:1.1;letter-spacing:-.025em;font-weight:700;opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.cap{transition-duration:.2s}
+.cap.on{opacity:1;transform:none;transition-duration:.5s;transition-delay:.18s}
+@media(max-width:900px),(prefers-reduced-motion:reduce){
+  /* no pinning: one still frame and the three lines stacked */
+  #apri{height:auto}
+  #apri .pin{position:static;height:auto;grid-template-columns:1fr;gap:20px}
+  .scrub-txt{min-height:0}
+  .cap{position:static;opacity:1;transform:none;font-size:22px;margin-bottom:8px}
+}
 .hero h1{font-size:clamp(40px,4.4vw,58px);line-height:1.02;font-weight:800;letter-spacing:-.035em}
 .hero h1 em{font-style:normal;color:var(--accent)}
 .hero .lead{font-size:19px;color:var(--soft);margin:22px 0 32px;max-width:40ch}
@@ -94,7 +109,11 @@ section{padding:112px 0 0}
 .facts span{color:var(--muted);font-size:15px;display:block;margin-top:8px}
 
 /* sources */
-.sources{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+.sources{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:14px;margin-top:44px}
+.src.big{grid-row:span 2;background:linear-gradient(180deg,var(--panel2),var(--panel))}
+.src.big h3{font-size:24px}
+.src.wide{grid-column:span 2}
+.src-img{display:block;width:100%;height:auto;flex:none;aspect-ratio:16/9;object-fit:cover;border-radius:var(--rs);border:1px solid var(--line);margin:6px 0 8px}
 .src{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:10px}
 .src i.ph-icon{font-size:28px;color:var(--accent)}
 .src p{margin:0;color:var(--soft);font-size:15px;line-height:1.5}
@@ -213,6 +232,15 @@ section{padding:112px 0 0}
 .step1{margin-top:36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px}
 .step1 p{margin:6px 0 0;color:var(--soft);font-size:15px}
 .group{margin-top:44px}
+.fold>summary{display:flex;align-items:baseline;gap:14px;cursor:pointer;list-style:none;padding:18px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);transition:border-color .2s}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary:hover{border-color:var(--line2)}
+.fold>summary p{margin:0;color:var(--muted);font-size:14.5px}
+.fold>summary .ph{margin-left:auto;align-self:center;color:var(--muted);transition:transform .25s}
+.fold[open]>summary{margin-bottom:16px}
+.fold[open]>summary .ph{transform:rotate(180deg)}
+.fold+.fold{margin-top:12px}
+
 .group>header{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
 .group>header p{margin:0;color:var(--muted);font-size:14.5px}
 .deps{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
@@ -265,6 +293,7 @@ footer a{color:var(--soft)}
   .facts div:nth-child(3){border-left:0;padding-left:0}
   .facts div:nth-child(n+3){border-top:1px solid var(--line)}
   .sources{grid-template-columns:repeat(2,1fr)}
+  .src.big{grid-row:auto;grid-column:span 2}
   .bento{grid-template-columns:1fr}
   .t-cut,.t-exp,.t-mat,.t-env,.t-sb{grid-column:auto;grid-row:auto}
   .t-cut{min-height:340px}
@@ -285,6 +314,7 @@ footer a{color:var(--soft)}
   .wrap{padding:0 16px}
   .stages{grid-template-columns:repeat(2,1fr)}
   .sources,.enter{grid-template-columns:1fr}
+  .src.big,.src.wide{grid-column:auto}
   .facts b{font-size:32px}
   .code{font-size:44px}
   .seg.five{grid-template-columns:repeat(3,1fr)}
@@ -339,6 +369,17 @@ footer a{color:var(--soft)}
 <div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5</span></div>
 </div>
 
+<section id="apri" aria-label="Exploded view on scroll">
+<div class="pin">
+<div class="scrub"><img id="scrubImg" src="assets/examples/scroll/f_51.jpg" alt="The robot arm opening into an exploded view" width="960" height="540"></div>
+<div class="scrub-txt">
+<p class="cap on" data-at="0"><b lang="en">Your machine, at real scale.</b><b lang="it">La tua macchina, in scala reale.</b></p>
+<p class="cap" data-at=".35"><b lang="en">Every motor slides out of its joint.</b><b lang="it">Ogni motore esce dal suo giunto.</b></p>
+<p class="cap" data-at=".7"><b lang="en">Every part in place, ready for the cutaway.</b><b lang="it">Ogni pezzo al suo posto, pronto per la sezione.</b></p>
+</div>
+</div>
+</section>
+
 <section id="film">
 <h2 class="rv"><span lang="en">17 seconds, all made by the skill.</span><span lang="it">17 secondi, tutti fatti dalla skill.</span></h2>
 <p class="sub rv"><span lang="en">A quick low-res demo: CAD, motion, exploded view, cutaway and settings, with HyperFrames graphics on top. Same robot as every image on this page.</span><span lang="it">Una demo veloce in bassa risoluzione: CAD, movimento, esploso, sezione e ambienti, con le grafiche HyperFrames sopra. È lo stesso robot di tutte le immagini della pagina.</span></p>
@@ -349,10 +390,10 @@ footer a{color:var(--soft)}
 <h2 class="rv"><span lang="en">Start from whatever you have.</span><span lang="it">Parti da quello che hai.</span></h2>
 <p class="sub rv"><span lang="en">Claude asks the right questions, builds the 3D model at real scale and shows a storyboard before anything long is rendered.</span><span lang="it">Claude fa le domande giuste, costruisce il modello 3D in scala reale e mostra uno storyboard prima di ogni render lungo.</span></p>
 <div class="sources">
-<div class="src rv"><i class="ph ph-cube ph-icon"></i><h3><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></h3><p lang="en">STEP, 3MF, GLB, FBX, OBJ, STL, USD or .blend, opened at real scale with parts kept separate. SolidWorks, Inventor, Fusion, CATIA: export a STEP.</p><p lang="it">STEP, 3MF, GLB, FBX, OBJ, STL, USD o .blend, aperti in scala reale con le parti separate. SolidWorks, Inventor, Fusion, CATIA: esporta uno STEP.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>text-to-cad</b></span></div>
+<div class="src big rv"><i class="ph ph-cube ph-icon"></i><h3><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></h3><p lang="en">STEP, 3MF, GLB, FBX, OBJ, STL, USD or .blend, opened at real scale with parts kept separate. SolidWorks, Inventor, Fusion, CATIA: export a STEP.</p><p lang="it">STEP, 3MF, GLB, FBX, OBJ, STL, USD o .blend, aperti in scala reale con le parti separate. SolidWorks, Inventor, Fusion, CATIA: esporta uno STEP.</p><img class="src-img" src="assets/examples/cad_view.jpg" alt="" loading="lazy" width="1536" height="864"><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>text-to-cad</b></span></div>
 <div class="src rv"><i class="ph ph-ruler ph-icon"></i><h3><span lang="en">DWG and drawings</span><span lang="it">DWG e disegni</span></h3><p lang="en">DWG, SVG and vector PDF read at real scale; dimensioned drawings rebuilt in parametric CAD.</p><p lang="it">DWG, SVG e PDF vettoriale letti in scala reale; disegni quotati ricostruiti in CAD parametrico.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>LibreDWG</b></span></div>
 <div class="src rv"><i class="ph ph-camera ph-icon"></i><h3><span lang="en">Photos</span><span lang="it">Foto</span></h3><p lang="en">Modelled from your shots plus one real measurement. The slowest route, and Claude says so.</p><p lang="it">Modellato dalle tue foto più una misura reale. La strada più lenta, e Claude te lo dice.</p><span class="need"><span lang="en">nothing extra</span><span lang="it">niente in più</span></span></div>
-<div class="src rv"><i class="ph ph-link ph-icon"></i><h3><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></h3><p lang="en">Photos, data sheets and brand colours read straight from the link.</p><p lang="it">Foto, schede tecniche e colori del brand letti direttamente dal link.</p><span class="need"><span lang="en">best with</span><span lang="it">meglio con</span> <b>Firecrawl</b></span></div>
+<div class="src wide rv"><i class="ph ph-link ph-icon"></i><h3><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></h3><p lang="en">Photos, data sheets and brand colours read straight from the link.</p><p lang="it">Foto, schede tecniche e colori del brand letti direttamente dal link.</p><span class="need"><span lang="en">best with</span><span lang="it">meglio con</span> <b>Firecrawl</b></span></div>
 </div>
 </section>
 
@@ -541,8 +582,7 @@ claude mcp add blender -- uv --directory ~/blender_mcp/mcp run blender-mcp</code
 cp -r /tmp/blender-skills/.claude/skills/* ~/.claude/skills/</code></pre></article>
 </div></div>
 
-<div class="group">
-<header><h3><span lang="en">For the finished video</span><span lang="it">Per il video finito</span></h3><p lang="en">Recommended: text, voice and cleaner code.</p><p lang="it">Consigliate: testi, voce e codice più pulito.</p></header>
+<details class="group fold"><summary><h3><span lang="en">For the finished video</span><span lang="it">Per il video finito</span></h3><p lang="en">Recommended: text, voice and cleaner code.</p><p lang="it">Consigliate: testi, voce e codice più pulito.</p><i class="ph ph-caret-down"></i></summary>
 <div class="deps">
 <article class="dep" data-id="hf"><header><a href="https://github.com/heygen-com/hyperframes"><b>Node.js 22+ · HyperFrames</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Draws titles, callouts, measurements, counters, subtitles and the end logo over the render, in your palette, with exact text.</span><span lang="it">Disegna sopra il render titoli, callout, misure, contatori, sottotitoli e il logo finale, nella tua palette e con il testo esatto.</span></p>
@@ -559,10 +599,9 @@ claude plugin install hyperframes@hyperframes</code></pre></article>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Every phase where Claude writes scripts, and a review before the final render: a bug caught there saves hours of GPU.</span><span lang="it">In ogni fase in cui Claude scrive script, più un controllo prima del render finale: un errore trovato lì fa risparmiare ore di GPU.</span></p>
 <pre class="cmd"><code>claude plugin marketplace add DietrichGebert/ponytail
 claude plugin install ponytail@ponytail</code></pre></article>
-</div></div>
+</div></details>
 
-<div class="group">
-<header><h3><span lang="en">Optional, by use</span><span lang="it">Facoltative, in base all'uso</span></h3><p lang="en">Only when your source or your idea asks for them.</p><p lang="it">Solo se la sorgente o l'idea le richiede.</p></header>
+<details class="group fold"><summary><h3><span lang="en">Optional, by use</span><span lang="it">Facoltative, in base all'uso</span></h3><p lang="en">Only when your source or your idea asks for them.</p><p lang="it">Solo se la sorgente o l'idea le richiede.</p><i class="ph ph-caret-down"></i></summary>
 <div class="deps">
 <article class="dep" data-id="tcad"><header><a href="https://github.com/earthtojake/text-to-cad"><b>text-to-cad · build123d · bd_warehouse</b></a><span class="tag opt"><span lang="en">Optional</span><span lang="it">Facoltativa</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Opens STEP files (parts kept separate, real scale); models parts in parametric CAD with <a href="https://github.com/gumyr/build123d">build123d</a>; adds real ISO screws, bearings, gears and flanges from <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a>; runs stress analyses and makes dimensioned drawings.</span><span lang="it">Apre gli STEP (parti separate, scala reale); modella i pezzi in CAD parametrico con <a href="https://github.com/gumyr/build123d">build123d</a>; aggiunge viti, cuscinetti, ingranaggi e flange ISO veri da <a href="https://github.com/gumyr/bd_warehouse">bd_warehouse</a>; fa calcoli di resistenza e tavole quotate.</span></p>
@@ -589,15 +628,14 @@ cd ~/.claude/skills/machine && npm i -D playwright && npx playwright install chr
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Fast alternative without Blender: rebuilds the machine in three.js and records a tour video in minutes, or makes an interactive page. Shapes are approximate.</span><span lang="it">Alternativa veloce senza Blender: ricostruisce la macchina in three.js e registra un video del tour in pochi minuti, o crea una pagina interattiva. Le forme sono approssimate.</span></p>
 <p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">A quick &ldquo;how it works&rdquo; video or a pitch, where the real product&rsquo;s fidelity doesn&rsquo;t matter.</span><span lang="it">Un video veloce di &ldquo;come funziona&rdquo; o un pitch, dove la fedelt&agrave; al prodotto vero non conta.</span></p>
 <pre class="cmd"><code>npx skills add elvarofficial/teardown -g -a claude-code</code></pre><p class="note"><span lang="en">Then, once, in the installed folder: <code>npm install &amp;&amp; npx playwright install chromium</code>.</span><span lang="it">Poi, una volta, nella cartella installata: <code>npm install &amp;&amp; npx playwright install chromium</code>.</span></p></article>
-</div></div>
+</div></details>
 
-<div class="group">
-<header><h3><span lang="en">Quick check</span><span lang="it">Verifica rapida</span></h3><p lang="en">Each line should print a version.</p><p lang="it">Ogni riga deve stampare una versione.</p></header>
+<details class="group fold"><summary><h3><span lang="en">Quick check</span><span lang="it">Verifica rapida</span></h3><p lang="en">Each line should print a version.</p><p lang="it">Ogni riga deve stampare una versione.</p><i class="ph ph-caret-down"></i></summary>
 <pre class="cmd"><code>/Applications/Blender.app/Contents/MacOS/Blender --version
 ffmpeg -version | head -1
 node -v
 claude mcp list</code></pre>
-</div>
+</details>
 </section>
 </main>
 
@@ -675,7 +713,7 @@ claude mcp list</code></pre>
     var ids=picked(), any=Object.keys(ids).length;
     if(any) ids.core=1; // the required set is always part of the answer
     grid.classList.toggle('filtering',!!any); reset.hidden=!any;
-    deps.forEach(function(d){d.classList.toggle('hit',!!ids[d.dataset.id])});
+    deps.forEach(function(d){d.classList.toggle('hit',!!ids[d.dataset.id]); if(ids[d.dataset.id]&&d.closest('details')) d.closest('details').open=true});
     note();
     if(any && b!==reset) document.getElementById('deps').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
   });
@@ -691,6 +729,25 @@ claude mcp list</code></pre>
   var q=new URLSearchParams(location.search).get('lang');
   langBtns.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
   setLang(q==='it'||q==='en'?q:(saved==='it'?'it':'en'));
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+// scroll scrubs the exploded-view frames; skipped on small screens and with reduced motion
+(function(){
+  var mq=matchMedia('(max-width:900px),(prefers-reduced-motion:reduce)');
+  if(mq.matches||!window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var N=51, img=document.getElementById('scrubImg'), caps=[].slice.call(document.querySelectorAll('#apri .cap')), frames=[], last=-1;
+  function src(i){return 'assets/examples/scroll/f_'+String(i+1).padStart(2,'0')+'.jpg'}
+  ScrollTrigger.create({trigger:'#apri',start:'top bottom',once:true,onEnter:function(){for(var i=0;i<N;i++){frames[i]=new Image();frames[i].src=src(i)}}});
+  img.src=src(0);
+  ScrollTrigger.create({trigger:'#apri',start:'top 66px',end:'bottom bottom',scrub:true,onUpdate:function(s){
+    var i=Math.min(N-1,Math.round(s.progress*(N-1)));
+    if(i!==last){last=i;img.src=src(i)}
+    caps.forEach(function(c,k){var nx=caps[k+1];c.classList.toggle('on',s.progress>=+c.dataset.at&&(!nx||s.progress<+nx.dataset.at))});
+  }});
 })();
 </script>
 </body>
