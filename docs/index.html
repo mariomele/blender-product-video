@@ -102,6 +102,19 @@ section{padding:112px 0 0}
 @keyframes fill{to{transform:scaleX(1)}}
 
 /* facts */
+.formats{margin-top:8px;border:1px solid rgb(61 139 255 / .35);border-radius:var(--r);background:linear-gradient(135deg,rgb(61 139 255 / .09),var(--panel) 55%);padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:28px 40px;align-items:start}
+.f-head .ph{font-size:32px;color:var(--accent)}
+.f-head h2{font-size:clamp(26px,2.6vw,34px);margin:10px 0 8px;letter-spacing:-.025em}
+.f-head p{margin:0;color:var(--soft);font-size:15px;max-width:40ch}
+.f-groups{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:20px}
+.f-groups b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.f-groups ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.f-groups li{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--text);background:var(--bg2);border:1px solid var(--line2);border-radius:8px;padding:7px 11px;display:flex;align-items:baseline;gap:8px}
+.f-groups li.best{border-color:var(--accent);background:rgb(61 139 255 / .14)}
+.f-groups li small{font-size:12px;font-weight:500;color:var(--accent)}
+.f-native{grid-column:1/-1;margin:0;padding-top:20px;border-top:1px solid var(--line);color:var(--soft);font-size:15px;display:flex;gap:10px;align-items:baseline}
+.f-native .ph{color:var(--accent)}
+@media(max-width:900px){.formats{grid-template-columns:1fr;padding:22px}.f-groups{grid-template-columns:1fr}}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:24px}
 .facts div{padding:28px 24px;border-left:1px solid var(--line)}
 .facts div:first-child{border-left:0;padding-left:0}
@@ -373,6 +386,16 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <li><button type="button"><b>02</b><span lang="en">Cutaway</span><span lang="it">Sezione</span></button></li>
 </ol>
 </div>
+</div>
+
+<div class="formats rv" aria-label="Accepted files">
+<div class="f-head"><i class="ph ph-file-arrow-up"></i><h2><span lang="en">Drop in your CAD file.</span><span lang="it">Carica il tuo file CAD.</span></h2><p lang="en">Opened at real scale, parts kept separate, dimensions checked on import.</p><p lang="it">Aperto in scala reale, con le parti separate e le misure controllate all'import.</p></div>
+<div class="f-groups">
+<div><b lang="en">3D CAD</b><b lang="it">CAD 3D</b><ul><li class="best">STEP<small lang="en">best</small><small lang="it">consigliato</small></li><li>STP</li><li>3MF</li><li>.blend</li></ul></div>
+<div><b lang="en">Meshes</b><b lang="it">Mesh</b><ul><li>GLB / glTF</li><li>FBX</li><li>OBJ</li><li>STL</li><li>PLY</li><li>USD</li><li>ABC</li></ul></div>
+<div><b lang="en">2D drawings</b><b lang="it">Disegni 2D</b><ul><li>DWG</li><li>SVG</li><li lang="en">vector PDF</li><li lang="it">PDF vettoriale</li></ul></div>
+</div>
+<p class="f-native"><i class="ph ph-arrow-bend-down-right"></i><span lang="en">SolidWorks, Inventor, Fusion, CATIA, Creo, NX, Solid Edge, IGES: export a STEP and you're in.</span><span lang="it">SolidWorks, Inventor, Fusion, CATIA, Creo, NX, Solid Edge, IGES: esporta uno STEP e sei dentro.</span></p>
 </div>
 
 <div class="facts rv">
