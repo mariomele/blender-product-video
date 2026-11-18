@@ -17,19 +17,19 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
   Render <cosa> — rispondi risoluzione-fps-qualità (es. 2-4-1)
   Risoluzione  1) 25%   2) 50%   3) 75%   4) 100% (<WxH del progetto>)
   Fps          1) 3     2) 6     3) 12    4) 24 (massimo)
-  Qualità      1) 12 spp·JPG 50   2) 24 spp·JPG 60   3) 40 spp·JPG 75   4) 96 spp·JPG 95
+  Qualità      1) 8 spp·JPG 50   2) 24 spp·JPG 60   3) 40 spp·JPG 75   4) 96 spp·JPG 95
   JPG (facoltativo) 1) 50   2) 60   3) 75   4) 95
   Proposta: <codice> · circa <tempo>
   ```
 
-  Tempi e pesi misurati su M1 Pro, Metal, 1080x1920, una scena reale di macchina con denoise: circa 20 s per frame sono fissi (caricamento e preparazione della scena), per questo 1 e 2 costano quasi uguale. Su scene più leggere o più pesanti scalano in proporzione.
+  Tempi e pesi misurati su M1 Pro, Metal, 1080x1920, una scena reale di macchina con denoise, al 100% di risoluzione: circa 6 s per frame sono fissi (preparazione della scena e denoise), il resto cresce con gli spp. A risoluzione più bassa i tempi scendono; su scene più leggere o più pesanti scalano in proporzione. A 8 spp il denoise lascia qualche macchia sulle superfici grandi e uniformi.
 
   | qualità | quando | variabili |
   |---|---|---|
-  | 1 | prove di camera e tempi, bozze da buttare | `SPP=12 JPG_Q=50` · 23 s/frame · 55 KB |
-  | 2 | bozza da mostrare al cliente, scadenza stretta | `SPP=24 JPG_Q=60` · 22 s/frame · 59 KB |
-  | 3 | web e social | `SPP=40 JPG_Q=75` · 27 s/frame · 71 KB |
-  | 4 | fiere, schermi grandi, color grading o archivio | `SPP=96 JPG_Q=95` · 55 s/frame · 195 KB |
+  | 1 | bozza: prove di camera e tempi, da buttare | `SPP=8 JPG_Q=50` · 9 s/frame · 53 KB |
+  | 2 | bozza da mostrare al cliente, scadenza stretta | `SPP=24 JPG_Q=60` · 19 s/frame · 57 KB |
+  | 3 | web e social | `SPP=40 JPG_Q=75` · 25 s/frame · 69 KB |
+  | 4 | fiere, schermi grandi, color grading o archivio | `SPP=96 JPG_Q=95` · 56 s/frame · 190 KB |
 
   Proposte di partenza: storyboard `1-·-1` (fps fisso a 1 frame al secondo), anteprima di una scena `1-3-1`, anteprima del montaggio `2-4-1`, render finale `4-4-3`.
   Come si applica:
@@ -200,7 +200,7 @@ Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o
 `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <fps_scena> preview/<n>_sb <res%> <spp>` (domanda con risoluzione e qualità, proposta `1-·-1`)
 Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. Guarda tu la griglia e controlla che il piano sia quello della scaletta e che non si ripeta con la scena vicina, poi mandala all'utente come storyboard. Ripeti finché non la approva.
 
-**Anteprima animata.** Fai la domanda delle tre scale (proposta `1-3-1`: 25%, 12 fps, 12 spp), poi:
+**Anteprima animata.** Fai la domanda delle tre scale (proposta `1-3-1`: 25%, 12 fps, 8 spp), poi:
 `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> preview/<n>_p <res%> <spp>` → `preview.mp4` a velocità reale.
 **Scene facoltative con text-to-cad** (servono il comando `cad` e il pezzo in STEP):
 - **Resistenza (FEA)**: il pezzo che si piega sotto carico mentre si colora dal blu al rosso, dove regge e dove è al limite. Con la skill **text-to-cad:fea**: scegli le facce bloccate e caricate (`cad step solve <pezzo>.step` le elenca), e prendi carico e materiale dal cliente: non si inventano. Poi `cad step solve <pezzo>.step --study study.json --out fea/`, e da lì:
@@ -215,7 +215,7 @@ Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla succ
 - `edl.txt`, una scena per riga: `n file.blend first last [extra] [skip_head]`.
   - `extra`: frame aggiunti tramite subframe per dare respiro alla voce.
   - `skip_head`: primi N frame esclusi dal montaggio, senza cancellarli.
-- Anteprima di tutto (domanda delle tre scale, proposta `2-4-1`): `SPP=12 JPG_Q=50 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
+- Anteprima di tutto (domanda delle tre scale, proposta `2-4-1`): `SPP=8 JPG_Q=50 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
 - `$K/contact_sheet.sh preview_jpg/final.mp4 preview/montaggio.jpg 1` per un provino.
 - Se cambiano `first`, `last`, `extra` o la risoluzione di uno shot, `render_all.sh` sposta i frame vecchi in `<shot>.old_<data>` e rifà lo shot (i vecchi frame non corrispondono più agli stessi istanti).
 Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei piani: niente due piani uguali di fila, un piano largo almeno ogni 2–3 piani stretti.
