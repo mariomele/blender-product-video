@@ -73,7 +73,7 @@ Se manca `progetto.md` ma il progetto esiste (ci sono .blend ed EDL), ricostruis
 ## 0. Brief
 Chiedi, se non lo sai già:
 - **Sorgenti**: foto, link, CAD o disegno. Cosa deve essere fedele (misure, colori, loghi) e cosa può essere approssimato.
-- **Formato, prima di qualunque scena o render**: aspect ratio (9:16 1080x1920 · 16:9 1920x1080 · 1:1 1080x1080 · 4:5 1080x1350), risoluzione; gli fps sono sempre 24. Vanno impostati in ogni .blend.
+- **Formato, prima di qualunque scena o render**: aspect ratio (9:16 1080x1920 · 16:9 1920x1080 · 1:1 1080x1080 · 4:5 1080x1350), risoluzione; gli fps sono sempre 24. Vanno impostati in ogni .blend. Per il 9:16 chiedi anche le piattaforme (Reels, Stories, TikTok o tutte): decidono la zona sicura per testi e grafiche (fase 4) e vanno nel brief, alla riga Formato.
 - **Durata totale** e uso (social, sito, fiera, presentazione).
 - **Ambiente e atmosfera**:
   - ambiente: capannone o reparto produttivo, studio con sfondo nero, limbo bianco/grigio, esterno (cantiere, campo, piazzale), showroom o ufficio, sfondo astratto;
@@ -236,10 +236,11 @@ Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: 
   - **solo HyperFrames**: pulite, precise, sempre nella palette. È il default;
   - **effetti Higgsfield + testo HyperFrames**: Higgsfield genera la parte spettacolare (transizioni, flussi di energia o di fluido, particelle, luci, sfondi animati per i titoli, intro d'impatto), sempre senza testo e senza numeri, chiedendo nel prompt i colori della palette. Sopra, HyperFrames mette titoli, numeri, misure e logo esatti. I modelli AI sbagliano le lettere e inventano cifre, quindi il testo non va mai generato. Costa crediti: chiedi l'ok, e prima prova un effetto solo. Gli effetti generati vanno in `hyperframes/assets/` e si usano come video di sfondo o in fusione (`screen`, `add`) sopra il render.
 - Costruisci in `hyperframes/` con la skill **hyperframes** (contratto di render, animazioni, overlay e audio), nel formato del brief, **solo con la palette confermata**, `final.mp4` come sfondo e i tempi presi da `timings.json`. Le misure a schermo vengono dalla sorgente, mai stimate.
+- **Zona sicura nel 9:16**: le interfacce di Reels, Stories e TikTok coprono l'alto, il basso e il lato destro. `$K/safe_zone.sh <WxH> <reels|stories|tiktok|all>` stampa i margini e la regola CSS `.safe`; senza indicazioni usa `all`, la più stretta delle tre (su 1080x1920: alto 250, basso 484, sinistra 60, destra 140 px). Testi, numeri, callout, infografiche, sottotitoli e logo stanno dentro un contenitore `.safe`. Tolleranza massima 10%: un elemento può sconfinare nel margine al più del 10% del margine (linea rossa), mai oltre. Sfondi, effetti e il render 3D possono occupare tutto il frame.
 - **Verifica** prima di mostrare (skill **hyperframes-cli**):
   1. `npx hyperframes lint` dopo ogni modifica strutturale;
   2. `npx hyperframes check --json` e correggi ogni errore (layout, contrasto, elementi fuori campo);
-  3. `npx hyperframes snapshot --at <metà di ogni scena da timings.json>` e guarda i PNG in `.hyperframes/artifacts/snapshots/`;
+  3. `npx hyperframes snapshot --at <metà di ogni scena da timings.json>` e guarda i PNG in `.hyperframes/artifacts/snapshots/`; nel 9:16 passa ogni PNG in `$K/safe_zone.sh <WxH> <piattaforma> <png> <png_guide>` e controlla che niente di importante superi la linea rossa;
   4. `npx hyperframes preview --background` e dai il link all'utente.
 Checkpoint: bozza HyperFrames muta.
 
@@ -281,7 +282,7 @@ Più `sottotitoli.srt` dalla fase 5. Limiti utili delle piattaforme:
 
 | Piattaforma | Formato | Note |
 |---|---|---|
-| Instagram Reels / TikTok / Shorts | 9:16 1080x1920 | testi lontani dai bordi alti e bassi (~250 px), sottotitoli bruciati |
+| Instagram Reels / Stories / TikTok / Shorts | 9:16 1080x1920 | testi dentro la zona sicura (`safe_zone.sh`, fase 4), sottotitoli bruciati |
 | Feed Instagram / LinkedIn | 4:5 1080x1350 o 1:1 | LinkedIn accetta il `.srt` separato |
 | YouTube / sito | 16:9 1920x1080 | `.srt` separato |
 Altri formati dallo stesso progetto: chiedi se servono. Vuol dire reimpostare la camera nei .blend e rifare il render: non basta ritagliare.
