@@ -10,7 +10,7 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 ## Come lavorare
 - **Due modalità, scelte nel brief** (riga `Modalità` di `progetto.md`; se manca, è guidata):
   - **guidata**: le domande e i checkpoint di ogni fase, come scritti sotto;
-  - **automatica**: dopo il brief vai avanti da solo dalla fase 1 alla 6. Le domande di una fase diventano scelte tue, fatte con le regole di questa skill e con il brief: scrivile in `progetto.md` (Decisioni, una riga con il perché). I checkpoint diventano **controlli tuoi** (sotto, "Controlli in automatica"). Ti fermi e chiedi solo alle **soste**: il riepilogo del brief, il provino completo della fase 6, l'ok al render finale, una spesa fuori budget, una cancellazione di file, un dato che non si inventa (testo della voce se il cliente lo vuole suo, carichi e materiali di un calcolo, colori del brand che non trovi, fedeltà di una parte che non si vede nelle sorgenti). Fra una sosta e l'altra dai solo brevi aggiornamenti su cosa stai facendo.
+  - **automatica**: dopo il brief vai avanti da solo dalla fase 1 alla 6. Le domande di una fase diventano scelte tue, fatte con le regole di questa skill e con il brief: scrivile in `progetto.md` (Decisioni, una riga con il perché). I checkpoint diventano **controlli tuoi** (sotto, "Controlli in automatica"). Segui il **percorso in automatica** (sotto): ti fermi e chiedi solo alle sue **quattro soste** e in questi casi: una spesa fuori budget, una cancellazione di file, un dato che non si inventa (testo della voce se il cliente lo vuole suo, carichi e materiali di un calcolo, colori del brand che non trovi, fedeltà di una parte che non si vede nelle sorgenti). Fra una sosta e l'altra dai solo brevi aggiornamenti su cosa stai facendo.
 - **Guida con domande** (modalità guidata). All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
@@ -78,7 +78,16 @@ Al posto di ogni checkpoint guardi tu il risultato (`Read` sui JPG e sui PNG di 
 | 3 montaggio | ordine come il racconto, niente due piani uguali di fila, un piano largo ogni 2–3 stretti, durata totale entro ±10% del brief, scene da 5–10 s e intermezzi da 2–3 s senza testo |
 | 4 grafiche | testi dentro le zone sicure (`safe_zone.sh`), leggibili alla dimensione del telefono, solo colori della palette, misure uguali alla sorgente |
 | 5 audio | ogni scena dura quanto la sua voce più il margine (`fit_vo.py`), pronuncia di nomi e sigle, musica sotto la voce |
-Alla fase 6 il provino completo (`preview/insieme.mp4`) va all'utente con il riepilogo dei controlli: è la seconda sosta, e l'unico giudizio d'insieme che gli chiedi.
+Alle soste mostra all'utente anche il riepilogo dei controlli fatti.
+
+### Percorso in automatica
+1. **Sosta 1, brief e scaletta.** Nel riepilogo del brief chiedi anche la scaletta: l'utente dà le sue indicazioni (scene, ordine, cosa mostrare) oppure la generi tu dal racconto, con le regole della fase 2 (scene da 5–10 s, intermezzi da 2–3 s, piani alternati). La scaletta va nel riepilogo, con una riga per scena.
+2. **Da solo fino al video muto**: modello, materiali, ambiente, storyboard e anteprime di ogni scena, montaggio e render del montaggio con la qualità di `Bozze` (`preview_jpg/final.mp4`), senza testi né audio. Durante il lavoro scrivi già, scena per scena, i testi a schermo e la frase della voce (circa 2,5 parole al secondo, entro la durata della scena).
+3. **Sosta 2, i testi.** Prepara `storyboard.json` con frame, piano, testo a schermo e voce di ogni scena, e lancia `python3 $K/storyboard_pdf.py storyboard.json delivery/storyboard` nelle lingue del brief: escono lo storyboard in PDF e i `vo_<lingua>.md`. Manda all'utente il video muto, il PDF e i `.md`, e chiedi le correzioni ai testi e alla voce. Se il cliente approva lo storyboard a parte, aspetta il suo ok.
+4. **Da solo, video più testi**: grafiche HyperFrames sopra il video muto con i testi approvati (fase 4), con i suoi controlli. Render di bozza `npx hyperframes render --quality draft -o preview/testi.mp4`.
+5. **Sosta 3, video con i testi.** Mandalo e chiedi l'ok. Le correzioni tornano alla fase giusta, poi rifai questa sosta.
+6. **Da solo, voce e video finale**: con l'ok della sosta 3 generi la voce con l'MCP di ElevenLabs dai `.md` approvati, con la voce scelta nel brief, poi musica e SFX (fase 5), adatti le scene alla voce (`fit_vo.py`, che rifà solo gli shot allungati), lanci il render finale (fase 7) e prepari i file di consegna (fase 9). L'ok della sosta 3 vale anche come ok alla voce e al render finale **solo se la stima di crediti e ore sta nel budget**: dillo nella domanda della sosta 3, con la stima. Se non ci sta, chiedi a parte.
+7. **Sosta 4, consegna.** Mandi il video finale e i file di consegna, con il riepilogo di cosa hai controllato.
 
 ## Da dove partire
 | L'utente dice… | Vai a |
@@ -123,7 +132,7 @@ Questa skill è il regista: decide fasi, domande, checkpoint e stato. Il mestier
 
 Budget di partenza, da confermare: render di bozza al massimo 3 h di GPU, crediti ElevenLabs per una voce e una musica (stima dai caratteri del testo e dalla durata), AI generativa 0 se il cliente non la chiede. Il render finale ha il suo ok a parte.
 Poi mostra un **riepilogo in una schermata** (tutte le righe del Brief di `progetto.md`, compresi racconto in scene da 5–10 s (30 s ≈ 4 scene più qualche intermezzo), palette, modalità e budget) e chiedi una sola conferma, con la possibilità di cambiare qualsiasi riga. È la prima sosta: dopo l'ok non si torna sul brief se non lo chiede l'utente.
-Le domande delle fasi successive (storyboard in PDF, lingue della voce, voce da scegliere, piattaforme) vanno in questo riepilogo, se servono: dopo non si chiedono più.
+Le domande delle fasi successive (lingue dello storyboard e della voce, voce da scegliere, musica sì o no, piattaforme) e la scaletta (sua o tua) vanno in questo riepilogo: dopo non si chiedono più. In automatica lo storyboard in PDF e i `vo_<lingua>.md` si fanno sempre, alla sosta 2.
 
 **Brief completo (guidata).** Chiedi, se non lo sai già:
 - **Sorgenti**: foto, link, CAD o disegno. Cosa deve essere fedele (misure, colori, loghi) e cosa può essere approssimato.

@@ -1,5 +1,5 @@
 # Generic demo product: 6-axis industrial robot arm with motors, strain-wave gearboxes, bearings, cables and a gripper. Real scale (m).
-# usage: blender -b --factory-startup --python build_robot.py -- <env: nero|limbo|capannone|laboratorio|tramonto|fiera> <out.blend>
+# usage: blender -b --factory-startup --python build_robot.py -- <env: nero|limbo|capannone|laboratorio|officina|logistica> <out.blend>
 # Animation: 1-50 the arm moves, 60-100 it explodes joint by joint (motors slide out), 100-120 hold.
 import bpy, bmesh, sys, math
 env, out = sys.argv[sys.argv.index('--') + 1:][:2]
@@ -267,31 +267,51 @@ elif env == "laboratorio":  # clean lab: white tiled floor, white walls with lig
         box(f"Banco{x}", mat("Banco", (0.9, 0.9, 0.92), rough=0.4), None, (1.6, 0.7, 0.9), (x, 2.6, 0.45), 0.01)
         box(f"Piano{x}", mat("Piano nero", (0.03, 0.03, 0.035), rough=0.3), None, (1.65, 0.75, 0.04), (x, 2.6, 0.92), 0.005)
     light("Key", (2.6, -2.6, 3.4), 500, 3, (0.95, 0.98, 1)); light("Fill", (-3.0, -2.4, 2.0), 220, 4); light("Top", (0, 0, 4.2), 300, 4)
-elif env == "tramonto":  # outdoors at golden hour: physical sky, low sun, concrete pad on dark ground
-    sky = w.node_tree.nodes.new("ShaderNodeTexSky"); sky.sky_type = 'MULTIPLE_SCATTERING'
-    sky.sun_elevation = math.radians(2.5); sky.sun_rotation = math.radians(-40)
-    w.node_tree.links.new(sky.outputs["Color"], bg.inputs["Color"]); bg.inputs[1].default_value = 0.6
-    bpy.ops.mesh.primitive_plane_add(size=200); g_ = bpy.context.object; g_.data.materials.append(mat("Terreno", (0.018, 0.017, 0.016), rough=0.95))
-    cyl("Basamento", mat("Cemento pad", (0.35, 0.34, 0.32), rough=0.8), None, 0.8, 0.12, (0.15, 0, 0.06), bev=0.02)
-    ROOT.location.z = 0.12
-    sun = bpy.data.lights.new("Sole", 'SUN'); sun.energy = 4; sun.color = (1, 0.72, 0.45); sun.angle = math.radians(1.5)
-    so = bpy.data.objects.new("Sole", sun); s.collection.objects.link(so); so.rotation_euler = (math.radians(84), 0, math.radians(-40 + 180))
-    light("Fill", (-2.6, -3.0, 2.0), 160, 4, (0.6, 0.75, 1))
-elif env == "fiera":  # trade-show stand: glossy dark floor, round platform, LED wall, spotlights
-    bg.inputs[1].default_value = 0.0
-    bpy.ops.mesh.primitive_plane_add(size=40); fl = bpy.context.object; fl.data.materials.append(mat("Pavimento lucido", (0.02, 0.02, 0.025), rough=0.12))
-    cyl("Pedana", mat("Pedana bianca", (0.85, 0.85, 0.87), rough=0.35), None, 1.2, 0.16, (0.2, 0, 0.08), verts=128, bev=0.02)
-    ROOT.location.z = 0.16
-    em = bpy.data.materials.new("LED wall"); em.use_nodes = True; nt = em.node_tree; b_ = nt.nodes["Principled BSDF"]
-    gr = nt.nodes.new("ShaderNodeTexGradient"); tc = nt.nodes.new("ShaderNodeTexCoord"); rp = nt.nodes.new("ShaderNodeValToRGB")
-    rp.color_ramp.elements[0].color = (0.02, 0.05, 0.25, 1); rp.color_ramp.elements[1].color = (0.95, 0.45, 0.05, 1)
-    nt.links.new(tc.outputs["Generated"], gr.inputs["Vector"]); nt.links.new(gr.outputs["Fac"], rp.inputs["Fac"])
-    nt.links.new(rp.outputs["Color"], b_.inputs["Emission Color"]); b_.inputs["Emission Strength"].default_value = 1.1; b_.inputs["Base Color"].default_value = (0, 0, 0, 1)
-    bpy.ops.mesh.primitive_plane_add(size=1, location=(0.3, 2.8, 2.2), rotation=(PI / 2, 0, 0)); lw = bpy.context.object; lw.scale = (14, 4.4, 1); lw.data.materials.append(em)
-    for x, c in ((-1.6, (1, 0.85, 0.7)), (2.2, (0.8, 0.9, 1))):  # spotlights on the robot
-        sp = bpy.data.lights.new(f"Spot{x}", 'SPOT'); sp.energy = 900; sp.spot_size = math.radians(35); sp.spot_blend = 0.4; sp.color = c
-        o = bpy.data.objects.new(f"Spot{x}", sp); o.location = (x, -1.8, 4.0); s.collection.objects.link(o); o.constraints.new('TRACK_TO').target = piv
-    light("Rim", (-1.8, 2.2, 2.4), 500, 1.2, (0.6, 0.7, 1))
+elif env == "officina":  # production hall: resin floor with walkway lines, yellow overhead crane, bay lights, machine bodies
+    bg.inputs[0].default_value = (0.4, 0.42, 0.45, 1); bg.inputs[1].default_value = 0.02
+    bpy.ops.mesh.primitive_plane_add(size=40); fl = bpy.context.object; fl.data.materials.append(mat("Resina verde", (0.05, 0.09, 0.08), rough=0.3))
+    yel = mat("Giallo sicurezza", (0.9, 0.6, 0.0), rough=0.5)
+    for y in (-1.6, 1.5):  # walkway lines
+        bpy.ops.mesh.primitive_plane_add(size=1, location=(0, y, 0.002)); l_ = bpy.context.object; l_.scale = (40, 0.1, 1); l_.data.materials.append(yel)
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 6, 5), rotation=(PI / 2, 0, 0)); wall = bpy.context.object
+    wall.scale = (40, 10, 1); wall.data.materials.append(mat("Pannelli", (0.12, 0.13, 0.14), rough=0.7))
+    crane = mat("Carroponte", (0.85, 0.55, 0.02), metal=0.3, rough=0.45)
+    for x in (-4.5, 4.5):  # crane rails on columns, bridge across
+        box(f"Colonna{x}", mat("Acciaio grigio", (0.25, 0.26, 0.28), metal=0.6, rough=0.5), None, (0.4, 0.4, 2.8), (x, 4.4, 1.4), 0.01)
+        box(f"Via{x}", crane, None, (0.3, 4, 0.35), (x, 3.4, 2.75), 0.01)
+    box("Ponte", crane, None, (9.4, 0.45, 0.45), (0, 3.4, 2.45), 0.01); box("Carrello", crane, None, (0.7, 0.7, 0.4), (-1.8, 3.4, 2.1), 0.02)
+    cyl("Fune", mat("Fune", (0.05, 0.05, 0.05), metal=0.8, rough=0.4), None, 0.015, 0.6, (-1.8, 3.4, 1.6))
+    torus("Gancio", yel, None, 0.08, 0.02, (-1.8, 3.4, 1.25), axis='Y')
+    for x in (-3.2, 3.4):  # machine bodies in the back
+        box(f"Macchina{x}", mat("Grigio macchina", (0.2, 0.24, 0.28), metal=0.2, rough=0.4), None, (1.8, 1.2, 1.6), (x, 4.2, 0.8), 0.03)
+        box(f"Quadro{x}", mat("Quadro", (0.05, 0.06, 0.07), rough=0.3), None, (0.6, 0.05, 0.4), (x, 3.58, 1.2), 0.005)
+    bay = bpy.data.materials.new("Lampada"); bay.use_nodes = True; bb = bay.node_tree.nodes["Principled BSDF"]
+    bb.inputs["Emission Color"].default_value = (1, 0.88, 0.7, 1); bb.inputs["Emission Strength"].default_value = 25
+    for x in (-2.6, 2.9):  # high-bay lamps
+        cyl(f"Campana{x}", mat("Campana", (0.15, 0.15, 0.16), metal=0.7, rough=0.4), None, 0.35, 0.3, (x, 2.6, 2.15), bev=0.01)
+        cyl(f"Luce{x}", bay, None, 0.3, 0.02, (x, 2.6, 1.99))
+        light(f"Bay{x}", (x, 2.4, 1.9), 250, 0.6, (1, 0.85, 0.65))
+    light("Key", (3.0, -3.0, 3.0), 450, 2.0, (1, 0.9, 0.78)); light("Rim", (-2.2, 2.6, 2.6), 900, 1.2, (0.7, 0.82, 1))
+elif env == "logistica":  # modern high-bay hall: glossy epoxy floor, sandwich walls, pallet racking, skylights
+    bg.inputs[0].default_value = (0.75, 0.85, 1, 1); bg.inputs[1].default_value = 0.25
+    bpy.ops.mesh.primitive_plane_add(size=40); fl = bpy.context.object; fl.data.materials.append(mat("Epossidico", (0.42, 0.44, 0.46), rough=0.18))
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 7, 5), rotation=(PI / 2, 0, 0)); wall = bpy.context.object
+    wall.scale = (40, 10, 1); wall.data.materials.append(mat("Sandwich bianco", (0.78, 0.8, 0.82), rough=0.6))
+    up = mat("Montanti blu", (0.02, 0.12, 0.4), metal=0.4, rough=0.45); beam = mat("Correnti arancio", (0.9, 0.35, 0.03), metal=0.3, rough=0.45)
+    for y0 in (3.4, 5.6):  # two rows of racking, three levels
+        for x in (-6, -3.6, -1.2, 1.2, 3.6, 6):
+            box(f"Mont{x}_{y0}", up, None, (0.1, 1.0, 6), (x, y0, 3), 0.005)
+        for z in (0.15, 2.0, 3.9):
+            for dy in (-0.45, 0.45):
+                box(f"Corr{z}_{dy}_{y0}", beam, None, (12, 0.08, 0.14), (0, y0 + dy, z), 0.005)
+        for x in (-4.8, -2.4, 0, 2.4, 4.8):  # loads on the levels
+            for z, c in ((0.35, (0.35, 0.24, 0.13)), (2.2, (0.7, 0.7, 0.68)), (4.1, (0.35, 0.24, 0.13))):
+                box(f"Carico{x}_{z}_{y0}", mat("Carico", c, rough=0.85), None, (1.9, 0.9, 1.3), (x, y0, z + 0.65), 0.01)
+    sky = bpy.data.materials.new("Lucernario"); sky.use_nodes = True; sb = sky.node_tree.nodes["Principled BSDF"]
+    sb.inputs["Emission Color"].default_value = (0.85, 0.92, 1, 1); sb.inputs["Emission Strength"].default_value = 8
+    for y in (0.5, 3.0, 5.5):  # skylight strips in the roof
+        bpy.ops.mesh.primitive_plane_add(size=1, location=(0, y, 8), rotation=(PI, 0, 0)); k_ = bpy.context.object; k_.scale = (30, 0.9, 1); k_.data.materials.append(sky)
+    light("Sky", (0.5, 1.5, 7.5), 2400, 6, (0.88, 0.94, 1)); light("Key", (3.0, -3.0, 3.0), 550, 2.6, (1, 0.95, 0.88)); light("Rim", (-2.2, 2.6, 2.6), 600, 1.4)
 else:  # capannone: concrete floor, back wall, high windows, columns, pallets
     bg.inputs[0].default_value = (0.55, 0.65, 0.8, 1); bg.inputs[1].default_value = 0.12
     bpy.ops.mesh.primitive_plane_add(size=40); fl = bpy.context.object

@@ -50,11 +50,11 @@ Open the machine up, take it apart in mid-air, swap its finish in a click: shots
 
 **Any setting, realistic light · Qualsiasi ambiente, luce realistica**
 
-| Black studio · Studio nero | Limbo | Warehouse · Capannone |
+| Black studio · Studio nero | Limbo | Warehouse · Magazzino |
 |---|---|---|
 | ![Black studio](docs/assets/examples/ambiente_nero.jpg?v=3) | ![Light limbo](docs/assets/examples/ambiente_limbo.jpg?v=3) | ![Warehouse](docs/assets/examples/ambiente_capannone.jpg?v=3) |
-| **Laboratory · Laboratorio** | **Outdoors at sunset · Esterno al tramonto** | **Trade-show stand · Stand in fiera** |
-| ![Laboratory](docs/assets/examples/ambiente_laboratorio.jpg?v=3) | ![Outdoors at sunset](docs/assets/examples/ambiente_tramonto.jpg?v=3) | ![Trade-show stand](docs/assets/examples/ambiente_fiera.jpg?v=3) |
+| **Laboratory · Laboratorio** | **Production hall · Reparto con carroponte** | **Logistics hall · Capannone logistico** |
+| ![Laboratory](docs/assets/examples/ambiente_laboratorio.jpg?v=3) | ![Production hall](docs/assets/examples/ambiente_officina.jpg?v=4) | ![Logistics hall](docs/assets/examples/ambiente_logistica.jpg?v=4) |
 
 Every image was made with the skill's scripts, from a procedurally modelled 6-axis robot arm ([`build_robot.py`](docs/assets/examples/build_robot.py), [`cut_robot.py`](docs/assets/examples/cut_robot.py)).
 *Tutte le immagini sono generate con gli script della skill, partendo da un braccio robotico a 6 assi modellato proceduralmente.*
@@ -73,7 +73,7 @@ You have a machine, a plant or a mechanical part and want to explain how it work
 It guides Claude Code, and you, through the whole making of a 3D product video: machines, plants, components, industrial processes. Built for sales presentations, social content, trade fairs and websites.
 
 - **Starts from any source:** CAD (STEP, 3MF, GLB, FBX, OBJ, STL, USD or a .blend, all opened with one command; SolidWorks, Inventor, Fusion, CATIA and the like via a STEP export), photos, the product's web page, technical drawings (DWG, SVG, vector PDF) and dimensioned sketches.
-- **Automatic or guided:** in automatic mode it asks three things and one summary, works out format, length, setting, audio and draft quality from where the video goes, checks every step itself on snapshots, and stops only for the full preview, the final render, spending over your budget or a fact it must not invent. In guided mode it asks at every phase and stops for your approval, so fixes come when they are cheap.
+- **Automatic or guided:** in automatic mode it asks three things and one summary, works out format, length, setting, audio and draft quality from where the video goes, checks every step itself on snapshots, and stops at three points: the silent video with the PDF storyboard and the voice-over scripts in .md to correct, the video with its text, and delivery. After your ok on the video with text it generates the voice with ElevenLabs and renders the final video, within your budget. In guided mode it asks at every phase and stops for your approval, so fixes come when they are cheap.
 - **Remembers where you are:** every decision goes into `progetto.md`, and a request like "redo the intro" jumps straight to the right phase.
 - **Tells a story with the camera:** a shot list with alternating shot sizes (LS, MS, CU, ECU, POV) and, every few scenes, a spectacular move: slow-mo and speed ramps, follow shots, robotic-arm paths, counter-movement, exploded view to cutaway in one shot.
 - **Shows what a camera can't:** cutaways, exploded views, realistic materials and textures, any setting.
@@ -290,7 +290,7 @@ Hai una macchina, un impianto o un pezzo meccanico e vuoi spiegare come funziona
 Guida Claude Code, e te, in tutto il percorso di un video 3D di prodotto: macchine, impianti, componenti, processi industriali. Pensata per presentazioni commerciali, contenuti social, fiere e siti.
 
 - **Parte da qualsiasi sorgente:** CAD (STEP, 3MF, GLB, FBX, OBJ, STL, USD o un .blend, tutti aperti con un solo comando; SolidWorks, Inventor, Fusion, CATIA e simili passando da un export STEP), foto, la pagina web del prodotto, disegni tecnici (DWG, SVG, PDF vettoriale) e schizzi quotati.
-- **Automatica o guidata:** in automatica chiede tre cose e un riepilogo, deduce formato, durata, ambiente, audio e qualità delle bozze da dove va il video, controlla da sola ogni passaggio sugli snapshot e si ferma solo per il provino completo, il render finale, una spesa fuori budget o un dato che non si inventa. In guidata fa domande a ogni fase e si ferma per un'approvazione, così le correzioni arrivano quando costano poco.
+- **Automatica o guidata:** in automatica chiede tre cose e un riepilogo, deduce formato, durata, ambiente, audio e qualità delle bozze da dove va il video, controlla da sola ogni passaggio sugli snapshot e si ferma in tre punti: il video muto con lo storyboard in PDF e i testi della voce in .md da correggere, il video con i testi, la consegna. Dopo l'ok al video con i testi genera la voce con ElevenLabs e fa il video finale, dentro il tuo budget. In guidata fa domande a ogni fase e si ferma per un'approvazione, così le correzioni arrivano quando costano poco.
 - **Si ricorda dove sei:** tutte le decisioni finiscono in `progetto.md`, e una richiesta come "rifai l'intro" porta direttamente alla fase giusta.
 - **Racconta con la camera:** una scaletta con piani alternati (LS, MS, CU, ECU, POV) e, ogni poche scene, una ripresa spettacolare: slow-mo e speed ramp, camera che segue il pezzo, traiettorie da braccio robotico, contromovimento, da esploso a sezione in un'unica ripresa.
 - **Mostra quello che una telecamera non può:** sezioni, esplosi, materiali e texture realistici, qualsiasi ambiente.
