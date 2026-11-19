@@ -81,7 +81,7 @@ Al posto di ogni checkpoint guardi tu il risultato (`Read` sui JPG e sui PNG di 
 Alle soste mostra all'utente anche il riepilogo dei controlli fatti.
 
 ### Percorso in automatica
-1. **Sosta 1, brief e scaletta.** Nel riepilogo del brief chiedi anche la scaletta: l'utente dà le sue indicazioni (scene, ordine, cosa mostrare) oppure la generi tu dal racconto, con le regole della fase 2 (scene da 5–10 s, intermezzi da 2–3 s, piani alternati). La scaletta va nel riepilogo, con una riga per scena.
+1. **Sosta 1, brief e scaletta.** Nel riepilogo del brief chiedi anche la scaletta: costruita dall'idea di storia dell'utente (la quarta domanda del brief) o, con "Decidi tu", generata da te dal racconto, con le regole della fase 2 (scene da 5–10 s, intermezzi da 2–3 s, piani alternati). La scaletta va nel riepilogo, con una riga per scena.
 2. **Da solo fino al video muto**: modello, materiali, ambiente, storyboard e anteprime di ogni scena, montaggio e render del montaggio con la qualità di `Bozze` (`preview_jpg/final.mp4`), senza testi né audio. Durante il lavoro scrivi già, scena per scena, i testi a schermo e la frase della voce (circa 2,5 parole al secondo, entro la durata della scena).
 3. **Sosta 2, i testi.** Prepara `storyboard.json` con frame, piano, testo a schermo e voce di ogni scena, e lancia `python3 $K/storyboard_pdf.py storyboard.json delivery/storyboard` nelle lingue del brief: escono lo storyboard in PDF e i `vo_<lingua>.md`. Manda all'utente il video muto, il PDF e i `.md`, e chiedi le correzioni ai testi e alla voce. Se il cliente approva lo storyboard a parte, aspetta il suo ok.
 4. **Da solo, video più testi**: grafiche HyperFrames sopra il video muto con i testi approvati (fase 4), con i suoi controlli. Render di bozza `npx hyperframes render --quality draft -o preview/testi.mp4`.
@@ -128,7 +128,7 @@ Questa skill è il regista: decide fasi, domande, checkpoint e stato. Il mestier
 ## 0. Brief
 **Prima domanda, sempre: la modalità.** Con `AskUserQuestion`: "Automatica (consigliato): ti chiedo poco adesso, poi vado avanti da solo e ti fermo solo per il provino, il render finale e le spese" oppure "Guidata: ti chiedo a ogni fase".
 
-**Brief rapido (automatica).** Chiedi solo tre cose, in un solo giro di `AskUserQuestion`: cosa c'è di sorgente (file, foto, link), **dove va il video** (Instagram/TikTok, sito o YouTube, fiera, presentazione) e cosa deve capire chi guarda. Il resto lo deduci dall'uso con le impostazioni qui sotto, più quello che trovi in memoria per il cliente (palette, logo, divieti):
+**Brief rapido (automatica).** Chiedi solo quattro cose, in un solo giro di `AskUserQuestion`: cosa c'è di sorgente (file, foto, link), **dove va il video** (Instagram/TikTok, sito o YouTube, fiera, presentazione), cosa deve capire chi guarda e **la sua idea di storia**: "Hai già un'idea di come raccontarlo? Scrivila anche in due righe (cosa si vede all'inizio, cosa si mostra, come finisce), oppure scegli Decidi tu". Questa domanda si fa sempre, prima di qualunque scaletta o storyboard: se l'utente dà un'idea, la scaletta parte da lì e la rispetta; con "Decidi tu" la costruisci dall'arco del racconto (sotto, alla voce Racconto). Il resto lo deduci dall'uso con le impostazioni qui sotto, più quello che trovi in memoria per il cliente (palette, logo, divieti):
 
 | Uso | Formato | Durata | Ambiente e luce | Audio | Bozze |
 |---|---|---|---|---|---|
