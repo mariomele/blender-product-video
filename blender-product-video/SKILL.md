@@ -89,6 +89,13 @@ Alle soste mostra all'utente anche il riepilogo dei controlli fatti.
 6. **Da solo, voce e video finale**: con l'ok della sosta 3 generi la voce con l'MCP di ElevenLabs dai `.md` approvati, con la voce scelta nel brief, poi musica e SFX (fase 5), adatti le scene alla voce (`fit_vo.py`, che rifà solo gli shot allungati), lanci il render finale (fase 7) e prepari i file di consegna (fase 9). L'ok della sosta 3 vale anche come ok alla voce e al render finale **solo se la stima di crediti e ore sta nel budget**: dillo nella domanda della sosta 3, con la stima. Se non ci sta, chiedi a parte.
 7. **Sosta 4, consegna.** Mandi il video finale e i file di consegna, con il riepilogo di cosa hai controllato.
 
+**L'utente comanda sempre, anche fra una sosta e l'altra.** In qualsiasi momento può dire:
+- **"stop"**: fermi subito quello che sta girando (render compresi: i frame già fatti restano, `render_all.sh` riparte da lì), aggiorni `progetto.md` con il punto in cui sei e aspetti. Riprendi solo quando lo dice ("continua").
+- **"rifai…" o una richiesta nuova** ("cambia l'ambiente", "aggiungi una scena", "togli il logo"): vai alla fase giusta (tabella "Da dove partire"), fai solo quel pezzo e rifai a valle solo quello che dipende da lui.
+- **"falla a un'altra qualità"**: usa quel codice per quel passaggio; se dice "d'ora in poi", aggiorna la riga `Bozze`.
+- **"rifai questa scena"**: solo quella scena (fase 2 per l'animazione o la camera, fase 8 per rifare dei frame), poi il montaggio rifà solo i suoi shot.
+Dopo la richiesta riprendi il percorso in automatica dal punto in cui eri, e dillo in una riga. Se la richiesta tocca qualcosa già approvato a una sosta (testi, video con i testi), ripassa da quella sosta.
+
 ## Da dove partire
 | L'utente dice… | Vai a |
 |---|---|
