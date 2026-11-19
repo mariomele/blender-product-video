@@ -6,6 +6,7 @@
 <title>Blender Product Video</title>
 <meta name="description" content="Turn your machine into an explainer video: from photos, STEP/CAD, DWG or a drawing to a Blender video with cutaways, exploded views, real materials, motion that matches the real machine, real footage in split screen, spectacular camera moves and real stress analyses. Guided, automatic or agentic. All vibe coding with Claude Code, no Blender or CAD skills needed. Created by Mario Mele.">
 <meta name="author" content="Mario Mele">
+<link rel="canonical" href="https://mariomele.github.io/blender-product-video/">
 <link rel="icon" href="assets/favicon.svg?v=3" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png?v=3" sizes="32x32" type="image/png">
 <link rel="shortcut icon" href="assets/favicon.ico">
@@ -13,18 +14,21 @@
 <meta name="theme-color" content="#090B10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blender Product Video: turn your machine into an explainer video">
-<meta property="og:description" content="Photos, STEP, DWG or a drawing in. A Blender explainer out: cutaways, exploded views, real materials, cinematic camera moves, stress analyses, AI worlds. New agentic mode: a crew of eight agents, from director and scriptwriter to the checkers. All vibe coding, no Blender or CAD skills needed. · Trasforma la tua macchina in un video explainer.">
+<meta property="og:description" content="Photos, STEP, DWG or a drawing in. A Blender explainer out: cutaways, exploded views, real materials, cinematic camera moves, stress analyses, AI worlds. New agentic mode: a crew of eight agents, from director and scriptwriter to the checkers. All vibe coding, no Blender or CAD skills needed.">
 <meta property="og:url" content="https://mariomele.github.io/blender-product-video/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="it_IT">
 <meta property="og:image" content="https://mariomele.github.io/blender-product-video/assets/og.png?v=4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blender Product Video: turn your machine into an explainer video">
 <meta name="twitter:image" content="https://mariomele.github.io/blender-product-video/assets/og.png?v=4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-<link rel="preload" as="image" href="assets/examples/cad_view.jpg?v=3">
+<link rel="preload" as="image" href="assets/examples/ambiente_nero.jpg?v=3" fetchpriority="high">
 <style>
 /* Dark-only on purpose: the page is a showcase of renders shot on black. */
 :root{
@@ -33,10 +37,10 @@
   --r:16px;--rs:10px;--mono:"Geist Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
+html{scroll-behavior:smooth;scroll-padding-top:84px;overflow-x:clip}
 html[data-lang=en] body [lang=it],html[data-lang=it] body [lang=en]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 "Geist",-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;display:block}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 "Geist",-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip}
+img{max-width:100%;height:auto;display:block}
 a{color:var(--accent)}
 code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:1px 6px;border-radius:6px}
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
@@ -45,6 +49,7 @@ h2{font-size:clamp(30px,4vw,46px);line-height:1.08;font-weight:700;max-width:22c
 h3{font-size:18px;font-weight:600}
 .sub{color:var(--muted);max-width:62ch;margin:14px 0 0;font-size:18px}
 section{padding:112px 0 0}
+#riprese,#ingegneria,#ai{padding-top:72px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);text-transform:uppercase}
 
 /* nav */
@@ -58,6 +63,8 @@ section{padding:112px 0 0}
 .langs{display:flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin-left:6px}
 .langs button{background:none;border:0;color:var(--muted);font:600 12.5px/1 "Geist",sans-serif;padding:8px 12px;cursor:pointer}
 .langs button[aria-pressed=true]{background:var(--accent);color:var(--accentInk)}
+.menu{display:none;place-items:center;width:44px;height:44px;margin-left:6px;background:none;border:1px solid var(--line2);border-radius:12px;color:var(--text);font-size:22px;cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accentInk);font-weight:650;padding:13px 22px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s}
@@ -71,17 +78,17 @@ section{padding:112px 0 0}
 #apri{height:260vh;position:relative}
 #apri .pin{position:sticky;top:66px;height:calc(100dvh - 66px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:48px;align-items:center}
 .scrub{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#000}
-.scrub img{display:block;width:100%;height:auto}
+.scrub picture,.scrub img{display:block;width:100%;height:auto}
 .scrub-txt{position:relative;min-height:9em}
-.cap{position:absolute;inset:0 0 auto;margin:0;font-size:clamp(26px,2.6vw,38px);line-height:1.1;letter-spacing:-.025em;font-weight:700;opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
-.cap{transition-duration:.2s}
-.cap.on{opacity:1;transform:none;transition-duration:.5s;transition-delay:.18s}
+.scap{position:absolute;inset:0 0 auto;margin:0;font-size:clamp(26px,2.6vw,38px);line-height:1.1;letter-spacing:-.025em;font-weight:700;opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.scap{transition-duration:.2s}
+.scap.on{opacity:1;transform:none;transition-duration:.5s;transition-delay:.18s}
 @media(max-width:900px),(prefers-reduced-motion:reduce){
   /* no pinning: one still frame and the three lines stacked */
   #apri{height:auto}
   #apri .pin{position:static;height:auto;grid-template-columns:1fr;gap:20px}
   .scrub-txt{min-height:0}
-  .cap{position:static;opacity:1;transform:none;font-size:22px;margin-bottom:8px}
+  .scap{position:static;opacity:1;transform:none;font-size:22px;margin-bottom:8px}
 }
 .hero h1{font-size:clamp(40px,4.4vw,58px);line-height:1.02;font-weight:800;letter-spacing:-.035em}
 .hero h1 em{font-style:normal;color:var(--accent)}
@@ -100,12 +107,13 @@ section{padding:112px 0 0}
 .stages button::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
 .stages button[aria-current=true]::after{animation:fill var(--dur,3.6s) linear forwards}
 .paused .stages button::after{animation:none;transform:scaleX(1)}
+.viewer.hold .stages button[aria-current=true]::after{animation-play-state:paused}
 @keyframes fill{to{transform:scaleX(1)}}
 
 /* facts */
-.formats{margin-top:8px;border:1px solid rgb(61 139 255 / .35);border-radius:var(--r);background:linear-gradient(135deg,rgb(61 139 255 / .09),var(--panel) 55%);padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:28px 40px;align-items:start}
+.formats{margin-top:14px;border:1px solid rgb(61 139 255 / .35);border-radius:var(--r);background:linear-gradient(135deg,rgb(61 139 255 / .09),var(--panel) 55%);padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:28px 40px;align-items:start}
 .f-head .ph{font-size:32px;color:var(--accent)}
-.f-head h2{font-size:clamp(26px,2.6vw,34px);margin:10px 0 8px;letter-spacing:-.025em}
+.f-head h3{font-size:clamp(26px,2.6vw,34px);margin:10px 0 8px;letter-spacing:-.025em}
 .f-head p{margin:0;color:var(--soft);font-size:15px;max-width:40ch}
 .f-groups{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:20px}
 .f-groups b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
@@ -195,12 +203,11 @@ section{padding:112px 0 0}
 @media(max-width:900px){.tick b{font-size:20px}.tick>span{padding:8px 9px;font-size:11px}}
 .kit{margin-top:56px}
 .kit-t{font-size:22px;margin:0 0 18px}
-.kit-g{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:auto auto;gap:16px}
+.kit-g{display:grid;grid-template-columns:1.55fr 1fr;gap:16px}
 .kc{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
 .kc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,-20%),rgb(61 139 255 / .13),transparent 60%);opacity:0;transition:opacity .3s;z-index:1}
 .kc:hover{border-color:var(--line2);transform:translateY(-3px)}
 .kc:hover::before{opacity:1}
-.kc-sb{grid-row:span 2}
 .kc-v{position:relative;background:var(--bg2);display:grid;place-items:center;padding:22px;flex:1;min-height:200px}
 .kc-x{padding:18px 22px 22px;border-top:1px solid var(--line)}
 .kc-x .ph{font-size:22px;color:var(--accent)}
@@ -211,19 +218,6 @@ section{padding:112px 0 0}
 .kc-sb:hover .sb-page{transform:perspective(1400px) rotateX(0) rotateZ(0) scale(1)}
 .stamp{position:absolute;right:6%;bottom:9%;display:flex;align-items:center;gap:6px;padding:8px 14px;border:2px solid var(--accent);color:var(--accent);background:rgb(9 11 16 / .85);border-radius:8px;font:600 14px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;transform:rotate(-8deg)}
 .stamp .ph{font-size:18px}
-.phone{position:relative;width:150px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;border:3px solid #2A3242;box-shadow:0 24px 50px -18px rgb(0 0 0 / .8)}
-.phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.z-red,.z-ok{position:absolute;border:1.5px dashed;border-radius:4px}
-.z-red{inset:10.4% 11.7% 20.2% 5%;border-color:rgb(255 90 90 / .7)}
-.z-ok{inset:13% 13% 25.2% 5.6%;border-color:#3DDC84;border-style:solid;background:rgb(61 220 132 / .06)}
-.z-title{position:absolute;left:10%;top:17%;font:600 12px/1.1 "Geist",sans-serif;color:#fff;text-shadow:0 1px 6px rgb(0 0 0 / .6)}
-.z-ui{position:absolute;display:flex;gap:6px}
-.z-ui b{display:block;background:rgb(255 255 255 / .55);border-radius:99px}
-.z-top{left:8%;right:8%;top:4%;height:3px;background:rgb(255 255 255 / .5);border-radius:2px}
-.z-rail{right:4%;bottom:24%;flex-direction:column;gap:8px}
-.z-rail b{width:16px;height:16px}
-.z-cap{left:6%;bottom:8%;flex-direction:column;gap:5px;width:60%}
-.z-cap b{height:5px}.z-cap b+b{width:70%}
 .md{width:100%;max-width:400px;background:#0B0E14;border:1px solid var(--line2);border-radius:10px;overflow:hidden;box-shadow:0 24px 50px -20px rgb(0 0 0 / .8)}
 .md-h{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line)}
 .md-h span{width:9px;height:9px;border-radius:50%;background:var(--line2)}
@@ -235,11 +229,6 @@ section{padding:112px 0 0}
 @media(prefers-reduced-motion:no-preference){
   .kc-sb .stamp{opacity:0;transform:rotate(-8deg) scale(1.8)}
   .kc-sb.in .stamp{animation:stamp .45s cubic-bezier(.3,1.6,.5,1) 1s forwards}
-  .kc-sz .z-red,.kc-sz .z-ok{clip-path:inset(0 100% 100% 0)}
-  .kc-sz.in .z-red{animation:draw .9s ease-out .5s forwards}
-  .kc-sz.in .z-ok{animation:draw .9s ease-out .9s forwards}
-  .kc-sz .z-title{opacity:0;transform:translateY(6px);transition:opacity .5s 1.7s,transform .5s 1.7s}
-  .kc-sz.in .z-title{opacity:1;transform:none}
   .kc-vo .l{max-width:0}
   .kc-vo.in .l{animation:type .7s steps(28,end) forwards}
   .kc-vo.in .l:nth-child(2){animation-delay:.5s}.kc-vo.in .l:nth-child(3){animation-delay:.9s}.kc-vo.in .l:nth-child(4){animation-delay:1.3s}
@@ -250,11 +239,7 @@ section{padding:112px 0 0}
 @keyframes draw{to{clip-path:inset(0 0 0 0)}}
 @keyframes type{to{max-width:100%}}
 @keyframes blink{50%{opacity:0}}
-@media(max-width:900px){.kit-g{grid-template-columns:1fr}.kc-sb{grid-row:auto}.kc:hover{transform:none}}
-.easy{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px}
-.easy .ph{font-size:26px;color:var(--accent)}
-.easy h3{font-size:18px;margin:10px 0 6px}
-.easy p{margin:0;color:var(--soft);font-size:15px}
+@media(max-width:900px){.kit-g{grid-template-columns:1fr}.kc:hover{transform:none}}
 @media(prefers-reduced-motion:no-preference){
   /* the bars draw in on reveal: six blocks one after another, then the single short one */
   .vs .old .bar li{opacity:0;transform:translateX(-10px);transition:opacity .4s,transform .4s;transition-delay:calc(var(--i) * 110ms)}
@@ -266,7 +251,6 @@ section{padding:112px 0 0}
   .vs{padding:20px}
   .bar{grid-template-columns:repeat(2,1fr)}
   .old .bar li{border-radius:8px!important;min-height:44px}
-  .easy{grid-template-columns:1fr;gap:20px}
 }
 .facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:24px}
 .facts div{padding:28px 24px;border-left:1px solid var(--line)}
@@ -303,7 +287,7 @@ section{padding:112px 0 0}
 .t-env figcaption{font-size:12px;color:var(--muted);margin-top:6px}
 .t-env p,.t-sb p{margin:0;color:var(--soft);font-size:15px}
 .t-sb{grid-column:span 3;background:linear-gradient(160deg,#0B1630 0%,var(--panel) 55%);padding:22px;display:flex;flex-direction:column;gap:14px}
-.film video{display:block;width:100%;aspect-ratio:16/9;margin-top:36px;border-radius:var(--r);border:1px solid var(--line);background:#000}
+.film video{display:block;width:100%;height:auto;aspect-ratio:16/9;margin-top:36px;border-radius:var(--r);border:1px solid var(--line);background:#000}
 .t-sb .strip{margin-top:auto;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
 .t-sb .strip img{width:200%;max-width:none;animation:pan 26s linear infinite alternate}
 @keyframes pan{to{transform:translateX(-50%)}}
@@ -503,13 +487,18 @@ footer a{color:var(--soft)}
 
 /* responsive */
 @media (max-width:1080px){
-  .nav nav{display:none}
+  .menu{display:grid}
+  .nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:6px 0 14px;background:rgb(9 11 16 / .97);border-bottom:1px solid var(--line)}
+  .nav.open nav{display:flex}
+  .nav.open nav a{padding:13px 24px}
+  .nav.open nav a.on{box-shadow:inset 3px 0 0 var(--accent)}
   .langs{margin-left:auto}
   .hero{grid-template-columns:1fr;gap:36px;min-height:0;padding-top:48px}
   .act{grid-template-columns:1fr;gap:12px}
 }
 @media (max-width:860px){
   section{padding-top:84px}
+  #riprese,#ingegneria,#ai{padding-top:56px}
   .facts{grid-template-columns:repeat(2,1fr)}
   .facts div:nth-child(3){border-left:0;padding-left:0}
   .facts div:nth-child(n+3){border-top:1px solid var(--line)}
@@ -560,15 +549,17 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 
 <div class="nav"><div class="wrap">
 <a class="brand" href="#top"><img src="assets/logo.svg?v=3" alt=""><span>Blender Product Video</span></a>
-<nav>
-<a href="#agenti"><span lang="en">Agents</span><span lang="it">Agenti</span></a>
+<nav id="mainnav">
+<a href="#film"><span lang="en">Demo</span><span lang="it">Demo</span></a>
 <a href="#impossibile"><span lang="en">What it makes</span><span lang="it">Cosa crea</span></a>
 <a href="#percorso"><span lang="en">Workflow</span><span lang="it">Percorso</span></a>
+<a href="#agenti"><span lang="en">Agents</span><span lang="it">Agenti</span></a>
 <a href="#render"><span lang="en">Render</span><span lang="it">Render</span></a>
 <a href="#installazione"><span lang="en">Install</span><span lang="it">Installazione</span></a>
 <a href="https://github.com/mariomele/blender-product-video">GitHub</a>
 </nav>
 <div class="langs" role="group" aria-label="Language / Lingua"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="it" aria-pressed="false">IT</button></div>
+<button type="button" class="menu" aria-expanded="false" aria-controls="mainnav"><i class="ph ph-list" aria-hidden="true"></i><span class="sr" lang="en">Menu</span><span class="sr" lang="it">Menu</span></button>
 </div></div>
 
 <main id="top" class="wrap">
@@ -584,10 +575,10 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 </div>
 <div class="viewer" id="viewer">
 <div class="screen">
-<img class="on" src="assets/examples/ambiente_nero.jpg?v=3" alt="The robot arm rendered in Cycles on a black studio set">
-<img src="assets/examples/cad_view.jpg?v=3" alt="The robot arm as plain CAD geometry">
-<img src="assets/examples/esploso.jpg?v=3" alt="Exploded view of the robot arm: links and motors pulled apart">
-<img src="assets/examples/sezione.jpg?v=3" alt="Cutaway of the shoulder joint: red section faces show the servo motor, strain-wave gearbox and bearing">
+<img class="on" src="assets/examples/ambiente_nero.jpg?v=3" alt="The robot arm rendered in Cycles on a black studio set" data-alt-it="Il braccio robotico renderizzato in Cycles su un set da studio nero" width="1536" height="864" fetchpriority="high">
+<img src="assets/examples/cad_view.jpg?v=3" alt="The robot arm as plain CAD geometry" data-alt-it="Il braccio robotico come semplice geometria CAD" width="1536" height="864">
+<img src="assets/examples/esploso.jpg?v=3" alt="Exploded view of the robot arm: links and motors pulled apart" data-alt-it="Esploso del braccio robotico: bracci e motori separati" width="1536" height="864">
+<img src="assets/examples/sezione.jpg?v=3" alt="Cutaway of the shoulder joint: red section faces show the servo motor, strain-wave gearbox and bearing" data-alt-it="Sezione del giunto della spalla: le facce di sezione rosse mostrano il servomotore, il riduttore armonico e il cuscinetto" width="1536" height="864">
 </div>
 <ol class="stages">
 <li><button type="button" aria-current="true"><b>Film</b><span lang="en">The result</span><span lang="it">Il risultato</span></button></li>
@@ -598,157 +589,27 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 </div>
 </div>
 
-<div class="formats rv" aria-label="Accepted files">
-<div class="f-head"><i class="ph ph-file-arrow-up"></i><h2><span lang="en">Drop in your CAD file.</span><span lang="it">Carica il tuo file CAD.</span></h2><p lang="en">Opened at real scale, parts kept separate, dimensions checked on import.</p><p lang="it">Aperto in scala reale, con le parti separate e le misure controllate all'import.</p></div>
-<div class="f-groups">
-<div><b lang="en">3D CAD</b><b lang="it">CAD 3D</b><ul><li class="best">STEP<small lang="en">best</small><small lang="it">consigliato</small></li><li>STP</li><li>3MF</li><li>.blend</li><li>KiCad PCB</li></ul></div>
-<div><b lang="en">Meshes</b><b lang="it">Mesh</b><ul><li>GLB / glTF</li><li>FBX</li><li>OBJ</li><li>STL</li><li>PLY</li><li>USD</li><li>ABC</li></ul></div>
-<div><b lang="en">2D drawings</b><b lang="it">Disegni 2D</b><ul><li>DWG</li><li>SVG</li><li lang="en">vector PDF</li><li lang="it">PDF vettoriale</li></ul></div>
-</div>
-<div class="f-native">
-<h3><span lang="en">Keep your CAD. Change nothing in how you design.</span><span lang="it">Tieni il tuo CAD. Il modo in cui progetti non cambia.</span></h3>
-<p lang="en">Model in your usual software, export a STEP: the video starts from your real model, at real scale. A new revision? Export again.</p>
-<p lang="it">Modelli nel tuo software di sempre ed esporti uno STEP: il video parte dal tuo modello vero, in scala reale. Nuova revisione? Riesporti.</p>
-<ul class="cad-sw"><li><img src="assets/logos/dassaultsystemes.svg" alt="" width="22" height="22"><span>SolidWorks · CATIA</span></li><li><img src="assets/logos/autodesk.svg" alt="" width="22" height="22"><span>Inventor · Fusion</span></li><li><img src="assets/logos/autocad.svg" alt="" width="22" height="22"><span>AutoCAD</span></li><li><span>Siemens NX · Solid Edge</span></li><li><img src="assets/logos/rhinoceros.svg" alt="" width="22" height="22"><span>Rhino</span></li><li><img src="assets/logos/sketchup.svg" alt="" width="22" height="22"><span>SketchUp</span></li><li><img src="assets/logos/freecad.svg" alt="" width="22" height="22"><span>FreeCAD</span></li><li><span>PTC Creo</span></li><li><span>Onshape</span></li></ul>
-<small class="tm" lang="en">Trademarks belong to their owners. No affiliation.</small><small class="tm" lang="it">I marchi appartengono ai rispettivi proprietari. Nessuna affiliazione.</small>
-</div>
-</div>
-
 <div class="facts rv">
-<div><b lang="en">Hours</b><b lang="it">Ore</b><span lang="en">not weeks: CAD to finished video</span><span lang="it">non settimane: dal CAD al video finito</span></div>
+<div><b>10</b><span lang="en">phases, from the brief to the delivery files</span><span lang="it">fasi, dal brief ai file di consegna</span></div>
 <div><b>8</b><span lang="en">agents: director, scriptwriter, motion designer and checkers</span><span lang="it">agenti: regista, sceneggiatore, motion designer e chi controlla</span></div>
 <div><b>24 fps</b><span lang="en">Cycles render on the Metal GPU</span><span lang="it">render Cycles su GPU Metal</span></div>
 <div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5 · IG and TikTok safe zones</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5 · safe zone IG e TikTok</span></div>
 </div>
 
-<section id="apri" aria-label="Exploded view on scroll">
-<div class="pin">
-<div class="scrub"><img id="scrubImg" src="assets/examples/scroll/f_51.jpg" alt="The robot arm opening into an exploded view" width="960" height="540"></div>
-<div class="scrub-txt">
-<p class="cap on" data-at="0"><b lang="en">Your machine, at real scale.</b><b lang="it">La tua macchina, in scala reale.</b></p>
-<p class="cap" data-at=".35"><b lang="en">Every motor slides out of its joint.</b><b lang="it">Ogni motore esce dal suo giunto.</b></p>
-<p class="cap" data-at=".7"><b lang="en">Every part in place, ready for the cutaway.</b><b lang="it">Ogni pezzo al suo posto, pronto per la sezione.</b></p>
-</div>
-</div>
-</section>
-
-<section id="veloce">
-<h2 class="rv"><span lang="en">No graphics or video skills needed.</span><span lang="it">Non serve saper fare grafica o video.</span></h2>
-<p class="sub rv"><span lang="en">A cutaway explainer usually passes through six specialists and weeks of hand-offs. Here you talk, Claude Code does the rest and stops for your ok.</span><span lang="it">Un video con sezioni ed esplosi di solito passa da sei specialisti e settimane di passaggi di mano. Qui parli tu, Claude Code fa il resto e si ferma per il tuo ok.</span></p>
-<div class="duel rv">
-<div class="d-col old"><h3><span lang="en">The usual way</span><span lang="it">Il modo classico</span></h3>
-<ol class="chain"><li style="--i:0"><i class="ph ph-cube"></i><span lang="en">CAD cleanup</span><span lang="it">Pulizia CAD</span></li><li style="--i:1"><i class="ph ph-paint-brush"></i><span lang="en">3D artist</span><span lang="it">3D artist</span></li><li style="--i:2"><i class="ph ph-film-slate"></i><span lang="en">Animator</span><span lang="it">Animatore</span></li><li style="--i:3"><i class="ph ph-sparkle"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></li><li style="--i:4"><i class="ph ph-scissors"></i><span lang="en">Editor</span><span lang="it">Montatore</span></li><li style="--i:5"><i class="ph ph-speaker-high"></i><span lang="en">Sound</span><span lang="it">Audio</span></li></ol>
-<p class="bounce" aria-live="off"><i class="ph ph-arrow-u-up-left"></i><span lang="en">change request: back to</span><span lang="it">modifica: si torna a</span> <b></b></p><div class="tick old"><span><b data-k="wk">0</b><span lang="en">weeks</span><span lang="it">settimane</span></span><span><b data-k="rev">0</b><span lang="en">revision rounds</span><span lang="it">giri di modifiche</span></span><span><b data-k="inv">0</b><span lang="en">quotes and invoices</span><span lang="it">preventivi e fatture</span></span></div><p class="d-big"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></p><p class="d-sm"><span lang="en">six people, five hand-offs, every change goes back down the line</span><span lang="it">sei persone, cinque passaggi di mano, ogni modifica torna indietro</span></p></div>
-<div class="d-vs" aria-hidden="true">vs</div>
-<div class="d-col new"><h3><span lang="en">With the skill</span><span lang="it">Con la skill</span></h3>
-<div class="solo"><span class="bub"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make a cutaway video of my machine”</span><span lang="it">“Fammi un video in sezione della mia macchina”</span></span><span class="done"><i class="ph ph-check-circle"></i><span lang="en">model, animation, graphics, voice, render</span><span lang="it">modello, animazione, grafiche, voce, render</span></span><span class="ask"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make scene 3 slower”</span><span lang="it">“Rallenta la scena 3”</span></span><span class="done d2"><i class="ph ph-check-circle"></i><span lang="en">only scene 3 redone</span><span lang="it">rifatta solo la scena 3</span></span></div>
-<div class="tick new"><span><b data-k="">&lt;1</b><span lang="en">day</span><span lang="it">giorno</span></span><span><b data-k="">0</b><span lang="en">hand-offs</span><span lang="it">rimpalli</span></span><span><b data-k="">1</b><span lang="en">Claude plan</span><span lang="it">abbonamento Claude</span></span></div><p class="d-big"><span lang="en">a few hours</span><span lang="it">poche ore</span></p><p class="d-sm"><span lang="en">you and Claude Code, in one chat, it stops for your ok</span><span lang="it">tu e Claude Code, in una chat, si ferma per il tuo ok</span></p></div>
-</div>
-<button type="button" class="replay" id="replay" hidden><i class="ph ph-arrow-counter-clockwise"></i><span lang="en">Play it again</span><span lang="it">Rivedi</span></button>
-<div class="meters rv">
-<div class="m-leg"><span class="old"><span lang="en">Usual way</span><span lang="it">Modo classico</span></span><span class="new"><span lang="en">With the skill</span><span lang="it">Con la skill</span></span></div>
-<div class="m-row"><span class="m-k"><i class="ph ph-clock"></i><span lang="en">Time</span><span lang="it">Tempo</span></span>
-<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></span><span class="m-b new" style="--w:.06"><span lang="en">a few hours</span><span lang="it">poche ore</span></span></div></div>
-<div class="m-row"><span class="m-k"><i class="ph ph-users-three"></i><span lang="en">People</span><span lang="it">Persone</span></span>
-<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">6 specialists</span><span lang="it">6 specialisti</span></span><span class="m-b new" style="--w:.17"><span lang="en">you</span><span lang="it">tu</span></span></div></div>
-<div class="m-row"><span class="m-k"><i class="ph ph-arrows-left-right"></i><span lang="en">Hand-offs</span><span lang="it">Passaggi di mano</span></span>
-<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">5</span><span lang="it">5</span></span><span class="m-b new" style="--w:.03"><span lang="en">0</span><span lang="it">0</span></span></div></div>
-<div class="m-row"><span class="m-k"><i class="ph ph-graduation-cap"></i><span lang="en">Software to learn</span><span lang="it">Software da imparare</span></span>
-<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">Blender, After Effects, Premiere, audio</span><span lang="it">Blender, After Effects, Premiere, audio</span></span><span class="m-b new" style="--w:.03"><span lang="en">none: you describe</span><span lang="it">nessuno: descrivi a parole</span></span></div></div>
-<div class="m-row"><span class="m-k"><i class="ph ph-receipt"></i><span lang="en">Cost</span><span lang="it">Costi</span></span>
-<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">6 quotes, 6 invoices, every round billed</span><span lang="it">6 preventivi, 6 fatture, ogni giro si paga</span></span><span class="m-b new" style="--w:.06"><span lang="en">your Claude plan</span><span lang="it">il tuo abbonamento Claude</span></span></div></div>
-<div class="m-row"><span class="m-k"><i class="ph ph-arrows-clockwise"></i><span lang="en">A change</span><span lang="it">Una modifica</span></span>
-<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">days, back down the chain</span><span lang="it">giorni, si torna indietro</span></span><span class="m-b new" style="--w:.08"><span lang="en">minutes, only that piece</span><span lang="it">minuti, solo quel pezzo</span></span></div></div>
-</div>
-<div class="kit">
-<h3 class="kit-t rv"><span lang="en">What you get, ready to send</span><span lang="it">Cosa ricevi, pronto da mandare</span></h3>
-<div class="kit-g">
-<article class="kc kc-sb rv">
-<div class="kc-v"><div class="sb-page"><img src="assets/examples/storyboard_pdf.jpg?v=3" alt="Storyboard PDF: 14 shots with timecode, shot and voice line" lang="it" loading="lazy"><img src="assets/examples/storyboard_pdf_en.jpg?v=3" alt="Storyboard PDF: 14 shots with timecode, shot and voice line" lang="en" loading="lazy"><span class="stamp"><i class="ph ph-seal-check"></i><span lang="en">Approved</span><span lang="it">Approvato</span></span></div></div>
-<div class="kc-x"><i class="ph ph-file-pdf"></i><h4><span lang="en">Storyboard in PDF, for the client's ok</span><span lang="it">Storyboard in PDF, per l'ok del cliente</span></h4><p lang="en">Every shot with timecode, framing and voice line, in your brand colours and each language you need. The last page has the approval box.</p><p lang="it">Ogni inquadratura con tempi, piano e frase della voce, nei colori del tuo brand e in ogni lingua che serve. Nell'ultima pagina c'è il riquadro di approvazione.</p></div>
-</article>
-<article class="kc kc-sz rv">
-<div class="kc-v"><div class="phone"><img src="assets/examples/ambiente_nero.jpg?v=3" alt="" loading="lazy"><span class="z-red"></span><span class="z-ok"></span><span class="z-title"><span lang="en">6-axis arm</span><span lang="it">Braccio 6 assi</span></span><span class="z-ui z-top"></span><span class="z-ui z-rail"><b></b><b></b><b></b><b></b></span><span class="z-ui z-cap"><b></b><b></b></span></div></div>
-<div class="kc-x"><i class="ph ph-device-mobile"></i><h4><span lang="en">Vertical, inside the safe zones</span><span lang="it">Verticale, dentro le safe zone</span></h4><p lang="en">In 9:16 every title stays clear of the Instagram Reels, Stories and TikTok interface. No caption or button covers your text.</p><p lang="it">In 9:16 ogni titolo resta lontano dall'interfaccia di Instagram Reels, Stories e TikTok. Nessuna didascalia o pulsante copre le tue scritte.</p></div>
-</article>
-<article class="kc kc-vo rv">
-<div class="kc-v"><div class="md"><div class="md-h"><span></span><span></span><span></span><b>vo_it.md · vo_en.md</b></div><pre><code><span class="l"><em>#</em> VO · Robot 6 assi</span><span class="l"><em>|</em> 01 <em>|</em> 0:00–0:04 <em>|</em> 4.0 s <em>|</em> 6 <em>|</em></span><span class="l"><em>|</em> 02 <em>|</em> 0:04–0:10 <em>|</em> 6.0 s <em>|</em> 9 <em>|</em></span><span class="l"><em>|</em> 03 <em>|</em> 0:10–0:13 <em>|</em> 3.5 s <em>|</em> 5 <em>|</em></span><span class="l"><b>01</b> Il braccio a sei assi, in scala reale.</span><span class="l"><b>02</b> Ogni motore esce dal suo giunto.</span><span class="l cur"><b>03</b> Dentro, il riduttore.</span></code></pre></div></div>
-<div class="kc-x"><i class="ph ph-microphone"></i><h4><span lang="en">Voice-over script in .md</span><span lang="it">Testo della voce in .md</span></h4><p lang="en">One file per language with time, length and word count per scene. Take it to a voice actor, a studio or any TTS.</p><p lang="it">Un file per lingua con tempo, durata e numero di parole per scena. Lo porti a uno speaker, in studio o in qualunque TTS.</p></div>
-</article>
-</div>
-</div>
-<ul class="easy">
-<li class="rv"><i class="ph ph-chats"></i><h3><span lang="en">You speak, not Blender</span><span lang="it">Parli tu, non Blender</span></h3><p lang="en">Describe the shot in plain words. No nodes, keyframes or render settings to learn.</p><p lang="it">Descrivi l'inquadratura a parole. Niente nodi, keyframe o impostazioni di render da imparare.</p></li>
-<li class="rv"><i class="ph ph-check-circle"></i><h3><span lang="en">Automatic or guided</span><span lang="it">Automatica o guidata</span></h3><p lang="en">Automatic: four questions, your story idea included, and a summary, then it works alone and stops only for the texts (storyboard PDF and voice-over .md), the video with text, and delivery. Guided: it asks at every step.</p><p lang="it">Automatica: quattro domande, compresa la tua idea di storia, e un riepilogo, poi lavora da sola e si ferma solo per i testi (storyboard in PDF e voce in .md), il video con i testi e la consegna. Guidata: chiede a ogni passo.</p></li>
-<li class="rv"><i class="ph ph-users-three"></i><h3><span lang="en">Agentic, if you want</span><span lang="it">Agentica, se vuoi</span></h3><p lang="en">A crew of agents: a director and a scriptwriter build the story, a motion designer animates it, others check how the machine works, the frames and what a viewer understands. Stops reach your phone.</p><p lang="it">Una squadra di agenti: regista e sceneggiatore costruiscono il racconto, il motion designer lo anima, altri controllano il funzionamento, i frame e cosa capisce chi guarda. Le soste arrivano sul telefono.</p></li>
-<li class="rv"><i class="ph ph-gear-six"></i><h3><span lang="en">Works like the real one</span><span lang="it">Funziona come quella vera</span></h3><p lang="en">From CAD, PDF datasheet, a description, the website or a video it writes what moves, which way, how fast and in what order, then measures every scene against it.</p><p lang="it">Da CAD, scheda tecnica in PDF, descrizione, sito o video scrive cosa si muove, in che verso, a che velocità e in che ordine, poi misura ogni scena su quella scheda.</p></li>
-<li class="rv"><i class="ph ph-columns"></i><h3><span lang="en">Real footage and 3D</span><span lang="it">Riprese vere e 3D</span></h3><p lang="en">Your own videos as b-roll, in a side-by-side or stacked split screen synced to the 3D, or cutting from the real machine into its cutaway.</p><p lang="it">I tuoi video come b-roll, in split screen affiancato o sovrapposto e sincronizzato con il 3D, o con il passaggio dalla macchina vera alla sua sezione.</p></li>
-<li class="rv"><i class="ph ph-package"></i><h3><span lang="en">Everything in one place</span><span lang="it">Tutto in un posto</span></h3><p lang="en">Model, materials, animation, graphics, voice, render and delivery files.</p><p lang="it">Modello, materiali, animazione, grafiche, voce, render e file di consegna.</p></li>
-</ul>
-</section>
-
-<section id="agenti">
-<span class="eyebrow rv"><span lang="en">New · Agentic mode</span><span lang="it">Novità · Modalità agentica</span></span>
-<h2 class="rv" style="margin-top:12px"><span lang="en">A production crew of agents, not one assistant.</span><span lang="it">Una casa di produzione di agenti, non un assistente solo.</span></h2>
-<p class="sub rv"><span lang="en">Claude Code is the producer: it talks to you, keeps the budget and runs the renders. A director and a scriptwriter build the story, a motion designer animates it, and the checkers never see the reasoning, only the material. You get the stops on your phone.</span><span lang="it">Claude Code fa il produttore: parla con te, tiene il budget e lancia i render. Regista e sceneggiatore costruiscono il racconto, il motion designer lo anima, e chi controlla non vede il ragionamento, solo il materiale. Le soste ti arrivano sul telefono.</span></p>
-<div class="producer rv"><i class="ph ph-crown-simple"></i><div><b lang="en">Producer · Claude Code</b><b lang="it">Produttore · Claude Code</b><span lang="en">talks to you, budget, stops, renders on the GPU, picks between the agents' proposals</span><span lang="it">parla con te, budget, soste, render sulla GPU, sceglie fra le proposte degli agenti</span></div></div>
-<div class="crew">
-<div class="crew-g"><h3 class="rv"><span lang="en">Tell the story</span><span lang="it">Raccontano</span></h3><ul class="agents"><li class="key rv"><i class="ph ph-film-slate"></i><h4><span lang="en">Director</span><span lang="it">Regista</span></h4><p lang="en">Writes the treatment, the story in five lines, then the shot list and the rhythm. Judges every draft as a story: is it clear, does it hold you?</p><p lang="it">Scrive il trattamento, la storia in cinque righe, poi scaletta e ritmo. Giudica ogni bozza come racconto: si capisce, tiene l'attenzione?</p></li><li class="key rv"><i class="ph ph-pen-nib"></i><h4><span lang="en">Scriptwriter</span><span lang="it">Sceneggiatore</span></h4><p lang="en">Voice-over and on-screen text as a story, not a list of specs. One idea per scene, every number answers "so what?". Two or three hooks to choose from.</p><p lang="it">Voce e testi a schermo come racconto, non come elenco di dati. Un'idea per scena, ogni numero risponde a "e quindi?". Due o tre agganci da scegliere.</p></li><li class="rv"><i class="ph ph-sparkle"></i><h4><span lang="en">Motion designer</span><span lang="it">Motion designer</span></h4><p lang="en">Builds the animated graphics and checks them in motion: text enters with the voice, stays long enough to read, one thing at a time.</p><p lang="it">Costruisce le grafiche animate e le controlla in movimento: il testo entra con la voce, resta il tempo di leggerlo, una cosa alla volta.</p></li></ul></div>
-<div class="crew-g"><h3 class="rv"><span lang="en">Check</span><span lang="it">Controllano</span></h3><ul class="agents"><li class="key rv"><i class="ph ph-gear-six"></i><h4><span lang="en">Function</span><span lang="it">Funzionamento</span></h4><p lang="en">Reads CAD, PDF, text, website and video, writes how the machine works and measures every scene against it.</p><p lang="it">Legge CAD, PDF, testo, sito e video, scrive come funziona la macchina e misura ogni scena su quella scheda.</p></li><li class="rv"><i class="ph ph-eye"></i><h4><span lang="en">Technical reviewer</span><span lang="it">Revisore tecnico</span></h4><p lang="en">Only the frames: overlaps, the camera passing through parts, broken materials, jumps, continuity.</p><p lang="it">Solo i frame: compenetrazioni, camera che attraversa le parti, materiali sbagliati, scatti, continuità.</p></li><li class="rv"><i class="ph ph-user"></i><h4><span lang="en">Viewer</span><span lang="it">Spettatore</span></h4><p lang="en">Watches the draft knowing nothing about the project and says in one sentence what it understood. If it is not your message, the story is fixed before you see it.</p><p lang="it">Guarda la bozza senza sapere niente del progetto e dice in una frase cosa ha capito. Se non è il tuo messaggio, il racconto si corregge prima che lo veda tu.</p></li></ul></div>
-<div class="crew-g"><h3 class="rv"><span lang="en">Prepare</span><span lang="it">Preparano</span></h3><ul class="agents"><li class="rv"><i class="ph ph-waveform"></i><h4><span lang="en">Audio</span><span lang="it">Audio</span></h4><p lang="en">Sound only: effects on the movements, the music brief, the mix under the voice. Spends no credits.</p><p lang="it">Solo suono: effetti sui movimenti, il brief della musica, il mix sotto la voce. Non spende crediti.</p></li><li class="rv"><i class="ph ph-video-camera"></i><h4><span lang="en">Real footage</span><span lang="it">Riprese vere</span></h4><p lang="en">Checks your videos: length, fps, rotation, good takes, the moments of the cycle for the split screen.</p><p lang="it">Analizza i tuoi video: durata, fps, rotazione, pezzi buoni, gli istanti del ciclo per lo split screen.</p></li></ul></div>
-</div>
-<div class="script rv">
-<div class="sc-h"><i class="ph ph-pen-nib"></i><h3><span lang="en">A story, not a list of specs</span><span lang="it">Un racconto, non un elenco di dati</span></h3></div>
-<div class="sc-cols">
-<div class="sc old"><small lang="en">LIST</small><small lang="it">ELENCO</small><p lang="en">“Throughput 1,200 kg/h. 7.5 kW motor. Stainless steel AISI 304.”</p><p lang="it">“Portata 1200 kg/h. Motore da 7,5 kW. Acciaio inox AISI 304.”</p></div>
-<div class="sc new"><small lang="en">STORY</small><small lang="it">RACCONTO</small><p lang="en">“1,200 kg an hour: a whole shift without stopping.”</p><p lang="it">“1200 kg all'ora: un turno intero senza fermarsi.”</p><span lang="en">on screen: <b>1,200 kg/h</b></span><span lang="it">a schermo: <b>1200 kg/h</b></span></div>
-</div>
-<ul class="sc-rules"><li lang="en">the problem of whoever uses the machine is the thread</li><li lang="it">il filo è il problema di chi usa la macchina</li><li lang="en">one idea and at most one number per scene</li><li lang="it">un'idea e al massimo un numero per scena</li><li lang="en">the voice says why, the screen says the number</li><li lang="it">la voce dice il perché, lo schermo dice il numero</li><li lang="en">every figure from your sources, never invented</li><li lang="it">ogni numero dalle tue fonti, mai inventato</li></ul>
-</div>
-<div class="ag">
-<div class="ag-box rv"><h3><span lang="en">Nobody waits for the render</span><span lang="it">Nessuno aspetta il render</span></h3><p lang="en">One GPU, renders one after the other. The crew works beside them, three agents at a time.</p><p lang="it">Una GPU, i render uno dopo l'altro. La squadra lavora accanto, tre agenti per volta.</p>
-<div class="gantt">
-<span class="stop" style="--x:.53"><span lang="en">stop 2</span><span lang="it">sosta 2</span></span><span class="stop" style="--x:.99"><span lang="en">stop 3</span><span lang="it">sosta 3</span></span>
-<div class="ln gpu"><span><i class="ph ph-graphics-card"></i><span lang="en">GPU render</span><span lang="it">Render GPU</span></span><div class="tr"><i style="--s:12%;--w:40%;--d:0.12"></i><i style="--s:58%;--w:38%;--d:0.58"></i></div></div>
-<div class="ln "><span><i class="ph ph-film-slate"></i><span lang="en">Director</span><span lang="it">Regista</span></span><div class="tr"><i style="--s:0%;--w:12%;--d:0.00"></i><i style="--s:26%;--w:6%;--d:0.26"></i><i style="--s:46%;--w:6%;--d:0.46"></i><i style="--s:88%;--w:6%;--d:0.88"></i></div></div>
-<div class="ln "><span><i class="ph ph-pen-nib"></i><span lang="en">Scriptwriter</span><span lang="it">Sceneggiatore</span></span><div class="tr"><i style="--s:0%;--w:12%;--d:0.00"></i><i style="--s:34%;--w:10%;--d:0.34"></i><i style="--s:90%;--w:6%;--d:0.90"></i></div></div>
-<div class="ln fn"><span><i class="ph ph-gear-six"></i><span lang="en">Function</span><span lang="it">Funzionamento</span></span><div class="tr"><i style="--s:4%;--w:8%;--d:0.04"></i><i style="--s:24%;--w:6%;--d:0.24"></i><i style="--s:44%;--w:6%;--d:0.44"></i><i style="--s:80%;--w:6%;--d:0.80"></i></div></div>
-<div class="ln "><span><i class="ph ph-eye"></i><span lang="en">Tech reviewer</span><span lang="it">Revisore tecnico</span></span><div class="tr"><i style="--s:30%;--w:6%;--d:0.30"></i><i style="--s:46%;--w:5%;--d:0.46"></i><i style="--s:84%;--w:6%;--d:0.84"></i></div></div>
-<div class="ln "><span><i class="ph ph-sparkle"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></span><div class="tr"><i style="--s:56%;--w:30%;--d:0.56"></i></div></div>
-<div class="ln "><span><i class="ph ph-waveform"></i><span lang="en">Audio</span><span lang="it">Audio</span></span><div class="tr"><i style="--s:56%;--w:22%;--d:0.56"></i></div></div>
-<div class="ln "><span><i class="ph ph-user"></i><span lang="en">Viewer</span><span lang="it">Spettatore</span></span><div class="tr"><i style="--s:90%;--w:8%;--d:0.90"></i></div></div>
-</div>
-<div class="ag-legend"><span><i></i><span lang="en">Blender on the GPU, one render at a time</span><span lang="it">Blender sulla GPU, un render alla volta</span></span><span><i class="o"></i><span lang="en">agents, in parallel</span><span lang="it">agenti, in parallelo</span></span></div>
-</div>
-<div class="tel rv" aria-label="Example of a stop received on the phone">
-<div class="p-top"><i class="ph ph-device-mobile"></i><b>Claude Code</b><span lang="en">· stop 2</span><span lang="it">· sosta 2</span></div>
-<div class="msg"><small lang="en">STOP 2 · TEXTS</small><small lang="it">SOSTA 2 · TESTI</small><span lang="en">Silent video ready. Check the story, the on-screen texts and the voice-over.</span><span lang="it">Video muto pronto. Controlla il racconto, i testi a schermo e la voce.</span>
-<div class="att"><span><i class="ph ph-film-strip"></i>muto.mp4</span><span><i class="ph ph-file-pdf"></i>storyboard_it.pdf</span><span><i class="ph ph-file-text"></i>vo_it.md</span></div>
-<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Function: 14 of 14 checks match</span><span lang="it">Funzionamento: 14 controlli su 14 tornano</span></div>
-<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Technical reviewer: 2 fixes made, 0 open</span><span lang="it">Revisore tecnico: 2 correzioni fatte, 0 aperte</span></div>
-<div class="chk"><i class="ph ph-pen-nib"></i><span lang="en">Scriptwriter: 3 hooks to choose from</span><span lang="it">Sceneggiatore: 3 agganci da scegliere</span></div></div>
-<div class="msg me"><span lang="en">hook 2, and make scene 3 slower</span><span lang="it">aggancio 2, e rallenta la scena 3</span></div>
-<div class="msg"><span lang="en">Hook 2. Redoing only scene 3, then the motion designer starts on the graphics.</span><span lang="it">Aggancio 2. Rifaccio solo la scena 3, poi il motion designer parte con le grafiche.</span></div>
-<div class="qr"><span>ok</span><span lang="en">redo scene…</span><span lang="it">rifai la scena…</span><span>stop</span></div>
-</div>
-</div>
-<p class="ag-note rv"><span lang="en">Paid generations and renders stay with the producer, inside your budget. On request it can run with no stops, for internal tests or variants of an approved video. Agents use more tokens than the automatic mode.</span><span lang="it">Le generazioni a pagamento e i render restano al produttore, dentro il tuo budget. Su richiesta va anche senza soste, per prove interne o varianti di un video già approvato. Gli agenti consumano più token della modalità automatica.</span></p>
-</section>
-
 <section id="film">
-<h2 class="rv"><span lang="en">From CAD to infographic video in a few hours.</span><span lang="it">Dal CAD al video infografica in poche ore.</span></h2>
-<p class="sub rv"><span lang="en">A quick low-res demo: CAD, motion, exploded view, cutaway and settings, with HyperFrames graphics on top. Same robot as every image on this page.</span><span lang="it">Una demo veloce in bassa risoluzione: CAD, movimento, esploso, sezione e ambienti, con le grafiche HyperFrames sopra. È lo stesso robot di tutte le immagini della pagina.</span></p>
-<div class="film rv"><video src="assets/examples/demo.mp4?v=3" poster="assets/examples/ambiente_nero.jpg?v=3" autoplay muted loop playsinline controls preload="metadata" aria-label="Demo video of the 6-axis robot arm"></video></div>
+<h2 class="rv"><span lang="en">One robot, from CAD to finished video.</span><span lang="it">Un robot, dal CAD al video finito.</span></h2>
+<p class="sub rv"><span lang="en">A quick low-res demo: CAD, motion, exploded view, cutaway and environments, with HyperFrames graphics on top. Same robot as every image on this page.</span><span lang="it">Una demo veloce in bassa risoluzione: CAD, movimento, esploso, sezione e ambienti, con le grafiche HyperFrames sopra. È lo stesso robot di tutte le immagini della pagina.</span></p>
+<div class="film rv"><video src="assets/examples/demo.mp4?v=3" poster="assets/examples/ambiente_nero.jpg?v=3" muted loop playsinline controls preload="none" width="1536" height="864" aria-label="Demo video of the 6-axis robot arm" data-aria-it="Video demo del braccio robotico a 6 assi"></video></div>
 </section>
 
-<section id="come">
-<h2 class="rv"><span lang="en">Start from whatever you have.</span><span lang="it">Parti da quello che hai.</span></h2>
-<p class="sub rv"><span lang="en">Claude asks the right questions, builds the 3D model at real scale and shows a storyboard before anything long is rendered.</span><span lang="it">Claude fa le domande giuste, costruisce il modello 3D in scala reale e mostra uno storyboard prima di ogni render lungo.</span></p>
-<div class="sources">
-<div class="src big rv"><i class="ph ph-cube ph-icon"></i><h3><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></h3><p lang="en">STEP, 3MF, GLB, FBX, OBJ, STL, USD or .blend, opened at real scale with parts kept separate. SolidWorks, Inventor, Fusion, CATIA: export a STEP.</p><p lang="it">STEP, 3MF, GLB, FBX, OBJ, STL, USD o .blend, aperti in scala reale con le parti separate. SolidWorks, Inventor, Fusion, CATIA: esporta uno STEP.</p><img class="src-img" src="assets/examples/cad_view.jpg?v=3" alt="" loading="lazy" width="1536" height="864"><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>text-to-cad</b></span></div>
-<div class="src rv"><i class="ph ph-ruler ph-icon"></i><h3><span lang="en">DWG and drawings</span><span lang="it">DWG e disegni</span></h3><p lang="en">DWG, SVG and vector PDF read at real scale; dimensioned drawings rebuilt in parametric CAD.</p><p lang="it">DWG, SVG e PDF vettoriale letti in scala reale; disegni quotati ricostruiti in CAD parametrico.</p><span class="need"><span lang="en">needs</span><span lang="it">serve</span> <b>LibreDWG</b></span></div>
-<div class="src rv"><i class="ph ph-camera ph-icon"></i><h3><span lang="en">Photos</span><span lang="it">Foto</span></h3><p lang="en">Modelled from your shots plus one real measurement. The slowest route, and Claude says so.</p><p lang="it">Modellato dalle tue foto più una misura reale. La strada più lenta, e Claude te lo dice.</p><span class="need"><span lang="en">nothing extra</span><span lang="it">niente in più</span></span></div>
-<div class="src wide rv"><i class="ph ph-link ph-icon"></i><h3><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></h3><p lang="en">Photos, data sheets and brand colours read straight from the link.</p><p lang="it">Foto, schede tecniche e colori del brand letti direttamente dal link.</p><span class="need"><span lang="en">best with</span><span lang="it">meglio con</span> <b>Firecrawl</b></span></div>
+<section id="apri" aria-label="Exploded view on scroll" data-aria-it="Esploso allo scorrimento">
+<div class="pin">
+<div class="scrub"><picture><source media="(min-width:901px) and (prefers-reduced-motion:no-preference)" srcset="assets/examples/scroll/f_01.jpg"><img id="scrubImg" src="assets/examples/scroll/f_51.jpg" alt="The robot arm opening into an exploded view" data-alt-it="Il braccio robotico che si apre in un esploso" width="960" height="540" loading="lazy"></picture></div>
+<div class="scrub-txt">
+<p class="scap on" data-at="0"><b lang="en">Your machine, at real scale.</b><b lang="it">La tua macchina, in scala reale.</b></p>
+<p class="scap" data-at=".35"><b lang="en">Every motor slides out of its joint.</b><b lang="it">Ogni motore esce dal suo giunto.</b></p>
+<p class="scap" data-at=".7"><b lang="en">Every part laid out, ready for the cutaway.</b><b lang="it">Ogni pezzo in vista, pronto per la sezione.</b></p>
+</div>
 </div>
 </section>
 
@@ -756,19 +617,19 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <h2 class="rv"><span lang="en">Shots a real camera can't take.</span><span lang="it">Riprese che una camera vera non può fare.</span></h2>
 <p class="sub rv"><span lang="en">Open the machine up, take it apart in mid-air, swap its finish in a click. Every image here is made with the skill's own scripts.</span><span lang="it">Apri la macchina, smontala a mezz'aria, cambia finitura con un clic. Ogni immagine qui è fatta con gli script della skill.</span></p>
 <div class="bento">
-<figure class="tile t-cut rv"><img src="assets/examples/sezione.jpg?v=3" alt="Cutaway view of the robot shoulder" loading="lazy"><figcaption class="cap"><h3><span lang="en">Cutaways</span><span lang="it">Sezioni</span></h3><p lang="en">See inside: motor windings, gearbox and bearings, with the section faces in colour.</p><p lang="it">Vedi dentro: avvolgimenti del motore, riduttore e cuscinetti, con le facce di sezione colorate.</p></figcaption></figure>
-<figure class="tile t-exp rv"><img src="assets/examples/esploso.jpg?v=3" alt="Exploded view" loading="lazy"><figcaption class="cap"><h3><span lang="en">Exploded views</span><span lang="it">Esplosi</span></h3><p lang="en">Parts slide apart and back, in order.</p><p lang="it">I pezzi si separano e si rimontano, in ordine.</p></figcaption></figure>
-<figure class="tile t-mat rv"><img src="assets/examples/dettaglio_materiali.jpg?v=3" alt="Material close-up" loading="lazy"><figcaption class="cap"><h3><span lang="en">Real materials</span><span lang="it">Materiali veri</span></h3><p lang="en">RAL paint, brushed steel, rubber, zinc-plated bolts.</p><p lang="it">Vernice RAL, acciaio spazzolato, gomma, bulloni zincati.</p></figcaption></figure>
+<figure class="tile t-cut rv"><img src="assets/examples/sezione.jpg?v=3" alt="Cutaway view of the robot shoulder" data-alt-it="Sezione della spalla del robot" loading="lazy" width="1536" height="864"><figcaption class="cap"><h3><span lang="en">Cutaways</span><span lang="it">Sezioni</span></h3><p lang="en">See inside: motor windings, gearbox and bearings, with the section faces in colour.</p><p lang="it">Vedi dentro: avvolgimenti del motore, riduttore e cuscinetti, con le facce di sezione colorate.</p></figcaption></figure>
+<figure class="tile t-exp rv"><img src="assets/examples/esploso.jpg?v=3" alt="Exploded view" data-alt-it="Esploso" loading="lazy" width="1536" height="864"><figcaption class="cap"><h3><span lang="en">Exploded views</span><span lang="it">Esplosi</span></h3><p lang="en">Parts slide apart and back, in order.</p><p lang="it">I pezzi si separano e si rimontano, in ordine.</p></figcaption></figure>
+<figure class="tile t-mat rv"><img src="assets/examples/dettaglio_materiali.jpg?v=3" alt="Material close-up" data-alt-it="Dettaglio dei materiali" loading="lazy" width="1536" height="864"><figcaption class="cap"><h3><span lang="en">Real materials</span><span lang="it">Materiali veri</span></h3><p lang="en">RAL paint, brushed steel, rubber, zinc-plated bolts.</p><p lang="it">Vernice RAL, acciaio spazzolato, gomma, bulloni zincati.</p></figcaption></figure>
 <div class="tile t-env rv" id="esempi"><h3><span lang="en">Any setting, realistic light</span><span lang="it">Qualsiasi ambiente, luce realistica</span></h3><p lang="en">Chosen in the brief, even from a reference photo.</p><p lang="it">Si sceglie nel brief, anche da una foto di riferimento.</p>
-<div class="thumbs"><figure><img src="assets/examples/ambiente_nero.jpg?v=3" alt="Black studio" loading="lazy"><figcaption><span lang="en">Black studio</span><span lang="it">Studio nero</span></figcaption></figure><figure><img src="assets/examples/ambiente_limbo.jpg?v=3" alt="Light limbo" loading="lazy"><figcaption>Limbo</figcaption></figure><figure><img src="assets/examples/ambiente_capannone.jpg?v=3" alt="Industrial warehouse" loading="lazy"><figcaption><span lang="en">Warehouse</span><span lang="it">Magazzino</span></figcaption></figure><figure><img src="assets/examples/ambiente_laboratorio.jpg?v=3" alt="Clean laboratory" loading="lazy"><figcaption><span lang="en">Laboratory</span><span lang="it">Laboratorio</span></figcaption></figure><figure><img src="assets/examples/ambiente_officina.jpg?v=4" alt="Production hall with overhead crane" loading="lazy"><figcaption><span lang="en">Production hall</span><span lang="it">Reparto con carroponte</span></figcaption></figure><figure><img src="assets/examples/ambiente_logistica.jpg?v=4" alt="Logistics hall with pallet racking" loading="lazy"><figcaption><span lang="en">Logistics hall</span><span lang="it">Capannone logistico</span></figcaption></figure></div></div>
-<div class="tile t-sb rv"><h3><span lang="en">A storyboard in seconds</span><span lang="it">Storyboard in pochi secondi</span></h3><p lang="en">One frame per second of the scene, before every animated preview.</p><p lang="it">Un frame per ogni secondo della scena, prima di ogni anteprima animata.</p><div class="strip"><img src="assets/examples/storyboard.jpg?v=3" alt="Storyboard strip of a scene" loading="lazy"></div></div>
+<div class="thumbs"><figure><img src="assets/examples/ambiente_nero.jpg?v=3" alt="" loading="lazy" width="1536" height="864"><figcaption><span lang="en">Black studio</span><span lang="it">Studio nero</span></figcaption></figure><figure><img src="assets/examples/ambiente_limbo.jpg?v=3" alt="" loading="lazy" width="1536" height="864"><figcaption>Limbo</figcaption></figure><figure><img src="assets/examples/ambiente_capannone.jpg?v=3" alt="" loading="lazy" width="1536" height="864"><figcaption><span lang="en">Warehouse</span><span lang="it">Magazzino</span></figcaption></figure><figure><img src="assets/examples/ambiente_laboratorio.jpg?v=3" alt="" loading="lazy" width="1536" height="864"><figcaption><span lang="en">Laboratory</span><span lang="it">Laboratorio</span></figcaption></figure><figure><img src="assets/examples/ambiente_officina.jpg?v=4" alt="" loading="lazy" width="1536" height="864"><figcaption><span lang="en">Production hall</span><span lang="it">Reparto con carroponte</span></figcaption></figure><figure><img src="assets/examples/ambiente_logistica.jpg?v=4" alt="" loading="lazy" width="1536" height="864"><figcaption><span lang="en">Logistics hall</span><span lang="it">Capannone logistico</span></figcaption></figure></div></div>
+<div class="tile t-sb rv"><h3><span lang="en">A storyboard in seconds</span><span lang="it">Storyboard in pochi secondi</span></h3><p lang="en">One frame per second of the scene, before every animated preview.</p><p lang="it">Un frame per ogni secondo della scena, prima di ogni anteprima animata.</p><div class="strip"><img src="assets/examples/storyboard.jpg?v=3" alt="Storyboard strip of a scene" data-alt-it="Striscia di storyboard di una scena" loading="lazy" width="2880" height="270"></div></div>
 </div>
 </section>
 
 <section id="riprese">
 <h2 class="rv"><span lang="en">Camera work that tells a story.</span><span lang="it">Riprese che raccontano.</span></h2>
 <p class="sub rv"><span lang="en">A shot list before the first scene, and every two or three scenes a move that looks impossible.</span><span lang="it">Una scaletta prima della prima scena e, ogni due o tre scene, un movimento che sembra impossibile.</span></p>
-<div class="rail rv" tabindex="0" aria-label="Camera moves">
+<div class="rail rv" tabindex="0" role="region" aria-label="Camera moves" data-aria-it="Movimenti di camera">
 <article class="move"><i class="ph ph-film-strip"></i><h3><span lang="en">Narrative and shot sizes</span><span lang="it">Racconto e piani</span></h3><p lang="en">Hook, the whole machine, inside, the key number, the logo. LS, MS, CU, ECU and POV alternate, never two alike in a row.</p><p lang="it">Aggancio, la macchina intera, il dentro, il numero chiave, il logo. LS, MS, CU, ECU e POV si alternano, mai due uguali di fila.</p></article>
 <article class="move"><i class="ph ph-timer"></i><h3><span lang="en">Slow-mo and speed ramps</span><span lang="it">Slow-mo e speed ramp</span></h3><p lang="en">A key instant stretched, then a sudden rush. In 3D time is remapped, not reshot.</p><p lang="it">Un istante chiave allungato, poi un'accelerazione improvvisa. In 3D si rimappa il tempo, non si rigira.</p></article>
 <article class="move"><i class="ph ph-path"></i><h3><span lang="en">Follow and POV</span><span lang="it">Follow e POV</span></h3><p lang="en">The camera rides the conveyor, slips through a gap, follows the fluid down the pipe.</p><p lang="it">La camera viaggia sul nastro, passa da una fessura, segue il fluido nel tubo.</p></article>
@@ -781,7 +642,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <section id="ingegneria">
 <h2 class="rv"><span lang="en">Show the engineering, with real numbers.</span><span lang="it">Mostra l'ingegneria, con numeri veri.</span></h2>
 <p class="sub rv"><span lang="en">Optional, with text-to-cad. A real stress analysis becomes a shot: the part bends under load and turns red where it yields.</span><span lang="it">Facoltativo, con text-to-cad. Un calcolo di resistenza vero diventa una ripresa: il pezzo si piega sotto carico e diventa rosso dove cede.</span></p>
-<figure class="eng rv"><img src="assets/examples/fea_staffa.jpg?v=3" alt="L-bracket under an 800 N load in three frames: plain metal, then bending while the stress colours rise, red at the corner where it yields" loading="lazy"></figure>
+<figure class="eng rv"><img src="assets/examples/fea_staffa.jpg?v=3" alt="L-bracket under an 800 N load in three frames: plain metal, then bending while the stress colours rise, red at the corner where it yields" data-alt-it="Staffa a L sotto un carico di 800 N in tre fotogrammi: metallo neutro, poi la flessione mentre salgono i colori dello sforzo, rosso nell'angolo dove cede" loading="lazy" width="2400" height="600"></figure>
 <div class="eng-cap rv">
 <div><span class="num">S235 · 800 N · SF 0.66</span><p lang="en">Test bracket: it yields at the corner. Load, material and safety factor come from the client and go on screen; the bend is exaggerated and the video says so.</p><p lang="it">Staffa di prova: cede nell'angolo. Carico, materiale e coefficiente di sicurezza li dà il cliente e vanno a schermo; la piega è esagerata e il video lo dice.</p></div>
 <div><h3><span lang="en">Technical drawing</span><span lang="it">Tavola tecnica</span></h3><p lang="en">A dimensioned PDF from the model, which can dissolve into the 3D part on screen.</p><p lang="it">Un PDF quotato dal modello, che a schermo può dissolversi nel pezzo 3D.</p></div>
@@ -796,15 +657,41 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <div><i class="ph ph-factory"></i><h3><span lang="en">The part in its world</span><span lang="it">Il pezzo nel suo mondo</span></h3><p lang="en">The factory or the site is generated; the real Blender product goes on top.</p><p lang="it">La fabbrica o il cantiere sono generati; il prodotto vero di Blender va sopra.</p></div>
 <div><i class="ph ph-hand"></i><h3><span lang="en">People</span><span lang="it">Persone</span></h3><p lang="en">An operator at the machine, hands fitting a part, grown from a Blender frame.</p><p lang="it">Un operatore alla macchina, mani che montano un pezzo, partendo da un frame Blender.</p></div>
 <div><i class="ph ph-sparkle"></i><h3><span lang="en">Spectacular graphics</span><span lang="it">Grafiche spettacolari</span></h3><p lang="en">Energy flows, particles, transitions from AI; exact text and numbers from HyperFrames on top.</p><p lang="it">Flussi, particelle, transizioni dall'AI; testi e numeri esatti da HyperFrames sopra.</p></div>
-<div><i class="ph ph-frame-corners"></i><h3><span lang="en">Upscale and formats</span><span lang="it">Upscale e formati</span></h3><p lang="en">Render smaller and upscale, or turn 16:9 into 9:16 without rendering again. In vertical it keeps every title inside the Instagram Reels, Stories and TikTok safe zones, so no caption or button ever covers your text.</p><p lang="it">Render più piccolo e poi upscale, o da 16:9 a 9:16 senza ri-renderizzare. In verticale tiene ogni testo dentro le safe zone di Instagram Reels, Stories e TikTok: nessuna didascalia o pulsante copre le tue scritte.</p></div>
+<div><i class="ph ph-frame-corners"></i><h3><span lang="en">Upscale and formats</span><span lang="it">Upscale e formati</span></h3><p lang="en">Render smaller and upscale, or turn 16:9 into 9:16 without rendering again.</p><p lang="it">Render più piccolo e poi upscale, o da 16:9 a 9:16 senza ri-renderizzare.</p></div>
 </div>
 <p class="rule rv"><i class="ph ph-prohibit"></i><span lang="en">Never on cutaways, exploded views, calculations, dimensions or logos: there, only real geometry and real numbers.</span><span lang="it">Mai su sezioni, esplosi, calcoli, quote o loghi: lì solo geometria vera e numeri veri.</span></p>
+</section>
+
+<section id="come">
+<h2 class="rv"><span lang="en">Start from whatever you have.</span><span lang="it">Parti da quello che hai.</span></h2>
+<p class="sub rv"><span lang="en">Claude asks the right questions, builds the 3D model at real scale and shows a storyboard before anything long is rendered.</span><span lang="it">Claude fa le domande giuste, costruisce il modello 3D in scala reale e mostra uno storyboard prima di ogni render lungo.</span></p>
+<div class="sources">
+<div class="src big rv"><i class="ph ph-cube ph-icon"></i><h3><span lang="en">STEP and CAD</span><span lang="it">STEP e CAD</span></h3><p lang="en">Your real model: the best start for cutaways and exploded views. Every format it reads is listed below.</p><p lang="it">Il tuo modello vero: il punto di partenza migliore per sezioni ed esplosi. Tutti i formati che legge sono qui sotto.</p><img class="src-img" src="assets/examples/cad_view.jpg?v=3" alt="" loading="lazy" width="1536" height="864"><span class="need"><span lang="en">STEP, 3MF and KiCad need</span><span lang="it">per STEP, 3MF e KiCad serve</span> <b>text-to-cad</b></span></div>
+<div class="src rv"><i class="ph ph-ruler ph-icon"></i><h3><span lang="en">DWG and drawings</span><span lang="it">DWG e disegni</span></h3><p lang="en">2D drawings read at real scale; dimensioned drawings rebuilt in parametric CAD.</p><p lang="it">Disegni 2D letti in scala reale; i disegni quotati ricostruiti in CAD parametrico.</p><span class="need"><span lang="en">DWG needs</span><span lang="it">per i DWG serve</span> <b>LibreDWG</b></span></div>
+<div class="src rv"><i class="ph ph-camera ph-icon"></i><h3><span lang="en">Photos</span><span lang="it">Foto</span></h3><p lang="en">Modelled from your shots plus one real measurement. The slowest route, and Claude says so.</p><p lang="it">Modellato dalle tue foto più una misura reale. La strada più lenta, e Claude te lo dice.</p><span class="need"><span lang="en">nothing extra</span><span lang="it">niente in più</span></span></div>
+<div class="src wide rv"><i class="ph ph-link ph-icon"></i><h3><span lang="en">A product page</span><span lang="it">Una pagina prodotto</span></h3><p lang="en">Photos, data sheets and brand colours read straight from the link.</p><p lang="it">Foto, schede tecniche e colori del brand letti direttamente dal link.</p><span class="need"><span lang="en">best with</span><span lang="it">meglio con</span> <b>Firecrawl</b></span></div>
+</div>
+<div class="formats rv" role="region" aria-label="Accepted files" data-aria-it="File accettati">
+<div class="f-head"><i class="ph ph-file-arrow-up"></i><h3><span lang="en">Drop in your CAD file.</span><span lang="it">Carica il tuo file CAD.</span></h3><p lang="en">Opened at real scale, parts kept separate, dimensions checked on import.</p><p lang="it">Aperto in scala reale, con le parti separate e le misure controllate all'import.</p></div>
+<div class="f-groups">
+<div><b lang="en">3D CAD</b><b lang="it">CAD 3D</b><ul><li class="best">STEP<small lang="en">best</small><small lang="it">consigliato</small></li><li>STP</li><li>3MF</li><li>.blend</li><li>KiCad PCB</li></ul></div>
+<div><b lang="en">Meshes</b><b lang="it">Mesh</b><ul><li>GLB / glTF</li><li>FBX</li><li>OBJ</li><li>STL</li><li>PLY</li><li>USD</li><li>ABC</li></ul></div>
+<div><b lang="en">2D drawings</b><b lang="it">Disegni 2D</b><ul><li>DWG</li><li>SVG</li><li lang="en">vector PDF</li><li lang="it">PDF vettoriale</li></ul></div>
+</div>
+<div class="f-native">
+<h3><span lang="en">Keep your CAD. Change nothing in how you design.</span><span lang="it">Tieni il tuo CAD. Il modo in cui progetti non cambia.</span></h3>
+<p lang="en">Model in your usual software, export a STEP: the video starts from your real model, at real scale. A new revision? Export again.</p>
+<p lang="it">Modelli nel tuo software di sempre ed esporti uno STEP: il video parte dal tuo modello vero, in scala reale. Nuova revisione? Riesporti.</p>
+<ul class="cad-sw"><li><img src="assets/logos/dassaultsystemes.svg" alt="" width="22" height="22"><span>SolidWorks · CATIA</span></li><li><img src="assets/logos/autodesk.svg" alt="" width="22" height="22"><span>Inventor · Fusion</span></li><li><img src="assets/logos/autocad.svg" alt="" width="22" height="22"><span>AutoCAD</span></li><li><span>Siemens NX · Solid Edge</span></li><li><img src="assets/logos/rhinoceros.svg" alt="" width="22" height="22"><span>Rhino</span></li><li><img src="assets/logos/sketchup.svg" alt="" width="22" height="22"><span>SketchUp</span></li><li><img src="assets/logos/freecad.svg" alt="" width="22" height="22"><span>FreeCAD</span></li><li><span>PTC Creo</span></li><li><span>Onshape</span></li></ul>
+<small class="tm" lang="en">Trademarks belong to their owners. No affiliation.</small><small class="tm" lang="it">I marchi appartengono ai rispettivi proprietari. Nessuna affiliazione.</small>
+</div>
+</div>
 </section>
 
 <section id="percorso">
 <span class="eyebrow rv"><span lang="en">The workflow</span><span lang="it">Il percorso</span></span>
 <h2 class="rv" style="margin-top:12px"><span lang="en">One main line. Branches only when you need them.</span><span lang="it">Una linea principale. Rami solo quando servono.</span></h2>
-<p class="sub rv"><span lang="en">Ten phases. Guided, it asks at each one and stops for your ok. Automatic, it asks four things and stops only for the texts, the video with text and delivery. Agentic, parallel agents share the work and check each other, and the stops reach your phone. Decisions live in <code>progetto.md</code>, so you can pick up the work at any time.</span><span lang="it">Dieci fasi. In guidata chiede in ognuna e si ferma per il tuo ok. In automatica chiede quattro cose e si ferma solo per i testi, il video con i testi e la consegna. In agentica più agenti in parallelo si dividono il lavoro e si controllano a vicenda, e le soste arrivano sul telefono. Le decisioni restano in <code>progetto.md</code>, così riprendi il lavoro quando vuoi.</span></p>
+<p class="sub rv"><span lang="en">Ten phases, three ways to run them. <b>Guided</b> asks at every phase and waits for your ok. <b>Automatic</b> asks four things up front, your story idea included, then works alone and stops four times: brief and shot list, texts (silent video, storyboard PDF, voice-over .md), video with text, delivery. <b>Agentic</b> is automatic with a crew of agents working in parallel and checking each other; the stops reach your phone. Decisions live in <code>progetto.md</code>, so you can pick up the work at any time.</span><span lang="it">Dieci fasi, tre modi di percorrerle. La <b>guidata</b> chiede in ogni fase e aspetta il tuo ok. L'<b>automatica</b> chiede quattro cose all'inizio, compresa la tua idea di storia, poi lavora da sola e si ferma quattro volte: brief e scaletta, testi (video muto, storyboard in PDF, voce in .md), video con i testi, consegna. L'<b>agentica</b> è l'automatica con una squadra di agenti che lavorano in parallelo e si controllano a vicenda; le soste arrivano sul telefono. Le decisioni restano in <code>progetto.md</code>, così riprendi il lavoro quando vuoi.</span></p>
 <div class="legend rv">
 <span><i class="k"></i><span lang="en">Core phase</span><span lang="it">Fase base</span></span>
 <span><i class="k opt"></i><span lang="en">Optional branch</span><span lang="it">Ramo facoltativo</span></span>
@@ -860,16 +747,107 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 </div>
 </section>
 
+<section id="agenti">
+<span class="eyebrow rv"><span lang="en">New · Agentic mode</span><span lang="it">Novità · Modalità agentica</span></span>
+<h2 class="rv" style="margin-top:12px"><span lang="en">A production crew of agents, not one assistant.</span><span lang="it">Una casa di produzione di agenti, non un assistente solo.</span></h2>
+<p class="sub rv"><span lang="en">Claude Code is the producer: it talks to you, keeps the budget and runs the renders. A director and a scriptwriter build the story, a motion designer animates it, and the checkers never see the reasoning, only the material. You get the stops on your phone.</span><span lang="it">Claude Code fa il produttore: parla con te, tiene il budget e lancia i render. Regista e sceneggiatore costruiscono il racconto, il motion designer lo anima, e chi controlla non vede il ragionamento, solo il materiale. Le soste ti arrivano sul telefono.</span></p>
+<div class="producer rv"><i class="ph ph-crown-simple"></i><div><b lang="en">Producer · Claude Code</b><b lang="it">Produttore · Claude Code</b><span lang="en">talks to you, budget, stops, renders on the GPU, picks between the agents' proposals</span><span lang="it">parla con te, budget, soste, render sulla GPU, sceglie fra le proposte degli agenti</span></div></div>
+<div class="crew">
+<div class="crew-g"><h3 class="rv"><span lang="en">Tell the story</span><span lang="it">Raccontano</span></h3><ul class="agents"><li class="key rv"><i class="ph ph-film-slate"></i><h4><span lang="en">Director</span><span lang="it">Regista</span></h4><p lang="en">Writes the treatment, the story in five lines, then the shot list and the rhythm. Judges every draft as a story: is it clear, does it hold you?</p><p lang="it">Scrive il trattamento, la storia in cinque righe, poi scaletta e ritmo. Giudica ogni bozza come racconto: si capisce, tiene l'attenzione?</p></li><li class="key rv"><i class="ph ph-pen-nib"></i><h4><span lang="en">Scriptwriter</span><span lang="it">Sceneggiatore</span></h4><p lang="en">Voice-over and on-screen text as a story, not a list of specs. One idea per scene, every number answers "so what?". Two or three hooks to choose from.</p><p lang="it">Voce e testi a schermo come racconto, non come elenco di dati. Un'idea per scena, ogni numero risponde a "e quindi?". Due o tre agganci da scegliere.</p></li><li class="rv"><i class="ph ph-sparkle"></i><h4><span lang="en">Motion designer</span><span lang="it">Motion designer</span></h4><p lang="en">Builds the animated graphics and checks them in motion: text enters with the voice, stays long enough to read, one thing at a time.</p><p lang="it">Costruisce le grafiche animate e le controlla in movimento: il testo entra con la voce, resta il tempo di leggerlo, una cosa alla volta.</p></li></ul></div>
+<div class="crew-g"><h3 class="rv"><span lang="en">Check</span><span lang="it">Controllano</span></h3><ul class="agents"><li class="key rv"><i class="ph ph-gear-six"></i><h4><span lang="en">Function</span><span lang="it">Funzionamento</span></h4><p lang="en">Reads CAD, PDF, text, website and video, writes how the machine works and measures every scene against it.</p><p lang="it">Legge CAD, PDF, testo, sito e video, scrive come funziona la macchina e misura ogni scena su quella scheda.</p></li><li class="rv"><i class="ph ph-eye"></i><h4><span lang="en">Technical reviewer</span><span lang="it">Revisore tecnico</span></h4><p lang="en">Only the frames: overlaps, the camera passing through parts, broken materials, jumps, continuity.</p><p lang="it">Solo i frame: compenetrazioni, camera che attraversa le parti, materiali sbagliati, scatti, continuità.</p></li><li class="rv"><i class="ph ph-user"></i><h4><span lang="en">Viewer</span><span lang="it">Spettatore</span></h4><p lang="en">Watches the draft knowing nothing about the project and says in one sentence what it understood. If it is not your message, the story is fixed before you see it.</p><p lang="it">Guarda la bozza senza sapere niente del progetto e dice in una frase cosa ha capito. Se non è il tuo messaggio, il racconto si corregge prima che lo veda tu.</p></li></ul></div>
+<div class="crew-g"><h3 class="rv"><span lang="en">Prepare</span><span lang="it">Preparano</span></h3><ul class="agents"><li class="rv"><i class="ph ph-waveform"></i><h4><span lang="en">Audio</span><span lang="it">Audio</span></h4><p lang="en">Sound only: effects on the movements, the music brief, the mix under the voice. Spends no credits.</p><p lang="it">Solo suono: effetti sui movimenti, il brief della musica, il mix sotto la voce. Non spende crediti.</p></li><li class="rv"><i class="ph ph-video-camera"></i><h4><span lang="en">Real footage</span><span lang="it">Riprese vere</span></h4><p lang="en">Checks your videos: length, fps, rotation, good takes, the moments of the cycle for the split screen.</p><p lang="it">Analizza i tuoi video: durata, fps, rotazione, pezzi buoni, gli istanti del ciclo per lo split screen.</p></li></ul></div>
+</div>
+<div class="script rv">
+<div class="sc-h"><i class="ph ph-pen-nib"></i><h3><span lang="en">A story, not a list of specs</span><span lang="it">Un racconto, non un elenco di dati</span></h3></div>
+<div class="sc-cols">
+<div class="sc old"><small lang="en">LIST</small><small lang="it">ELENCO</small><p lang="en">“Throughput 1,200 kg/h. 7.5 kW motor. Stainless steel AISI 304.”</p><p lang="it">“Portata 1200 kg/h. Motore da 7,5 kW. Acciaio inox AISI 304.”</p></div>
+<div class="sc new"><small lang="en">STORY</small><small lang="it">RACCONTO</small><p lang="en">“1,200 kg an hour: a whole shift without stopping.”</p><p lang="it">“1200 kg all'ora: un turno intero senza fermarsi.”</p><span lang="en">on screen: <b>1,200 kg/h</b></span><span lang="it">a schermo: <b>1200 kg/h</b></span></div>
+</div>
+<ul class="sc-rules"><li lang="en">the problem of whoever uses the machine is the thread</li><li lang="it">il filo è il problema di chi usa la macchina</li><li lang="en">one idea and at most one number per scene</li><li lang="it">un'idea e al massimo un numero per scena</li><li lang="en">the voice says why, the screen says the number</li><li lang="it">la voce dice il perché, lo schermo dice il numero</li><li lang="en">every figure from your sources, never invented</li><li lang="it">ogni numero dalle tue fonti, mai inventato</li></ul>
+</div>
+<div class="ag">
+<div class="ag-box rv"><h3><span lang="en">Nobody waits for the render</span><span lang="it">Nessuno aspetta il render</span></h3><p lang="en">One GPU, renders one after the other. The crew works beside them, three agents at a time.</p><p lang="it">Una GPU, i render uno dopo l'altro. La squadra lavora accanto, tre agenti per volta.</p>
+<div class="gantt">
+<span class="stop" style="--x:.02"><span lang="en">stop 1</span><span lang="it">sosta 1</span></span><span class="stop" style="--x:.53"><span lang="en">stop 2</span><span lang="it">sosta 2</span></span><span class="stop" style="--x:.99"><span lang="en">stop 3</span><span lang="it">sosta 3</span></span>
+<div class="ln gpu"><span><i class="ph ph-graphics-card"></i><span lang="en">GPU render</span><span lang="it">Render GPU</span></span><div class="tr"><i style="--s:12%;--w:40%;--d:0.12"></i><i style="--s:58%;--w:38%;--d:0.58"></i></div></div>
+<div class="ln "><span><i class="ph ph-film-slate"></i><span lang="en">Director</span><span lang="it">Regista</span></span><div class="tr"><i style="--s:0%;--w:12%;--d:0.00"></i><i style="--s:26%;--w:6%;--d:0.26"></i><i style="--s:46%;--w:6%;--d:0.46"></i><i style="--s:88%;--w:6%;--d:0.88"></i></div></div>
+<div class="ln "><span><i class="ph ph-pen-nib"></i><span lang="en">Scriptwriter</span><span lang="it">Sceneggiatore</span></span><div class="tr"><i style="--s:0%;--w:12%;--d:0.00"></i><i style="--s:34%;--w:10%;--d:0.34"></i><i style="--s:90%;--w:6%;--d:0.90"></i></div></div>
+<div class="ln fn"><span><i class="ph ph-gear-six"></i><span lang="en">Function</span><span lang="it">Funzionamento</span></span><div class="tr"><i style="--s:4%;--w:8%;--d:0.04"></i><i style="--s:24%;--w:6%;--d:0.24"></i><i style="--s:44%;--w:6%;--d:0.44"></i><i style="--s:80%;--w:6%;--d:0.80"></i></div></div>
+<div class="ln "><span><i class="ph ph-eye"></i><span lang="en">Tech reviewer</span><span lang="it">Revisore tecnico</span></span><div class="tr"><i style="--s:30%;--w:6%;--d:0.30"></i><i style="--s:46%;--w:5%;--d:0.46"></i><i style="--s:84%;--w:6%;--d:0.84"></i></div></div>
+<div class="ln "><span><i class="ph ph-sparkle"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></span><div class="tr"><i style="--s:56%;--w:30%;--d:0.56"></i></div></div>
+<div class="ln "><span><i class="ph ph-waveform"></i><span lang="en">Audio</span><span lang="it">Audio</span></span><div class="tr"><i style="--s:56%;--w:22%;--d:0.56"></i></div></div>
+<div class="ln "><span><i class="ph ph-user"></i><span lang="en">Viewer</span><span lang="it">Spettatore</span></span><div class="tr"><i style="--s:90%;--w:8%;--d:0.90"></i></div></div>
+</div>
+<div class="ag-legend"><span><i></i><span lang="en">Blender on the GPU, one render at a time</span><span lang="it">Blender sulla GPU, un render alla volta</span></span><span><i class="o"></i><span lang="en">agents, in parallel</span><span lang="it">agenti, in parallelo</span></span></div>
+</div>
+<div class="tel rv" role="figure" aria-label="Example of a stop received on the phone" data-aria-it="Esempio di sosta ricevuta sul telefono">
+<div class="p-top"><i class="ph ph-device-mobile"></i><b>Claude Code</b><span lang="en">· stop 2</span><span lang="it">· sosta 2</span></div>
+<div class="msg"><small lang="en">STOP 2 · TEXTS</small><small lang="it">SOSTA 2 · TESTI</small><span lang="en">Silent video ready. Check the story, the on-screen texts and the voice-over.</span><span lang="it">Video muto pronto. Controlla il racconto, i testi a schermo e la voce.</span>
+<div class="att"><span><i class="ph ph-film-strip"></i>muto.mp4</span><span lang="en"><i class="ph ph-file-pdf"></i>storyboard_en.pdf</span><span lang="it"><i class="ph ph-file-pdf"></i>storyboard_it.pdf</span><span lang="en"><i class="ph ph-file-text"></i>vo_en.md</span><span lang="it"><i class="ph ph-file-text"></i>vo_it.md</span></div>
+<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Function: 14 of 14 checks match</span><span lang="it">Funzionamento: 14 controlli su 14 tornano</span></div>
+<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Technical reviewer: 2 fixes made, 0 open</span><span lang="it">Revisore tecnico: 2 correzioni fatte, 0 aperte</span></div>
+<div class="chk"><i class="ph ph-pen-nib"></i><span lang="en">Scriptwriter: 3 hooks to choose from</span><span lang="it">Sceneggiatore: 3 agganci da scegliere</span></div></div>
+<div class="msg me"><span lang="en">hook 2, and make scene 3 slower</span><span lang="it">aggancio 2, e rallenta la scena 3</span></div>
+<div class="msg"><span lang="en">Hook 2. Redoing only scene 3, then the motion designer starts on the graphics.</span><span lang="it">Aggancio 2. Rifaccio solo la scena 3, poi il motion designer parte con le grafiche.</span></div>
+<div class="qr"><span>ok</span><span lang="en">redo scene…</span><span lang="it">rifai la scena…</span><span>stop</span></div>
+</div>
+</div>
+<p class="ag-note rv"><span lang="en">Paid generations and renders stay with the producer, inside your budget. On request it can run with no stops, for internal tests or variants of an approved video. Agents use more tokens than the automatic mode.</span><span lang="it">Le generazioni a pagamento e i render restano al produttore, dentro il tuo budget. Su richiesta va anche senza soste, per prove interne o varianti di un video già approvato. Gli agenti consumano più token della modalità automatica.</span></p>
+</section>
+
+<section id="veloce">
+<h2 class="rv"><span lang="en">No graphics or video skills needed.</span><span lang="it">Non serve saper fare grafica o video.</span></h2>
+<p class="sub rv"><span lang="en">A cutaway explainer usually passes through six specialists and weeks of hand-offs. Here you describe each shot in plain words, with no nodes, keyframes or render settings to learn: Claude Code does the rest and stops for your ok.</span><span lang="it">Un video con sezioni ed esplosi di solito passa da sei specialisti e settimane di passaggi di mano. Qui descrivi ogni inquadratura a parole, senza nodi, keyframe o impostazioni di render da imparare: Claude Code fa il resto e si ferma per il tuo ok.</span></p>
+<div class="duel rv">
+<div class="d-col old"><h3><span lang="en">The usual way</span><span lang="it">Il modo classico</span></h3>
+<ol class="chain"><li style="--i:0"><i class="ph ph-cube"></i><span lang="en">CAD cleanup</span><span lang="it">Pulizia CAD</span></li><li style="--i:1"><i class="ph ph-paint-brush"></i><span lang="en">3D artist</span><span lang="it">3D artist</span></li><li style="--i:2"><i class="ph ph-film-slate"></i><span lang="en">Animator</span><span lang="it">Animatore</span></li><li style="--i:3"><i class="ph ph-sparkle"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></li><li style="--i:4"><i class="ph ph-scissors"></i><span lang="en">Editor</span><span lang="it">Montatore</span></li><li style="--i:5"><i class="ph ph-speaker-high"></i><span lang="en">Sound</span><span lang="it">Audio</span></li></ol>
+<p class="bounce" aria-live="off"><i class="ph ph-arrow-u-up-left"></i><span lang="en">change request: back to</span><span lang="it">modifica: si torna a</span> <b></b></p><div class="tick old"><span><b data-k="wk">0</b><span lang="en">weeks</span><span lang="it">settimane</span></span><span><b data-k="rev">0</b><span lang="en">revision rounds</span><span lang="it">giri di modifiche</span></span><span><b data-k="inv">0</b><span lang="en">invoices</span><span lang="it">fatture</span></span></div><p class="d-big"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></p><p class="d-sm"><span lang="en">six people, five hand-offs, every change goes back down the line</span><span lang="it">sei persone, cinque passaggi di mano, ogni modifica torna indietro</span></p></div>
+<div class="d-vs" aria-hidden="true">vs</div>
+<div class="d-col new"><h3><span lang="en">With the skill</span><span lang="it">Con la skill</span></h3>
+<div class="solo"><span class="bub"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make a cutaway video of my machine”</span><span lang="it">“Fammi un video in sezione della mia macchina”</span></span><span class="done"><i class="ph ph-check-circle"></i><span lang="en">model, animation, graphics, voice, render</span><span lang="it">modello, animazione, grafiche, voce, render</span></span><span class="ask"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make scene 3 slower”</span><span lang="it">“Rallenta la scena 3”</span></span><span class="done d2"><i class="ph ph-check-circle"></i><span lang="en">only scene 3 redone</span><span lang="it">rifatta solo la scena 3</span></span></div>
+<div class="tick new"><span><b data-k="">&lt;8</b><span lang="en">hours</span><span lang="it">ore</span></span><span><b data-k="">0</b><span lang="en">hand-offs</span><span lang="it">rimpalli</span></span><span><b data-k="">1</b><span lang="en">Claude plan</span><span lang="it">abbonamento Claude</span></span></div><p class="d-big"><span lang="en">a few hours</span><span lang="it">poche ore</span></p><p class="d-sm"><span lang="en">you and Claude Code, in one chat, it stops for your ok</span><span lang="it">tu e Claude Code, in una chat, si ferma per il tuo ok</span></p></div>
+</div>
+<button type="button" class="replay" id="replay" hidden><i class="ph ph-arrow-counter-clockwise"></i><span lang="en">Play it again</span><span lang="it">Rivedi</span></button>
+<div class="meters rv">
+<div class="m-leg"><span class="old"><span lang="en">Usual way</span><span lang="it">Modo classico</span></span><span class="new"><span lang="en">With the skill</span><span lang="it">Con la skill</span></span></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-clock"></i><span lang="en">Time</span><span lang="it">Tempo</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></span><span class="m-b new" style="--w:.06"><span lang="en">a few hours</span><span lang="it">poche ore</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-users-three"></i><span lang="en">People</span><span lang="it">Persone</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">6 specialists</span><span lang="it">6 specialisti</span></span><span class="m-b new" style="--w:.17"><span lang="en">you</span><span lang="it">tu</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-arrows-left-right"></i><span lang="en">Hand-offs</span><span lang="it">Passaggi di mano</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">5</span><span lang="it">5</span></span><span class="m-b new" style="--w:.03"><span lang="en">0</span><span lang="it">0</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-graduation-cap"></i><span lang="en">Software to learn</span><span lang="it">Software da imparare</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">Blender, After Effects, Premiere, audio</span><span lang="it">Blender, After Effects, Premiere, audio</span></span><span class="m-b new" style="--w:.03"><span lang="en">none: you describe</span><span lang="it">nessuno: descrivi a parole</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-receipt"></i><span lang="en">Cost</span><span lang="it">Costi</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">6 quotes, 8 invoices: every round is billed</span><span lang="it">6 preventivi, 8 fatture: ogni giro si paga</span></span><span class="m-b new" style="--w:.06"><span lang="en">your Claude plan</span><span lang="it">il tuo abbonamento Claude</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-arrows-clockwise"></i><span lang="en">A change</span><span lang="it">Una modifica</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">days, back down the chain</span><span lang="it">giorni, si torna indietro</span></span><span class="m-b new" style="--w:.08"><span lang="en">minutes, only that piece</span><span lang="it">minuti, solo quel pezzo</span></span></div></div>
+</div>
+<div class="kit">
+<h3 class="kit-t rv"><span lang="en">What you get, ready to send</span><span lang="it">Cosa ricevi, pronto da mandare</span></h3>
+<div class="kit-g">
+<article class="kc kc-sb rv">
+<div class="kc-v"><div class="sb-page"><img src="assets/examples/storyboard_pdf.jpg?v=3" alt="Storyboard in PDF: 14 inquadrature con tempi, piano e frase della voce" lang="it" loading="lazy" width="1400" height="989"><img src="assets/examples/storyboard_pdf_en.jpg?v=3" alt="Storyboard PDF: 14 shots with timecode, shot and voice line" lang="en" loading="lazy" width="1400" height="989"><span class="stamp"><i class="ph ph-seal-check"></i><span lang="en">Approved</span><span lang="it">Approvato</span></span></div></div>
+<div class="kc-x"><i class="ph ph-file-pdf"></i><h4><span lang="en">Storyboard in PDF, for the client's ok</span><span lang="it">Storyboard in PDF, per l'ok del cliente</span></h4><p lang="en">Every shot with timecode, framing and voice line, in your brand colours and each language you need. The last page has the approval box.</p><p lang="it">Ogni inquadratura con tempi, piano e frase della voce, nei colori del tuo brand e in ogni lingua che serve. Nell'ultima pagina c'è il riquadro di approvazione.</p></div>
+</article>
+<article class="kc kc-vo rv">
+<div class="kc-v"><div class="md"><div class="md-h"><span></span><span></span><span></span><b><span lang="en">vo_en.md · vo_it.md</span><span lang="it">vo_it.md · vo_en.md</span></b></div><pre><code><span class="l"><em>#</em> VO · <span lang="en">6-axis robot</span><span lang="it">Robot 6 assi</span></span><span class="l"><em>|</em> 01 <em>|</em> 0:00–0:04 <em>|</em> 4.0 s <em>|</em> 6 <em>|</em></span><span class="l"><em>|</em> 02 <em>|</em> 0:04–0:10 <em>|</em> 6.0 s <em>|</em> 9 <em>|</em></span><span class="l"><em>|</em> 03 <em>|</em> 0:10–0:13 <em>|</em> 3.5 s <em>|</em> 5 <em>|</em></span><span class="l"><b>01</b> <span lang="en">The six-axis arm, at real scale.</span><span lang="it">Il braccio a sei assi, in scala reale.</span></span><span class="l"><b>02</b> <span lang="en">Every motor slides out of its joint.</span><span lang="it">Ogni motore esce dal suo giunto.</span></span><span class="l cur"><b>03</b> <span lang="en">Inside, the gearbox.</span><span lang="it">Dentro, il riduttore.</span></span></code></pre></div></div>
+<div class="kc-x"><i class="ph ph-microphone"></i><h4><span lang="en">Voice-over script in .md</span><span lang="it">Testo della voce in .md</span></h4><p lang="en">One file per language with time, length and word count per scene. Take it to a voice actor, a studio or any TTS.</p><p lang="it">Un file per lingua con tempo, durata e numero di parole per scena. Lo porti a uno speaker, in studio o in qualunque TTS.</p></div>
+</article>
+</div>
+</div>
+</section>
+
 <section id="render">
 <h2 class="rv"><span lang="en">Every render starts with one answer.</span><span lang="it">Ogni render parte da una risposta.</span></h2>
 <p class="sub rv"><span lang="en">Three numbers from 1 to 4: resolution, fps, quality. Try it: the times are measured on a real machine scene.</span><span lang="it">Tre numeri da 1 a 4: risoluzione, fps, qualità. Provalo: i tempi sono misurati su una scena reale di macchina.</span></p>
 <div class="cfg rv" id="cfg">
 <div class="scales">
-<div class="scale" data-k="res"><div><label lang="en">Resolution</label><label lang="it">Risoluzione</label><small>1080x1920</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>25%<small class="px">270x480</small></button><button type="button" data-v="2"><b>2</b>50%<small class="px">540x960</small></button><button type="button" data-v="3"><b>3</b>75%<small class="px">810x1440</small></button><button type="button" data-v="4"><b>4</b>100%<small class="px">1080x1920</small></button></div></div>
-<div class="scale" data-k="fps"><div><label>Fps</label><small lang="en">24 is the project rate</small><small lang="it">24 è la velocità del progetto</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>3</button><button type="button" data-v="2"><b>2</b>6</button><button type="button" data-v="3"><b>3</b>12</button><button type="button" data-v="4"><b>4</b>24</button></div></div>
-<div class="scale" data-k="q"><div><label lang="en">Quality</label><label lang="it">Qualità</label><small lang="en">samples · JPG</small><small lang="it">campioni · JPG</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>8 · 50</button><button type="button" data-v="2"><b>2</b>24 · 60</button><button type="button" data-v="3"><b>3</b>40 · 75</button><button type="button" data-v="4"><b>4</b>96 · 95</button></div></div>
-<div class="scale" data-k="jpg"><div><label lang="en">JPG, optional 4th number</label><label lang="it">JPG, quarto numero facoltativo</label><small lang="en">file size only</small><small lang="it">solo il peso</small></div><div class="seg five"><button type="button" data-v="0"><b>·</b><span lang="en">auto</span><span lang="it">auto</span></button><button type="button" data-v="1"><b>1</b>50</button><button type="button" data-v="2"><b>2</b>60</button><button type="button" data-v="3"><b>3</b>75</button><button type="button" data-v="4"><b>4</b>95</button></div></div>
-<div class="scale" data-k="mac"><div><label lang="en">Mac</label><label lang="it">Mac</label><small lang="en">Blender Open Data, Metal</small><small lang="it">Blender Open Data, Metal</small></div><div class="seg mac"><button type="button" data-v="1"><b>M1 Pro</b><span lang="en">measured</span><span lang="it">misurato</span></button><button type="button" data-v="2"><b>M2 Max</b>3,8×</button><button type="button" data-v="3"><b>M5 Pro</b>9×</button><button type="button" data-v="4"><b>M5 Max</b>17×</button></div></div>
+<div class="scale" data-k="res"><div><span id="l-res"><label lang="en">Resolution</label><label lang="it">Risoluzione</label></span><small>1080x1920</small></div><div class="seg" role="group" aria-labelledby="l-res"><button type="button" data-v="1"><b>1</b>25%<small class="px">270x480</small></button><button type="button" data-v="2"><b>2</b>50%<small class="px">540x960</small></button><button type="button" data-v="3"><b>3</b>75%<small class="px">810x1440</small></button><button type="button" data-v="4"><b>4</b>100%<small class="px">1080x1920</small></button></div></div>
+<div class="scale" data-k="fps"><div><label id="l-fps">Fps</label><small lang="en">24 is the project rate</small><small lang="it">24 è la velocità del progetto</small></div><div class="seg" role="group" aria-labelledby="l-fps"><button type="button" data-v="1"><b>1</b>3</button><button type="button" data-v="2"><b>2</b>6</button><button type="button" data-v="3"><b>3</b>12</button><button type="button" data-v="4"><b>4</b>24</button></div></div>
+<div class="scale" data-k="q"><div><span id="l-q"><label lang="en">Quality</label><label lang="it">Qualità</label></span><small lang="en">samples · JPG</small><small lang="it">campioni · JPG</small></div><div class="seg" role="group" aria-labelledby="l-q"><button type="button" data-v="1"><b>1</b>8 · 50</button><button type="button" data-v="2"><b>2</b>24 · 60</button><button type="button" data-v="3"><b>3</b>40 · 75</button><button type="button" data-v="4"><b>4</b>96 · 95</button></div></div>
+<div class="scale" data-k="jpg"><div><span id="l-jpg"><label lang="en">JPG, optional 4th number</label><label lang="it">JPG, quarto numero facoltativo</label></span><small lang="en">file size only</small><small lang="it">solo il peso</small></div><div class="seg five" role="group" aria-labelledby="l-jpg"><button type="button" data-v="0"><b>·</b><span lang="en">auto</span><span lang="it">auto</span></button><button type="button" data-v="1"><b>1</b>50</button><button type="button" data-v="2"><b>2</b>60</button><button type="button" data-v="3"><b>3</b>75</button><button type="button" data-v="4"><b>4</b>95</button></div></div>
+<div class="scale" data-k="mac"><div><span id="l-mac"><label lang="en">Mac</label><label lang="it">Mac</label></span><small lang="en">Blender Open Data, Metal</small><small lang="it">Blender Open Data, Metal</small></div><div class="seg mac" role="group" aria-labelledby="l-mac"><button type="button" data-v="1"><b>M1 Pro</b><span lang="en">measured</span><span lang="it">misurato</span></button><button type="button" data-v="2"><b>M2 Max</b>3,8×</button><button type="button" data-v="3"><b>M5 Pro</b>9×</button><button type="button" data-v="4"><b>M5 Max</b>17×</button></div></div>
 <div class="scale dur"><div><label for="dur" lang="en">Video length</label><label for="dur" lang="it">Durata del video</label><small><output id="o-dur" for="dur">30 s</output></small></div><input type="range" id="dur" min="5" max="180" step="5" value="30"></div>
 </div>
 <div class="out" aria-live="polite">
@@ -946,7 +924,7 @@ cp -r /tmp/blender-skills/.claude/skills/* ~/.claude/skills/</code></pre></artic
 <div class="deps">
 <article class="dep" data-id="hf"><header><a href="https://github.com/heygen-com/hyperframes"><b>Node.js 22+ · HyperFrames</b></a><span class="tag video"><span lang="en">Recommended</span><span lang="it">Consigliata</span></span></header>
 <p><b><span lang="en">What it does</span><span lang="it">Cosa fa</span></b> <span lang="en">Draws titles, callouts, measurements, counters, subtitles and the end logo over the render, in your palette, with exact text.</span><span lang="it">Disegna sopra il render titoli, callout, misure, contatori, sottotitoli e il logo finale, nella tua palette e con il testo esatto.</span></p>
-<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phase 4. Skip it only for a video with no text at all.</span><span lang="it">Fase 4. Saltalo solo per un video senza nessun testo.</span></p>
+<p><b><span lang="en">When</span><span lang="it">Quando serve</span></b> <span lang="en">Phase 4. Skip it only for a video with no text and no real footage.</span><span lang="it">Fase 4. Saltalo solo per un video senza testi e senza riprese vere.</span></p>
 <pre class="cmd"><code>brew install node
 claude plugin marketplace add heygen-com/hyperframes
 claude plugin install hyperframes@hyperframes</code></pre></article>
@@ -1013,6 +991,9 @@ claude mcp list</code></pre>
     root.setAttribute('data-lang',l); root.lang=l;
     langBtns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===l)});
     document.querySelectorAll('.copy:not(.ok)').forEach(function(b){b.textContent=lbl()});
+    // alt and aria-label have no lang pairs: swap them, English kept in data-*-en
+    document.querySelectorAll('[data-alt-it]').forEach(function(el){ if(!el.hasAttribute('data-alt-en')) el.dataset.altEn=el.alt; el.alt=l==='it'?el.dataset.altIt:el.dataset.altEn; });
+    document.querySelectorAll('[data-aria-it]').forEach(function(el){ if(!el.hasAttribute('data-aria-en')) el.dataset.ariaEn=el.getAttribute('aria-label'); el.setAttribute('aria-label',l==='it'?el.dataset.ariaIt:el.dataset.ariaEn); });
     try{localStorage.setItem('lang',l)}catch(e){}
     render(); note();
   }
@@ -1037,7 +1018,12 @@ claude mcp list</code></pre>
   function play(){ if(reduce) return; clearInterval(timer); timer=setInterval(function(){show((cur+1)%imgs.length)},DUR); }
   stages.forEach(function(b,k){b.addEventListener('click',function(){clearInterval(timer);viewer.classList.add('paused');show(k)})});
   if(reduce) viewer.classList.add('paused'); else play();
-  document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(timer); else if(!viewer.classList.contains('paused')) play(); });
+  // hold while the pointer or focus is on the viewer, restart the current stage on leave
+  function hold(){ if(reduce||viewer.classList.contains('paused')) return; clearInterval(timer); viewer.classList.add('hold'); }
+  function resume(){ if(reduce||viewer.classList.contains('paused')||viewer.matches(':hover')||viewer.contains(document.activeElement)) return; viewer.classList.remove('hold'); show(cur); play(); }
+  viewer.addEventListener('mouseenter',hold); viewer.addEventListener('focusin',hold);
+  viewer.addEventListener('mouseleave',resume); viewer.addEventListener('focusout',function(e){ if(!viewer.contains(e.relatedTarget)) resume(); });
+  document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(timer); else if(!viewer.classList.contains('paused')&&!viewer.classList.contains('hold')) play(); });
 
   // render configurator, times measured on M1 Pro at 100%
   var S={res:2,fps:4,q:1,jpg:0,mac:1}, MAC=[['M1 Pro',1],['M2 Max',1776/473],['M5 Pro',4255/473],['M5 Max',8113/473]], dur=document.getElementById('dur');
@@ -1088,6 +1074,19 @@ claude mcp list</code></pre>
     document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
   } else document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});
 
+  // demo video plays only while on screen, never with reduced motion
+  var film=document.querySelector('.film video');
+  if(film && !reduce && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ if(es[0].isIntersecting){ var p=film.play(); if(p) p.catch(function(){}); } else film.pause(); },{threshold:.35}).observe(film);
+  }
+
+  // narrow screens: the menu button opens the nav as a panel under the header
+  var bar=document.querySelector('.nav'), mbtn=bar.querySelector('.menu');
+  function menu(o){ bar.classList.toggle('open',o); mbtn.setAttribute('aria-expanded',o); }
+  mbtn.addEventListener('click',function(){ menu(mbtn.getAttribute('aria-expanded')!=='true'); });
+  bar.querySelectorAll('nav a').forEach(function(a){ a.addEventListener('click',function(){ menu(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&bar.classList.contains('open')){ menu(false); mbtn.focus(); } });
+
   var saved=null; try{saved=localStorage.getItem('lang')}catch(e){}
   var q=new URLSearchParams(location.search).get('lang');
   langBtns.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
@@ -1102,9 +1101,10 @@ claude mcp list</code></pre>
   var mq=matchMedia('(max-width:900px),(prefers-reduced-motion:reduce)');
   if(mq.matches||!window.gsap) return;
   gsap.registerPlugin(ScrollTrigger);
-  var N=51, img=document.getElementById('scrubImg'), caps=[].slice.call(document.querySelectorAll('#apri .cap')), frames=[], last=-1;
+  var N=51, img=document.getElementById('scrubImg'), caps=[].slice.call(document.querySelectorAll('#apri .scap')), frames=[], last=-1;
   function src(i){return 'assets/examples/scroll/f_'+String(i+1).padStart(2,'0')+'.jpg'}
   ScrollTrigger.create({trigger:'#apri',start:'top bottom',once:true,onEnter:function(){for(var i=0;i<N;i++){frames[i]=new Image();frames[i].src=src(i)}}});
+  var srcEl=img.parentNode.querySelector('source'); if(srcEl) srcEl.remove(); // the <picture> source already loaded f_01 on desktop; drop it so img.src drives the scrub
   img.src=src(0);
   ScrollTrigger.create({trigger:'#apri',start:'top 66px',end:'bottom bottom',scrub:true,onUpdate:function(s){
     var i=Math.min(N-1,Math.round(s.progress*(N-1)));

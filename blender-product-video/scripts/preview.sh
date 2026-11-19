@@ -5,8 +5,17 @@
 # Always writes both grid.jpg and preview.mp4. Resumable.
 F=$1; A=$2; Z=$3; STEP=$4; OUT=$5; RES=${6:-25}; SPP=${7:-8}; HERE=$(cd "$(dirname "$0")" && pwd)
 B=${BLENDER:-/Applications/Blender.app/Contents/MacOS/Blender}; FF=$(command -v ffmpeg || echo /opt/homebrew/bin/ffmpeg)
-mkdir -p "$OUT"
-"$B" -b "$F" --python "$HERE/gpu_setup.py" --python "$HERE/preview.py" -- $A $Z $STEP "$OUT" $RES $SPP > "$OUT/render.log" 2>&1
+# Exit 3 = a GUI Blender is open (Metal headless hangs); exit 2 = HANG, no new frame for HANG_MIN minutes (default 10)
+GUI=$(ps -axo pid=,command= | grep -e "$B" -e 'MacOS/Blender' | grep -v -e ' -b' -e grep)
+[ -n "$GUI" ] && { echo "GUI_BLENDER_OPEN: chiudilo prima (Metal headless si blocca):"; echo "$GUI"; exit 3; }
+mkdir -p "$OUT"; HANG=$(( ${HANG_MIN:-10} * 60 )); count() { ls "$OUT"/f*.jpg 2>/dev/null | wc -l | tr -d ' '; }
+"$B" -b "$F" --python "$HERE/gpu_setup.py" --python "$HERE/preview.py" -- $A $Z $STEP "$OUT" $RES $SPP > "$OUT/render.log" 2>&1 &
+pid=$!; last=$(count); idle=0
+while kill -0 $pid 2>/dev/null; do
+  sleep 15; now=$(count)
+  if [ "$now" != "$last" ]; then last=$now; idle=0; else idle=$((idle+15)); fi
+  [ $idle -ge $HANG ] && { kill $pid; echo "HANG $OUT: nessun frame nuovo da ${HANG_MIN:-10} min (vedi $OUT/render.log)"; exit 2; }
+done
 FPS=$(grep -m1 '^FPS' "$OUT/render.log" | cut -d' ' -f2)
 N=$(ls "$OUT"/f*.jpg 2>/dev/null | wc -l | tr -d ' ')
 [ "$N" -eq "$(grep -m1 '^COUNT' "$OUT/render.log" | cut -d' ' -f2)" ] || { echo "MISSING $N frames, see $OUT/render.log"; exit 1; }

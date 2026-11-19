@@ -4,12 +4,13 @@
     {
       "id": 1,
       "prompt": "Ho il file STEP di una pompa centrifuga, mi fai un video 3D di 30 secondi per LinkedIn?",
-      "expected_output": "Parte dal brief con domande guidate e spiega che lo STEP va esportato in GLB.",
+      "expected_output": "Chiede la modalità, poi il brief; lo STEP entra con import_model.py tramite text-to-cad.",
       "expectations": [
+        "Fa per prima la domanda della modalità (automatica, agentica, guidata)",
         "Usa AskUserQuestion per il brief prima di toccare Blender",
         "Chiede aspect ratio, risoluzione e fps prima di creare scene o render",
         "Chiede ambiente/atmosfera e la palette delle infografiche (o la ricava dalla memoria)",
-        "Spiega che Blender non apre lo STEP e chiede l'export in GLB/OBJ/STL",
+        "Importa lo STEP con import_model.py (che passa da cad di text-to-cad); se cad manca, chiede l'export GLB dal CAD",
         "Crea progetto.md con il brief"
       ]
     },
@@ -39,9 +40,9 @@
     {
       "id": 4,
       "prompt": "Fai partire il render finale",
-      "expected_output": "Controlla l'ok della fase 6 e l'assenza di Blender GUI, dà una stima e lancia in background.",
+      "expected_output": "Controlla la riga Ok render finale (codice e stima) e l'assenza di Blender GUI, poi lancia in background.",
       "expectations": [
-        "Verifica in progetto.md che la visione d'insieme sia stata approvata, altrimenti chiede",
+        "Verifica in progetto.md la riga Ok render finale con codice di qualità e stima; se manca, fa la domanda delle tre scale",
         "Dà una stima dei tempi prima di partire",
         "Usa render_all.sh con run_in_background",
         "Se esce GUI_BLENDER_OPEN o HANG, non ripiega in silenzio sulla CPU"
@@ -53,9 +54,11 @@
       "expected_output": "Fase 5: sceglie la voce, chiede l'ok per i crediti, adatta le scene e genera musica con ElevenLabs.",
       "expectations": [
         "Propone 2-3 voci da creative_list_voices e ne fa scegliere una",
+        "Stima i crediti (estimate_only o circa 1 credito per carattere per take e lingua) prima di generare",
         "Chiede l'ok prima di generare (crediti)",
         "Usa fit_vo.py per adattare extra alla durata della voce",
-        "Per la musica usa il nodo music (instrumental) o video-to-music"
+        "Per la musica usa il nodo music (instrumental) o video-to-music",
+        "Scarica le voci in audio/vo_<lingua>_<n>.mp3 e dopo fit_vo.py riallinea le grafiche HyperFrames sul nuovo timings.json"
       ]
     },
     {
@@ -64,6 +67,58 @@
       "expected_output": "La skill non dovrebbe attivarsi: non c'è 3D/Blender.",
       "expectations": [
         "Non applica il flusso Blender (usa davinci-social o simili)"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Modalità automatica: ecco lo STEP del nostro avvolgitore e la scheda tecnica in PDF, mi serve un video di 30 s per Instagram.",
+      "expected_output": "Brief rapido in un solo giro, scheda di funzionamento prima del modello, quattro soste.",
+      "expectations": [
+        "Fa per prima la domanda della modalità, poi le quattro domande del brief rapido in un solo AskUserQuestion",
+        "Scrive funzionamento.md dalle sorgenti prima di modellare e mette nel riepilogo le righe dedotte e le domande aperte",
+        "Nel riepilogo della sosta 1 mette anche la scaletta e il budget, con la riga finale ≤ N h",
+        "Non si ferma fra la sosta 1 e il video muto, salvo spesa fuori budget, cancellazione o dato mancante",
+        "Alla sosta 3 chiede insieme l'ok al video, alla voce (con la stima dei crediti) e al render finale con codice e stima delle ore",
+        "Non lancia il render finale senza la riga Ok render finale in progetto.md"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Fallo in modalità agentica: video di 45 s per il sito della nostra confezionatrice, ti allego CAD, manuale e un video della macchina in linea.",
+      "expected_output": "Squadra di subagenti in parallelo con file propri, render solo dal produttore.",
+      "expectations": [
+        "Legge references/automatica-agentica.md",
+        "Lancia i subagenti con lo strumento Agent, al massimo tre insieme, alternati per fase",
+        "Funzionamento, revisore tecnico e spettatore ricevono solo i materiali, non le conclusioni del produttore",
+        "Motion designer e audio partono dopo l'ok ai testi della sosta 2",
+        "storyboard.json e progetto.md li scrive solo il produttore; lo sceneggiatore rende testi.md",
+        "I render Blender li lancia solo il produttore, uno alla volta; le generazioni a pagamento non le lanciano gli agenti",
+        "Manda le soste con SendUserFile, o il percorso del file se lo strumento non c'è"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Il riduttore nella scena 3 gira al contrario, controlla che si muova come quello vero.",
+      "expected_output": "Torna alla fase 1a, misura il moto con motion_probe.py e confronta con la scheda.",
+      "expectations": [
+        "Legge funzionamento.md (o lo scrive dalle sorgenti se manca), con la fonte di ogni riga",
+        "Lancia motion_probe.py sulla scena 3 con \"$B\" e non con blender da solo",
+        "Confronta versi e rapporti (giri2 = giri1 · z1/z2, verso opposto per ingranaggi esterni) fra parti con lo stesso genitore",
+        "Scrive l'esito nella tabella Verifica di funzionamento.md",
+        "Corregge il driver e rifà solo gli shot della scena 3"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Ho tre video della macchina vera girati col telefono: mettine uno in split screen verticale con la sezione 3D e gli altri come b-roll.",
+      "expected_output": "Converte le riprese a fps costanti, sincronizza il ciclo nello split e monta in HyperFrames.",
+      "expectations": [
+        "Legge references/riprese-vere.md",
+        "Controlla con ffprobe fps, rotazione e durata e converte a 24 fps costanti con ffmpeg",
+        "Scrive i pezzi buoni con in e out in source/video/riprese.md",
+        "Nello split allinea il ciclo del 3D a quello della ripresa entro 2 frame",
+        "Segna le scene nella scaletta con vero e split",
+        "Monta in HyperFrames e corregge il colore con npx hyperframes media-treatment, non con filtri CSS"
       ]
     }
   ]

@@ -24,8 +24,8 @@ Una skill per Claude Code che porta dal materiale grezzo di un prodotto (foto, l
 
 All'inizio scegli la modalità:
 
-- **Automatica:** quattro domande (cosa hai, dove va il video, cosa deve capire chi guarda, la tua idea di storia o "decidi tu") e un riepilogo da confermare. Formato, durata, ambiente, audio e qualità delle bozze li deduce dall'uso. La scaletta parte dalla tua idea di storia, o la genera lei se lasci decidere. Poi lavora da sola e controlla ogni passaggio sugli snapshot (proporzioni, compenetrazioni, zone sicure, leggibilità, durata delle scene). Si ferma tre volte: col video muto, lo storyboard in PDF e i testi della voce in `.md` da correggere; col video più i testi; e con la consegna. Dopo l'ok al video con i testi genera la voce con ElevenLabs e arriva al video finale, se crediti e ore di render stanno nel budget che hai deciso nel riepilogo. In qualsiasi momento puoi dire "stop", chiedere di rifare una scena o un pezzo, o cambiare qualità: fa solo quello e riprende da dove era.
-- **Agentica:** il percorso dell'automatica affidato a una piccola casa di produzione di agenti. Claude fa il produttore (budget, soste, render) e passa il lavoro a: un **regista** che scrive il trattamento e la scaletta e giudica il racconto; uno **sceneggiatore** che scrive voce e testi a schermo come una storia, non come un elenco di dati (un'idea e un numero per scena, ogni dato con il suo "e quindi?"); un **motion designer** che fa le grafiche animate e ne controlla tempi, gerarchia e movimento; un agente che controlla il **funzionamento** contro le sorgenti; un **revisore tecnico**; l'**audio**; le **riprese vere**; e uno **spettatore** che guarda la bozza senza sapere niente e dice cosa ha capito. Lavorano in parallelo mentre la GPU fa il render, al massimo tre per volta, e le soste arrivano sul telefono. Su richiesta anche senza soste, per prove interne o varianti di un video già approvato.
+- **Automatica:** quattro domande (cosa hai, dove va il video, cosa deve capire chi guarda, la tua idea di storia o "decidi tu") e un riepilogo da confermare. Formato, durata, ambiente, audio e qualità delle bozze li deduce dall'uso. La scaletta parte dalla tua idea di storia, o la genera lei se lasci decidere. Poi lavora da sola e controlla ogni passaggio sugli snapshot (proporzioni, compenetrazioni, zone sicure, leggibilità, durata delle scene). Si ferma quattro volte: al brief, con la scaletta e la scheda di funzionamento da confermare; ai testi, col video muto, lo storyboard in PDF e i testi della voce in `.md` da correggere; al video con i testi, dove dai insieme l'ok alla voce e al render finale (con la qualità e la stima delle ore); e alla consegna. Crediti e ore di render restano dentro il budget che hai deciso nel riepilogo. In qualsiasi momento puoi dire "stop", chiedere di rifare una scena o un pezzo, o cambiare qualità: fa solo quello e riprende da dove era.
+- **Agentica:** il percorso dell'automatica affidato a una piccola casa di produzione di agenti. Claude fa il produttore (budget, soste, render) e passa il lavoro a: un **regista** che scrive il trattamento e la scaletta e giudica il racconto; uno **sceneggiatore** che scrive voce e testi a schermo come una storia, non come un elenco di dati (un'idea e un numero per scena, ogni dato con il suo "e quindi?"); un **motion designer** che fa le grafiche animate e ne controlla tempi, gerarchia e movimento; un agente che controlla il **funzionamento** contro le sorgenti; un **revisore tecnico**; l'**audio**; le **riprese vere**; e uno **spettatore** che guarda la bozza senza sapere niente e dice cosa ha capito. Lavorano in parallelo mentre la GPU fa il render, al massimo tre per volta (grafiche e audio partono dopo l'ok ai testi), e le soste arrivano sul telefono. Su richiesta anche senza soste, per prove interne o varianti di un video già approvato.
 - **Guidata:** fa domande a ogni fase e si ferma per un'approvazione prima di andare avanti. Le correzioni costano poco perché arrivano quando il lavoro è ancora leggero.
 
 Tutte le decisioni (formato, ambiente, palette, voce, scene approvate) vengono scritte in un file **`progetto.md`** nella cartella del progetto. Se riprendi il lavoro il giorno dopo, o in un'altra sessione, la skill riparte da lì senza rifarti le stesse domande.
@@ -35,13 +35,13 @@ Non serve ripartire sempre dall'inizio: se chiedi "rifai l'intro", "aggiungi la 
 | # | Fase | Cosa ti chiede | Cosa ottieni |
 |---|---|---|---|
 | 0 | **Brief** | Sorgenti, formato (9:16, 16:9, 1:1, 4:5), risoluzione, fps, durata, ambiente e atmosfera, messaggio, palette delle infografiche, logo | `progetto.md` con il brief da confermare |
-| 1 | **Il pezzo** | Misure di riferimento, livello di fedeltà, colori e finiture reali, loghi | Il modello 3D in scala, con materiali e ambientazione, mostrato in alcune viste statiche |
+| 1 | **Il pezzo** | Come funziona (prima di modellare), misure di riferimento, livello di fedeltà, colori e finiture reali, loghi | La scheda di funzionamento, poi il modello 3D in scala, con materiali e ambientazione, mostrato in alcune viste statiche |
 | 2 | **Le scene** | Per ogni scena: durata, movimenti della macchina, inquadrature, qualità dell'anteprima | Uno storyboard a griglia (un frame al secondo), poi un'anteprima animata |
 | 3 | **Montaggio** | Ordine e ritmo | Tutte le scene unite in un'anteprima unica |
 | 4 | **Grafiche e testo** | Testo della voce (lo scrivi tu o lo propone Claude), grafiche necessarie | La composizione HyperFrames, verificata, ancora senza audio |
 | 5 | **Audio** | Voce, musica sì/no, effetti sonori sì/no | Voce, musica e SFX sincronizzati, scene adattate alla voce, sottotitoli |
 | 6 | **Visione d'insieme** | Giudizio complessivo | Il video completo in bozza, con l'audio |
-| 7 | **Render finale** | Ok esplicito, dopo una stima dei tempi | Il video definitivo in alta qualità |
+| 7 | **Render finale** | Ok esplicito con la qualità scelta, dopo una stima dei tempi | Il video definitivo in alta qualità |
 | 8 | **Rifare un pezzo** | Cosa cambiare | Solo i frame interessati vengono rifatti |
 | 9 | **Consegna** | Per quali piattaforme | Master, versione leggera, sottotitoli |
 
@@ -103,13 +103,7 @@ Chiede anche il logo e i colori da evitare. Una volta confermata, la palette pu�
 
 Per ogni scena, prima di qualunque anteprima animata, la skill crea uno **storyboard a griglia**: un frame per ogni secondo, compreso l'ultimo, con il numero di frame stampato. È veloce (pochi secondi) e mostra subito se inquadrature e movimenti funzionano.
 
-Poi l'anteprima animata, nella qualità che scegli:
-
-- **Real time (24 fps):** tutti i frame, la più fedele.
-- **Medio (12 fps):** un frame ogni due. È il compromesso consigliato.
-- **Basso (6 fps):** un frame ogni quattro, per controllare in fretta i movimenti.
-
-Su un M1 Pro, uno storyboard di una scena da 4 secondi esce in circa 5 secondi e l'anteprima a 6 fps in circa 20.
+Poi l'anteprima animata. Ogni render ha un codice di tre numeri da 1 a 4, `risoluzione-fps-qualità` (per esempio `1-3-1`: 25% della risoluzione, 12 fps, 8 campioni). Le qualità delle bozze si fissano una volta nel brief (storyboard `1-·-1`, anteprima di una scena `1-3-1`, montaggio `2-4-1`), così non vengono richieste a ogni passaggio; il render finale ha sempre la sua domanda (proposta `4-4-3`).
 
 ## Audio
 
@@ -128,7 +122,7 @@ Alla fine la skill prepara:
 
 - **master.mp4:** alta qualità, audio normalizzato a −14 LUFS (lo standard di social e web);
 - **light.mp4:** sotto i 28 MB, da mandare al telefono, su WhatsApp o per email;
-- **sottotitoli.srt.**
+- **un file di sottotitoli `.srt` per ogni lingua della voce.**
 
 | Piattaforma | Formato consigliato |
 |---|---|
@@ -146,10 +140,10 @@ Nella cartella `scripts/`:
 
 | Script | A cosa serve |
 |---|---|
-| `check_skills.sh` | Controlla che ci siano le skill Blender obbligatorie (arjun988/blender-skills) e, se mancano, stampa i comandi per installarle. |
+| `check_skills.sh` | Controlla che ci siano le skill Blender obbligatorie (arjun988/blender-skills) e, se mancano, stampa i comandi per installarle; segnala a parte quelle facoltative (environment-artist, set-dressing, asset-optimization). |
 | `import_model.py` | Importa in scala reale qualsiasi file accettato (STEP, 3MF, GLB, FBX, OBJ, STL, PLY, USD, ABC, .blend, DWG, SVG, PDF vettoriale) e stampa le dimensioni, per controllare subito la scala. |
 | `fea_surface.py`, `fea_to_blend.py` | Portano in Blender il risultato di un calcolo di resistenza di text-to-cad: superficie del pezzo, deformazione esagerata e colori della tensione, animati mentre entra il carico. |
-| `preview.sh` (+ `preview.py`) | Storyboard a griglia e anteprima animata a 24, 12 o 6 fps. |
+| `preview.sh` (+ `preview.py`) | Storyboard a griglia e anteprima animata a 24, 12, 6 o 3 fps, con lo stesso controllo anti-blocco della GPU di `render_all.sh`. |
 | `render_all.sh` | Renderizza tutte le scene, controlla che non manchino frame, monta il video e scrive `timings.json` con i tempi di ogni scena. Si accorge se cambi la durata di una scena e rifà solo quella. |
 | `render_seg_gpu.py` | Renderizza una scena, eventualmente allungandola per la voce. Con `--redo` rifà solo il tratto modificato. Qualità con `SPP` e `JPG_Q`; con `OUT_FPS` ricampiona a qualsiasi fps. |
 | `gpu_setup.py` | Attiva il render su GPU Metal, con le impostazioni migliori per il chip del Mac. |
@@ -158,10 +152,10 @@ Nella cartella `scripts/`:
 | `contact_sheet.sh` | Crea un provino a griglia di qualunque video. |
 | `motion_probe.py` | Misura come si muovono davvero le parti di una scena (rotazioni, giri/min, corse, frame per frame) per confrontarle con la scheda di funzionamento. |
 | `safe_zone.sh` | Zona sicura del 9:16 per Reels, Stories e TikTok: margini, CSS e guide disegnate su un frame o un video. |
-| `storyboard_pdf.py` | Storyboard in PDF per l'approvazione del cliente, brandizzato, e testi della voce in `.md` per ogni lingua. |
+| `storyboard_pdf.py` | Storyboard in PDF per l'approvazione del cliente, brandizzato, e testi della voce per ogni lingua: in `.md` da leggere e correggere, in `.txt` per la voce e i sottotitoli. |
 | `deliver.sh` | Prepara master e versione leggera, con l'audio normalizzato. |
 
-Nella cartella `evals/` ci sono alcuni casi di prova che descrivono come la skill deve comportarsi. Servono a controllare che le modifiche future non rompano niente.
+Nella cartella `references/` ci sono le parti lunghe della skill (qualità dei render, modalità automatica e agentica, funzionamento, formati, riprese vere, HyperFrames…), che Claude legge solo quando servono. Nella cartella `evals/` ci sono alcuni casi di prova che descrivono come la skill deve comportarsi. Servono a controllare che le modifiche future non rompano niente.
 
 ### L'elenco di montaggio (EDL)
 
@@ -209,7 +203,7 @@ Facoltativi:
 - [LibreDWG](https://www.gnu.org/software/libredwg/): per leggere i disegni DWG di AutoCAD, solo la parte 2D. `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): solo per la pagina interattiva extra. `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`; per screenshot e video della pagina serve Playwright: `npm i -D playwright && npx playwright install chromium` nella cartella della skill.
 
-Riferimento indicativo: su M1 Pro, 1080x1920 a 40 campioni, circa **10 secondi per frame** su GPU Metal, contro circa 40 su CPU. Un video di 60 secondi a 24 fps richiede quindi circa 4 ore di render finale. La skill dà sempre una stima prima di partire.
+Riferimento misurato: su M1 Pro, 1080x1920, una scena reale di macchina con denoise, su GPU Metal: circa 9 s per frame a 8 campioni, 19 s a 24, **25 s a 40**, 56 s a 96; su CPU circa 4 volte di più. Un video di 60 secondi a 24 fps (1440 frame) a 40 campioni richiede quindi circa 10 ore di render finale. La skill dà sempre una stima prima di partire.
 
 ## Come si avvia
 

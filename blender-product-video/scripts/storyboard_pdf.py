@@ -2,7 +2,8 @@
 # usage: python3 storyboard_pdf.py storyboard.json <out_dir> [--no-pdf]
 # storyboard.json: {"title": "...", "langs": ["it","en"], "accent": "#00498a", "per_page": 14,
 #   "ink": "#141a26" (brand dark), "shots": [{"img": "preview/1_sb/f_0001.jpg", "start": 0, "end": 8, "piano": {"it": "..."}, "voce": {"it": "...", "en": "..."}}]}
-# Writes storyboard_<lang>.pdf (one per language, 7 columns x 2 rows, A4 landscape) and vo_<lang>.md.
+# Writes storyboard_<lang>.pdf (one per language, 7 columns x 2 rows, A4 landscape), vo_<lang>.md and vo_<lang>.txt
+# ("<n>|<text>" per shot with a voice line: the input of make_srt.py and of the voice generation).
 import json, sys, os, subprocess, html, pathlib
 a = sys.argv[1:]; cfg = json.load(open(a[0])); out = pathlib.Path(a[1]); out.mkdir(parents=True, exist_ok=True)
 base = pathlib.Path(a[0]).resolve().parent; pdf = "--no-pdf" not in a
@@ -22,6 +23,7 @@ for lg in langs:
         md.append(f"| {i:02d} | {tc(s['start'])}–{tc(s['end'])} | {d:.1f} s | {len(v.split()) if v != '—' else 0} | {v.replace('|', '/')} |")
     md += ["", "## Testo continuo" if lg == "it" else "## Full text", ""] + [f"**{i:02d}** {t(s.get('voce',''), lg).strip()}" for i, s in enumerate(shots, 1) if t(s.get("voce", ""), lg).strip() not in ("", "—")]
     (out / f"vo_{lg}.md").write_text("\n".join(md) + "\n")
+    (out / f"vo_{lg}.txt").write_text("".join(f"{i}|{t(s.get('voce', ''), lg).strip()}\n" for i, s in enumerate(shots, 1) if t(s.get("voce", ""), lg).strip()))
     if not pdf: continue
     pages = [shots[i:i + per] for i in range(0, len(shots), per)]; P, V = L.get(lg, L["en"]); body = []
     IT = lg == "it"; logo = (pathlib.Path(__file__).resolve().parent.parent / "assets/logo.svg").as_uri()
