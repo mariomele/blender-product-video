@@ -286,6 +286,12 @@ Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: 
   - **effetti Higgsfield + testo HyperFrames**: Higgsfield genera la parte spettacolare (transizioni, flussi di energia o di fluido, particelle, luci, sfondi animati per i titoli, intro d'impatto), sempre senza testo e senza numeri, chiedendo nel prompt i colori della palette. Sopra, HyperFrames mette titoli, numeri, misure e logo esatti. I modelli AI sbagliano le lettere e inventano cifre, quindi il testo non va mai generato. Costa crediti: chiedi l'ok, e prima prova un effetto solo. Gli effetti generati vanno in `hyperframes/assets/` e si usano come video di sfondo o in fusione (`screen`, `add`) sopra il render.
 - Costruisci in `hyperframes/` con la skill **hyperframes** (contratto di render, animazioni, overlay e audio), nel formato del brief, **solo con la palette confermata**, `final.mp4` come sfondo e i tempi presi da `timings.json`. Le misure a schermo vengono dalla sorgente, mai stimate.
 - **Zona sicura nel 9:16**: le interfacce di Reels, Stories e TikTok coprono l'alto, il basso e il lato destro. `$K/safe_zone.sh <WxH> <reels|stories|tiktok|all>` stampa i margini e la regola CSS `.safe`; senza indicazioni usa `all`, la più stretta delle tre (su 1080x1920: alto 250, basso 484, sinistra 60, destra 140 px). I testi importanti (titoli, numeri, misure, sottotitoli, CTA, logo) stanno sempre dentro la zona sicura, in un contenitore `.safe` (linea verde). Gli elementi secondari e le grafiche (icone, linee, cornici, decorazioni, bordi dei box) possono sconfinare nel margine al più del 20% in alto e in basso e del 10% ai lati (linea rossa), mai oltre. Sfondi, effetti e il render 3D possono occupare tutto il frame.
+- **Nel 16:9 non ci sono zone delle piattaforme**: basta la zona sicura standard (azione al 90%, titoli e testi al 80% del frame), quella che HyperFrames già segue.
+- **Cambiare formato vuol dire rifare l'impaginazione, non copiarla.** Da 9:16 a 16:9 (o 1:1, 4:5) e viceversa:
+  - **scala** testi, grafiche, callout e logo in proporzione al nuovo frame: se li lasci con gli stessi px, nel 16:9 sembrano piccoli. Nelle composizioni usa misure relative al frame (percentuali, o una variabile di scala) invece di px fissi, così il cambio di formato le porta con sé;
+  - **reimpagina** sugli spazi del nuovo formato: nel 16:9 testo e prodotto stanno affiancati, nel 9:16 uno sopra l'altro; i callout seguono dove cade il pezzo nella nuova inquadratura;
+  - **zone sicure del formato di arrivo**: verso il 9:16 sempre `safe_zone.sh` con le piattaforme del brief, verso il 16:9 la zona standard;
+  - poi rifai gli snapshot di controllo (sotto) sul nuovo formato e guarda che i testi si leggano alla stessa distanza di prima.
 - **Verifica** prima di mostrare (skill **hyperframes-cli**):
   1. `npx hyperframes lint` dopo ogni modifica strutturale;
   2. `npx hyperframes check --json` e correggi ogni errore (layout, contrasto, elementi fuori campo);
@@ -334,7 +340,7 @@ Più `sottotitoli.srt` dalla fase 5. Limiti utili delle piattaforme:
 | Instagram Reels / Stories / TikTok / Shorts | 9:16 1080x1920 | testi dentro la zona sicura (`safe_zone.sh`, fase 4), sottotitoli bruciati |
 | Feed Instagram / LinkedIn | 4:5 1080x1350 o 1:1 | LinkedIn accetta il `.srt` separato |
 | YouTube / sito | 16:9 1920x1080 | `.srt` separato |
-Altri formati dallo stesso progetto: chiedi se servono. Vuol dire reimpostare la camera nei .blend e rifare il render: non basta ritagliare.
+Altri formati dallo stesso progetto: chiedi se servono. Vuol dire reimpostare la camera nei .blend e rifare il render: non basta ritagliare. Anche le grafiche HyperFrames vanno riscalate e reimpaginate per il nuovo formato, con le sue zone sicure (fase 4, "Cambiare formato").
 Manda il `light.mp4` con SendUserFile; per file oltre 30 MB indica il percorso.
 
 **Tavola tecnica**: se è stata fatta, consegna anche `delivery/<nome>_tavola.pdf`.
