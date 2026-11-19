@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#090B10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blender Product Video: turn your machine into an explainer video">
-<meta property="og:description" content="Photos, STEP, DWG or a drawing in. A Blender explainer out: cutaways, exploded views, real materials, cinematic camera moves, stress analyses, AI worlds. All vibe coding, no Blender or CAD skills needed. · Trasforma la tua macchina in un video explainer.">
+<meta property="og:description" content="Photos, STEP, DWG or a drawing in. A Blender explainer out: cutaways, exploded views, real materials, cinematic camera moves, stress analyses, AI worlds. New agentic mode: five agents in parallel that check each other. All vibe coding, no Blender or CAD skills needed. · Trasforma la tua macchina in un video explainer.">
 <meta property="og:url" content="https://mariomele.github.io/blender-product-video/">
 <meta property="og:image" content="https://mariomele.github.io/blender-product-video/assets/og.png?v=3">
 <meta property="og:image:width" content="1200">
@@ -438,6 +438,41 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 footer a{color:var(--soft)}
 
 /* motion: only when the user allows it */
+/* agentic mode */
+.np{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:6px 14px 6px 6px;border:1px solid var(--line2);border-radius:999px;background:var(--panel);color:var(--soft);font-size:14px;text-decoration:none;transition:border-color .25s,color .25s}
+.np:hover{border-color:var(--accent);color:var(--text)}
+.np b{font:600 11px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:var(--accentInk);padding:6px 9px;border-radius:999px}
+.ag{margin-top:40px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
+.ag-box{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:24px 26px}
+.ag-box h3{margin:0 0 4px;font-size:18px}.ag-box>p{margin:0 0 30px;color:var(--muted);font-size:15px}
+.gantt{position:relative;display:grid;gap:9px}
+.ln{display:grid;grid-template-columns:128px 1fr;gap:12px;align-items:center;font-size:13px;color:var(--soft)}
+.ln>span:first-child{display:flex;align-items:center;gap:7px;white-space:nowrap}.ln .ph{color:var(--muted);font-size:16px}
+.tr{position:relative;height:22px;border-radius:6px;background:var(--bg2);border:1px solid var(--line)}
+.tr i{position:absolute;top:3px;bottom:3px;left:var(--s);width:var(--w);border-radius:4px;background:rgb(61 139 255 / .38);transform-origin:left}
+.ln.gpu .tr i{background:var(--accent)}.ln.gpu>span:first-child{color:var(--text);font-weight:600}.ln.gpu .ph{color:var(--accent)}
+.ln.fn .tr i{background:rgb(61 139 255 / .7)}
+.stop{position:absolute;top:-6px;bottom:-6px;left:calc(140px + (100% - 140px) * var(--x));border-left:1px dashed var(--line2)}
+.stop span{position:absolute;top:-22px;left:-30px;width:60px;text-align:center;font:500 11px/1 var(--mono);color:var(--muted)}
+.gantt{padding-top:22px}
+.ag-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:12.5px;color:var(--muted)}
+.ag-legend span{display:flex;align-items:center;gap:7px}.ag-legend i{width:16px;height:8px;border-radius:3px;background:var(--accent)}.ag-legend i.o{background:rgb(61 139 255 / .38)}
+.tel{border:1px solid var(--line2);border-radius:26px;background:var(--bg2);padding:16px 14px;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.p-top{display:flex;align-items:center;gap:8px;padding:0 4px 8px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}.p-top b{color:var(--text)}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px 14px 14px 4px;background:var(--panel2);border:1px solid var(--line2);color:var(--text)}
+.msg small{display:block;font:500 11px/1.3 var(--mono);color:var(--accent);margin-bottom:4px;letter-spacing:.02em}
+.att{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.att span{display:inline-flex;align-items:center;gap:5px;font:500 11.5px/1 var(--mono);padding:6px 8px;border-radius:7px;background:var(--bg);border:1px solid var(--line2);color:var(--soft)}
+.msg.me{align-self:flex-end;border-radius:14px 14px 4px 14px;background:var(--accent);border-color:var(--accent);color:var(--accentInk);font-weight:500}
+.chk{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;color:var(--soft)}.chk .ph{color:var(--accent)}
+.qr{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}.qr span{font-size:12.5px;padding:6px 11px;border-radius:999px;border:1px solid var(--line2);color:var(--soft)}
+.agents{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.agents li{border:1px solid var(--line);border-radius:var(--rs);background:var(--panel);padding:16px}
+.agents li.key{border-color:var(--accent);box-shadow:0 0 0 1px rgb(61 139 255 / .25) inset}
+.agents .ph{font-size:22px;color:var(--accent)}.agents h4{margin:8px 0 4px;font-size:15px}.agents p{margin:0;font-size:13.5px;color:var(--soft);line-height:1.45}
+.agents em{display:inline-block;margin-top:8px;font:500 10.5px/1 var(--mono);font-style:normal;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.ag-note{margin:16px 0 0;font-size:14px;color:var(--muted);max-width:80ch}
+@media(prefers-reduced-motion:no-preference){.ag-box.rv .tr i{transform:scaleX(0);transition:transform .9s cubic-bezier(.16,1,.3,1);transition-delay:calc(.25s + var(--d,0) * 1s)}.ag-box.rv.in .tr i{transform:none}}
+@media(max-width:900px){.ag{grid-template-columns:1fr}.agents{grid-template-columns:1fr 1fr}.ln{grid-template-columns:112px 1fr;gap:10px;font-size:12px}.stop{left:calc(122px + (100% - 122px) * var(--x))}.agents li.key{grid-column:1/-1}.ag-box{padding:20px 16px}}
 @media (prefers-reduced-motion:no-preference){
   .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .rv.in{opacity:1;transform:none}
@@ -510,6 +545,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <div class="nav"><div class="wrap">
 <a class="brand" href="#top"><img src="assets/logo.svg?v=3" alt=""><span>Blender Product Video</span></a>
 <nav>
+<a href="#agenti"><span lang="en">Agents</span><span lang="it">Agenti</span></a>
 <a href="#impossibile"><span lang="en">What it makes</span><span lang="it">Cosa crea</span></a>
 <a href="#percorso"><span lang="en">Workflow</span><span lang="it">Percorso</span></a>
 <a href="#render"><span lang="en">Render</span><span lang="it">Render</span></a>
@@ -523,6 +559,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 
 <div class="hero">
 <div>
+<a class="np" href="#agenti"><b lang="en">New</b><b lang="it">Novità</b><span lang="en">Agentic mode: five agents that check each other</span><span lang="it">Modalità agentica: cinque agenti che si controllano a vicenda</span><i class="ph ph-arrow-right"></i></a>
 <h1 lang="en">Turn your machine into an <em>explainer video</em>.</h1>
 <h1 lang="it">Trasforma la tua macchina in un <em>video explainer</em>.</h1>
 <p class="lead" lang="en">The whole process, from CAD file to finished explainer video, in one skill. <strong>Weeks or months of work, done in a few hours.</strong></p>
@@ -563,7 +600,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 
 <div class="facts rv">
 <div><b lang="en">Hours</b><b lang="it">Ore</b><span lang="en">not weeks: CAD to finished video</span><span lang="it">non settimane: dal CAD al video finito</span></div>
-<div><b>10</b><span lang="en">phases, each closed by your ok</span><span lang="it">fasi, ognuna chiusa dal tuo ok</span></div>
+<div><b>5</b><span lang="en">agents in parallel, checking each other</span><span lang="it">agenti in parallelo, che si controllano a vicenda</span></div>
 <div><b>24 fps</b><span lang="en">Cycles render on the Metal GPU</span><span lang="it">render Cycles su GPU Metal</span></div>
 <div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5 · IG and TikTok safe zones</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5 · safe zone IG e TikTok</span></div>
 </div>
@@ -632,6 +669,44 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <li class="rv"><i class="ph ph-columns"></i><h3><span lang="en">Real footage and 3D</span><span lang="it">Riprese vere e 3D</span></h3><p lang="en">Your own videos as b-roll, in a side-by-side or stacked split screen synced to the 3D, or cutting from the real machine into its cutaway.</p><p lang="it">I tuoi video come b-roll, in split screen affiancato o sovrapposto e sincronizzato con il 3D, o con il passaggio dalla macchina vera alla sua sezione.</p></li>
 <li class="rv"><i class="ph ph-package"></i><h3><span lang="en">Everything in one place</span><span lang="it">Tutto in un posto</span></h3><p lang="en">Model, materials, animation, graphics, voice, render and delivery files.</p><p lang="it">Modello, materiali, animazione, grafiche, voce, render e file di consegna.</p></li>
 </ul>
+</section>
+
+<section id="agenti">
+<span class="eyebrow rv"><span lang="en">New · Agentic mode</span><span lang="it">Novità · Modalità agentica</span></span>
+<h2 class="rv" style="margin-top:12px"><span lang="en">A team of agents, not one assistant.</span><span lang="it">Una squadra di agenti, non un assistente solo.</span></h2>
+<p class="sub rv"><span lang="en">Claude Code directs. Five agents work in parallel while the GPU renders, and they check each other: the one that checks the machine and the reviewer never see the reasoning, only the material. You get the stops on your phone.</span><span lang="it">Claude Code fa il regista. Cinque agenti lavorano in parallelo mentre la GPU renderizza, e si controllano a vicenda: chi controlla la macchina e il revisore non vedono il ragionamento, solo il materiale. Le soste ti arrivano sul telefono.</span></p>
+<div class="ag">
+<div class="ag-box rv"><h3><span lang="en">Nobody waits for the render</span><span lang="it">Nessuno aspetta il render</span></h3><p lang="en">One GPU, renders one after the other. Everything else runs beside them.</p><p lang="it">Una GPU, i render uno dopo l'altro. Tutto il resto gira accanto.</p>
+<div class="gantt">
+<span class="stop" style="--x:.52"><span lang="en">stop 2</span><span lang="it">sosta 2</span></span><span class="stop" style="--x:.98"><span lang="en">stop 3</span><span lang="it">sosta 3</span></span>
+<div class="ln gpu"><span><i class="ph ph-graphics-card"></i><span lang="en">GPU render</span><span lang="it">Render GPU</span></span><div class="tr"><i style="--s:0%;--w:48%;--d:0.00"></i><i style="--s:56%;--w:40%;--d:0.56"></i></div></div>
+<div class="ln fn"><span><i class="ph ph-gear-six"></i><span lang="en">Function</span><span lang="it">Funzionamento</span></span><div class="tr"><i style="--s:0%;--w:14%;--d:0.00"></i><i style="--s:24%;--w:8%;--d:0.24"></i><i style="--s:44%;--w:8%;--d:0.44"></i><i style="--s:80%;--w:8%;--d:0.80"></i></div></div>
+<div class="ln "><span><i class="ph ph-eye"></i><span lang="en">Reviewer</span><span lang="it">Revisore</span></span><div class="tr"><i style="--s:16%;--w:7%;--d:0.16"></i><i style="--s:40%;--w:6%;--d:0.40"></i><i style="--s:86%;--w:10%;--d:0.86"></i></div></div>
+<div class="ln "><span><i class="ph ph-text-aa"></i><span lang="en">Graphics</span><span lang="it">Grafiche</span></span><div class="tr"><i style="--s:30%;--w:24%;--d:0.30"></i><i style="--s:58%;--w:22%;--d:0.58"></i></div></div>
+<div class="ln "><span><i class="ph ph-waveform"></i><span lang="en">Audio</span><span lang="it">Audio</span></span><div class="tr"><i style="--s:8%;--w:30%;--d:0.08"></i><i style="--s:60%;--w:16%;--d:0.60"></i></div></div>
+<div class="ln "><span><i class="ph ph-video-camera"></i><span lang="en">Real footage</span><span lang="it">Riprese vere</span></span><div class="tr"><i style="--s:0%;--w:20%;--d:0.00"></i></div></div>
+</div>
+<div class="ag-legend"><span><i></i><span lang="en">Blender on the GPU, one render at a time</span><span lang="it">Blender sulla GPU, un render alla volta</span></span><span><i class="o"></i><span lang="en">agents, in parallel</span><span lang="it">agenti, in parallelo</span></span></div>
+</div>
+<div class="tel rv" aria-label="Example of a stop received on the phone">
+<div class="p-top"><i class="ph ph-device-mobile"></i><b>Claude Code</b><span lang="en">· stop 2</span><span lang="it">· sosta 2</span></div>
+<div class="msg"><small lang="en">STOP 2 · TEXTS</small><small lang="it">SOSTA 2 · TESTI</small><span lang="en">Silent video ready. Check the on-screen texts and the voice-over.</span><span lang="it">Video muto pronto. Controlla i testi a schermo e la voce.</span>
+<div class="att"><span><i class="ph ph-film-strip"></i>muto.mp4</span><span><i class="ph ph-file-pdf"></i>storyboard_it.pdf</span><span><i class="ph ph-file-text"></i>vo_it.md</span></div>
+<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Function: 14 of 14 checks match</span><span lang="it">Funzionamento: 14 controlli su 14 tornano</span></div>
+<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Reviewer: 2 fixes made, 0 open</span><span lang="it">Revisore: 2 correzioni fatte, 0 aperte</span></div></div>
+<div class="msg me"><span lang="en">ok, but make scene 3 slower</span><span lang="it">ok, ma rallenta la scena 3</span></div>
+<div class="msg"><span lang="en">Redoing only scene 3, then on to the graphics.</span><span lang="it">Rifaccio solo la scena 3, poi passo alle grafiche.</span></div>
+<div class="qr"><span>ok</span><span lang="en">redo scene…</span><span lang="it">rifai la scena…</span><span>stop</span></div>
+</div>
+</div>
+<ul class="agents">
+<li class="key rv"><i class="ph ph-gear-six"></i><h4><span lang="en">Function</span><span lang="it">Funzionamento</span></h4><p lang="en">Reads CAD, PDF, text, website and video, writes how the machine works and measures every scene against it.</p><p lang="it">Legge CAD, PDF, testo, sito e video, scrive come funziona la macchina e misura ogni scena su quella scheda.</p><em lang="en">the most important</em><em lang="it">il più importante</em></li>
+<li class="rv"><i class="ph ph-eye"></i><h4><span lang="en">Visual reviewer</span><span lang="it">Revisore visivo</span></h4><p lang="en">Looks only at the frames, the shot list and the sheet: cuts, safe zones, overlaps, materials.</p><p lang="it">Guarda solo frame, scaletta e scheda: tagli, zone sicure, compenetrazioni, materiali.</p></li>
+<li class="rv"><i class="ph ph-text-aa"></i><h4><span lang="en">Graphics</span><span lang="it">Grafiche</span></h4><p lang="en">Builds the HyperFrames titles and callouts on the draft video while the GPU renders.</p><p lang="it">Costruisce titoli e callout HyperFrames sul video di bozza mentre la GPU renderizza.</p></li>
+<li class="rv"><i class="ph ph-waveform"></i><h4>Audio</h4><p lang="en">Voice-over lines timed to the scenes, sound effects with their cues, the music brief. Spends no credits.</p><p lang="it">Frasi della voce a tempo con le scene, effetti con i loro istanti, il brief della musica. Non spende crediti.</p></li>
+<li class="rv"><i class="ph ph-video-camera"></i><h4><span lang="en">Real footage</span><span lang="it">Riprese vere</span></h4><p lang="en">Checks your videos: length, fps, rotation, good takes, the moments of the cycle for the split screen.</p><p lang="it">Analizza i tuoi video: durata, fps, rotazione, pezzi buoni, gli istanti del ciclo per lo split screen.</p></li>
+</ul>
+<p class="ag-note rv"><span lang="en">Paid generations and renders stay with the director, inside your budget. On request it can run with no stops, for internal tests or variants of an approved video. Agents use more tokens than the automatic mode.</span><span lang="it">Le generazioni a pagamento e i render restano al regista, dentro il tuo budget. Su richiesta va anche senza soste, per prove interne o varianti di un video già approvato. Gli agenti consumano più token della modalità automatica.</span></p>
 </section>
 
 <section id="film">
