@@ -21,7 +21,10 @@ Una skill per Claude Code che porta dal materiale grezzo di un prodotto (foto, l
 
 ## Un percorso guidato, che si ricorda dove sei
 
-La skill **fa domande a ogni fase** e **si ferma per un'approvazione** prima di andare avanti. Le correzioni costano poco perché arrivano quando il lavoro è ancora leggero.
+All'inizio scegli la modalità:
+
+- **Automatica:** tre domande (cosa hai, dove va il video, cosa deve capire chi guarda) e un riepilogo da confermare. Formato, durata, ambiente, audio e qualità delle bozze li deduce dall'uso. Poi lavora da sola fino al provino completo: controlla lei ogni passaggio sugli snapshot (proporzioni, compenetrazioni, zone sicure, leggibilità, durata delle scene) e si ferma solo per il provino, l'ok al render finale, una spesa fuori budget o un dato che non si inventa. Il budget di ore di render e di crediti lo decidi tu nel riepilogo.
+- **Guidata:** fa domande a ogni fase e si ferma per un'approvazione prima di andare avanti. Le correzioni costano poco perché arrivano quando il lavoro è ancora leggero.
 
 Tutte le decisioni (formato, ambiente, palette, voce, scene approvate) vengono scritte in un file **`progetto.md`** nella cartella del progetto. Se riprendi il lavoro il giorno dopo, o in un'altra sessione, la skill riparte da lì senza rifarti le stesse domande.
 

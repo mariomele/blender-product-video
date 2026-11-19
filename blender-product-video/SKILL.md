@@ -1,6 +1,6 @@
 ---
 name: blender-product-video
-description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, 3MF, GLB, FBX, STL, OBJ, USD, .blend…) o disegni tecnici (DWG, SVG, PDF). Fa domande a ogni fase e tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
+description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, 3MF, GLB, FBX, STL, OBJ, USD, .blend…) o disegni tecnici (DWG, SVG, PDF). In modalità guidata fa domande a ogni fase, in modalità automatica chiede solo il brief e poi va avanti da sola fino al provino, dentro un budget di render e crediti; tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
 ---
 
 # Blender product video
@@ -8,7 +8,10 @@ description: Workflow guidato per video 3D di prodotti, macchine, impianti o pro
 Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 
 ## Come lavorare
-- **Guida con domande.** All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
+- **Due modalità, scelte nel brief** (riga `Modalità` di `progetto.md`; se manca, è guidata):
+  - **guidata**: le domande e i checkpoint di ogni fase, come scritti sotto;
+  - **automatica**: dopo il brief vai avanti da solo dalla fase 1 alla 6. Le domande di una fase diventano scelte tue, fatte con le regole di questa skill e con il brief: scrivile in `progetto.md` (Decisioni, una riga con il perché). I checkpoint diventano **controlli tuoi** (sotto, "Controlli in automatica"). Ti fermi e chiedi solo alle **soste**: il riepilogo del brief, il provino completo della fase 6, l'ok al render finale, una spesa fuori budget, una cancellazione di file, un dato che non si inventa (testo della voce se il cliente lo vuole suo, carichi e materiali di un calcolo, colori del brand che non trovi, fedeltà di una parte che non si vede nelle sorgenti). Fra una sosta e l'altra dai solo brevi aggiornamenti su cosa stai facendo.
+- **Guida con domande** (modalità guidata). All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
 - **Ogni render usa tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Le qualità delle bozze (storyboard, anteprime, montaggio, redo di bozza) si fissano una volta sola nel brief (fase 0, riga `Bozze` di `progetto.md`):
@@ -41,7 +44,7 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
   - `fit_vo.py` vuole gli fps del .blend, non quelli scelti per il render.
   - Il tempo dipende quasi tutto da risoluzione, campioni e numero di frame (fps). La qualità JPG cambia il peso dei file e il dettaglio, non il tempo.
 - **Codice minimo con Ponytail** (se il plugin è installato; consigliato): ogni script che scrivi per il progetto (scene, patch, build123d, composizioni HyperFrames) segue `/ponytail`. Usa prima gli script di `$K` e quelli già in `render_scripts/`, poi la patch più corta che funziona; niente astrazioni, opzioni o codice "per dopo". Script brevi vuol dire meno token, meno errori e anteprime più veloci da rifare. Prima del render finale (fase 7) passa `/ponytail-review` sugli script del progetto: un errore trovato lì vale ore di GPU.
-- **Mai partire per inerzia** con un render lungo, un download o una generazione a pagamento (voce, musica, SFX, modelli AI): chiedi prima. Prima di cancellare file chiedi sempre; meglio spostare in `old_*`.
+- **Mai partire per inerzia** con un render lungo, un download o una generazione a pagamento (voce, musica, SFX, modelli AI): chiedi prima. In automatica vale il **budget** del brief (riga `Budget` di `progetto.md`): dentro il budget vai, e segna ogni spesa e ogni render con il suo tempo nella riga `Speso`; prima di una spesa o di un render che lo farebbe superare, fermati e chiedi. Le installazioni e i download chiedono l'ok sempre. Prima di cancellare file chiedi sempre; meglio spostare in `old_*`.
 
 Cartella di progetto: `progetto.md`, `source/` (materiale originale, mai modificato), `*.blend`, `render_scripts/`, `edl.txt`, `preview/`, `preview_jpg/`, `final_jpg/`, `hyperframes/`, `audio/`, `delivery/`. Gli script stanno in `K=~/.claude/skills/blender-product-video/scripts`. Blender di default è `/Applications/Blender.app`; un'altra installazione si indica con la variabile `BLENDER=<percorso dell'eseguibile>`.
 
@@ -52,6 +55,8 @@ Fase attuale: <0–9> — <cosa manca>
 ## Brief
 Formato: 9:16 1080x1920, 24 fps · Durata: 45 s · Uso: Instagram
 Bozze: predefinite · storyboard 1-·-1 · anteprima 1-3-1 · montaggio 2-4-1 (oppure: passo passo)
+Modalità: automatica (oppure: guidata) · Budget: render bozze ≤ 3 h GPU · crediti ElevenLabs ≤ 5000 · AI ≤ 0
+Speso: render 0 h · ElevenLabs 0 · AI 0
 Sorgenti: source/… · Fedeltà: A/B/C (vedi fase 1)
 Ambiente: … · Atmosfera: … · Foto ref: source/…
 Palette infografiche (solo HyperFrames): #…, #… · Logo: source/… · Da evitare: …
@@ -63,6 +68,17 @@ Voce: <nome, voice_id> · Musica: … · SFX: …
 ## Decisioni e note
 - <data> …
 ```
+
+### Controlli in automatica
+Al posto di ogni checkpoint guardi tu il risultato (`Read` sui JPG e sui PNG di snapshot) e lo correggi prima di passare oltre. Ogni controllo fatto va in `progetto.md`, sotto Decisioni: cosa hai visto, cosa hai corretto. Se dopo due correzioni un problema resta, è una sosta: mostralo e chiedi.
+| Fase | Controlla |
+|---|---|
+| 1 modello | proporzioni e colori contro le foto di riferimento, scala reale (una misura nota), nessuna parte mancante o capovolta, normali e materiali senza nero o rosa |
+| 2 scene | il soggetto resta in quadro, nessuna compenetrazione, i giunti dentro i limiti, la camera non attraversa oggetti, il movimento si legge (né troppo lento né a scatti) |
+| 3 montaggio | ordine come il racconto, niente due piani uguali di fila, un piano largo ogni 2–3 stretti, durata totale entro ±10% del brief |
+| 4 grafiche | testi dentro le zone sicure (`safe_zone.sh`), leggibili alla dimensione del telefono, solo colori della palette, misure uguali alla sorgente |
+| 5 audio | ogni scena dura quanto la sua voce più il margine (`fit_vo.py`), pronuncia di nomi e sigle, musica sotto la voce |
+Alla fase 6 il provino completo (`preview/insieme.mp4`) va all'utente con il riepilogo dei controlli: è la seconda sosta, e l'unico giudizio d'insieme che gli chiedi.
 
 ## Da dove partire
 | L'utente dice… | Vai a |
@@ -94,7 +110,22 @@ Questa skill è il regista: decide fasi, domande, checkpoint e stato. Il mestier
 | 2 anteprime, 7 render finale | **rendering** |
 
 ## 0. Brief
-Chiedi, se non lo sai già:
+**Prima domanda, sempre: la modalità.** Con `AskUserQuestion`: "Automatica (consigliato): ti chiedo poco adesso, poi vado avanti da solo e ti fermo solo per il provino, il render finale e le spese" oppure "Guidata: ti chiedo a ogni fase".
+
+**Brief rapido (automatica).** Chiedi solo tre cose, in un solo giro di `AskUserQuestion`: cosa c'è di sorgente (file, foto, link), **dove va il video** (Instagram/TikTok, sito o YouTube, fiera, presentazione) e cosa deve capire chi guarda. Il resto lo deduci dall'uso con le impostazioni qui sotto, più quello che trovi in memoria per il cliente (palette, logo, divieti):
+
+| Uso | Formato | Durata | Ambiente e luce | Audio | Bozze |
+|---|---|---|---|---|---|
+| Instagram, TikTok, Shorts | 9:16 1080x1920, zona sicura `all` | 30 s | sfondo scuro, luce contrastata | voce + musica | predefinite |
+| sito, YouTube | 16:9 1920x1080 | 45 s | limbo chiaro o studio nero | voce + musica, `.srt` | predefinite |
+| fiera, schermo grande | 16:9 1920x1080 | 60 s, in loop | studio nero o capannone | solo musica, testi a schermo | predefinite |
+| presentazione | 16:9 1920x1080 | 60 s | limbo chiaro, luce tecnica | voce, musica bassa | predefinite |
+
+Budget di partenza, da confermare: render di bozza al massimo 3 h di GPU, crediti ElevenLabs per una voce e una musica (stima dai caratteri del testo e dalla durata), AI generativa 0 se il cliente non la chiede. Il render finale ha il suo ok a parte.
+Poi mostra un **riepilogo in una schermata** (tutte le righe del Brief di `progetto.md`, compresi racconto in 4–6 scene, palette, modalità e budget) e chiedi una sola conferma, con la possibilità di cambiare qualsiasi riga. È la prima sosta: dopo l'ok non si torna sul brief se non lo chiede l'utente.
+Le domande delle fasi successive (storyboard in PDF, lingue della voce, voce da scegliere, piattaforme) vanno in questo riepilogo, se servono: dopo non si chiedono più.
+
+**Brief completo (guidata).** Chiedi, se non lo sai già:
 - **Sorgenti**: foto, link, CAD o disegno. Cosa deve essere fedele (misure, colori, loghi) e cosa può essere approssimato.
 - **Formato, prima di qualunque scena o render**: aspect ratio (9:16 1080x1920 · 16:9 1920x1080 · 1:1 1080x1080 · 4:5 1080x1350), risoluzione; gli fps sono sempre 24. Vanno impostati in ogni .blend. Per il 9:16 chiedi anche le piattaforme (Reels, Stories, TikTok o tutte): decidono la zona sicura per testi e grafiche (fase 4) e vanno nel brief, alla riga Formato.
 - **Durata totale** e uso (social, sito, fiera, presentazione).
@@ -113,7 +144,7 @@ Chiedi, se non lo sai già:
 - **Calcoli e tavole (facoltativo, con text-to-cad)**: chiedi se il video deve mostrare quanto regge un pezzo, sotto quale carico e con quale materiale, o una tavola tecnica quotata. Diventano scene in fase 2.
 - **Alternativa veloce con `/teardown`** (se è installata): quando serve un video di "come funziona" in poco tempo e la fedeltà al prodotto vero non conta (idea, pitch, spiegazione di un principio), proponila al posto di Blender. `/teardown` ricostruisce la macchina a codice in three.js e registra un tour in mp4 con il suo sonoro: minuti invece di ore di render, ma forme e proporzioni sono approssimate e la resa non è quella di Cycles. Non usarla se servono misure, loghi o materiali veri, né mescolarla con scene Blender nello stesso video. Se l'utente la sceglie, segui la sua skill; da questa riprendi la domanda del render (risoluzione e durata; fps e qualità se `/teardown` li supporta), le zone sicure del 9:16 per i testi e la consegna (fase 9).
 - **Extra facoltativo**: chiedi se serve anche una pagina 3D interattiva (esploso, sezione, numeri di funzionamento) per sito o fiera. Si fa in fase 9 con la skill `/machine` o `/teardown`, se installate.
-Checkpoint: crea `progetto.md` con il brief e fallo confermare.
+Checkpoint: crea `progetto.md` con il brief e fallo confermare (in automatica è il riepilogo della prima sosta).
 
 ## 1. Il pezzo: modello, materiali, ambientazione
 
@@ -301,7 +332,7 @@ Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: 
   2. `npx hyperframes check --json` e correggi ogni errore (layout, contrasto, elementi fuori campo);
   3. `npx hyperframes snapshot --at <metà di ogni scena da timings.json>` e guarda i PNG in `.hyperframes/artifacts/snapshots/`; nel 9:16 passa ogni PNG in `$K/safe_zone.sh <WxH> <piattaforma> <png> <png_guide>` e controlla che i testi importanti stiano dentro la linea verde e le grafiche secondarie dentro la rossa;
   4. `npx hyperframes preview --background` e dai il link all'utente.
-Checkpoint: bozza HyperFrames muta.
+Checkpoint: bozza HyperFrames muta (in automatica: controlli della fase 4, senza fermarti).
 
 ## 5. Audio: voce, musica, SFX (ElevenLabs MCP)
 Ogni generazione costa crediti: chiedi l'ok prima, con il numero di clip.
