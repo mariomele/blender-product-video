@@ -1,6 +1,6 @@
 ---
 name: blender-product-video
-description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, 3MF, GLB, FBX, STL, OBJ, USD, .blend…) o disegni tecnici (DWG, SVG, PDF). In modalità guidata fa domande a ogni fase, in automatica chiede solo il brief e va avanti da sola fino al provino dentro un budget di render e crediti, in agentica divide il lavoro fra subagenti in parallelo (controllo del funzionamento, revisore visivo, grafiche, audio, riprese vere) e manda le soste sul telefono. Il modello deve funzionare come la macchina vera (moti, versi, rapporti, ciclo), ricavato da CAD, PDF, testo, sito o video di riferimento; le riprese vere entrano come b-roll o in split screen con il 3D; tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
+description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, 3MF, GLB, FBX, STL, OBJ, USD, .blend…) o disegni tecnici (DWG, SVG, PDF). In modalità guidata fa domande a ogni fase, in automatica chiede solo il brief e va avanti da sola fino al provino dentro un budget di render e crediti, in agentica divide il lavoro fra subagenti in parallelo (regista, sceneggiatore, motion designer, controllo del funzionamento, revisore tecnico, audio, riprese vere, spettatore) e manda le soste sul telefono. Il modello deve funzionare come la macchina vera (moti, versi, rapporti, ciclo), ricavato da CAD, PDF, testo, sito o video di riferimento; le riprese vere entrano come b-roll o in split screen con il 3D; tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
 ---
 
 # Blender product video
@@ -11,7 +11,7 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 - **Tre modalità, scelte nel brief** (riga `Modalità` di `progetto.md`; se manca, è guidata):
   - **guidata**: le domande e i checkpoint di ogni fase, come scritti sotto;
   - **automatica**: dopo il brief vai avanti da solo dalla fase 1 alla 6. Le domande di una fase diventano scelte tue, fatte con le regole di questa skill e con il brief: scrivile in `progetto.md` (Decisioni, una riga con il perché). I checkpoint diventano **controlli tuoi** (sotto, "Controlli in automatica"). Segui il **percorso in automatica** (sotto): ti fermi e chiedi solo alle sue **quattro soste** e in questi casi: una spesa fuori budget, una cancellazione di file, un dato che non si inventa (testo della voce se il cliente lo vuole suo, carichi e materiali di un calcolo, colori del brand che non trovi, fedeltà di una parte che non si vede nelle sorgenti). Fra una sosta e l'altra dai solo brevi aggiornamenti su cosa stai facendo.
-  - **agentica**: il percorso dell'automatica, con il lavoro diviso fra subagenti che lavorano in parallelo e si controllano a vicenda, e le soste che arrivano sul telefono (sotto, "Modalità agentica"). Variante **senza soste**, solo su richiesta.
+  - **agentica**: il percorso dell'automatica, con il lavoro diviso fra subagenti che lavorano in parallelo e si controllano a vicenda (regista, sceneggiatore, motion designer, funzionamento, revisore tecnico, audio, riprese vere, spettatore), e le soste che arrivano sul telefono (sotto, "Modalità agentica"). Variante **senza soste**, solo su richiesta.
 - **Guida con domande** (modalità guidata). All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
@@ -80,7 +80,8 @@ Al posto di ogni checkpoint guardi tu il risultato (`Read` sui JPG e sui PNG di 
 | 2 scene | il moto misurato con `motion_probe.py` torna con `funzionamento.md` (assi, versi, rapporti, corse, ordine del ciclo); il soggetto resta in quadro, nessuna compenetrazione, i giunti dentro i limiti, la camera non attraversa oggetti, il movimento si legge (né troppo lento né a scatti) |
 | 3 montaggio | ordine come il racconto, niente due piani uguali di fila, un piano largo ogni 2–3 stretti, durata totale entro ±10% del brief, scene da 5–10 s e intermezzi da 2–3 s senza testo |
 | 3 riprese vere | stessa macchina e stessa versione del 3D, nello split lo stesso istante del ciclo (±2 frame), colore e contrasto vicini al render, niente tremolio né rotazione sbagliata |
-| 4 grafiche | testi dentro le zone sicure (`safe_zone.sh`), leggibili alla dimensione del telefono, solo colori della palette, misure uguali alla sorgente |
+| 4 testi | racconto e non elenco: un'idea e al massimo un numero per scena, ogni dato con il suo "e quindi?", voce e testo che non si ripetono, ogni numero con la sua fonte |
+| 4 grafiche | testi dentro le zone sicure (`safe_zone.sh`), leggibili alla dimensione del telefono, entrano con la voce e restano almeno 1 s + 0,3 s per parola, una cosa alla volta, solo colori della palette, misure uguali alla sorgente |
 | 5 audio | ogni scena dura quanto la sua voce più il margine (`fit_vo.py`), pronuncia di nomi e sigle, musica sotto la voce |
 Alle soste mostra all'utente anche il riepilogo dei controlli fatti.
 
@@ -101,25 +102,34 @@ Alle soste mostra all'utente anche il riepilogo dei controlli fatti.
 Dopo la richiesta riprendi il percorso in automatica dal punto in cui eri, e dillo in una riga. Se la richiesta tocca qualcosa già approvato a una sosta (testi, video con i testi), ripassa da quella sosta.
 
 ### Modalità agentica
-Stesso percorso, stesse soste e stesse regole di budget dell'automatica. In più dividi il lavoro fra **subagenti** (strumento `Agent`, in background) e fai il regista: tieni tu `progetto.md` e decidi tu. Ogni agente riceve un compito stretto, i file da leggere e quello che deve rendere; scrive solo nei suoi file e ti torna un rapporto breve. Il suo rapporto è un'indicazione, non una prova: controlla il risultato prima di segnarlo fatto.
+Stesso percorso, stesse soste e stesse regole di budget dell'automatica. In più il lavoro si divide fra **subagenti** (strumento `Agent`, in background), come in una piccola casa di produzione. Tu sei il **produttore**: parli con l'utente, tieni `progetto.md`, il budget, le soste e i render, e scegli fra le proposte degli agenti; il racconto lo decidono regista e sceneggiatore. Ogni agente riceve un compito stretto, i file da leggere e quello che deve rendere; scrive solo nei suoi file e ti torna un rapporto breve. Il suo rapporto è un'indicazione, non una prova: controlla il risultato prima di segnarlo fatto.
 
 | Agente | Quando parte | Cosa fa | Rende |
 |---|---|---|---|
+| **Regista** | dopo il brief, poi su storyboard, anteprime e montaggio | scrive il **trattamento** (la storia in 5 righe: chi guarda, il problema, la svolta, la prova, come finisce), da lì la scaletta con piani, movimenti e ritmo (fase 2); sulle bozze giudica il racconto: si capisce, tiene l'attenzione, il ritmo respira | `trattamento.md`, la scaletta, note di regia per scena |
+| **Sceneggiatore** | insieme al regista, poi dopo ogni cambio di scaletta | scrive voce e testi a schermo come racconto, con le regole della fase 4 ("Scrivere voce e testi"); propone 2–3 agganci diversi | `audio/vo.txt`, i testi in `storyboard.json`, `agganci.md` |
 | **Funzionamento** (il più importante) | dopo il modello (1d), poi su ogni anteprima e sul montaggio | legge le sorgenti senza vedere il tuo lavoro, scrive o controlla `funzionamento.md`, poi misura il moto delle scene con `motion_probe.py` e lo confronta riga per riga | la tabella Verifica di `funzionamento.md`, con ogni scarto e la scena e i frame dove sta |
-| **Revisore visivo** | storyboard, anteprime, montaggio, video con i testi | guarda solo i frame (griglie, provini, snapshot) con la scaletta e la scheda, non il tuo ragionamento | elenco dei problemi con scena, frame e gravità (blocca / da sistemare / gusto) |
-| **Grafiche** | mentre la GPU fa il render del montaggio | costruisce le composizioni HyperFrames sul video di bozza con i testi della scaletta | `hyperframes/` con `check` pulito e gli snapshot |
-| **Audio** | dopo la scaletta | scrive le frasi della voce entro le durate, la lista degli SFX con i loro istanti e il prompt della musica; non spende crediti | `audio/vo.txt`, `audio/sfx.md`, `audio/musica.md` |
+| **Revisore tecnico** | storyboard, anteprime, montaggio | guarda solo i frame (griglie, provini, snapshot) con la scaletta e la scheda: compenetrazioni, camera che attraversa oggetti, materiali neri o rosa, scatti, continuità | elenco dei problemi con scena, frame e gravità (blocca / da sistemare / gusto) |
+| **Motion designer** | mentre la GPU fa il render del montaggio, con i testi approvati | progetta e costruisce le grafiche animate HyperFrames e le controlla in movimento, con le regole della fase 4 ("Grafiche animate") | `hyperframes/` con `check` pulito, snapshot a più istanti per scena, `grafiche.md` con i tempi di ogni elemento |
+| **Audio** | dopo i testi approvati | solo suono: scaletta degli SFX con i loro istanti, brief e prompt della musica, piano del mix sotto la voce; non spende crediti | `audio/sfx.md`, `audio/musica.md`, `audio/mix.md` |
 | **Riprese vere** | appena arrivano i video | analizza le riprese (durata, fps, rotazione, stabilità, pezzi buoni con in e out, istanti del ciclo) | `source/video/riprese.md` e un provino per ripresa |
+| **Spettatore** | sulla bozza completa, prima della sosta 3 (e prima della consegna) | guarda il video senza sapere niente del progetto, né brief né scaletta: dice in una frase cosa ha capito, dove si è perso, quale testo non ha fatto in tempo a leggere, cosa ricorda | `spettatore.md`; lo confronti tu con "cosa deve capire chi guarda" del brief |
+
+**Come si passano il lavoro.**
+1. Regista e sceneggiatore insieme, prima di ogni render: trattamento, scaletta e testi in bozza. La scaletta segue la storia, non il contrario. Il trattamento e gli agganci vanno nel riepilogo della sosta 1.
+2. Durante i render delle scene: funzionamento e revisore tecnico; il regista guarda storyboard e anteprime per il racconto.
+3. Durante il render del montaggio: il motion designer fa le grafiche sui testi approvati alla sosta 2, l'audio prepara SFX, musica e mix.
+4. Prima della sosta 3: lo spettatore. Se la sua frase non coincide con "cosa deve capire chi guarda", regista e sceneggiatore correggono prima che il video arrivi all'utente.
 
 Regole:
 - **Una GPU sola**: i render Blender li lanci solo tu, uno alla volta. Gli agenti lavorano sul resto, ed è lì che si guadagna tempo.
-- **Indipendenza dei controlli**: il revisore e l'agente del funzionamento non ricevono le tue conclusioni, solo i materiali; altrimenti trovano giusto quello che hai già trovato giusto tu. Un problema "blocca" torna alla fase giusta; dopo due giri senza soluzione è una sosta.
-- **Mai due agenti sugli stessi file.** Al massimo quanti ne dice la riga `Agenti` (di default 3 insieme). Gli agenti consumano token: dillo nel brief, con la modalità.
+- **Indipendenza dei controlli**: revisore tecnico, funzionamento e spettatore non ricevono le tue conclusioni, solo i materiali (lo spettatore nemmeno quelli: solo il video); altrimenti trovano giusto quello che hai già trovato giusto tu. Un problema "blocca" torna alla fase giusta; dopo due giri senza soluzione è una sosta.
+- **Mai due agenti sugli stessi file.** Al massimo quanti ne dice la riga `Agenti` (di default 3 insieme): gli agenti si alternano per fase, non partono tutti insieme. Gli agenti consumano token: dillo nel brief, con la modalità.
 - Le generazioni a pagamento (voce, musica, SFX, AI) le lanci tu, dentro il budget, non gli agenti.
 
 **Soste sul telefono** (agentica, e anche automatica se l'utente lo chiede). I render lunghi girano con Bash `run_in_background`. A ogni sosta manda il file da guardare con `SendUserFile` (status `proactive`: il video leggero, il PDF, il provino) e una domanda di una riga; l'utente può rispondere dal telefono ("ok", "rifai la scena 3", "stop"). Il render finale di notte funziona così: parte con l'ok della sosta 3 e la consegna arriva sul telefono alla sosta 4.
 
-**Senza soste** (riga `Modalità: agentica senza soste`, solo se l'utente lo chiede). Va dal brief alla consegna senza fermarsi: scaletta, testi e voce li decidi tu, la voce si genera dentro il budget, e nella consegna metti lo storyboard in PDF e i `vo_<lingua>.md` segnati "da approvare". Restano le fermate per una spesa fuori budget, una cancellazione, un dato che non si inventa e un problema di funzionamento che non si risolve. Consigliala solo per prove interne o per varianti di un video già approvato, mai per un primo video da mandare al cliente.
+**Senza soste** (riga `Modalità: agentica senza soste`, solo se l'utente lo chiede). Va dal brief alla consegna senza fermarsi: trattamento, scaletta, aggancio, testi e voce li scelgono regista e sceneggiatore e li approvi tu come produttore, la voce si genera dentro il budget, e nella consegna metti lo storyboard in PDF e i `vo_<lingua>.md` segnati "da approvare". Restano le fermate per una spesa fuori budget, una cancellazione, un dato che non si inventa e un problema di funzionamento che non si risolve. Consigliala solo per prove interne o per varianti di un video già approvato, mai per un primo video da mandare al cliente.
 
 ## Da dove partire
 | L'utente dice… | Vai a |
@@ -153,7 +163,7 @@ Questa skill è il regista: decide fasi, domande, checkpoint e stato. Il mestier
 | 2 anteprime, 7 render finale | **rendering** |
 
 ## 0. Brief
-**Prima domanda, sempre: la modalità.** Con `AskUserQuestion`: "Automatica (consigliato): ti chiedo poco adesso, poi vado avanti da solo e ti fermo solo per il provino, il render finale e le spese", "Agentica: come l'automatica, ma con più agenti in parallelo che si controllano a vicenda (funzionamento, immagini, grafiche, audio) e le soste sul telefono; più veloce e più controllata, consuma più token" oppure "Guidata: ti chiedo a ogni fase". La variante senza soste dell'agentica si usa solo se l'utente la chiede.
+**Prima domanda, sempre: la modalità.** Con `AskUserQuestion`: "Automatica (consigliato): ti chiedo poco adesso, poi vado avanti da solo e ti fermo solo per il provino, il render finale e le spese", "Agentica: come l'automatica, ma con una squadra di agenti (regista, sceneggiatore, motion designer, controllo del funzionamento, revisori) che lavorano in parallelo e si controllano a vicenda, e le soste sul telefono; più veloce e più controllata, consuma più token" oppure "Guidata: ti chiedo a ogni fase". La variante senza soste dell'agentica si usa solo se l'utente la chiede.
 
 **Brief rapido (automatica).** Chiedi solo quattro cose, in un solo giro di `AskUserQuestion`: cosa c'è di sorgente (file, foto, link, PDF, descrizione di come funziona, video della macchina vera o riprese da inserire nel video), **dove va il video** (Instagram/TikTok, sito o YouTube, fiera, presentazione), cosa deve capire chi guarda e **la sua idea di storia**: "Hai già un'idea di come raccontarlo? Scrivila anche in due righe (cosa si vede all'inizio, cosa si mostra, come finisce), oppure scegli Decidi tu". Questa domanda si fa sempre, prima di qualunque scaletta o storyboard: se l'utente dà un'idea, la scaletta parte da lì e la rispetta; con "Decidi tu" la costruisci dall'arco del racconto (sotto, alla voce Racconto). Il resto lo deduci dall'uso con le impostazioni qui sotto, più quello che trovi in memoria per il cliente (palette, logo, divieti):
 
@@ -180,7 +190,7 @@ Le domande delle fasi successive (lingue dello storyboard e della voce, voce da 
   - atmosfera e luce: tecnica e pulita, cinematografica e contrastata, calda o fredda, giorno o notte, fumo/polvere/riflessi a terra;
   - foto di riferimento dell'ambientazione o del look (facoltativa).
   Proponi 2–3 combinazioni adatte all'uso (social → scuro e contrastato; catalogo → limbo chiaro).
-- **Racconto**: cosa deve capire chi guarda, scene di massima, testo del voice-over se c'è già. Costruiscilo come un arco, non come una lista di viste: aggancio (1–3 s, un dettaglio o un movimento che incuriosisce) → presentazione del pezzo intero → come funziona, dal fuori al dentro (sezione, esploso) → il beneficio o il numero chiave → chiusura con il prodotto intero e il logo.
+- **Racconto**: cosa deve capire chi guarda, scene di massima, testo del voice-over se c'è già. Costruiscilo come un racconto con un problema da risolvere, non come una lista di viste o di dati: aggancio (1–3 s, una domanda, un problema, un dettaglio che incuriosisce) → il problema di chi usa la macchina → la macchina intera → come lo risolve, dal fuori al dentro (sezione, esploso) → la prova (il numero chiave) → cosa cambia per chi la usa → chiusura con il prodotto intero e il logo. Le regole di scrittura sono nella fase 4.
 - **Palette delle infografiche** (vale **solo per HyperFrames**: in Blender prodotto e ambiente hanno i loro colori reali). Se il cliente è in memoria usa i suoi colori e i suoi divieti. Altrimenti chiedi sempre, in uno di tre modi:
   - a parole ("blu scuro e bianco"): proponi tu gli Hex e falli confermare;
   - codici Hex;
@@ -392,6 +402,20 @@ Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: 
 
 ## 4. HyperFrames: testo e grafiche
 - Chiedi se il **testo del voice-over** lo dà l'utente o lo scrivi tu. In quel caso scrivilo scena per scena, entro la durata di `timings.json` (circa 2,5 parole al secondo), in `audio/vo.txt` con una riga per scena: `n|testo`. Fallo approvare. Per registrare fuori (speaker, studio, altro TTS) genera anche i file `vo_<lingua>.md`, uno per lingua richiesta, con tempo, durata, numero di parole e testo per scena: `python3 $K/storyboard_pdf.py storyboard.json delivery/vo --no-pdf`.
+- **Scrivere voce e testi: racconto, non elenco** (in agentica lo fa lo sceneggiatore, nelle altre modalità tu):
+  - segui l'arco del racconto (fase 0): il filo è il problema di chi usa la macchina e come lei lo risolve; ogni scena porta avanti quel filo, non aggiunge una scheda tecnica;
+  - **ogni dato risponde a "e quindi?"**: non "portata 1200 kg/h" ma "1200 kg all'ora: un turno intero senza fermarsi"; al massimo **un numero per scena**, ed è la prova di quello che dice la frase;
+  - **voce e testo a schermo non si ripetono**: la voce dice il perché, il testo dice il nome o il numero; se dicono la stessa cosa, togline uno;
+  - **un'idea per scena**, frasi corte da dire ad alta voce (una frase, al massimo due, entro 2,5 parole al secondo), verbi attivi, niente sigle non spiegate, il tono del cliente;
+  - **aggancio**: proponine 2–3 diversi (una domanda, un problema, un'immagine) e fai scegliere;
+  - **niente affermazioni senza fonte**: ogni numero e ogni prestazione viene da `funzionamento.md` o dalle sorgenti; superlativi ("il più veloce") solo se il cliente li documenta;
+  - **chiusura**: cosa resta a chi guarda, poi il logo; una call to action solo se il brief la chiede.
+- **Grafiche animate: controlla il movimento, non solo i fotogrammi** (in agentica lo fa il motion designer):
+  - **tempi**: ogni testo entra quando la voce lo nomina o quando il pezzo si muove, ed esce dopo, non prima; resta a schermo almeno 1 s più 0,3 s per parola;
+  - **gerarchia**: una cosa alla volta da leggere; il titolo della scena prima, il dettaglio dopo; mai due testi che entrano insieme in punti diversi del quadro;
+  - **coerenza**: le stesse curve di movimento, gli stessi tempi di entrata e uscita e la stessa posizione per lo stesso tipo di elemento in tutto il video;
+  - **spazio**: i callout indicano la parte senza coprirla e la seguono se si muove; il prodotto resta il protagonista;
+  - **controllo**: snapshot all'inizio, a metà e alla fine di ogni grafica (non solo a metà scena), e `grafiche.md` con entrata, uscita e durata di ogni elemento confrontate con la voce.
 - Chiedi quali **grafiche** servono: titoli, callout, misure, conteggi, lower third, sottotitoli, logo finale.
 - Chiedi lo **stile delle grafiche**:
   - **solo HyperFrames**: pulite, precise, sempre nella palette. È il default;

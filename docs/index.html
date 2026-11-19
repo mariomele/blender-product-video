@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#090B10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blender Product Video: turn your machine into an explainer video">
-<meta property="og:description" content="Photos, STEP, DWG or a drawing in. A Blender explainer out: cutaways, exploded views, real materials, cinematic camera moves, stress analyses, AI worlds. New agentic mode: five agents in parallel that check each other. All vibe coding, no Blender or CAD skills needed. · Trasforma la tua macchina in un video explainer.">
+<meta property="og:description" content="Photos, STEP, DWG or a drawing in. A Blender explainer out: cutaways, exploded views, real materials, cinematic camera moves, stress analyses, AI worlds. New agentic mode: a crew of eight agents, from director and scriptwriter to the checkers. All vibe coding, no Blender or CAD skills needed. · Trasforma la tua macchina in un video explainer.">
 <meta property="og:url" content="https://mariomele.github.io/blender-product-video/">
 <meta property="og:image" content="https://mariomele.github.io/blender-product-video/assets/og.png?v=3">
 <meta property="og:image:width" content="1200">
@@ -442,7 +442,7 @@ footer a{color:var(--soft)}
 .np{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:6px 14px 6px 6px;border:1px solid var(--line2);border-radius:999px;background:var(--panel);color:var(--soft);font-size:14px;text-decoration:none;transition:border-color .25s,color .25s}
 .np:hover{border-color:var(--accent);color:var(--text)}
 .np b{font:600 11px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:var(--accentInk);padding:6px 9px;border-radius:999px}
-.ag{margin-top:40px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
+.ag{margin-top:20px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
 .ag-box{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:24px 26px}
 .ag-box h3{margin:0 0 4px;font-size:18px}.ag-box>p{margin:0 0 30px;color:var(--muted);font-size:15px}
 .gantt{position:relative;display:grid;gap:9px}
@@ -465,14 +465,30 @@ footer a{color:var(--soft)}
 .msg.me{align-self:flex-end;border-radius:14px 14px 4px 14px;background:var(--accent);border-color:var(--accent);color:var(--accentInk);font-weight:500}
 .chk{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;color:var(--soft)}.chk .ph{color:var(--accent)}
 .qr{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}.qr span{font-size:12.5px;padding:6px 11px;border-radius:999px;border:1px solid var(--line2);color:var(--soft)}
-.agents{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.producer{margin-top:40px;display:flex;align-items:center;gap:14px;padding:16px 20px;border:1px solid var(--accent);border-radius:var(--r);background:linear-gradient(90deg,rgb(61 139 255 / .12),var(--panel) 60%)}
+.producer .ph{font-size:26px;color:var(--accent)}.producer b{display:block;font-size:16px}.producer span{font-size:14px;color:var(--soft)}
+.crew{display:grid;grid-template-columns:3fr 3fr 2fr;gap:20px;margin-top:20px}
+.crew-g h3{margin:0;font:600 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.crew-g .agents{margin-top:12px}
+.agents{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px}
+.script{margin-top:20px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:24px 26px}
+.sc-h{display:flex;align-items:center;gap:10px}.sc-h .ph{font-size:22px;color:var(--accent)}.sc-h h3{margin:0;font-size:18px}
+.sc-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.sc{border-radius:var(--rs);padding:16px 18px;border:1px solid var(--line2);background:var(--bg2)}
+.sc small{display:block;font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.sc p{margin:0;font-size:17px;line-height:1.45;color:var(--soft)}
+.sc.old p{text-decoration:line-through;text-decoration-color:rgb(255 255 255 / .25)}
+.sc.new{border-color:var(--accent)}.sc.new small{color:var(--accent)}.sc.new p{color:var(--text);font-weight:500}
+.sc.new>span{display:inline-block;margin-top:10px;font:500 12px/1 var(--mono);color:var(--muted)}.sc.new>span b{color:var(--accent);font-weight:600}
+.sc-rules{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sc-rules li{font-size:13.5px;color:var(--soft);padding-left:14px;position:relative}.sc-rules li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
 .agents li{border:1px solid var(--line);border-radius:var(--rs);background:var(--panel);padding:16px}
 .agents li.key{border-color:var(--accent);box-shadow:0 0 0 1px rgb(61 139 255 / .25) inset}
 .agents .ph{font-size:22px;color:var(--accent)}.agents h4{margin:8px 0 4px;font-size:15px}.agents p{margin:0;font-size:13.5px;color:var(--soft);line-height:1.45}
 .agents em{display:inline-block;margin-top:8px;font:500 10.5px/1 var(--mono);font-style:normal;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
 .ag-note{margin:16px 0 0;font-size:14px;color:var(--muted);max-width:80ch}
 @media(prefers-reduced-motion:no-preference){.ag-box.rv .tr i{transform:scaleX(0);transition:transform .9s cubic-bezier(.16,1,.3,1);transition-delay:calc(.25s + var(--d,0) * 1s)}.ag-box.rv.in .tr i{transform:none}}
-@media(max-width:900px){.ag{grid-template-columns:1fr}.agents{grid-template-columns:1fr 1fr}.ln{grid-template-columns:112px 1fr;gap:10px;font-size:12px}.stop{left:calc(122px + (100% - 122px) * var(--x))}.agents li.key{grid-column:1/-1}.ag-box{padding:20px 16px}}
+@media(max-width:900px){.ag,.crew,.sc-cols{grid-template-columns:1fr}.sc-rules{grid-template-columns:1fr 1fr}.ln{grid-template-columns:118px 1fr;gap:10px;font-size:12px}.stop{left:calc(128px + (100% - 128px) * var(--x))}.ag-box{padding:20px 16px}}
 @media (prefers-reduced-motion:no-preference){
   .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .rv.in{opacity:1;transform:none}
@@ -559,7 +575,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 
 <div class="hero">
 <div>
-<a class="np" href="#agenti"><b lang="en">New</b><b lang="it">Novità</b><span lang="en">Agentic mode: five agents that check each other</span><span lang="it">Modalità agentica: cinque agenti che si controllano a vicenda</span><i class="ph ph-arrow-right"></i></a>
+<a class="np" href="#agenti"><b lang="en">New</b><b lang="it">Novità</b><span lang="en">Agentic mode: a director, a scriptwriter, a motion designer and the checkers</span><span lang="it">Modalità agentica: regista, sceneggiatore, motion designer e chi controlla</span><i class="ph ph-arrow-right"></i></a>
 <h1 lang="en">Turn your machine into an <em>explainer video</em>.</h1>
 <h1 lang="it">Trasforma la tua macchina in un <em>video explainer</em>.</h1>
 <p class="lead" lang="en">The whole process, from CAD file to finished explainer video, in one skill. <strong>Weeks or months of work, done in a few hours.</strong></p>
@@ -600,7 +616,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 
 <div class="facts rv">
 <div><b lang="en">Hours</b><b lang="it">Ore</b><span lang="en">not weeks: CAD to finished video</span><span lang="it">non settimane: dal CAD al video finito</span></div>
-<div><b>5</b><span lang="en">agents in parallel, checking each other</span><span lang="it">agenti in parallelo, che si controllano a vicenda</span></div>
+<div><b>8</b><span lang="en">agents: director, scriptwriter, motion designer and checkers</span><span lang="it">agenti: regista, sceneggiatore, motion designer e chi controlla</span></div>
 <div><b>24 fps</b><span lang="en">Cycles render on the Metal GPU</span><span lang="it">render Cycles su GPU Metal</span></div>
 <div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5 · IG and TikTok safe zones</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5 · safe zone IG e TikTok</span></div>
 </div>
@@ -664,7 +680,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <ul class="easy">
 <li class="rv"><i class="ph ph-chats"></i><h3><span lang="en">You speak, not Blender</span><span lang="it">Parli tu, non Blender</span></h3><p lang="en">Describe the shot in plain words. No nodes, keyframes or render settings to learn.</p><p lang="it">Descrivi l'inquadratura a parole. Niente nodi, keyframe o impostazioni di render da imparare.</p></li>
 <li class="rv"><i class="ph ph-check-circle"></i><h3><span lang="en">Automatic or guided</span><span lang="it">Automatica o guidata</span></h3><p lang="en">Automatic: four questions, your story idea included, and a summary, then it works alone and stops only for the texts (storyboard PDF and voice-over .md), the video with text, and delivery. Guided: it asks at every step.</p><p lang="it">Automatica: quattro domande, compresa la tua idea di storia, e un riepilogo, poi lavora da sola e si ferma solo per i testi (storyboard in PDF e voce in .md), il video con i testi e la consegna. Guidata: chiede a ogni passo.</p></li>
-<li class="rv"><i class="ph ph-users-three"></i><h3><span lang="en">Agentic, if you want</span><span lang="it">Agentica, se vuoi</span></h3><p lang="en">The automatic path split across parallel agents: one checks how the machine works, an independent reviewer looks at the frames, others build graphics and audio while the GPU renders. Stops reach your phone.</p><p lang="it">Il percorso automatico diviso fra agenti in parallelo: uno controlla come funziona la macchina, un revisore indipendente guarda i frame, altri fanno grafiche e audio mentre la GPU renderizza. Le soste arrivano sul telefono.</p></li>
+<li class="rv"><i class="ph ph-users-three"></i><h3><span lang="en">Agentic, if you want</span><span lang="it">Agentica, se vuoi</span></h3><p lang="en">A crew of agents: a director and a scriptwriter build the story, a motion designer animates it, others check how the machine works, the frames and what a viewer understands. Stops reach your phone.</p><p lang="it">Una squadra di agenti: regista e sceneggiatore costruiscono il racconto, il motion designer lo anima, altri controllano il funzionamento, i frame e cosa capisce chi guarda. Le soste arrivano sul telefono.</p></li>
 <li class="rv"><i class="ph ph-gear-six"></i><h3><span lang="en">Works like the real one</span><span lang="it">Funziona come quella vera</span></h3><p lang="en">From CAD, PDF datasheet, a description, the website or a video it writes what moves, which way, how fast and in what order, then measures every scene against it.</p><p lang="it">Da CAD, scheda tecnica in PDF, descrizione, sito o video scrive cosa si muove, in che verso, a che velocità e in che ordine, poi misura ogni scena su quella scheda.</p></li>
 <li class="rv"><i class="ph ph-columns"></i><h3><span lang="en">Real footage and 3D</span><span lang="it">Riprese vere e 3D</span></h3><p lang="en">Your own videos as b-roll, in a side-by-side or stacked split screen synced to the 3D, or cutting from the real machine into its cutaway.</p><p lang="it">I tuoi video come b-roll, in split screen affiancato o sovrapposto e sincronizzato con il 3D, o con il passaggio dalla macchina vera alla sua sezione.</p></li>
 <li class="rv"><i class="ph ph-package"></i><h3><span lang="en">Everything in one place</span><span lang="it">Tutto in un posto</span></h3><p lang="en">Model, materials, animation, graphics, voice, render and delivery files.</p><p lang="it">Modello, materiali, animazione, grafiche, voce, render e file di consegna.</p></li>
@@ -673,40 +689,50 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 
 <section id="agenti">
 <span class="eyebrow rv"><span lang="en">New · Agentic mode</span><span lang="it">Novità · Modalità agentica</span></span>
-<h2 class="rv" style="margin-top:12px"><span lang="en">A team of agents, not one assistant.</span><span lang="it">Una squadra di agenti, non un assistente solo.</span></h2>
-<p class="sub rv"><span lang="en">Claude Code directs. Five agents work in parallel while the GPU renders, and they check each other: the one that checks the machine and the reviewer never see the reasoning, only the material. You get the stops on your phone.</span><span lang="it">Claude Code fa il regista. Cinque agenti lavorano in parallelo mentre la GPU renderizza, e si controllano a vicenda: chi controlla la macchina e il revisore non vedono il ragionamento, solo il materiale. Le soste ti arrivano sul telefono.</span></p>
+<h2 class="rv" style="margin-top:12px"><span lang="en">A production crew of agents, not one assistant.</span><span lang="it">Una casa di produzione di agenti, non un assistente solo.</span></h2>
+<p class="sub rv"><span lang="en">Claude Code is the producer: it talks to you, keeps the budget and runs the renders. A director and a scriptwriter build the story, a motion designer animates it, and the checkers never see the reasoning, only the material. You get the stops on your phone.</span><span lang="it">Claude Code fa il produttore: parla con te, tiene il budget e lancia i render. Regista e sceneggiatore costruiscono il racconto, il motion designer lo anima, e chi controlla non vede il ragionamento, solo il materiale. Le soste ti arrivano sul telefono.</span></p>
+<div class="producer rv"><i class="ph ph-crown-simple"></i><div><b lang="en">Producer · Claude Code</b><b lang="it">Produttore · Claude Code</b><span lang="en">talks to you, budget, stops, renders on the GPU, picks between the agents' proposals</span><span lang="it">parla con te, budget, soste, render sulla GPU, sceglie fra le proposte degli agenti</span></div></div>
+<div class="crew">
+<div class="crew-g"><h3 class="rv"><span lang="en">Tell the story</span><span lang="it">Raccontano</span></h3><ul class="agents"><li class="key rv"><i class="ph ph-film-slate"></i><h4><span lang="en">Director</span><span lang="it">Regista</span></h4><p lang="en">Writes the treatment, the story in five lines, then the shot list and the rhythm. Judges every draft as a story: is it clear, does it hold you?</p><p lang="it">Scrive il trattamento, la storia in cinque righe, poi scaletta e ritmo. Giudica ogni bozza come racconto: si capisce, tiene l'attenzione?</p></li><li class="key rv"><i class="ph ph-pen-nib"></i><h4><span lang="en">Scriptwriter</span><span lang="it">Sceneggiatore</span></h4><p lang="en">Voice-over and on-screen text as a story, not a list of specs. One idea per scene, every number answers "so what?". Two or three hooks to choose from.</p><p lang="it">Voce e testi a schermo come racconto, non come elenco di dati. Un'idea per scena, ogni numero risponde a "e quindi?". Due o tre agganci da scegliere.</p></li><li class="rv"><i class="ph ph-sparkle"></i><h4><span lang="en">Motion designer</span><span lang="it">Motion designer</span></h4><p lang="en">Builds the animated graphics and checks them in motion: text enters with the voice, stays long enough to read, one thing at a time.</p><p lang="it">Costruisce le grafiche animate e le controlla in movimento: il testo entra con la voce, resta il tempo di leggerlo, una cosa alla volta.</p></li></ul></div>
+<div class="crew-g"><h3 class="rv"><span lang="en">Check</span><span lang="it">Controllano</span></h3><ul class="agents"><li class="key rv"><i class="ph ph-gear-six"></i><h4><span lang="en">Function</span><span lang="it">Funzionamento</span></h4><p lang="en">Reads CAD, PDF, text, website and video, writes how the machine works and measures every scene against it.</p><p lang="it">Legge CAD, PDF, testo, sito e video, scrive come funziona la macchina e misura ogni scena su quella scheda.</p></li><li class="rv"><i class="ph ph-eye"></i><h4><span lang="en">Technical reviewer</span><span lang="it">Revisore tecnico</span></h4><p lang="en">Only the frames: overlaps, the camera passing through parts, broken materials, jumps, continuity.</p><p lang="it">Solo i frame: compenetrazioni, camera che attraversa le parti, materiali sbagliati, scatti, continuità.</p></li><li class="rv"><i class="ph ph-user"></i><h4><span lang="en">Viewer</span><span lang="it">Spettatore</span></h4><p lang="en">Watches the draft knowing nothing about the project and says in one sentence what it understood. If it is not your message, the story is fixed before you see it.</p><p lang="it">Guarda la bozza senza sapere niente del progetto e dice in una frase cosa ha capito. Se non è il tuo messaggio, il racconto si corregge prima che lo veda tu.</p></li></ul></div>
+<div class="crew-g"><h3 class="rv"><span lang="en">Prepare</span><span lang="it">Preparano</span></h3><ul class="agents"><li class="rv"><i class="ph ph-waveform"></i><h4><span lang="en">Audio</span><span lang="it">Audio</span></h4><p lang="en">Sound only: effects on the movements, the music brief, the mix under the voice. Spends no credits.</p><p lang="it">Solo suono: effetti sui movimenti, il brief della musica, il mix sotto la voce. Non spende crediti.</p></li><li class="rv"><i class="ph ph-video-camera"></i><h4><span lang="en">Real footage</span><span lang="it">Riprese vere</span></h4><p lang="en">Checks your videos: length, fps, rotation, good takes, the moments of the cycle for the split screen.</p><p lang="it">Analizza i tuoi video: durata, fps, rotazione, pezzi buoni, gli istanti del ciclo per lo split screen.</p></li></ul></div>
+</div>
+<div class="script rv">
+<div class="sc-h"><i class="ph ph-pen-nib"></i><h3><span lang="en">A story, not a list of specs</span><span lang="it">Un racconto, non un elenco di dati</span></h3></div>
+<div class="sc-cols">
+<div class="sc old"><small lang="en">LIST</small><small lang="it">ELENCO</small><p lang="en">“Throughput 1,200 kg/h. 7.5 kW motor. Stainless steel AISI 304.”</p><p lang="it">“Portata 1200 kg/h. Motore da 7,5 kW. Acciaio inox AISI 304.”</p></div>
+<div class="sc new"><small lang="en">STORY</small><small lang="it">RACCONTO</small><p lang="en">“1,200 kg an hour: a whole shift without stopping.”</p><p lang="it">“1200 kg all'ora: un turno intero senza fermarsi.”</p><span lang="en">on screen: <b>1,200 kg/h</b></span><span lang="it">a schermo: <b>1200 kg/h</b></span></div>
+</div>
+<ul class="sc-rules"><li lang="en">the problem of whoever uses the machine is the thread</li><li lang="it">il filo è il problema di chi usa la macchina</li><li lang="en">one idea and at most one number per scene</li><li lang="it">un'idea e al massimo un numero per scena</li><li lang="en">the voice says why, the screen says the number</li><li lang="it">la voce dice il perché, lo schermo dice il numero</li><li lang="en">every figure from your sources, never invented</li><li lang="it">ogni numero dalle tue fonti, mai inventato</li></ul>
+</div>
 <div class="ag">
-<div class="ag-box rv"><h3><span lang="en">Nobody waits for the render</span><span lang="it">Nessuno aspetta il render</span></h3><p lang="en">One GPU, renders one after the other. Everything else runs beside them.</p><p lang="it">Una GPU, i render uno dopo l'altro. Tutto il resto gira accanto.</p>
+<div class="ag-box rv"><h3><span lang="en">Nobody waits for the render</span><span lang="it">Nessuno aspetta il render</span></h3><p lang="en">One GPU, renders one after the other. The crew works beside them, three agents at a time.</p><p lang="it">Una GPU, i render uno dopo l'altro. La squadra lavora accanto, tre agenti per volta.</p>
 <div class="gantt">
-<span class="stop" style="--x:.52"><span lang="en">stop 2</span><span lang="it">sosta 2</span></span><span class="stop" style="--x:.98"><span lang="en">stop 3</span><span lang="it">sosta 3</span></span>
-<div class="ln gpu"><span><i class="ph ph-graphics-card"></i><span lang="en">GPU render</span><span lang="it">Render GPU</span></span><div class="tr"><i style="--s:0%;--w:48%;--d:0.00"></i><i style="--s:56%;--w:40%;--d:0.56"></i></div></div>
-<div class="ln fn"><span><i class="ph ph-gear-six"></i><span lang="en">Function</span><span lang="it">Funzionamento</span></span><div class="tr"><i style="--s:0%;--w:14%;--d:0.00"></i><i style="--s:24%;--w:8%;--d:0.24"></i><i style="--s:44%;--w:8%;--d:0.44"></i><i style="--s:80%;--w:8%;--d:0.80"></i></div></div>
-<div class="ln "><span><i class="ph ph-eye"></i><span lang="en">Reviewer</span><span lang="it">Revisore</span></span><div class="tr"><i style="--s:16%;--w:7%;--d:0.16"></i><i style="--s:40%;--w:6%;--d:0.40"></i><i style="--s:86%;--w:10%;--d:0.86"></i></div></div>
-<div class="ln "><span><i class="ph ph-text-aa"></i><span lang="en">Graphics</span><span lang="it">Grafiche</span></span><div class="tr"><i style="--s:30%;--w:24%;--d:0.30"></i><i style="--s:58%;--w:22%;--d:0.58"></i></div></div>
-<div class="ln "><span><i class="ph ph-waveform"></i><span lang="en">Audio</span><span lang="it">Audio</span></span><div class="tr"><i style="--s:8%;--w:30%;--d:0.08"></i><i style="--s:60%;--w:16%;--d:0.60"></i></div></div>
-<div class="ln "><span><i class="ph ph-video-camera"></i><span lang="en">Real footage</span><span lang="it">Riprese vere</span></span><div class="tr"><i style="--s:0%;--w:20%;--d:0.00"></i></div></div>
+<span class="stop" style="--x:.53"><span lang="en">stop 2</span><span lang="it">sosta 2</span></span><span class="stop" style="--x:.99"><span lang="en">stop 3</span><span lang="it">sosta 3</span></span>
+<div class="ln gpu"><span><i class="ph ph-graphics-card"></i><span lang="en">GPU render</span><span lang="it">Render GPU</span></span><div class="tr"><i style="--s:12%;--w:40%;--d:0.12"></i><i style="--s:58%;--w:38%;--d:0.58"></i></div></div>
+<div class="ln "><span><i class="ph ph-film-slate"></i><span lang="en">Director</span><span lang="it">Regista</span></span><div class="tr"><i style="--s:0%;--w:12%;--d:0.00"></i><i style="--s:26%;--w:6%;--d:0.26"></i><i style="--s:46%;--w:6%;--d:0.46"></i><i style="--s:88%;--w:6%;--d:0.88"></i></div></div>
+<div class="ln "><span><i class="ph ph-pen-nib"></i><span lang="en">Scriptwriter</span><span lang="it">Sceneggiatore</span></span><div class="tr"><i style="--s:0%;--w:12%;--d:0.00"></i><i style="--s:34%;--w:10%;--d:0.34"></i><i style="--s:90%;--w:6%;--d:0.90"></i></div></div>
+<div class="ln fn"><span><i class="ph ph-gear-six"></i><span lang="en">Function</span><span lang="it">Funzionamento</span></span><div class="tr"><i style="--s:4%;--w:8%;--d:0.04"></i><i style="--s:24%;--w:6%;--d:0.24"></i><i style="--s:44%;--w:6%;--d:0.44"></i><i style="--s:80%;--w:6%;--d:0.80"></i></div></div>
+<div class="ln "><span><i class="ph ph-eye"></i><span lang="en">Tech reviewer</span><span lang="it">Revisore tecnico</span></span><div class="tr"><i style="--s:30%;--w:6%;--d:0.30"></i><i style="--s:46%;--w:5%;--d:0.46"></i><i style="--s:84%;--w:6%;--d:0.84"></i></div></div>
+<div class="ln "><span><i class="ph ph-sparkle"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></span><div class="tr"><i style="--s:56%;--w:30%;--d:0.56"></i></div></div>
+<div class="ln "><span><i class="ph ph-waveform"></i><span lang="en">Audio</span><span lang="it">Audio</span></span><div class="tr"><i style="--s:56%;--w:22%;--d:0.56"></i></div></div>
+<div class="ln "><span><i class="ph ph-user"></i><span lang="en">Viewer</span><span lang="it">Spettatore</span></span><div class="tr"><i style="--s:90%;--w:8%;--d:0.90"></i></div></div>
 </div>
 <div class="ag-legend"><span><i></i><span lang="en">Blender on the GPU, one render at a time</span><span lang="it">Blender sulla GPU, un render alla volta</span></span><span><i class="o"></i><span lang="en">agents, in parallel</span><span lang="it">agenti, in parallelo</span></span></div>
 </div>
 <div class="tel rv" aria-label="Example of a stop received on the phone">
 <div class="p-top"><i class="ph ph-device-mobile"></i><b>Claude Code</b><span lang="en">· stop 2</span><span lang="it">· sosta 2</span></div>
-<div class="msg"><small lang="en">STOP 2 · TEXTS</small><small lang="it">SOSTA 2 · TESTI</small><span lang="en">Silent video ready. Check the on-screen texts and the voice-over.</span><span lang="it">Video muto pronto. Controlla i testi a schermo e la voce.</span>
+<div class="msg"><small lang="en">STOP 2 · TEXTS</small><small lang="it">SOSTA 2 · TESTI</small><span lang="en">Silent video ready. Check the story, the on-screen texts and the voice-over.</span><span lang="it">Video muto pronto. Controlla il racconto, i testi a schermo e la voce.</span>
 <div class="att"><span><i class="ph ph-film-strip"></i>muto.mp4</span><span><i class="ph ph-file-pdf"></i>storyboard_it.pdf</span><span><i class="ph ph-file-text"></i>vo_it.md</span></div>
 <div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Function: 14 of 14 checks match</span><span lang="it">Funzionamento: 14 controlli su 14 tornano</span></div>
-<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Reviewer: 2 fixes made, 0 open</span><span lang="it">Revisore: 2 correzioni fatte, 0 aperte</span></div></div>
-<div class="msg me"><span lang="en">ok, but make scene 3 slower</span><span lang="it">ok, ma rallenta la scena 3</span></div>
-<div class="msg"><span lang="en">Redoing only scene 3, then on to the graphics.</span><span lang="it">Rifaccio solo la scena 3, poi passo alle grafiche.</span></div>
+<div class="chk"><i class="ph ph-check-circle"></i><span lang="en">Technical reviewer: 2 fixes made, 0 open</span><span lang="it">Revisore tecnico: 2 correzioni fatte, 0 aperte</span></div>
+<div class="chk"><i class="ph ph-pen-nib"></i><span lang="en">Scriptwriter: 3 hooks to choose from</span><span lang="it">Sceneggiatore: 3 agganci da scegliere</span></div></div>
+<div class="msg me"><span lang="en">hook 2, and make scene 3 slower</span><span lang="it">aggancio 2, e rallenta la scena 3</span></div>
+<div class="msg"><span lang="en">Hook 2. Redoing only scene 3, then the motion designer starts on the graphics.</span><span lang="it">Aggancio 2. Rifaccio solo la scena 3, poi il motion designer parte con le grafiche.</span></div>
 <div class="qr"><span>ok</span><span lang="en">redo scene…</span><span lang="it">rifai la scena…</span><span>stop</span></div>
 </div>
 </div>
-<ul class="agents">
-<li class="key rv"><i class="ph ph-gear-six"></i><h4><span lang="en">Function</span><span lang="it">Funzionamento</span></h4><p lang="en">Reads CAD, PDF, text, website and video, writes how the machine works and measures every scene against it.</p><p lang="it">Legge CAD, PDF, testo, sito e video, scrive come funziona la macchina e misura ogni scena su quella scheda.</p><em lang="en">the most important</em><em lang="it">il più importante</em></li>
-<li class="rv"><i class="ph ph-eye"></i><h4><span lang="en">Visual reviewer</span><span lang="it">Revisore visivo</span></h4><p lang="en">Looks only at the frames, the shot list and the sheet: cuts, safe zones, overlaps, materials.</p><p lang="it">Guarda solo frame, scaletta e scheda: tagli, zone sicure, compenetrazioni, materiali.</p></li>
-<li class="rv"><i class="ph ph-text-aa"></i><h4><span lang="en">Graphics</span><span lang="it">Grafiche</span></h4><p lang="en">Builds the HyperFrames titles and callouts on the draft video while the GPU renders.</p><p lang="it">Costruisce titoli e callout HyperFrames sul video di bozza mentre la GPU renderizza.</p></li>
-<li class="rv"><i class="ph ph-waveform"></i><h4>Audio</h4><p lang="en">Voice-over lines timed to the scenes, sound effects with their cues, the music brief. Spends no credits.</p><p lang="it">Frasi della voce a tempo con le scene, effetti con i loro istanti, il brief della musica. Non spende crediti.</p></li>
-<li class="rv"><i class="ph ph-video-camera"></i><h4><span lang="en">Real footage</span><span lang="it">Riprese vere</span></h4><p lang="en">Checks your videos: length, fps, rotation, good takes, the moments of the cycle for the split screen.</p><p lang="it">Analizza i tuoi video: durata, fps, rotazione, pezzi buoni, gli istanti del ciclo per lo split screen.</p></li>
-</ul>
-<p class="ag-note rv"><span lang="en">Paid generations and renders stay with the director, inside your budget. On request it can run with no stops, for internal tests or variants of an approved video. Agents use more tokens than the automatic mode.</span><span lang="it">Le generazioni a pagamento e i render restano al regista, dentro il tuo budget. Su richiesta va anche senza soste, per prove interne o varianti di un video già approvato. Gli agenti consumano più token della modalità automatica.</span></p>
+<p class="ag-note rv"><span lang="en">Paid generations and renders stay with the producer, inside your budget. On request it can run with no stops, for internal tests or variants of an approved video. Agents use more tokens than the automatic mode.</span><span lang="it">Le generazioni a pagamento e i render restano al produttore, dentro il tuo budget. Su richiesta va anche senza soste, per prove interne o varianti di un video già approvato. Gli agenti consumano più token della modalità automatica.</span></p>
 </section>
 
 <section id="film">
