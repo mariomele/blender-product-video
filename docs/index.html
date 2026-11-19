@@ -121,67 +121,60 @@ section{padding:112px 0 0}
 .cad-sw img{width:22px;height:22px;opacity:.9}
 .tm{display:block;margin-top:12px;font-size:12px;color:var(--muted)}
 @media(max-width:900px){.formats{grid-template-columns:1fr;padding:22px}.f-groups{grid-template-columns:1fr}}
-.vs{margin-top:40px;padding:28px 28px 22px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);--who:170px}
-.g-axis,.g-row{display:grid;grid-template-columns:var(--who) 1fr;gap:16px;align-items:center}
-.g-ticks{display:grid;grid-template-columns:auto repeat(6,1fr);gap:0;font-family:var(--mono);font-size:12px;color:var(--muted);border-bottom:1px solid var(--line2);padding-bottom:8px}
-.g-ticks b{font-weight:500;margin-right:10px}
-.g-ticks span{border-left:1px solid var(--line);padding-left:6px}
-.g-lane{display:flex;justify-content:space-between;align-items:baseline;margin:22px 0 8px}
-.g-lane h3{font-size:18px;margin:0}
-.g-total{font-size:clamp(22px,2.4vw,30px);font-weight:700;letter-spacing:-.02em;color:var(--muted)}
-.g-lane.new .g-total{color:var(--accent)}
-.g-row{height:38px}
-.g-who{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--soft);white-space:nowrap}
-.g-who .ph{font-size:17px;color:var(--muted)}
-.g-track{position:relative;height:26px;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/6 - 1px),var(--line) calc(100%/6 - 1px) calc(100%/6))}
-.g-blk{position:absolute;top:0;bottom:0;left:calc(var(--i) * 15%);width:19%;border-radius:6px;background:#2A3242;border:1px solid #3A4458}
-.g-row.new{height:44px}
-.g-row.new .g-who{color:var(--text);font-weight:600}
-.g-row.new .g-who .ph{color:var(--accent)}
-.g-row.new .g-track{height:30px}
-.g-row.new .g-blk{left:0;width:2.5%;min-width:12px;background:var(--accent);border:0;box-shadow:0 0 24px rgb(61 139 255 / .45)}
-.g-note{position:absolute;left:calc(2.5% + 22px);top:50%;transform:translateY(-50%);font-size:13px;color:var(--accent);white-space:nowrap}
-.vs{position:relative}
-.g-blk{transform-origin:left center}
-.g-head{position:absolute;top:22px;bottom:18px;left:calc(28px + var(--who) + 16px + (100% - 56px - var(--who) - 16px) * var(--p,0));width:2px;background:var(--accent);box-shadow:0 0 12px var(--accent);opacity:var(--ho,0);pointer-events:none;z-index:2}
-.g-head::before{content:attr(data-w);position:absolute;top:-4px;left:6px;font:500 12px/1 var(--mono);color:var(--accent);white-space:nowrap}
-.st{font-style:normal;font-size:12px;font-weight:600;font-family:var(--mono);margin-left:10px;padding:4px 8px;border-radius:6px;vertical-align:middle;opacity:0;transition:opacity .3s}
-.st.on{opacity:1}
-#stOld{color:var(--muted);border:1px solid var(--line2)}
-#stOld.done{color:var(--text)}
-#stNew{color:var(--accentInk);background:var(--accent)}
-.g-row:not(.new):hover .g-blk{background:#3A4458;border-color:var(--muted)}
-.g-row:hover .g-who{color:var(--text)}
-.replay{margin:14px 0 0;display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--line2);color:var(--soft);border-radius:999px;padding:9px 16px;font:500 13px/1 "Geist",sans-serif;cursor:pointer;transition:border-color .2s,color .2s,transform .15s}
-.replay:hover{border-color:var(--accent);color:var(--text)}
-.replay:active{transform:scale(.97)}
-.replay[hidden]{display:none}
-.cmp-r{transition:background .2s}
-.cmp-r:hover{background:var(--panel2)}
-.cmp-r:hover strong{background:rgb(61 139 255 / .16)}
-@media(max-width:900px){.g-head{left:calc(18px + var(--who) + 16px + (100% - 36px - var(--who) - 16px) * var(--p,0))}}
-.cmp{margin-top:18px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.cmp-h,.cmp-r{display:grid;grid-template-columns:170px 1fr 1fr}
-.cmp-h>*,.cmp-r>*{padding:14px 18px}
-.cmp-h{background:var(--panel2);font-size:13px;color:var(--muted)}
-.cmp-h b{font-weight:600}
-.cmp-h .me{color:var(--accent)}
-.cmp-r{border-top:1px solid var(--line);font-size:15px;align-items:center}
-.cmp-r>span:first-child{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
-.cmp-r>span:first-child .ph{font-size:17px}
-.cmp-r>span{color:var(--muted)}
-.cmp-r strong{font-weight:600;color:var(--text);background:rgb(61 139 255 / .08);align-self:stretch;display:flex;align-items:center}
-.cmp-h .me{background:rgb(61 139 255 / .08)}
-
+.duel{margin-top:40px;display:grid;grid-template-columns:1fr 56px 1fr;align-items:stretch}
+.d-col{border:1px solid var(--line);border-radius:var(--r);padding:26px 26px 24px;background:var(--panel);display:flex;flex-direction:column}
+.d-col.new{border-color:rgb(61 139 255 / .45);background:linear-gradient(180deg,rgb(61 139 255 / .09),var(--panel) 60%);box-shadow:0 30px 80px -40px rgb(61 139 255 / .5)}
+.d-col h3{font-size:15px;font-weight:600;color:var(--muted);margin:0 0 18px;letter-spacing:.01em}
+.d-col.new h3{color:var(--accent)}
+.d-vs{align-self:center;justify-self:center;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line2);font:600 13px/1 var(--mono);color:var(--muted);margin:0 -16px;z-index:1}
+.chain{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:22px 26px;flex:1;align-content:start}
+.chain li{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12.5px;color:var(--soft);text-align:center}
+.chain .ph{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:var(--panel2);border:1px solid var(--line2);color:var(--muted)}
+.chain li:not(:nth-child(3n))::after{content:"";position:absolute;top:23px;left:calc(50% + 28px);width:calc(100% - 30px);border-top:1px dashed var(--line2)}
+.solo{flex:1;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.bub{align-self:flex-start;display:flex;gap:10px;align-items:center;padding:13px 16px;border-radius:14px 14px 14px 4px;background:var(--panel2);border:1px solid var(--line2);font-size:15px;color:var(--text)}
+.bub .ph{font-size:20px;color:var(--accent)}
+.done{align-self:flex-end;display:flex;gap:8px;align-items:center;padding:11px 15px;border-radius:14px 14px 4px 14px;background:var(--accent);color:var(--accentInk);font-size:14px;font-weight:600}
+.done .ph{font-size:18px}
+.d-big{margin:22px 0 4px;font-size:clamp(28px,3.4vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--muted)}
+.new .d-big{color:var(--text)}
+.d-sm{margin:0;font-size:14px;color:var(--muted)}
+.meters{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);padding:22px 26px 10px;background:var(--panel)}
+.m-leg{display:flex;gap:18px;justify-content:flex-end;font-size:13px;color:var(--muted);margin-bottom:6px}
+.m-leg>span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px;background:#3A4458}
+.m-leg .new::before{background:var(--accent)}
+.m-row{display:grid;grid-template-columns:190px 1fr;gap:18px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.m-row:first-of-type{border-top:0}
+.m-k{display:flex;gap:9px;align-items:center;font-size:14px;color:var(--soft)}
+.m-k .ph{font-size:18px;color:var(--muted)}
+.m-bars{display:grid;gap:6px}
+.m-b{position:relative;height:28px;display:flex;align-items:center;font-size:13px;white-space:nowrap}
+.m-b::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--w) * 100%);min-width:6px;border-radius:6px;background:#2A3242;transform-origin:left;transition:transform 1.8s cubic-bezier(.4,0,.2,1)}
+.m-b.new::before{background:var(--accent);box-shadow:0 0 18px rgb(61 139 255 / .5);transition-duration:.35s}
+.m-b>span{position:relative;padding-left:12px;color:var(--soft)}
+.m-b.new>span{left:calc(var(--w) * 100%);padding-left:12px;color:var(--text);font-weight:600}
+.m-row:hover .m-k{color:var(--text)}
+@media(prefers-reduced-motion:no-preference){
+  .meters .m-b::before{transform:scaleX(0)}
+  .meters.in .m-b::before{transform:none}
+  .meters.in .m-b.new::before{transition-delay:.25s}
+  .meters .m-b>span{opacity:0;transition:opacity .4s}
+  .meters.in .m-b.new>span{opacity:1;transition-delay:.6s}
+  .meters.in .m-b.old>span{opacity:1;transition-delay:1.7s}
+  .duel .chain li{opacity:.25;transition:opacity .4s}
+  .duel.in .chain li{opacity:1;transition-delay:calc(.3s + var(--i) * .35s)}
+  .duel .bub,.duel .done{opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}
+  .duel.in .bub{opacity:1;transform:none;transition-delay:.3s}
+  .duel.in .done{opacity:1;transform:none;transition-delay:.9s}
+}
 @media(max-width:900px){
-  .vs{padding:18px;--who:104px}
-  .g-who{font-size:12px}.g-who .ph{display:none}
-  .g-ticks{grid-template-columns:repeat(6,1fr)}.g-ticks b{display:none}
-  .g-lane{flex-direction:column;gap:2px;margin-top:18px}.g-lane h3{font-size:15px}.g-total{font-size:22px}
-  .g-note{font-size:12px}
-  .cmp-h,.cmp-r{grid-template-columns:1fr 1fr}
-  .cmp-h>span,.cmp-r>span:first-child{grid-column:1/-1;padding-bottom:0}
-  .cmp-h>span{display:none}
+  .duel{grid-template-columns:1fr}
+  .d-vs{margin:-14px auto}
+  .d-col{padding:20px}
+  .chain{gap:16px 10px}.chain li:not(:nth-child(3n))::after{display:none}
+  .meters{padding:18px 18px 6px}
+  .m-row{grid-template-columns:1fr;gap:8px}
+  .m-leg{justify-content:flex-start}
 }
 .kit{margin-top:56px}
 .kit-t{font-size:22px;margin:0 0 18px}
@@ -568,21 +561,27 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <section id="veloce">
 <h2 class="rv"><span lang="en">No graphics or video skills needed.</span><span lang="it">Non serve saper fare grafica o video.</span></h2>
 <p class="sub rv"><span lang="en">A cutaway explainer usually passes through six specialists and weeks of hand-offs. Here you talk, Claude Code does the rest and stops for your ok.</span><span lang="it">Un video con sezioni ed esplosi di solito passa da sei specialisti e settimane di passaggi di mano. Qui parli tu, Claude Code fa il resto e si ferma per il tuo ok.</span></p>
-<div class="vs rv" id="race">
-<span class="g-head" aria-hidden="true"></span>
-<div class="g-axis"><span class="g-who"></span><span class="g-ticks"><b lang="en">Week</b><b lang="it">Settimana</b><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6+</span></span></div>
-<div class="g-lane"><h3><span lang="en">The usual way</span><span lang="it">Il modo classico</span> <em class="st" id="stOld"></em></h3><span class="g-total"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></span></div>
-<div class="g-row" style="--i:0"><span class="g-who"><i class="ph ph-cube"></i><span lang="en">CAD cleanup</span><span lang="it">Pulizia CAD</span></span><span class="g-track"><span class="g-blk"></span></span></div><div class="g-row" style="--i:1"><span class="g-who"><i class="ph ph-paint-brush"></i><span lang="en">3D artist</span><span lang="it">3D artist</span></span><span class="g-track"><span class="g-blk"></span></span></div><div class="g-row" style="--i:2"><span class="g-who"><i class="ph ph-film-slate"></i><span lang="en">Animator</span><span lang="it">Animatore</span></span><span class="g-track"><span class="g-blk"></span></span></div><div class="g-row" style="--i:3"><span class="g-who"><i class="ph ph-text-aa"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></span><span class="g-track"><span class="g-blk"></span></span></div><div class="g-row" style="--i:4"><span class="g-who"><i class="ph ph-scissors"></i><span lang="en">Video editor</span><span lang="it">Montatore</span></span><span class="g-track"><span class="g-blk"></span></span></div><div class="g-row" style="--i:5"><span class="g-who"><i class="ph ph-waveform"></i><span lang="en">Sound</span><span lang="it">Audio</span></span><span class="g-track"><span class="g-blk"></span></span></div>
-<div class="g-lane new"><h3><span lang="en">With the skill</span><span lang="it">Con la skill</span> <em class="st" id="stNew"></em></h3><span class="g-total"><span lang="en">a few hours</span><span lang="it">poche ore</span></span></div>
-<div class="g-row new"><span class="g-who"><i class="ph ph-chat-circle-text"></i><span lang="en">You + Claude Code</span><span lang="it">Tu + Claude Code</span></span><span class="g-track"><span class="g-blk"></span><span class="g-note"><span lang="en">everything, start to finish</span><span lang="it">tutto, dall'inizio alla fine</span></span></span></div>
+<div class="duel rv">
+<div class="d-col old"><h3><span lang="en">The usual way</span><span lang="it">Il modo classico</span></h3>
+<ol class="chain"><li style="--i:0"><i class="ph ph-cube"></i><span lang="en">CAD cleanup</span><span lang="it">Pulizia CAD</span></li><li style="--i:1"><i class="ph ph-paint-brush"></i><span lang="en">3D artist</span><span lang="it">3D artist</span></li><li style="--i:2"><i class="ph ph-film-slate"></i><span lang="en">Animator</span><span lang="it">Animatore</span></li><li style="--i:3"><i class="ph ph-sparkle"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></li><li style="--i:4"><i class="ph ph-scissors"></i><span lang="en">Editor</span><span lang="it">Montatore</span></li><li style="--i:5"><i class="ph ph-speaker-high"></i><span lang="en">Sound</span><span lang="it">Audio</span></li></ol>
+<p class="d-big"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></p><p class="d-sm"><span lang="en">six people, five hand-offs, every change goes back down the line</span><span lang="it">sei persone, cinque passaggi di mano, ogni modifica torna indietro</span></p></div>
+<div class="d-vs" aria-hidden="true">vs</div>
+<div class="d-col new"><h3><span lang="en">With the skill</span><span lang="it">Con la skill</span></h3>
+<div class="solo"><span class="bub"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make a cutaway video of my machine”</span><span lang="it">“Fammi un video in sezione della mia macchina”</span></span><span class="done"><i class="ph ph-check-circle"></i><span lang="en">model, animation, graphics, voice, render</span><span lang="it">modello, animazione, grafiche, voce, render</span></span></div>
+<p class="d-big"><span lang="en">a few hours</span><span lang="it">poche ore</span></p><p class="d-sm"><span lang="en">you and Claude Code, in one chat, it stops for your ok</span><span lang="it">tu e Claude Code, in una chat, si ferma per il tuo ok</span></p></div>
 </div>
-<button type="button" class="replay" id="replay"><i class="ph ph-arrow-counter-clockwise"></i><span lang="en">Replay the comparison</span><span lang="it">Rivedi il confronto</span></button>
-<div class="cmp rv">
-<div class="cmp-h"><span></span><b lang="en">The usual way</b><b lang="it">Il modo classico</b><b class="me" lang="en">With the skill</b><b class="me" lang="it">Con la skill</b></div>
-<div class="cmp-r"><span><i class="ph ph-clock"></i><span lang="en">Time</span><span lang="it">Tempo</span></span><span lang="en">Weeks or months</span><span lang="it">Settimane o mesi</span><strong lang="en">A few hours</strong><strong lang="it">Poche ore</strong></div>
-<div class="cmp-r"><span><i class="ph ph-users-three"></i><span lang="en">People</span><span lang="it">Persone</span></span><span lang="en">Six specialists, five hand-offs</span><span lang="it">Sei specialisti, cinque passaggi di mano</span><strong lang="en">You</strong><strong lang="it">Tu</strong></div>
-<div class="cmp-r"><span><i class="ph ph-graduation-cap"></i><span lang="en">Skills</span><span lang="it">Competenze</span></span><span lang="en">Blender, animation, motion graphics, editing, sound</span><span lang="it">Blender, animazione, motion graphics, montaggio, audio</span><strong lang="en">Knowing your product</strong><strong lang="it">Conoscere il tuo prodotto</strong></div>
-<div class="cmp-r"><span><i class="ph ph-arrows-clockwise"></i><span lang="en">A change</span><span lang="it">Una modifica</span></span><span lang="en">Back down the chain, days lost</span><span lang="it">Torna indietro lungo la catena, giorni persi</span><strong lang="en">Ask in chat, only that piece is redone</strong><strong lang="it">La chiedi in chat, si rifà solo quel pezzo</strong></div>
+<div class="meters rv">
+<div class="m-leg"><span class="old"><span lang="en">Usual way</span><span lang="it">Modo classico</span></span><span class="new"><span lang="en">With the skill</span><span lang="it">Con la skill</span></span></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-clock"></i><span lang="en">Time</span><span lang="it">Tempo</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></span><span class="m-b new" style="--w:.06"><span lang="en">a few hours</span><span lang="it">poche ore</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-users-three"></i><span lang="en">People</span><span lang="it">Persone</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">6 specialists</span><span lang="it">6 specialisti</span></span><span class="m-b new" style="--w:.17"><span lang="en">you</span><span lang="it">tu</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-arrows-left-right"></i><span lang="en">Hand-offs</span><span lang="it">Passaggi di mano</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">5</span><span lang="it">5</span></span><span class="m-b new" style="--w:.03"><span lang="en">0</span><span lang="it">0</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-graduation-cap"></i><span lang="en">Software to learn</span><span lang="it">Software da imparare</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">Blender, After Effects, Premiere, audio</span><span lang="it">Blender, After Effects, Premiere, audio</span></span><span class="m-b new" style="--w:.03"><span lang="en">none: you describe</span><span lang="it">nessuno: descrivi a parole</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-arrows-clockwise"></i><span lang="en">A change</span><span lang="it">Una modifica</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">days, back down the chain</span><span lang="it">giorni, si torna indietro</span></span><span class="m-b new" style="--w:.08"><span lang="en">minutes, only that piece</span><span lang="it">minuti, solo quel pezzo</span></span></div></div>
 </div>
 <div class="kit">
 <h3 class="kit-t rv"><span lang="en">What you get, ready to send</span><span lang="it">Cosa ricevi, pronto da mandare</span></h3>
@@ -986,38 +985,6 @@ claude mcp list</code></pre>
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting) return;
     links.forEach(function(a){var on=a.getAttribute('href')==='#'+e.target.id; a.classList.toggle('on',on); if(on) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current')})})},{rootMargin:'-45% 0px -50% 0px'});
   links.forEach(function(a){var s=document.querySelector(a.getAttribute('href')); if(s) io.observe(s)});
-})();
-</script>
-<script>
-// the race: a playhead sweeps the weeks; the skill finishes in the first hours, the chain of specialists takes all of it
-(function(){
-  var race=document.getElementById('race'); if(!race) return;
-  var head=race.querySelector('.g-head'), rows=[].slice.call(race.querySelectorAll('.g-row:not(.new) .g-blk')),
-      mine=race.querySelector('.g-row.new .g-blk'), note=race.querySelector('.g-note'),
-      stOld=document.getElementById('stOld'), stNew=document.getElementById('stNew'), btn=document.getElementById('replay');
-  var it=document.documentElement.lang==='it', T=5200, raf=0;
-  function txt(){it=document.documentElement.getAttribute('data-lang')==='it'}
-  function paint(p){
-    race.style.setProperty('--p',p);
-    var wk=Math.min(6,Math.floor(p*6)+1);
-    head.setAttribute('data-w',(it?'settimana ':'week ')+(p>=1?'6+':wk));
-    rows.forEach(function(b,i){var s=i*.15, f=Math.max(0,Math.min(1,(p-s)/.19)); b.style.transform='scaleX('+f+')'; b.style.opacity=f>0?1:.25});
-    var m=Math.min(1,p/.03); mine.style.transform='scaleX('+m+')'; note.style.opacity=m>=1?1:0;
-    stNew.textContent=it?'✓ video pronto':'✓ video ready'; stNew.classList.toggle('on',p>=.035);
-    stOld.classList.add('on'); stOld.classList.toggle('done',p>=1);
-    stOld.textContent=p>=1?(it?'consegnato':'delivered'):(it?'in lavorazione…':'in progress…');
-  }
-  function play(){
-    txt(); cancelAnimationFrame(raf); race.style.setProperty('--ho',1); btn.hidden=true;
-    var t0=performance.now();
-    (function step(now){var p=Math.min(1,(now-t0)/T); paint(p); if(p<1) raf=requestAnimationFrame(step); else {btn.hidden=false; race.style.setProperty('--ho',.35)}})(t0);
-  }
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window)){txt(); paint(1); return}
-  paint(0); btn.hidden=true;
-  var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect(); setTimeout(play,350)}},{threshold:.45});
-  io.observe(race);
-  btn.addEventListener('click',function(){paint(0); requestAnimationFrame(play)});
-  document.querySelectorAll('.langs button').forEach(function(b){b.addEventListener('click',function(){setTimeout(function(){txt(); paint(+getComputedStyle(race).getPropertyValue('--p')||1)},0)})});
 })();
 </script>
 <script>
