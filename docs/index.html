@@ -183,6 +183,64 @@ section{padding:112px 0 0}
   .cmp-h>span,.cmp-r>span:first-child{grid-column:1/-1;padding-bottom:0}
   .cmp-h>span{display:none}
 }
+.kit{margin-top:56px}
+.kit-t{font-size:22px;margin:0 0 18px}
+.kit-g{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:auto auto;gap:16px}
+.kc{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.kc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,-20%),rgb(61 139 255 / .13),transparent 60%);opacity:0;transition:opacity .3s;z-index:1}
+.kc:hover{border-color:var(--line2);transform:translateY(-3px)}
+.kc:hover::before{opacity:1}
+.kc-sb{grid-row:span 2}
+.kc-v{position:relative;background:var(--bg2);display:grid;place-items:center;padding:22px;flex:1;min-height:200px}
+.kc-x{padding:18px 22px 22px;border-top:1px solid var(--line)}
+.kc-x .ph{font-size:22px;color:var(--accent)}
+.kc-x h4{font-size:17px;margin:8px 0 6px;color:var(--text)}
+.kc-x p{margin:0;color:var(--soft);font-size:15px;max-width:58ch}
+.sb-page{position:relative;width:100%;border-radius:6px;box-shadow:0 30px 60px -20px rgb(0 0 0 / .7);transform:perspective(1400px) rotateX(10deg) rotateZ(-1.2deg) scale(.96);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.sb-page img{width:100%;height:auto;display:block;border-radius:6px}
+.kc-sb:hover .sb-page{transform:perspective(1400px) rotateX(0) rotateZ(0) scale(1)}
+.stamp{position:absolute;right:6%;bottom:9%;display:flex;align-items:center;gap:6px;padding:8px 14px;border:2px solid var(--accent);color:var(--accent);background:rgb(9 11 16 / .85);border-radius:8px;font:600 14px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;transform:rotate(-8deg)}
+.stamp .ph{font-size:18px}
+.phone{position:relative;width:150px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;border:3px solid #2A3242;box-shadow:0 24px 50px -18px rgb(0 0 0 / .8)}
+.phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.z-red,.z-ok{position:absolute;border:1.5px dashed;border-radius:4px}
+.z-red{inset:10.4% 11.7% 20.2% 5%;border-color:rgb(255 90 90 / .7)}
+.z-ok{inset:13% 13% 25.2% 5.6%;border-color:#3DDC84;border-style:solid;background:rgb(61 220 132 / .06)}
+.z-title{position:absolute;left:10%;top:17%;font:600 12px/1.1 "Geist",sans-serif;color:#fff;text-shadow:0 1px 6px rgb(0 0 0 / .6)}
+.z-ui{position:absolute;display:flex;gap:6px}
+.z-ui b{display:block;background:rgb(255 255 255 / .55);border-radius:99px}
+.z-top{left:8%;right:8%;top:4%;height:3px;background:rgb(255 255 255 / .5);border-radius:2px}
+.z-rail{right:4%;bottom:24%;flex-direction:column;gap:8px}
+.z-rail b{width:16px;height:16px}
+.z-cap{left:6%;bottom:8%;flex-direction:column;gap:5px;width:60%}
+.z-cap b{height:5px}.z-cap b+b{width:70%}
+.md{width:100%;max-width:400px;background:#0B0E14;border:1px solid var(--line2);border-radius:10px;overflow:hidden;box-shadow:0 24px 50px -20px rgb(0 0 0 / .8)}
+.md-h{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line)}
+.md-h span{width:9px;height:9px;border-radius:50%;background:var(--line2)}
+.md-h b{margin-left:8px;font:500 12px/1 var(--mono);color:var(--muted)}
+.md pre{margin:0;padding:14px 14px 16px;font:500 12.5px/1.75 var(--mono);color:var(--soft);white-space:pre-wrap}
+.md .l{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.md em{font-style:normal;color:var(--accent)}
+.md pre b{color:var(--accent);margin-right:6px}
+@media(prefers-reduced-motion:no-preference){
+  .kc-sb .stamp{opacity:0;transform:rotate(-8deg) scale(1.8)}
+  .kc-sb.in .stamp{animation:stamp .45s cubic-bezier(.3,1.6,.5,1) 1s forwards}
+  .kc-sz .z-red,.kc-sz .z-ok{clip-path:inset(0 100% 100% 0)}
+  .kc-sz.in .z-red{animation:draw .9s ease-out .5s forwards}
+  .kc-sz.in .z-ok{animation:draw .9s ease-out .9s forwards}
+  .kc-sz .z-title{opacity:0;transform:translateY(6px);transition:opacity .5s 1.7s,transform .5s 1.7s}
+  .kc-sz.in .z-title{opacity:1;transform:none}
+  .kc-vo .l{max-width:0}
+  .kc-vo.in .l{animation:type .7s steps(28,end) forwards}
+  .kc-vo.in .l:nth-child(2){animation-delay:.5s}.kc-vo.in .l:nth-child(3){animation-delay:.9s}.kc-vo.in .l:nth-child(4){animation-delay:1.3s}
+  .kc-vo.in .l:nth-child(5){animation-delay:1.8s}.kc-vo.in .l:nth-child(6){animation-delay:2.4s}.kc-vo.in .l:nth-child(7){animation-delay:3s}
+  .kc-vo .cur::after{content:"";display:inline-block;width:7px;height:14px;margin-left:3px;vertical-align:-2px;background:var(--accent);animation:blink 1s steps(1) infinite}
+}
+@keyframes stamp{to{opacity:1;transform:rotate(-8deg) scale(1)}}
+@keyframes draw{to{clip-path:inset(0 0 0 0)}}
+@keyframes type{to{max-width:100%}}
+@keyframes blink{50%{opacity:0}}
+@media(max-width:900px){.kit-g{grid-template-columns:1fr}.kc-sb{grid-row:auto}.kc:hover{transform:none}}
 .easy{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px}
 .easy .ph{font-size:26px;color:var(--accent)}
 .easy h3{font-size:18px;margin:10px 0 6px}
@@ -525,6 +583,23 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <div class="cmp-r"><span><i class="ph ph-users-three"></i><span lang="en">People</span><span lang="it">Persone</span></span><span lang="en">Six specialists, five hand-offs</span><span lang="it">Sei specialisti, cinque passaggi di mano</span><strong lang="en">You</strong><strong lang="it">Tu</strong></div>
 <div class="cmp-r"><span><i class="ph ph-graduation-cap"></i><span lang="en">Skills</span><span lang="it">Competenze</span></span><span lang="en">Blender, animation, motion graphics, editing, sound</span><span lang="it">Blender, animazione, motion graphics, montaggio, audio</span><strong lang="en">Knowing your product</strong><strong lang="it">Conoscere il tuo prodotto</strong></div>
 <div class="cmp-r"><span><i class="ph ph-arrows-clockwise"></i><span lang="en">A change</span><span lang="it">Una modifica</span></span><span lang="en">Back down the chain, days lost</span><span lang="it">Torna indietro lungo la catena, giorni persi</span><strong lang="en">Ask in chat, only that piece is redone</strong><strong lang="it">La chiedi in chat, si rifà solo quel pezzo</strong></div>
+</div>
+<div class="kit">
+<h3 class="kit-t rv"><span lang="en">What you get, ready to send</span><span lang="it">Cosa ricevi, pronto da mandare</span></h3>
+<div class="kit-g">
+<article class="kc kc-sb rv">
+<div class="kc-v"><div class="sb-page"><img src="assets/examples/storyboard_pdf.jpg?v=3" alt="Storyboard PDF: 14 shots with timecode, shot and voice line" lang="it" loading="lazy"><img src="assets/examples/storyboard_pdf_en.jpg?v=3" alt="Storyboard PDF: 14 shots with timecode, shot and voice line" lang="en" loading="lazy"><span class="stamp"><i class="ph ph-seal-check"></i><span lang="en">Approved</span><span lang="it">Approvato</span></span></div></div>
+<div class="kc-x"><i class="ph ph-file-pdf"></i><h4><span lang="en">Storyboard in PDF, for the client's ok</span><span lang="it">Storyboard in PDF, per l'ok del cliente</span></h4><p lang="en">Every shot with timecode, framing and voice line, in your brand colours and each language you need. The last page has the approval box.</p><p lang="it">Ogni inquadratura con tempi, piano e frase della voce, nei colori del tuo brand e in ogni lingua che serve. Nell'ultima pagina c'è il riquadro di approvazione.</p></div>
+</article>
+<article class="kc kc-sz rv">
+<div class="kc-v"><div class="phone"><img src="assets/examples/ambiente_nero.jpg?v=3" alt="" loading="lazy"><span class="z-red"></span><span class="z-ok"></span><span class="z-title"><span lang="en">6-axis arm</span><span lang="it">Braccio 6 assi</span></span><span class="z-ui z-top"></span><span class="z-ui z-rail"><b></b><b></b><b></b><b></b></span><span class="z-ui z-cap"><b></b><b></b></span></div></div>
+<div class="kc-x"><i class="ph ph-device-mobile"></i><h4><span lang="en">Vertical, inside the safe zones</span><span lang="it">Verticale, dentro le safe zone</span></h4><p lang="en">In 9:16 every title stays clear of the Instagram Reels, Stories and TikTok interface. No caption or button covers your text.</p><p lang="it">In 9:16 ogni titolo resta lontano dall'interfaccia di Instagram Reels, Stories e TikTok. Nessuna didascalia o pulsante copre le tue scritte.</p></div>
+</article>
+<article class="kc kc-vo rv">
+<div class="kc-v"><div class="md"><div class="md-h"><span></span><span></span><span></span><b>vo_it.md · vo_en.md</b></div><pre><code><span class="l"><em>#</em> VO · Robot 6 assi</span><span class="l"><em>|</em> 01 <em>|</em> 0:00–0:04 <em>|</em> 4.0 s <em>|</em> 6 <em>|</em></span><span class="l"><em>|</em> 02 <em>|</em> 0:04–0:10 <em>|</em> 6.0 s <em>|</em> 9 <em>|</em></span><span class="l"><em>|</em> 03 <em>|</em> 0:10–0:13 <em>|</em> 3.5 s <em>|</em> 5 <em>|</em></span><span class="l"><b>01</b> Il braccio a sei assi, in scala reale.</span><span class="l"><b>02</b> Ogni motore esce dal suo giunto.</span><span class="l cur"><b>03</b> Dentro, il riduttore.</span></code></pre></div></div>
+<div class="kc-x"><i class="ph ph-microphone"></i><h4><span lang="en">Voice-over script in .md</span><span lang="it">Testo della voce in .md</span></h4><p lang="en">One file per language with time, length and word count per scene. Take it to a voice actor, a studio or any TTS.</p><p lang="it">Un file per lingua con tempo, durata e numero di parole per scena. Lo porti a uno speaker, in studio o in qualunque TTS.</p></div>
+</article>
+</div>
 </div>
 <ul class="easy">
 <li class="rv"><i class="ph ph-chats"></i><h3><span lang="en">You speak, not Blender</span><span lang="it">Parli tu, non Blender</span></h3><p lang="en">Describe the shot in plain words. No nodes, keyframes or render settings to learn.</p><p lang="it">Descrivi l'inquadratura a parole. Niente nodi, keyframe o impostazioni di render da imparare.</p></li>
@@ -944,6 +1019,10 @@ claude mcp list</code></pre>
   btn.addEventListener('click',function(){paint(0); requestAnimationFrame(play)});
   document.querySelectorAll('.langs button').forEach(function(b){b.addEventListener('click',function(){setTimeout(function(){txt(); paint(+getComputedStyle(race).getPropertyValue('--p')||1)},0)})});
 })();
+</script>
+<script>
+// cursor spotlight on the deliverable cards
+document.querySelectorAll('.kc').forEach(function(c){c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')})});
 </script>
 </body>
 </html>
