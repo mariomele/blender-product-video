@@ -161,8 +161,6 @@ section{padding:112px 0 0}
   .meters .m-b>span{opacity:0;transition:opacity .4s}
   .meters.in .m-b.new>span{opacity:1;transition-delay:.6s}
   .meters.in .m-b.old>span{opacity:1;transition-delay:1.7s}
-  .duel .chain li{opacity:.25;transition:opacity .4s}
-  .duel.in .chain li{opacity:1;transition-delay:calc(.3s + var(--i) * .35s)}
   .duel .bub,.duel .done{opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}
   .duel.in .bub{opacity:1;transform:none;transition-delay:.3s}
   .duel.in .done{opacity:1;transform:none;transition-delay:.9s}
@@ -176,6 +174,25 @@ section{padding:112px 0 0}
   .m-row{grid-template-columns:1fr;gap:8px}
   .m-leg{justify-content:flex-start}
 }
+.chain li.on .ph{color:var(--text);border-color:var(--soft);box-shadow:0 0 0 4px rgb(238 242 248 / .08)}
+.chain li.on{color:var(--text)}
+.chain li.back .ph{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 4px rgb(61 139 255 / .15)}
+.bounce{margin:14px 0 0;min-height:22px;font-size:13px;color:var(--accent);display:flex;gap:6px;align-items:center;opacity:0;transition:opacity .25s}
+.bounce.on{opacity:1}.bounce b{color:var(--text);font-weight:600}
+.tick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.tick>span{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.3}
+.tick b{display:block;font:600 24px/1.1 var(--mono);color:var(--soft);font-variant-numeric:tabular-nums;margin-bottom:2px}
+.tick.new>span{border-color:rgb(61 139 255 / .3)}.tick.new b{color:var(--accent)}
+.ask{align-self:flex-start;display:flex;gap:10px;align-items:center;padding:11px 15px;border-radius:14px 14px 14px 4px;background:var(--panel2);border:1px solid var(--line2);font-size:14px;color:var(--text)}
+.ask .ph{font-size:18px;color:var(--accent)}
+.replay{margin:14px auto 0;display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--line2);color:var(--soft);border-radius:999px;padding:11px 18px;font:500 14px/1 "Geist",sans-serif;cursor:pointer;transition:border-color .2s,color .2s,transform .15s}
+.replay:hover{border-color:var(--accent);color:var(--text)}.replay:active{transform:scale(.97)}.replay[hidden]{display:none}
+@media(prefers-reduced-motion:no-preference){
+  .duel .ask,.duel .d2{opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}
+  .duel.in .ask{opacity:1;transform:none;transition-delay:2.2s}
+  .duel.in .d2{opacity:1;transform:none;transition-delay:2.8s}
+}
+@media(max-width:900px){.tick b{font-size:20px}.tick>span{padding:8px 9px;font-size:11px}}
 .kit{margin-top:56px}
 .kit-t{font-size:22px;margin:0 0 18px}
 .kit-g{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:auto auto;gap:16px}
@@ -564,12 +581,13 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <div class="duel rv">
 <div class="d-col old"><h3><span lang="en">The usual way</span><span lang="it">Il modo classico</span></h3>
 <ol class="chain"><li style="--i:0"><i class="ph ph-cube"></i><span lang="en">CAD cleanup</span><span lang="it">Pulizia CAD</span></li><li style="--i:1"><i class="ph ph-paint-brush"></i><span lang="en">3D artist</span><span lang="it">3D artist</span></li><li style="--i:2"><i class="ph ph-film-slate"></i><span lang="en">Animator</span><span lang="it">Animatore</span></li><li style="--i:3"><i class="ph ph-sparkle"></i><span lang="en">Motion designer</span><span lang="it">Motion designer</span></li><li style="--i:4"><i class="ph ph-scissors"></i><span lang="en">Editor</span><span lang="it">Montatore</span></li><li style="--i:5"><i class="ph ph-speaker-high"></i><span lang="en">Sound</span><span lang="it">Audio</span></li></ol>
-<p class="d-big"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></p><p class="d-sm"><span lang="en">six people, five hand-offs, every change goes back down the line</span><span lang="it">sei persone, cinque passaggi di mano, ogni modifica torna indietro</span></p></div>
+<p class="bounce" aria-live="off"><i class="ph ph-arrow-u-up-left"></i><span lang="en">change request: back to</span><span lang="it">modifica: si torna a</span> <b></b></p><div class="tick old"><span><b data-k="wk">0</b><span lang="en">weeks</span><span lang="it">settimane</span></span><span><b data-k="rev">0</b><span lang="en">revision rounds</span><span lang="it">giri di modifiche</span></span><span><b data-k="inv">0</b><span lang="en">quotes and invoices</span><span lang="it">preventivi e fatture</span></span></div><p class="d-big"><span lang="en">weeks or months</span><span lang="it">settimane o mesi</span></p><p class="d-sm"><span lang="en">six people, five hand-offs, every change goes back down the line</span><span lang="it">sei persone, cinque passaggi di mano, ogni modifica torna indietro</span></p></div>
 <div class="d-vs" aria-hidden="true">vs</div>
 <div class="d-col new"><h3><span lang="en">With the skill</span><span lang="it">Con la skill</span></h3>
-<div class="solo"><span class="bub"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make a cutaway video of my machine”</span><span lang="it">“Fammi un video in sezione della mia macchina”</span></span><span class="done"><i class="ph ph-check-circle"></i><span lang="en">model, animation, graphics, voice, render</span><span lang="it">modello, animazione, grafiche, voce, render</span></span></div>
-<p class="d-big"><span lang="en">a few hours</span><span lang="it">poche ore</span></p><p class="d-sm"><span lang="en">you and Claude Code, in one chat, it stops for your ok</span><span lang="it">tu e Claude Code, in una chat, si ferma per il tuo ok</span></p></div>
+<div class="solo"><span class="bub"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make a cutaway video of my machine”</span><span lang="it">“Fammi un video in sezione della mia macchina”</span></span><span class="done"><i class="ph ph-check-circle"></i><span lang="en">model, animation, graphics, voice, render</span><span lang="it">modello, animazione, grafiche, voce, render</span></span><span class="ask"><i class="ph ph-chat-circle-text"></i><span lang="en">“Make scene 3 slower”</span><span lang="it">“Rallenta la scena 3”</span></span><span class="done d2"><i class="ph ph-check-circle"></i><span lang="en">only scene 3 redone</span><span lang="it">rifatta solo la scena 3</span></span></div>
+<div class="tick new"><span><b data-k="">&lt;1</b><span lang="en">day</span><span lang="it">giorno</span></span><span><b data-k="">0</b><span lang="en">hand-offs</span><span lang="it">rimpalli</span></span><span><b data-k="">1</b><span lang="en">Claude plan</span><span lang="it">abbonamento Claude</span></span></div><p class="d-big"><span lang="en">a few hours</span><span lang="it">poche ore</span></p><p class="d-sm"><span lang="en">you and Claude Code, in one chat, it stops for your ok</span><span lang="it">tu e Claude Code, in una chat, si ferma per il tuo ok</span></p></div>
 </div>
+<button type="button" class="replay" id="replay" hidden><i class="ph ph-arrow-counter-clockwise"></i><span lang="en">Play it again</span><span lang="it">Rivedi</span></button>
 <div class="meters rv">
 <div class="m-leg"><span class="old"><span lang="en">Usual way</span><span lang="it">Modo classico</span></span><span class="new"><span lang="en">With the skill</span><span lang="it">Con la skill</span></span></div>
 <div class="m-row"><span class="m-k"><i class="ph ph-clock"></i><span lang="en">Time</span><span lang="it">Tempo</span></span>
@@ -580,6 +598,8 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">5</span><span lang="it">5</span></span><span class="m-b new" style="--w:.03"><span lang="en">0</span><span lang="it">0</span></span></div></div>
 <div class="m-row"><span class="m-k"><i class="ph ph-graduation-cap"></i><span lang="en">Software to learn</span><span lang="it">Software da imparare</span></span>
 <div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">Blender, After Effects, Premiere, audio</span><span lang="it">Blender, After Effects, Premiere, audio</span></span><span class="m-b new" style="--w:.03"><span lang="en">none: you describe</span><span lang="it">nessuno: descrivi a parole</span></span></div></div>
+<div class="m-row"><span class="m-k"><i class="ph ph-receipt"></i><span lang="en">Cost</span><span lang="it">Costi</span></span>
+<div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">6 quotes, 6 invoices, every round billed</span><span lang="it">6 preventivi, 6 fatture, ogni giro si paga</span></span><span class="m-b new" style="--w:.06"><span lang="en">your Claude plan</span><span lang="it">il tuo abbonamento Claude</span></span></div></div>
 <div class="m-row"><span class="m-k"><i class="ph ph-arrows-clockwise"></i><span lang="en">A change</span><span lang="it">Una modifica</span></span>
 <div class="m-bars"><span class="m-b old" style="--w:1"><span lang="en">days, back down the chain</span><span lang="it">giorni, si torna indietro</span></span><span class="m-b new" style="--w:.08"><span lang="en">minutes, only that piece</span><span lang="it">minuti, solo quel pezzo</span></span></div></div>
 </div>
@@ -990,6 +1010,32 @@ claude mcp list</code></pre>
 <script>
 // cursor spotlight on the deliverable cards
 document.querySelectorAll('.kc').forEach(function(c){c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')})});
+</script>
+<script>
+// the classic chain: work passes person to person, a change request bounces it back, weeks and invoices pile up
+(function(){
+  var duel=document.querySelector('.duel'); if(!duel) return;
+  var li=[].slice.call(duel.querySelectorAll('.chain li')), bn=duel.querySelector('.bounce'), who=bn.querySelector('b'),
+      k=function(n){return duel.querySelector('.tick.old [data-k='+n+']')}, btn=document.getElementById('replay'), timer=0;
+  // index = who works; negative = change request sent back to that person
+  var SEQ=[0,1,2,3,4,5,-2,2,3,4,5,-1,1,2,3,4,5];
+  function name(i){return li[i].querySelector('[lang='+(document.documentElement.getAttribute('data-lang')||'en')+']').textContent}
+  function end(){li.forEach(function(l){l.classList.remove('on','back')}); bn.classList.remove('on'); k('wk').textContent='6+'; k('rev').textContent='2'; k('inv').textContent='8'; btn.hidden=false}
+  function play(){
+    clearTimeout(timer); btn.hidden=true; var s=0, wk=0, rev=0, seen={};
+    li.forEach(function(l){l.classList.remove('on','back')}); k('wk').textContent='0'; k('rev').textContent='0'; k('inv').textContent='0';
+    (function step(){
+      if(s>=SEQ.length) return end();
+      var v=SEQ[s++]; li.forEach(function(l){l.classList.remove('on','back')});
+      if(v<0){ rev++; li[-v].classList.add('back'); who.textContent=name(-v); bn.classList.add('on'); k('rev').textContent=rev; timer=setTimeout(step,900); return }
+      bn.classList.remove('on'); li[v].classList.add('on'); seen[v]=1; wk+=.4;
+      k('wk').textContent=Math.min(6,Math.ceil(wk)); k('inv').textContent=Object.keys(seen).length+rev; timer=setTimeout(step,420);
+    })();
+  }
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window)) return end();
+  var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect(); setTimeout(play,400)}},{threshold:.4});
+  io.observe(duel); btn.addEventListener('click',play);
+})();
 </script>
 </body>
 </html>
