@@ -74,7 +74,7 @@ section{padding:112px 0 0}
 .btn.ghost:hover{border-color:var(--muted);background:rgb(255 255 255 / .03)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center;padding:72px 0 40px;min-height:calc(100dvh - 66px)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center;padding:64px 0 32px;min-height:calc(100dvh - 210px)}
 #apri{height:260vh;position:relative}
 #apri .pin{position:sticky;top:66px;height:calc(100dvh - 66px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:48px;align-items:center}
 .scrub{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#000}
@@ -95,6 +95,11 @@ section{padding:112px 0 0}
 .hero .lead strong{color:var(--text);font-weight:600}
 .hero .lead{font-size:18px;color:var(--soft);margin:22px 0 32px;max-width:40ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
+.peek{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;max-width:46ch}
+.peek a{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--soft);font-size:13px;text-decoration:none;transition:border-color .2s,color .2s}
+.peek a:hover,.peek a:focus-visible{border-color:var(--accent);color:var(--text)}
+.peek i{color:var(--accent);font-size:15px}
+.peek .all a{border-color:transparent;color:var(--accent);padding-left:4px}
 .viewer{position:relative}
 .screen{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 40px 120px -40px rgb(61 139 255 / .28),0 0 0 1px rgb(255 255 255 / .03) inset}
 .screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .9s ease,transform 4s ease}
@@ -110,7 +115,7 @@ section{padding:112px 0 0}
 .viewer.hold .stages button[aria-current=true]::after{animation-play-state:paused}
 @keyframes fill{to{transform:scaleX(1)}}
 
-/* facts */
+/* formats */
 .formats{margin-top:14px;border:1px solid rgb(61 139 255 / .35);border-radius:var(--r);background:linear-gradient(135deg,rgb(61 139 255 / .09),var(--panel) 55%);padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:28px 40px;align-items:start}
 .f-head .ph{font-size:32px;color:var(--accent)}
 .f-head h3{font-size:clamp(26px,2.6vw,34px);margin:10px 0 8px;letter-spacing:-.025em}
@@ -252,11 +257,29 @@ section{padding:112px 0 0}
   .bar{grid-template-columns:repeat(2,1fr)}
   .old .bar li{border-radius:8px!important;min-height:44px}
 }
-.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:24px}
-.facts div{padding:28px 24px;border-left:1px solid var(--line)}
-.facts div:first-child{border-left:0;padding-left:0}
-.facts b{display:block;font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1}
-.facts span{color:var(--muted);font-size:15px;display:block;margin-top:8px}
+/* capability map: what the skill does, each tile opens its section */
+.map{margin-top:8px;padding-top:20px;border-top:1px solid var(--line)}
+.map-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.map-h p{margin:0;color:var(--muted);font-size:15px}
+.map ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.map a{position:relative;display:flex;flex-direction:column;height:100%;box-sizing:border-box;padding:18px 18px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);color:var(--text);text-decoration:none;transition:border-color .25s,background .25s,transform .25s}
+.map a:hover,.map a:focus-visible{border-color:var(--accent);background:var(--panel2)}
+.map a:active{transform:translateY(1px)}
+.map .n{position:absolute;top:16px;right:16px;font:500 11px/1 var(--mono);color:var(--muted)}
+.map i.ph{font-size:24px;color:var(--accent)}
+.map b{display:block;margin:12px 0 4px;font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.map span.d{color:var(--soft);font-size:14px;line-height:1.45}
+.map .go{margin-top:auto;padding-top:12px;font:500 12px/1 var(--mono);color:var(--accent);display:flex;align-items:center;gap:6px}
+.map .go i{transition:transform .25s}
+.map a:hover .go i,.map a:focus-visible .go i{transform:translateX(4px)}
+.phase{scroll-margin-top:44px}
+.phase:target>div{outline:1px solid var(--accent);outline-offset:8px;border-radius:var(--rs)}
+.tomap{position:fixed;right:20px;bottom:20px;z-index:40;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--panel);color:var(--text);font-size:14px;text-decoration:none;box-shadow:0 8px 24px rgba(3,11,28,.5);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s,border-color .25s}
+.tomap.show{opacity:1;transform:none;pointer-events:auto}
+.tomap:hover,.tomap:focus-visible{border-color:var(--accent)}
+.tomap i{color:var(--accent);font-size:16px}
+@media(max-width:1080px){.map ol{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.map ol{gap:8px}.map a{padding:14px 12px 12px}.map .n{top:14px;right:12px}.map b{font-size:15px;margin-top:10px}.map span.d{font-size:13px}.map .go{display:none}.tomap{right:12px;bottom:12px}}
 
 /* sources */
 .sources{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:14px;margin-top:44px}
@@ -499,9 +522,6 @@ footer a{color:var(--soft)}
 @media (max-width:860px){
   section{padding-top:84px}
   #riprese,#ingegneria,#ai{padding-top:56px}
-  .facts{grid-template-columns:repeat(2,1fr)}
-  .facts div:nth-child(3){border-left:0;padding-left:0}
-  .facts div:nth-child(n+3){border-top:1px solid var(--line)}
   .sources{grid-template-columns:repeat(2,1fr)}
   .src.big{grid-row:auto;grid-column:span 2}
   .bento{grid-template-columns:1fr}
@@ -525,7 +545,6 @@ footer a{color:var(--soft)}
   .stages{grid-template-columns:repeat(2,1fr)}
   .sources,.enter{grid-template-columns:1fr}
   .src.big,.src.wide{grid-column:auto}
-  .facts b{font-size:32px}
   .code{font-size:44px}
   .seg.five{grid-template-columns:repeat(3,1fr)}
   .brand span{display:none}
@@ -572,6 +591,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <p class="lead" lang="en">The whole process, from CAD file to finished explainer video, in one skill. <strong>Weeks or months of work, done in a few hours.</strong></p>
 <p class="lead" lang="it">Tutto il processo, dal file CAD al video infografico finito, in una skill. <strong>Settimane o mesi di lavoro, in poche ore.</strong></p>
 <div class="cta"><a class="btn" href="#installazione"><i class="ph ph-download-simple"></i><span lang="en">Install</span><span lang="it">Installa</span></a><a class="btn ghost" href="https://github.com/mariomele/blender-product-video"><i class="ph ph-github-logo"></i><span lang="en">View on GitHub</span><span lang="it">Vedi su GitHub</span></a></div>
+<ul class="peek" aria-label="What it does" data-aria-it="Cosa sa fare"><li><a href="#impossibile"><i class="ph ph-scissors" aria-hidden="true"></i><span lang="en">Cutaways</span><span lang="it">Sezioni</span></a></li><li><a href="#fase-1"><i class="ph ph-gear-six" aria-hidden="true"></i><span lang="en">Real motion</span><span lang="it">Moto vero</span></a></li><li><a href="#fase-3"><i class="ph ph-video-camera" aria-hidden="true"></i><span lang="en">Real footage</span><span lang="it">Riprese vere</span></a></li><li><a href="#ingegneria"><i class="ph ph-chart-line-up" aria-hidden="true"></i><span lang="en">Stress analysis</span><span lang="it">Calcoli</span></a></li><li><a href="#fase-4"><i class="ph ph-microphone" aria-hidden="true"></i><span lang="en">Voice and music</span><span lang="it">Voce e musica</span></a></li><li><a href="#agenti"><i class="ph ph-users-three" aria-hidden="true"></i><span lang="en">8 agents</span><span lang="it">8 agenti</span></a></li><li class="all"><a href="#mappa"><span lang="en">All 8</span><span lang="it">Tutte e 8</span><i class="ph ph-arrow-down" aria-hidden="true"></i></a></li></ul>
 </div>
 <div class="viewer" id="viewer">
 <div class="screen">
@@ -589,12 +609,11 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 </div>
 </div>
 
-<div class="facts rv">
-<div><b>10</b><span lang="en">phases, from the brief to the delivery files</span><span lang="it">fasi, dal brief ai file di consegna</span></div>
-<div><b>8</b><span lang="en">agents: director, scriptwriter, motion designer and checkers</span><span lang="it">agenti: regista, sceneggiatore, motion designer e chi controlla</span></div>
-<div><b>24 fps</b><span lang="en">Cycles render on the Metal GPU</span><span lang="it">render Cycles su GPU Metal</span></div>
-<div><b>4</b><span lang="en">formats: 9:16, 16:9, 1:1, 4:5 · IG and TikTok safe zones</span><span lang="it">formati: 9:16, 16:9, 1:1, 4:5 · safe zone IG e TikTok</span></div>
-</div>
+<nav class="map" id="mappa" aria-labelledby="map-t">
+<div class="map-h"><span class="eyebrow" id="map-t"><span lang="en">What it does, in 30 seconds</span><span lang="it">Cosa sa fare, in 30 secondi</span></span><p><span lang="en">Eight things in one skill. Open the one you need.</span><span lang="it">Otto cose in una skill. Apri quella che ti serve.</span></p></div>
+<ol><li><a href="#come"><span class="n">01</span><i class="ph ph-files" aria-hidden="true"></i><b><span lang="en">Starts from what you have</span><span lang="it">Parte da quello che hai</span></b><span class="d"><span lang="en">STEP, GLB, photos, a PDF drawing, a product link.</span><span lang="it">STEP, GLB, foto, un disegno in PDF, il link di un prodotto.</span></span><span class="go"><span lang="en">Sources</span><span lang="it">Sorgenti</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li><li><a href="#fase-1"><span class="n">02</span><i class="ph ph-gear-six" aria-hidden="true"></i><b><span lang="en">Moves like the real machine</span><span lang="it">Si muove come quella vera</span></b><span class="d"><span lang="en">Reads how it works from CAD, manual and video, then measures every scene.</span><span lang="it">Capisce come funziona da CAD, manuale e video, poi misura ogni scena.</span></span><span class="go"><span lang="en">Function</span><span lang="it">Funzionamento</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li><li><a href="#impossibile"><span class="n">03</span><i class="ph ph-scissors" aria-hidden="true"></i><b><span lang="en">Shots no camera can take</span><span lang="it">Riprese impossibili</span></b><span class="d"><span lang="en">Cutaways, exploded views, X-ray, POV inside the machine.</span><span lang="it">Sezioni, esplosi, radiografie, la camera dentro la macchina.</span></span><span class="go"><span lang="en">Cutaways</span><span lang="it">Sezioni</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li><li><a href="#fase-3"><span class="n">04</span><i class="ph ph-video-camera" aria-hidden="true"></i><b><span lang="en">Real footage next to the 3D</span><span lang="it">Riprese vere accanto al 3D</span></b><span class="d"><span lang="en">Your videos as b-roll or in split screen, in sync with the cycle.</span><span lang="it">I tuoi video come b-roll o in split screen, a tempo con il ciclo.</span></span><span class="go"><span lang="en">Footage</span><span lang="it">Riprese</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li><li><a href="#ingegneria"><span class="n">05</span><i class="ph ph-chart-line-up" aria-hidden="true"></i><b><span lang="en">Engineering with real numbers</span><span lang="it">Ingegneria con numeri veri</span></b><span class="d"><span lang="en">Stress colours, real joint limits, dimensioned drawings.</span><span lang="it">Tensioni a colori, fine corsa veri, tavole quotate.</span></span><span class="go"><span lang="en">Engineering</span><span lang="it">Ingegneria</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li><li><a href="#fase-4"><span class="n">06</span><i class="ph ph-text-aa" aria-hidden="true"></i><b><span lang="en">Graphics, voice and music</span><span lang="it">Grafiche, voce e musica</span></b><span class="d"><span lang="en">Text that tells a story, voice-over, music and effects in sync.</span><span lang="it">Testi che raccontano, voce, musica ed effetti a tempo.</span></span><span class="go"><span lang="en">Finish</span><span lang="it">Rifinitura</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li><li><a href="#agenti"><span class="n">07</span><i class="ph ph-users-three" aria-hidden="true"></i><b><span lang="en">A crew of 8 agents</span><span lang="it">Una squadra di 8 agenti</span></b><span class="d"><span lang="en">Director, scriptwriter, motion designer and checkers. Stops on your phone.</span><span lang="it">Regista, sceneggiatore, motion designer e chi controlla. Soste sul telefono.</span></span><span class="go"><span lang="en">Agents</span><span lang="it">Agenti</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li><li><a href="#render"><span class="n">08</span><i class="ph ph-graphics-card" aria-hidden="true"></i><b><span lang="en">Final render on your Mac</span><span lang="it">Render finale sul tuo Mac</span></b><span class="d"><span lang="en">Cycles on the Metal GPU, 4 formats, files ready to post.</span><span lang="it">Cycles su GPU Metal, 4 formati, file pronti da pubblicare.</span></span><span class="go"><span lang="en">Render</span><span lang="it">Render</span><i class="ph ph-arrow-right" aria-hidden="true"></i></span></a></li></ol>
+</nav>
+<a class="tomap" href="#mappa"><i class="ph ph-squares-four" aria-hidden="true"></i><span lang="en">What it does</span><span lang="it">Cosa sa fare</span></a>
 
 <section id="film">
 <h2 class="rv"><span lang="en">One robot, from CAD to finished video.</span><span lang="it">Un robot, dal CAD al video finito.</span></h2>
@@ -707,7 +726,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <ol class="line">
 <li class="phase rv" style="--i:0"><span class="dot">0</span><div><h4>Brief <i class="k ok">OK</i></h4><p lang="en">Format, length, setting and mood, story arc, palette of the graphics.</p><p lang="it">Formato, durata, ambiente e atmosfera, arco del racconto, palette delle grafiche.</p></div>
 <div class="branches"><span class="br"><i class="ph ph-chart-line-up"></i><span><b lang="en">Stress analysis or drawing</b><b lang="it">Calcolo o tavola tecnica</b><span class="t">text-to-cad</span></span></span><span class="br"><i class="ph ph-cursor-click"></i><span><b lang="en">Also an interactive 3D page</b><b lang="it">Anche una pagina 3D interattiva</b><span class="t">Machine · Teardown</span></span></span></div></li>
-<li class="phase rv" style="--i:1"><span class="dot">1</span><div><h4><span lang="en">The product</span><span lang="it">Il pezzo</span> <i class="k ok">OK</i></h4><p lang="en">Real-scale model, materials checked against the reference, the setting, and a function sheet from CAD, PDF, text, website or video: what moves, which way, how fast. Every scene is measured against it.</p><p lang="it">Modello in scala reale, materiali confrontati col riferimento, ambientazione, e una scheda di funzionamento da CAD, PDF, testo, sito o video: cosa si muove, in che verso, a che velocità. Ogni scena viene misurata su quella scheda.</p></div>
+<li class="phase rv" id="fase-1" style="--i:1"><span class="dot">1</span><div><h4><span lang="en">The product</span><span lang="it">Il pezzo</span> <i class="k ok">OK</i></h4><p lang="en">Real-scale model, materials checked against the reference, the setting, and a function sheet from CAD, PDF, text, website or video: what moves, which way, how fast. Every scene is measured against it.</p><p lang="it">Modello in scala reale, materiali confrontati col riferimento, ambientazione, e una scheda di funzionamento da CAD, PDF, testo, sito o video: cosa si muove, in che verso, a che velocità. Ogni scena viene misurata su quella scheda.</p></div>
 <div class="branches"><span class="br"><i class="ph ph-cube"></i><span><b lang="en">From STEP or a drawing</b><b lang="it">Da STEP o da disegno</b><span class="t">text-to-cad</span></span></span><span class="br"><i class="ph ph-ruler"></i><span><b lang="en">From a DWG</b><b lang="it">Da un DWG</b><span class="t">LibreDWG</span></span></span><span class="br"><i class="ph ph-link"></i><span><b lang="en">From a product page</b><b lang="it">Da una pagina prodotto</b><span class="t">Firecrawl</span></span></span></div></li>
 </ol></div>
 
@@ -715,13 +734,13 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <ol class="line">
 <li class="phase rv" style="--i:2"><span class="dot">2</span><div><h4><span lang="en">The scenes</span><span lang="it">Le scene</span> <i class="k ok">OK</i></h4><p lang="en">Shot list, then each scene: storyboard first, animated preview after. One ok per scene.</p><p lang="it">Scaletta, poi ogni scena: prima lo storyboard, poi l'anteprima animata. Un ok per scena.</p></div>
 <div class="branches"><span class="br always"><i class="ph ph-sliders-horizontal"></i><span><b lang="en">Every render asks resolution, fps, quality</b><b lang="it">Ogni render chiede risoluzione, fps, qualità</b><span class="t"><a href="#render">2-4-1</a></span></span></span></div></li>
-<li class="phase rv" style="--i:3"><span class="dot">3</span><div><h4><span lang="en">Edit</span><span lang="it">Montaggio</span> <i class="k ok">OK</i></h4><p lang="en">All scenes in one preview: order, rhythm, transitions, shot sizes never repeated.</p><p lang="it">Tutte le scene in un'anteprima: ordine, ritmo, transizioni, piani mai ripetuti.</p></div>
+<li class="phase rv" id="fase-3" style="--i:3"><span class="dot">3</span><div><h4><span lang="en">Edit</span><span lang="it">Montaggio</span> <i class="k ok">OK</i></h4><p lang="en">All scenes in one preview: order, rhythm, transitions, shot sizes never repeated.</p><p lang="it">Tutte le scene in un'anteprima: ordine, ritmo, transizioni, piani mai ripetuti.</p></div>
 <div class="branches"><span class="br"><i class="ph ph-sparkle"></i><span><b lang="en">AI world, people, effects, upscale</b><b lang="it">Mondo AI, persone, effetti, upscale</b><span class="t">Higgsfield</span></span></span><span class="br"><i class="ph ph-video-camera"></i><span><b lang="en">Real footage: b-roll, split screen</b><b lang="it">Riprese vere: b-roll, split screen</b><span class="t">HyperFrames</span></span></span></div></li>
 </ol></div>
 
 <div class="act rv"><header><h3><span lang="en">Finish</span><span lang="it">Rifinisci</span></h3><p lang="en">Words, numbers, sound.</p><p lang="it">Parole, numeri, suono.</p></header>
 <ol class="line">
-<li class="phase rv" style="--i:4"><span class="dot">4</span><div><h4><span lang="en">Graphics</span><span lang="it">Grafiche</span> <i class="k ok">OK</i></h4><p lang="en">Titles, callouts, dimensions and subtitles in HyperFrames, in your palette, with exact text.</p><p lang="it">Titoli, callout, misure e sottotitoli in HyperFrames, nella tua palette e con il testo esatto.</p></div>
+<li class="phase rv" id="fase-4" style="--i:4"><span class="dot">4</span><div><h4><span lang="en">Graphics</span><span lang="it">Grafiche</span> <i class="k ok">OK</i></h4><p lang="en">Titles, callouts, dimensions and subtitles in HyperFrames, in your palette, with exact text.</p><p lang="it">Titoli, callout, misure e sottotitoli in HyperFrames, nella tua palette e con il testo esatto.</p></div>
 <div class="branches"><span class="br always"><i class="ph ph-device-mobile"></i><span><b lang="en">9:16: text inside the Reels, Stories and TikTok safe zones</b><b lang="it">9:16: testi dentro le zone sicure di Reels, Stories e TikTok</b><span class="t">safe_zone.sh</span></span></span></div></li>
 <li class="phase rv" style="--i:5"><span class="dot">5</span><div><h4>Audio</h4><p lang="en">Voice-over, music and effects; the scenes stretch to follow the voice.</p><p lang="it">Voce, musica ed effetti; le scene si allungano per seguire la voce.</p></div>
 <div class="branches"><span class="br"><i class="ph ph-waveform"></i><span><b lang="en">Only if the video has sound</b><b lang="it">Solo se il video ha l'audio</b><span class="t">ElevenLabs</span></span></span></div></li>
@@ -1151,6 +1170,14 @@ document.querySelectorAll('.kc').forEach(function(c){c.addEventListener('pointer
   if(matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window)) return end();
   var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect(); setTimeout(play,400)}},{threshold:.4});
   io.observe(duel); btn.addEventListener('click',play);
+})();
+</script>
+<script>
+// "what it does" pill: shows once the capability map has scrolled away, links back to it
+(function(){
+  var m=document.getElementById('mappa'), b=document.querySelector('.tomap');
+  if(!m||!b||!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function(es){var e=es[0]; b.classList.toggle('show',!e.isIntersecting&&e.boundingClientRect.top<0)}).observe(m);
 })();
 </script>
 </body>
