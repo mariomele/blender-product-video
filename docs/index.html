@@ -375,6 +375,7 @@ section{padding:112px 0 0}
 .scale small{color:var(--muted);font-size:13px}
 .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .seg.five{grid-template-columns:repeat(5,1fr)}
+.seg .px{display:block;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:2px}
 .seg.mac b{font-family:"Geist",sans-serif;font-size:13.5px;color:var(--soft);font-weight:600}
 .dur output{font-family:var(--mono);color:var(--text)}
 .dur input{width:100%;accent-color:var(--accent);height:44px;margin:0;cursor:pointer}
@@ -760,7 +761,7 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <p class="sub rv"><span lang="en">Three numbers from 1 to 4: resolution, fps, quality. Try it: the times are measured on a real machine scene.</span><span lang="it">Tre numeri da 1 a 4: risoluzione, fps, qualità. Provalo: i tempi sono misurati su una scena reale di macchina.</span></p>
 <div class="cfg rv" id="cfg">
 <div class="scales">
-<div class="scale" data-k="res"><div><label lang="en">Resolution</label><label lang="it">Risoluzione</label><small>1080x1920</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>25%</button><button type="button" data-v="2"><b>2</b>50%</button><button type="button" data-v="3"><b>3</b>75%</button><button type="button" data-v="4"><b>4</b>100%</button></div></div>
+<div class="scale" data-k="res"><div><label lang="en">Resolution</label><label lang="it">Risoluzione</label><small>1080x1920</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>25%<small class="px">270x480</small></button><button type="button" data-v="2"><b>2</b>50%<small class="px">540x960</small></button><button type="button" data-v="3"><b>3</b>75%<small class="px">810x1440</small></button><button type="button" data-v="4"><b>4</b>100%<small class="px">1080x1920</small></button></div></div>
 <div class="scale" data-k="fps"><div><label>Fps</label><small lang="en">24 is the project rate</small><small lang="it">24 è la velocità del progetto</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>3</button><button type="button" data-v="2"><b>2</b>6</button><button type="button" data-v="3"><b>3</b>12</button><button type="button" data-v="4"><b>4</b>24</button></div></div>
 <div class="scale" data-k="q"><div><label lang="en">Quality</label><label lang="it">Qualità</label><small lang="en">samples · JPG</small><small lang="it">campioni · JPG</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>8 · 50</button><button type="button" data-v="2"><b>2</b>24 · 60</button><button type="button" data-v="3"><b>3</b>40 · 75</button><button type="button" data-v="4"><b>4</b>96 · 95</button></div></div>
 <div class="scale" data-k="jpg"><div><label lang="en">JPG, optional 4th number</label><label lang="it">JPG, quarto numero facoltativo</label><small lang="en">file size only</small><small lang="it">solo il peso</small></div><div class="seg five"><button type="button" data-v="0"><b>·</b><span lang="en">auto</span><span lang="it">auto</span></button><button type="button" data-v="1"><b>1</b>50</button><button type="button" data-v="2"><b>2</b>60</button><button type="button" data-v="3"><b>3</b>75</button><button type="button" data-v="4"><b>4</b>95</button></div></div>
