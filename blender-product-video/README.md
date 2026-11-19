@@ -151,6 +151,7 @@ Nella cartella `scripts/`:
 | `make_srt.py` | Crea i sottotitoli dal testo della voce e dai tempi delle scene. |
 | `contact_sheet.sh` | Crea un provino a griglia di qualunque video. |
 | `safe_zone.sh` | Zona sicura del 9:16 per Reels, Stories e TikTok: margini, CSS e guide disegnate su un frame o un video. |
+| `storyboard_pdf.py` | Storyboard in PDF per l'approvazione del cliente, brandizzato, e testi della voce in `.md` per ogni lingua. |
 | `deliver.sh` | Prepara master e versione leggera, con l'audio normalizzato. |
 
 Nella cartella `evals/` ci sono alcuni casi di prova che descrivono come la skill deve comportarsi. Servono a controllare che le modifiche future non rompano niente.

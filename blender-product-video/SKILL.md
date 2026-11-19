@@ -234,6 +234,12 @@ Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o
 `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <fps_scena> preview/<n>_sb <res%> <spp>` (domanda con risoluzione e qualità, proposta `1-·-1`)
 Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. Guarda tu la griglia e controlla che il piano sia quello della scaletta e che non si ripeta con la scena vicina, poi mandala all'utente come storyboard. Ripeti finché non la approva.
 
+**Storyboard da approvare: in chat o anche in PDF.** Quando tutte le scene hanno lo storyboard, chiedi: "Lo storyboard lo vuoi solo qui in chat, o anche in PDF da mandare al cliente per l'approvazione? In quali lingue?". Per il PDF scegli un frame per inquadratura (quello che la racconta meglio) e scrivi `storyboard.json` con titolo, lingue, colori del brand (`accent`, `ink`, da `progetto.md`) e per ogni inquadratura immagine, inizio e fine in secondi, piano e voce per lingua. Poi:
+`python3 $K/storyboard_pdf.py storyboard.json delivery/storyboard` → `storyboard_<lingua>.pdf` (A4 orizzontale, 14 inquadrature per pagina, riquadro di approvazione nell'ultima, firma "Blender Product Video · Mario Mele" in fondo) e `vo_<lingua>.md`. Regole del PDF:
+- testo sempre leggibile: niente corpi piccoli né pesi sottili (minimo 9,5 px per i testi, peso 500 o più); se non ci sta, accorcia il testo, non rimpicciolirlo;
+- solo i colori del brand del cliente: `accent` per numeri ed etichette, `ink` per titoli e voce; mai colori fuori palette;
+- guardalo tu prima di mandarlo (`sips -s format png` sulla prima pagina).
+
 **Anteprima animata.** Fai la domanda delle tre scale (proposta `1-3-1`: 25%, 12 fps, 8 spp), poi:
 `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> preview/<n>_p <res%> <spp>` → `preview.mp4` a velocità reale.
 **Scene facoltative con text-to-cad** (servono il comando `cad` e il pezzo in STEP):
@@ -268,7 +274,7 @@ Usi consigliati:
 Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: lì servono la geometria vera e i numeri veri, solo Blender. Segna in `progetto.md` quali scene contengono AI. Nella scaletta delle inquadrature proponi tu dove una scena AI farebbe la differenza (apertura nel mondo, chiusura sul prodotto in uso), perché l'utente spesso non sa che si può fare.
 
 ## 4. HyperFrames: testo e grafiche
-- Chiedi se il **testo del voice-over** lo dà l'utente o lo scrivi tu. In quel caso scrivilo scena per scena, entro la durata di `timings.json` (circa 2,5 parole al secondo), in `audio/vo.txt` con una riga per scena: `n|testo`. Fallo approvare.
+- Chiedi se il **testo del voice-over** lo dà l'utente o lo scrivi tu. In quel caso scrivilo scena per scena, entro la durata di `timings.json` (circa 2,5 parole al secondo), in `audio/vo.txt` con una riga per scena: `n|testo`. Fallo approvare. Per registrare fuori (speaker, studio, altro TTS) genera anche i file `vo_<lingua>.md`, uno per lingua richiesta, con tempo, durata, numero di parole e testo per scena: `python3 $K/storyboard_pdf.py storyboard.json delivery/vo --no-pdf`.
 - Chiedi quali **grafiche** servono: titoli, callout, misure, conteggi, lower third, sottotitoli, logo finale.
 - Chiedi lo **stile delle grafiche**:
   - **solo HyperFrames**: pulite, precise, sempre nella palette. È il default;
