@@ -11,7 +11,10 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 - **Guida con domande.** All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
-- **Ogni render parte da una domanda sola, con tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Vale per storyboard, anteprime, montaggio, finale e redo, ogni volta, anche quando l'utente dice solo "renderizza": non lanciare mai un render senza la risposta. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; un quarto numero facoltativo cambia solo il JPG (`2-3-4-1` = qualità 4 con JPG 50); vanno bene anche valori liberi, per esempio `1440x2560-24-JPG70/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
+- **Ogni render usa tre scale da 1 a 4** (1 = più leggero, 4 = massimo). Le qualità delle bozze (storyboard, anteprime, montaggio, redo di bozza) si fissano una volta sola nel brief (fase 0, riga `Bozze` di `progetto.md`):
+  - **predefinite**: usa i codici scritti in `Bozze` senza chiedere a ogni passaggio; dì solo in una riga quale codice usi e la stima dei tempi. Se l'utente chiede una qualità diversa per un passaggio, usala solo lì;
+  - **passo passo**: fai la domanda qui sotto prima di ogni render di bozza.
+  Il **render finale** e i suoi redo hanno sempre la loro domanda, anche con le bozze predefinite: non lanciarli mai senza la risposta, anche quando l'utente dice solo "renderizza". Se `Bozze` manca (progetto vecchio), chiedi come nel passo passo. L'utente risponde con un codice `risoluzione-fps-qualità`, per esempio `2-3-4`; un quarto numero facoltativo cambia solo il JPG (`2-3-4-1` = qualità 4 con JPG 50); vanno bene anche valori liberi, per esempio `1440x2560-24-JPG70/spp60`. Proponi il codice adatto a quel passaggio, con la stima dei tempi, e scrivi la scelta in `progetto.md`. Mostra la domanda così:
 
   ```
   Render <cosa> — rispondi risoluzione-fps-qualità (es. 2-4-1)
@@ -48,6 +51,7 @@ Cartella di progetto: `progetto.md`, `source/` (materiale originale, mai modific
 Fase attuale: <0–9> — <cosa manca>
 ## Brief
 Formato: 9:16 1080x1920, 24 fps · Durata: 45 s · Uso: Instagram
+Bozze: predefinite · storyboard 1-·-1 · anteprima 1-3-1 · montaggio 2-4-1 (oppure: passo passo)
 Sorgenti: source/… · Fedeltà: A/B/C (vedi fase 1)
 Ambiente: … · Atmosfera: … · Foto ref: source/…
 Palette infografiche (solo HyperFrames): #…, #… · Logo: source/… · Da evitare: …
@@ -94,6 +98,7 @@ Chiedi, se non lo sai già:
 - **Sorgenti**: foto, link, CAD o disegno. Cosa deve essere fedele (misure, colori, loghi) e cosa può essere approssimato.
 - **Formato, prima di qualunque scena o render**: aspect ratio (9:16 1080x1920 · 16:9 1920x1080 · 1:1 1080x1080 · 4:5 1080x1350), risoluzione; gli fps sono sempre 24. Vanno impostati in ogni .blend. Per il 9:16 chiedi anche le piattaforme (Reels, Stories, TikTok o tutte): decidono la zona sicura per testi e grafiche (fase 4) e vanno nel brief, alla riga Formato.
 - **Durata totale** e uso (social, sito, fiera, presentazione).
+- **Qualità delle bozze**: chiedi con `AskUserQuestion` se fissare ora le qualità predefinite delle bozze, così non le chiedi a ogni passaggio, o se sceglierle passo passo. Opzioni: "Predefinite (consigliato)" con le proposte di partenza (storyboard `1-·-1`, anteprima di una scena `1-3-1`, montaggio `2-4-1`), "Predefinite, più veloci" (`1-·-1`, `1-2-1`, `1-3-1`), "Passo passo". L'utente può anche dare codici suoi. Il render finale si chiede comunque a parte.
 - **Ambiente e atmosfera**:
   - ambiente: capannone o reparto produttivo, studio con sfondo nero, limbo bianco/grigio, esterno (cantiere, campo, piazzale), showroom o ufficio, sfondo astratto;
   - atmosfera e luce: tecnica e pulita, cinematografica e contrastata, calda o fredda, giorno o notte, fumo/polvere/riflessi a terra;
@@ -231,7 +236,7 @@ Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o
   - **esploso** e rimontaggio, parti trasparenti o in radiografia, cambio di finitura o di colore.
 
 **Storyboard (1 frame al secondo)**, prima di qualunque anteprima animata:
-`JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <fps_scena> preview/<n>_sb <res%> <spp>` (domanda con risoluzione e qualità, proposta `1-·-1`)
+`JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <fps_scena> preview/<n>_sb <res%> <spp>` (codice da `Bozze`, o domanda se passo passo; proposta `1-·-1`)
 Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. Guarda tu la griglia e controlla che il piano sia quello della scaletta e che non si ripeta con la scena vicina, poi mandala all'utente come storyboard. Ripeti finché non la approva.
 
 **Storyboard da approvare: in chat o anche in PDF.** Quando tutte le scene hanno lo storyboard, chiedi: "Lo storyboard lo vuoi solo qui in chat, o anche in PDF da mandare al cliente per l'approvazione? In quali lingue?". Per il PDF scegli un frame per inquadratura (quello che la racconta meglio) e scrivi `storyboard.json` con titolo, lingue, colori del brand (`accent`, `ink`, da `progetto.md`) e per ogni inquadratura immagine, inizio e fine in secondi, piano e voce per lingua. Poi:
@@ -240,7 +245,7 @@ Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. G
 - solo i colori del brand del cliente: `accent` per numeri ed etichette, `ink` per titoli e voce; mai colori fuori palette;
 - guardalo tu prima di mandarlo (`sips -s format png` sulla prima pagina).
 
-**Anteprima animata.** Fai la domanda delle tre scale (proposta `1-3-1`: 25%, 12 fps, 8 spp), poi:
+**Anteprima animata.** Usa il codice di `Bozze`, o fai la domanda delle tre scale se passo passo (proposta `1-3-1`: 25%, 12 fps, 8 spp), poi:
 `JPG_Q=<q> $K/preview.sh <scena.blend> <first> <last> <step> preview/<n>_p <res%> <spp>` → `preview.mp4` a velocità reale.
 **Scene facoltative con text-to-cad** (servono il comando `cad` e il pezzo in STEP):
 - **Resistenza (FEA)**: il pezzo che si piega sotto carico mentre si colora dal blu al rosso, dove regge e dove è al limite. Con la skill **text-to-cad:fea**: scegli le facce bloccate e caricate (`cad step solve <pezzo>.step` le elenca), e prendi carico e materiale dal cliente: non si inventano. Poi `cad step solve <pezzo>.step --study study.json --out fea/`, e da lì:
@@ -255,7 +260,7 @@ Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla succ
 - `edl.txt`, una scena per riga: `n file.blend first last [extra] [skip_head]`.
   - `extra`: frame aggiunti tramite subframe per dare respiro alla voce.
   - `skip_head`: primi N frame esclusi dal montaggio, senza cancellarli.
-- Anteprima di tutto (domanda delle tre scale, proposta `2-4-1`): `SPP=8 JPG_Q=50 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
+- Anteprima di tutto (codice da `Bozze`, o domanda se passo passo; proposta `2-4-1`): `SPP=8 JPG_Q=50 $K/render_all.sh <progetto> edl.txt 50 <fps>` → `preview_jpg/final.mp4` + `timings.json` (inizio e fine di ogni scena in secondi).
 - `$K/contact_sheet.sh preview_jpg/final.mp4 preview/montaggio.jpg 1` per un provino.
 - Se cambiano `first`, `last`, `extra` o la risoluzione di uno shot, `render_all.sh` sposta i frame vecchi in `<shot>.old_<data>` e rifà lo shot (i vecchi frame non corrispondono più agli stessi istanti).
 Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei piani: niente due piani uguali di fila, un piano largo almeno ogni 2–3 piani stretti.
