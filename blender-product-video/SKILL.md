@@ -75,7 +75,7 @@ Al posto di ogni checkpoint guardi tu il risultato (`Read` sui JPG e sui PNG di 
 |---|---|
 | 1 modello | proporzioni e colori contro le foto di riferimento, scala reale (una misura nota), nessuna parte mancante o capovolta, normali e materiali senza nero o rosa |
 | 2 scene | il soggetto resta in quadro, nessuna compenetrazione, i giunti dentro i limiti, la camera non attraversa oggetti, il movimento si legge (né troppo lento né a scatti) |
-| 3 montaggio | ordine come il racconto, niente due piani uguali di fila, un piano largo ogni 2–3 stretti, durata totale entro ±10% del brief |
+| 3 montaggio | ordine come il racconto, niente due piani uguali di fila, un piano largo ogni 2–3 stretti, durata totale entro ±10% del brief, scene da 5–10 s e intermezzi da 2–3 s senza testo |
 | 4 grafiche | testi dentro le zone sicure (`safe_zone.sh`), leggibili alla dimensione del telefono, solo colori della palette, misure uguali alla sorgente |
 | 5 audio | ogni scena dura quanto la sua voce più il margine (`fit_vo.py`), pronuncia di nomi e sigle, musica sotto la voce |
 Alla fase 6 il provino completo (`preview/insieme.mp4`) va all'utente con il riepilogo dei controlli: è la seconda sosta, e l'unico giudizio d'insieme che gli chiedi.
@@ -122,7 +122,7 @@ Questa skill è il regista: decide fasi, domande, checkpoint e stato. Il mestier
 | presentazione | 16:9 1920x1080 | 60 s | limbo chiaro, luce tecnica | voce, musica bassa | predefinite |
 
 Budget di partenza, da confermare: render di bozza al massimo 3 h di GPU, crediti ElevenLabs per una voce e una musica (stima dai caratteri del testo e dalla durata), AI generativa 0 se il cliente non la chiede. Il render finale ha il suo ok a parte.
-Poi mostra un **riepilogo in una schermata** (tutte le righe del Brief di `progetto.md`, compresi racconto in 4–6 scene, palette, modalità e budget) e chiedi una sola conferma, con la possibilità di cambiare qualsiasi riga. È la prima sosta: dopo l'ok non si torna sul brief se non lo chiede l'utente.
+Poi mostra un **riepilogo in una schermata** (tutte le righe del Brief di `progetto.md`, compresi racconto in scene da 5–10 s (30 s ≈ 4 scene più qualche intermezzo), palette, modalità e budget) e chiedi una sola conferma, con la possibilità di cambiare qualsiasi riga. È la prima sosta: dopo l'ok non si torna sul brief se non lo chiede l'utente.
 Le domande delle fasi successive (storyboard in PDF, lingue della voce, voce da scegliere, piattaforme) vanno in questo riepilogo, se servono: dopo non si chiedono più.
 
 **Brief completo (guidata).** Chiedi, se non lo sai già:
@@ -243,7 +243,7 @@ Regole del montaggio:
 - **Alterna i piani**: mai due tagli di fila con lo stesso piano e la stessa altezza di camera. Fra due scene cambia almeno piano o angolo di 30° o più.
 - **Apri largo, poi stringi**: LS → MS → CU. Dopo 2–3 piani stretti torna a un piano largo, così chi guarda si riorienta e capisce dove si trova il dettaglio.
 - **Il piano segue il racconto**: largo per presentare e dare contesto, stretto per spiegare e per i dettagli, POV o sezione per il momento "wow", largo per chiudere.
-- **Durata secondo il piano**: i piani larghi e quelli con molte informazioni durano di più (4–6 s), i dettagli meno (1,5–3 s). Per i social il primo taglio arriva entro 2–3 s.
+- **Durata delle scene: 5–10 s di default**, il tempo per leggere i testi e ascoltare la voce (a 2,5 parole al secondo, una frase di 15–20 parole vuole 6–8 s). Le scene con più testo, misure o un esploso stanno verso i 10 s. Le scene da **2–3 s** sono solo **intermezzi** (un dettaglio, un raccordo, un colpo di camera fra due scene), senza testo da leggere e al massimo una parola di voce; segnale nella scaletta con «intermezzo» e non metterne due di fila. Fa eccezione l'aggancio dei social, che può tagliare entro 2–3 s.
 - **Continuità**: resta dallo stesso lato della macchina (regola dei 180°) e mantieni la direzione del movimento fra un taglio e l'altro. Taglia sul movimento (match cut) quando un pezzo si muove in due piani di fila.
 - **Movimenti di camera**: alterna anche questi (orbita, dolly-in, carrello laterale, camera ferma). Non mettere due orbite di fila nello stesso verso.
 
