@@ -14,7 +14,7 @@ Una skill per Claude Code che porta dal materiale grezzo di un prodotto (foto, l
 - **Costruisce le scene una alla volta**, con storyboard e anteprime veloci da approvare prima di spendere ore di render.
 - **Monta le scene** in un'unica animazione.
 - **Aggiunge grafiche e testi** (titoli, callout, misure, sottotitoli, logo) con HyperFrames.
-- **Mostra calcoli e tavole** (facoltativo, con text-to-cad): il pezzo che si piega sotto carico colorato dal blu al rosso, da un calcolo di resistenza vero, e la tavola tecnica quotata che si trasforma nel modello 3D.
+- **Mostra calcoli e tavole** (facoltativo, con text-to-cad): il pezzo che si piega sotto carico colorato dal blu al rosso, da un calcolo di resistenza vero, e la tavola tecnica quotata che si trasforma nel modello 3D. Muove robot e macchine con i fine corsa veri dei giunti, e porta nel video le schede elettroniche KiCad in 3D.
 - **Genera voce, musica ed effetti sonori** con ElevenLabs e adatta la durata delle scene alla voce.
 - **Fa il render finale** in alta qualità sulla GPU del Mac (Metal).
 - **Prepara i file di consegna:** video master, versione leggera da mandare al telefono, sottotitoli.
@@ -48,6 +48,7 @@ Il render finale parte **solo** dopo un ok esplicito. Prima di cancellare file l
 |---|---|
 | **Un modello 3D** (GLB, glTF, FBX, OBJ, STL, PLY, USD, ABC) | Lo importa direttamente in scala reale. |
 | **Un file CAD nativo** (STEP, IGES, SolidWorks, Inventor, Onshape, Fusion) | Lo STEP lo converte da solo in GLB con [text-to-cad](https://github.com/earthtojake/text-to-cad), con le parti separate e in scala reale. Per gli altri formati ti chiede un export in STEP o GLB dal programma CAD. |
+| **Una scheda elettronica KiCad** (`.kicad_pcb`) | La esporta in GLB con i suoi componenti 3D, con [text-to-cad](https://github.com/earthtojake/text-to-cad), e la mette nel video, per esempio dentro la sezione del prodotto. |
 | **Un disegno vettoriale** (SVG, DXF, DWG, PDF vettoriale) | Importa direttamente SVG e DWG. Il DWG viene letto con [LibreDWG](https://www.gnu.org/software/libredwg/) e solo nella parte 2D; per i DXF chiede un export in SVG o DWG. Poi estrude i profili e ricostruisce le parti. |
 | **Un disegno scansionato o uno schizzo quotato** | Legge le quote e modella il pezzo a partire da quelle. Le quote mancanti le chiede, non le inventa. |
 | **Delle foto** | Le usa come riferimento per modellare. Ti dice quali viste mancano (fronte, retro, lati, alto, dettagli) e chiede almeno una misura reale per la scala. |
@@ -198,7 +199,7 @@ Facoltativi:
 - Un account [ElevenLabs](https://elevenlabs.io) con crediti, per voce, musica ed effetti.
 - [Ponytail](https://github.com/DietrichGebert/ponytail) (consigliato): fa scrivere a Claude script corti e riusa quelli che ci sono già, quindi meno token, meno errori e anteprime più veloci; `/ponytail-review` controlla gli script prima del render finale. `claude plugin marketplace add DietrichGebert/ponytail` e `claude plugin install ponytail@ponytail`.
 - [Higgsfield MCP](https://higgsfield.ai): extra AI facoltativi, sempre previo ok per i crediti: il pezzo dentro la fabbrica o in un mondo più grande (mondo generato, prodotto vero da Blender sopra), persone, grafiche ed effetti più spettacolari con il testo esatto messo da HyperFrames, upscale dei render, cambi di formato. Mai su sezioni, esplosi, calcoli, quote o loghi.
-- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB modella le parti meccaniche in CAD parametrico, fa calcoli di resistenza e tavole tecniche, con [build123d](https://github.com/gumyr/build123d) (incluso). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse), che `cad run` scarica da solo la prima volta. Installazione: vedi il README del repo.
+- [text-to-cad](https://github.com/earthtojake/text-to-cad): converte gli STEP in GLB, modella le parti meccaniche in CAD parametrico, fa calcoli di resistenza e tavole tecniche, trova assi e fine corsa dei giunti di robot e macchine, esporta in 3D le schede KiCad, con [build123d](https://github.com/gumyr/build123d) (incluso). Le parti normalizzate (viti, cuscinetti, ingranaggi, tubi, flange) arrivano da [bd_warehouse](https://github.com/gumyr/bd_warehouse), che `cad run` scarica da solo la prima volta. Installazione: vedi il README del repo.
 - [LibreDWG](https://www.gnu.org/software/libredwg/): per leggere i disegni DWG di AutoCAD, solo la parte 2D. `brew install libredwg`
 - [Machine skill](https://github.com/AirsupHQ/machine-skill): solo per la pagina interattiva extra. `git clone https://github.com/AirsupHQ/machine-skill.git ~/.claude/skills/machine`; per screenshot e video della pagina serve Playwright: `npm i -D playwright && npx playwright install chromium` nella cartella della skill.
 

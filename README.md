@@ -120,6 +120,8 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS. Ev
 | to start from an AutoCAD DWG | + LibreDWG |
 | to start from a product web page | + Firecrawl |
 | to show strength or a technical drawing | + text-to-cad |
+| to move a robot or a machine within its real joint limits | + text-to-cad |
+| to show a KiCad circuit board in 3D | + text-to-cad |
 | the factory, a bigger world, people, flashier graphics | + Higgsfield |
 | an interactive 3D page too | + Machine |
 
@@ -199,7 +201,7 @@ System: macOS on Apple Silicon (tested on M1 Pro). Python 3 ships with macOS. Ev
 
 **Optional, by use**
 
-- **[text-to-cad (with build123d and bd_warehouse)](https://github.com/earthtojake/text-to-cad)**: opens STEP files with separate parts at real scale; parametric CAD with [build123d](https://github.com/gumyr/build123d); real ISO screws, bearings, gears from [bd_warehouse](https://github.com/gumyr/bd_warehouse); stress analyses and dimensioned drawings. *When:* you have a STEP, a drawing or a sketch; a cutaway needs real internals; you want to show strength or a drawing.
+- **[text-to-cad (with build123d and bd_warehouse)](https://github.com/earthtojake/text-to-cad)**: opens STEP files with separate parts at real scale; parametric CAD with [build123d](https://github.com/gumyr/build123d); real ISO screws, bearings, gears from [bd_warehouse](https://github.com/gumyr/bd_warehouse); stress analyses and dimensioned drawings; joint axes and limits of robots and machines; KiCad boards exported to 3D. *When:* you have a STEP, a drawing or a sketch; a cutaway needs real internals; you want to show strength or a drawing; a robot must move like the real one; the product has a circuit board to show.
 
   ```bash
   curl -fsSL https://texttocad.dev/install.sh | sh
@@ -337,6 +339,8 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 | partire da un DWG di AutoCAD | + LibreDWG |
 | partire dalla pagina web del prodotto | + Firecrawl |
 | mostrare la resistenza o una tavola tecnica | + text-to-cad |
+| muovere un robot o una macchina entro i fine corsa veri dei giunti | + text-to-cad |
+| mostrare in 3D una scheda elettronica KiCad | + text-to-cad |
 | la fabbrica, un mondo più grande, persone, grafiche più spettacolari | + Higgsfield |
 | anche una pagina 3D interattiva | + Machine |
 
@@ -416,7 +420,7 @@ Sistema: macOS con Apple Silicon (provato su M1 Pro). Python 3 è già incluso i
 
 **Facoltative, in base all'uso**
 
-- **[text-to-cad (with build123d and bd_warehouse)](https://github.com/earthtojake/text-to-cad)**: apre gli STEP con le parti separate in scala reale; CAD parametrico con [build123d](https://github.com/gumyr/build123d); viti, cuscinetti, ingranaggi ISO veri da [bd_warehouse](https://github.com/gumyr/bd_warehouse); calcoli di resistenza e tavole quotate. *Quando:* hai uno STEP, un disegno o uno schizzo; una sezione ha bisogno di interni veri; vuoi mostrare la resistenza o una tavola.
+- **[text-to-cad (with build123d and bd_warehouse)](https://github.com/earthtojake/text-to-cad)**: apre gli STEP con le parti separate in scala reale; CAD parametrico con [build123d](https://github.com/gumyr/build123d); viti, cuscinetti, ingranaggi ISO veri da [bd_warehouse](https://github.com/gumyr/bd_warehouse); calcoli di resistenza e tavole quotate; assi e fine corsa dei giunti di robot e macchine; schede KiCad esportate in 3D. *Quando:* hai uno STEP, un disegno o uno schizzo; una sezione ha bisogno di interni veri; vuoi mostrare la resistenza o una tavola; un robot deve muoversi come quello vero; il prodotto ha una scheda elettronica da mostrare.
 
   ```bash
   curl -fsSL https://texttocad.dev/install.sh | sh
