@@ -89,7 +89,7 @@ section{padding:112px 0 0}
 .hero .lead{font-size:18px;color:var(--soft);margin:22px 0 32px;max-width:40ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
 .viewer{position:relative}
-.screen{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 40px 120px -40px rgb(245 164 0 / .28),0 0 0 1px rgb(255 255 255 / .03) inset}
+.screen{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 40px 120px -40px rgb(61 139 255 / .28),0 0 0 1px rgb(255 255 255 / .03) inset}
 .screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .9s ease,transform 4s ease}
 .screen img.on{opacity:1;transform:scale(1)}
 .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;padding:0;list-style:none}
@@ -360,7 +360,7 @@ section{padding:112px 0 0}
 .br i{color:var(--muted);font-size:18px;margin-top:1px}
 .br b{color:var(--text);font-weight:600}
 .br .t{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:2px}
-.br.always{border-style:solid;border-color:rgb(245 164 0 / .45)}
+.br.always{border-style:solid;border-color:rgb(61 139 255 / .45)}
 .br.always i{color:var(--accent)}
 .enter{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .enter div{background:var(--panel);border-radius:12px;padding:16px;border:1px solid var(--line)}
@@ -375,12 +375,15 @@ section{padding:112px 0 0}
 .scale small{color:var(--muted);font-size:13px}
 .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .seg.five{grid-template-columns:repeat(5,1fr)}
+.seg.mac b{font-family:"Geist",sans-serif;font-size:13.5px;color:var(--soft);font-weight:600}
+.dur output{font-family:var(--mono);color:var(--text)}
+.dur input{width:100%;accent-color:var(--accent);height:44px;margin:0;cursor:pointer}
 .seg button{background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--soft);padding:10px 6px;font:500 13.5px/1.25 "Geist",sans-serif;cursor:pointer;transition:border-color .2s,background .2s}
 .seg button b{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:500}
-.seg button[aria-pressed=true]{border-color:var(--accent);background:rgb(245 164 0 / .1);color:var(--text)}
+.seg button[aria-pressed=true]{border-color:var(--accent);background:rgb(61 139 255 / .1);color:var(--text)}
 .seg button[aria-pressed=true] b{color:var(--accent)}
 .seg button:active{transform:scale(.98)}
-.out{border-radius:20px;padding:26px;background:radial-gradient(120% 90% at 100% 0%,rgb(245 164 0 / .16),transparent 60%),var(--bg2);border:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+.out{border-radius:20px;padding:26px;background:radial-gradient(120% 90% at 100% 0%,rgb(61 139 255 / .16),transparent 60%),var(--bg2);border:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
 .code{font-family:var(--mono);font-size:56px;font-weight:600;letter-spacing:-.02em;color:var(--accent);line-height:1}
 .out dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0;font-size:15px}
 .out dt{color:var(--muted)}
@@ -761,6 +764,8 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <div class="scale" data-k="fps"><div><label>Fps</label><small lang="en">24 is the project rate</small><small lang="it">24 è la velocità del progetto</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>3</button><button type="button" data-v="2"><b>2</b>6</button><button type="button" data-v="3"><b>3</b>12</button><button type="button" data-v="4"><b>4</b>24</button></div></div>
 <div class="scale" data-k="q"><div><label lang="en">Quality</label><label lang="it">Qualità</label><small lang="en">samples · JPG</small><small lang="it">campioni · JPG</small></div><div class="seg"><button type="button" data-v="1"><b>1</b>8 · 50</button><button type="button" data-v="2"><b>2</b>24 · 60</button><button type="button" data-v="3"><b>3</b>40 · 75</button><button type="button" data-v="4"><b>4</b>96 · 95</button></div></div>
 <div class="scale" data-k="jpg"><div><label lang="en">JPG, optional 4th number</label><label lang="it">JPG, quarto numero facoltativo</label><small lang="en">file size only</small><small lang="it">solo il peso</small></div><div class="seg five"><button type="button" data-v="0"><b>·</b><span lang="en">auto</span><span lang="it">auto</span></button><button type="button" data-v="1"><b>1</b>50</button><button type="button" data-v="2"><b>2</b>60</button><button type="button" data-v="3"><b>3</b>75</button><button type="button" data-v="4"><b>4</b>95</button></div></div>
+<div class="scale" data-k="mac"><div><label lang="en">Mac</label><label lang="it">Mac</label><small lang="en">Blender Open Data, Metal</small><small lang="it">Blender Open Data, Metal</small></div><div class="seg mac"><button type="button" data-v="1"><b>M1 Pro</b><span lang="en">measured</span><span lang="it">misurato</span></button><button type="button" data-v="2"><b>M2 Max</b>3,8×</button><button type="button" data-v="3"><b>M5 Pro</b>9×</button><button type="button" data-v="4"><b>M5 Max</b>17×</button></div></div>
+<div class="scale dur"><div><label for="dur" lang="en">Video length</label><label for="dur" lang="it">Durata del video</label><small><output id="o-dur" for="dur">30 s</output></small></div><input type="range" id="dur" min="5" max="180" step="5" value="30"></div>
 </div>
 <div class="out" aria-live="polite">
 <div><span class="eyebrow"><span lang="en">Your answer</span><span lang="it">La tua risposta</span></span><div class="code" id="code">2-4-1</div></div>
@@ -769,8 +774,8 @@ body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;opa
 <dt lang="en">Samples, JPG</dt><dt lang="it">Campioni, JPG</dt><dd id="o-q"></dd>
 <dt lang="en">Per frame</dt><dt lang="it">Per frame</dt><dd id="o-t"></dd>
 </dl>
-<div><span class="big" id="o-10"></span><div class="mini"><span lang="en">to render 10 seconds of video, M1 Pro, Metal</span><span lang="it">per 10 secondi di video, M1 Pro, Metal</span></div></div>
-<p class="note"><span lang="en">Measured at 100%: 9, 19, 25 and 56 s per frame. Lower resolutions are estimated; heavier scenes take longer.</span><span lang="it">Misurati al 100%: 9, 19, 25 e 56 s per frame. Le risoluzioni più basse sono stimate; scene più pesanti richiedono di più.</span></p>
+<div><span class="big" id="o-10"></span><div class="mini" id="o-for"></div></div>
+<p class="note"><span lang="en">Measured on M1 Pro at 100%: 9, 19, 25 and 56 s per frame. Lower resolutions are estimated. The other Macs (most GPU cores) scale the sampling time by their <a href="https://opendata.blender.org/benchmarks/query/?device_name=Apple&compute_type=METAL&operating_system=macOS&group_by=device_name">Blender benchmark</a> score; the ~6 s of setup and denoise per frame gains less (square root of the ratio). It is an estimate. Heavier scenes take longer.</span><span lang="it">Misurati su M1 Pro al 100%: 9, 19, 25 e 56 s per frame. Le risoluzioni più basse sono stimate. Per gli altri Mac (versione con più core GPU) il tempo dei campioni scala con il punteggio del <a href="https://opendata.blender.org/benchmarks/query/?device_name=Apple&compute_type=METAL&operating_system=macOS&group_by=device_name">benchmark di Blender</a>; i circa 6 s di preparazione e denoise per frame migliorano meno (radice del rapporto). È una stima. Scene più pesanti richiedono di più.</span></p>
 </div>
 </div>
 </section>
@@ -927,16 +932,18 @@ claude mcp list</code></pre>
   document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(timer); else if(!viewer.classList.contains('paused')) play(); });
 
   // render configurator, times measured on M1 Pro at 100%
-  var S={res:2,fps:4,q:1,jpg:0};
+  var S={res:2,fps:4,q:1,jpg:0,mac:1}, MAC=[['M1 Pro',1],['M2 Max',1776/473],['M5 Pro',4255/473],['M5 Max',8113/473]], dur=document.getElementById('dur');
   var RES=[.25,.5,.75,1], FPS=[3,6,12,24], SPP=[8,24,40,96], JPG=[50,60,75,95], T=[9,19,25,56];
   function fmt(s){ if(s<90) return Math.round(s)+' s'; var m=s/60; return m<90?Math.round(m)+' min':(m/60).toFixed(1).replace('.',it()?',':'.')+' h'; }
   function render(){
-    var r=RES[S.res-1], t=6+(T[S.q-1]-6)*r*r; // ~6 s fixed per frame, the rest scales with the pixels
+    var r=RES[S.res-1], m=MAC[S.mac-1], d=+dur.value, t=6/Math.sqrt(m[1])+(T[S.q-1]-6)*r*r/m[1]; // sampling scales with pixels and GPU score; setup+denoise (~6 s on M1 Pro) gains less, sqrt is a guess
     document.getElementById('code').textContent=S.res+'-'+S.fps+'-'+S.q+(S.jpg?'-'+S.jpg:'');
     document.getElementById('o-size').textContent=Math.round(1080*r)+'x'+Math.round(1920*r)+', '+FPS[S.fps-1]+' fps';
     document.getElementById('o-q').textContent=SPP[S.q-1]+' spp, JPG '+(S.jpg?JPG[S.jpg-1]:JPG[S.q-1]);
-    document.getElementById('o-t').textContent=(S.res===4?'':'≈ ')+t.toFixed(t<10?1:0).replace('.',it()?',':'.')+' s';
-    document.getElementById('o-10').textContent='≈ '+fmt(t*FPS[S.fps-1]*10);
+    document.getElementById('o-t').textContent=(S.res===4&&S.mac===1?'':'≈ ')+t.toFixed(t<10?1:0).replace('.',it()?',':'.')+' s';
+    document.getElementById('o-10').textContent='≈ '+fmt(t*FPS[S.fps-1]*d);
+    document.getElementById('o-dur').textContent=d+' s';
+    document.getElementById('o-for').textContent=it()?'per '+d+' secondi di video, '+m[0]+', Metal':'to render '+d+' seconds of video, '+m[0]+', Metal';
     document.querySelectorAll('#cfg .scale').forEach(function(sc){
       sc.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.v===S[sc.dataset.k])});
     });
@@ -944,6 +951,7 @@ claude mcp list</code></pre>
   document.querySelectorAll('#cfg .scale').forEach(function(sc){
     sc.addEventListener('click',function(e){var b=e.target.closest('button'); if(!b) return; S[sc.dataset.k]=+b.dataset.v; render();});
   });
+  dur.addEventListener('input',render);
 
   // goal chooser: light up the tools a goal needs
   var goals=document.getElementById('goals'), reset=goals.querySelector('.reset'), deps=document.querySelectorAll('.dep'), grid=document.getElementById('installazione');
