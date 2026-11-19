@@ -10,9 +10,10 @@ Una skill per Claude Code che porta dal materiale grezzo di un prodotto (foto, l
 
 - **Parte da qualsiasi sorgente:** un modello CAD, delle foto, la pagina web di un prodotto, un disegno tecnico o uno schizzo quotato.
 - **Ricostruisce il prodotto in Blender** in scala reale, con materiali e colori fedeli al vero.
+- **Lo fa funzionare come quello vero:** dal CAD, dalla scheda tecnica in PDF, da una descrizione, dal sito o da un video ricava una scheda di funzionamento (cosa si muove, asse, verso, corsa, velocità, ciclo, ogni riga con la sua fonte), anima con i rapporti veri di ingranaggi, cinghie e viti, e poi misura il moto delle scene con `motion_probe.py` per controllare che torni.
 - **Lo mette in un'ambientazione:** capannone, studio nero, limbo, esterno, showroom, anche partendo da una foto di riferimento.
 - **Costruisce le scene una alla volta**, con storyboard e anteprime veloci da approvare prima di spendere ore di render.
-- **Monta le scene** in un'unica animazione.
+- **Monta le scene** in un'unica animazione, anche con **riprese vere** del cliente: come b-roll, in split screen orizzontale o verticale accanto al 3D nello stesso istante del ciclo, o in un passaggio dal vero al 3D.
 - **Aggiunge grafiche e testi** (titoli, callout, misure, sottotitoli, logo) con HyperFrames.
 - **Mostra calcoli e tavole** (facoltativo, con text-to-cad): il pezzo che si piega sotto carico colorato dal blu al rosso, da un calcolo di resistenza vero, e la tavola tecnica quotata che si trasforma nel modello 3D. Muove robot e macchine con i fine corsa veri dei giunti, e porta nel video le schede elettroniche KiCad in 3D.
 - **Genera voce, musica ed effetti sonori** con ElevenLabs e adatta la durata delle scene alla voce.
@@ -24,6 +25,7 @@ Una skill per Claude Code che porta dal materiale grezzo di un prodotto (foto, l
 All'inizio scegli la modalità:
 
 - **Automatica:** quattro domande (cosa hai, dove va il video, cosa deve capire chi guarda, la tua idea di storia o "decidi tu") e un riepilogo da confermare. Formato, durata, ambiente, audio e qualità delle bozze li deduce dall'uso. La scaletta parte dalla tua idea di storia, o la genera lei se lasci decidere. Poi lavora da sola e controlla ogni passaggio sugli snapshot (proporzioni, compenetrazioni, zone sicure, leggibilità, durata delle scene). Si ferma tre volte: col video muto, lo storyboard in PDF e i testi della voce in `.md` da correggere; col video più i testi; e con la consegna. Dopo l'ok al video con i testi genera la voce con ElevenLabs e arriva al video finale, se crediti e ore di render stanno nel budget che hai deciso nel riepilogo. In qualsiasi momento puoi dire "stop", chiedere di rifare una scena o un pezzo, o cambiare qualità: fa solo quello e riprende da dove era.
+- **Agentica:** il percorso dell'automatica con il lavoro diviso fra subagenti in parallelo: uno controlla il funzionamento contro le sorgenti, un revisore guarda i frame senza conoscere il lavoro fatto, altri preparano grafiche, audio e riprese vere mentre la GPU fa il render. Le soste arrivano sul telefono. Su richiesta anche senza soste, per prove interne o varianti di un video già approvato.
 - **Guidata:** fa domande a ogni fase e si ferma per un'approvazione prima di andare avanti. Le correzioni costano poco perché arrivano quando il lavoro è ancora leggero.
 
 Tutte le decisioni (formato, ambiente, palette, voce, scene approvate) vengono scritte in un file **`progetto.md`** nella cartella del progetto. Se riprendi il lavoro il giorno dopo, o in un'altra sessione, la skill riparte da lì senza rifarti le stesse domande.
@@ -154,6 +156,7 @@ Nella cartella `scripts/`:
 | `fit_vo.py` | Allunga ogni scena quanto basta perché ci stia la sua voce fuori campo. |
 | `make_srt.py` | Crea i sottotitoli dal testo della voce e dai tempi delle scene. |
 | `contact_sheet.sh` | Crea un provino a griglia di qualunque video. |
+| `motion_probe.py` | Misura come si muovono davvero le parti di una scena (rotazioni, giri/min, corse, frame per frame) per confrontarle con la scheda di funzionamento. |
 | `safe_zone.sh` | Zona sicura del 9:16 per Reels, Stories e TikTok: margini, CSS e guide disegnate su un frame o un video. |
 | `storyboard_pdf.py` | Storyboard in PDF per l'approvazione del cliente, brandizzato, e testi della voce in `.md` per ogni lingua. |
 | `deliver.sh` | Prepara master e versione leggera, con l'audio normalizzato. |

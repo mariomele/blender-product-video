@@ -1,6 +1,6 @@
 ---
 name: blender-product-video
-description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, 3MF, GLB, FBX, STL, OBJ, USD, .blend…) o disegni tecnici (DWG, SVG, PDF). In modalità guidata fa domande a ogni fase, in modalità automatica chiede solo il brief e poi va avanti da sola fino al provino, dentro un budget di render e crediti; tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
+description: Workflow guidato per video 3D di prodotti, macchine, impianti o processi industriali fatti in Blender, partendo da foto, link, file CAD (STEP, 3MF, GLB, FBX, STL, OBJ, USD, .blend…) o disegni tecnici (DWG, SVG, PDF). In modalità guidata fa domande a ogni fase, in automatica chiede solo il brief e va avanti da sola fino al provino dentro un budget di render e crediti, in agentica divide il lavoro fra subagenti in parallelo (controllo del funzionamento, revisore visivo, grafiche, audio, riprese vere) e manda le soste sul telefono. Il modello deve funzionare come la macchina vera (moti, versi, rapporti, ciclo), ricavato da CAD, PDF, testo, sito o video di riferimento; le riprese vere entrano come b-roll o in split screen con il 3D; tiene lo stato del progetto: modello e materiali, ambientazione, scene con storyboard e anteprime, montaggio, grafiche HyperFrames, voce/musica/SFX con ElevenLabs, render Cycles su GPU Metal, file di consegna. Usala quando l'utente vuole un video 3D o un'animazione Blender di un prodotto, o lavora su un progetto di questo tipo già avviato (storyboard o anteprima di una scena Blender, allungare le scene per la voce, rifare un pezzo, render finale su Metal, infografiche, voce o musica sopra un render 3D). Non usarla per video senza 3D (reel, montaggi di girato, podcast).
 ---
 
 # Blender product video
@@ -8,9 +8,10 @@ description: Workflow guidato per video 3D di prodotti, macchine, impianti o pro
 Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 
 ## Come lavorare
-- **Due modalità, scelte nel brief** (riga `Modalità` di `progetto.md`; se manca, è guidata):
+- **Tre modalità, scelte nel brief** (riga `Modalità` di `progetto.md`; se manca, è guidata):
   - **guidata**: le domande e i checkpoint di ogni fase, come scritti sotto;
   - **automatica**: dopo il brief vai avanti da solo dalla fase 1 alla 6. Le domande di una fase diventano scelte tue, fatte con le regole di questa skill e con il brief: scrivile in `progetto.md` (Decisioni, una riga con il perché). I checkpoint diventano **controlli tuoi** (sotto, "Controlli in automatica"). Segui il **percorso in automatica** (sotto): ti fermi e chiedi solo alle sue **quattro soste** e in questi casi: una spesa fuori budget, una cancellazione di file, un dato che non si inventa (testo della voce se il cliente lo vuole suo, carichi e materiali di un calcolo, colori del brand che non trovi, fedeltà di una parte che non si vede nelle sorgenti). Fra una sosta e l'altra dai solo brevi aggiornamenti su cosa stai facendo.
+  - **agentica**: il percorso dell'automatica, con il lavoro diviso fra subagenti che lavorano in parallelo e si controllano a vicenda, e le soste che arrivano sul telefono (sotto, "Modalità agentica"). Variante **senza soste**, solo su richiesta.
 - **Guida con domande** (modalità guidata). All'inizio di ogni fase fai le sue domande con `AskUserQuestion` (opzioni concrete, la consigliata per prima). Chiudi la fase con un **checkpoint**: mostra il risultato e chiedi l'ok prima di passare alla successiva. Non chiedere quello che sai già.
 - **Tieni lo stato in `progetto.md`** (vedi sotto). Leggilo all'inizio di ogni sessione e aggiornalo a ogni checkpoint. Le decisioni dell'utente stanno lì, non solo nella conversazione.
 - **Entra nella fase giusta** (vedi "Da dove partire"): il brief completo si fa solo per un progetto nuovo.
@@ -46,7 +47,7 @@ Flusso guidato per un video 3D di un prodotto. Rispondi in italiano.
 - **Codice minimo con Ponytail** (se il plugin è installato; consigliato): ogni script che scrivi per il progetto (scene, patch, build123d, composizioni HyperFrames) segue `/ponytail`. Usa prima gli script di `$K` e quelli già in `render_scripts/`, poi la patch più corta che funziona; niente astrazioni, opzioni o codice "per dopo". Script brevi vuol dire meno token, meno errori e anteprime più veloci da rifare. Prima del render finale (fase 7) passa `/ponytail-review` sugli script del progetto: un errore trovato lì vale ore di GPU.
 - **Mai partire per inerzia** con un render lungo, un download o una generazione a pagamento (voce, musica, SFX, modelli AI): chiedi prima. In automatica vale il **budget** del brief (riga `Budget` di `progetto.md`): dentro il budget vai, e segna ogni spesa e ogni render con il suo tempo nella riga `Speso`; prima di una spesa o di un render che lo farebbe superare, fermati e chiedi. Le installazioni e i download chiedono l'ok sempre. Prima di cancellare file chiedi sempre; meglio spostare in `old_*`.
 
-Cartella di progetto: `progetto.md`, `source/` (materiale originale, mai modificato), `*.blend`, `render_scripts/`, `edl.txt`, `preview/`, `preview_jpg/`, `final_jpg/`, `hyperframes/`, `audio/`, `delivery/`. Gli script stanno in `K=~/.claude/skills/blender-product-video/scripts`. Blender di default è `/Applications/Blender.app`; un'altra installazione si indica con la variabile `BLENDER=<percorso dell'eseguibile>`.
+Cartella di progetto: `progetto.md`, `funzionamento.md`, `source/` (materiale originale, mai modificato; le riprese vere in `source/video/`), `*.blend`, `render_scripts/`, `edl.txt`, `preview/`, `preview_jpg/`, `final_jpg/`, `hyperframes/`, `audio/`, `delivery/`. Gli script stanno in `K=~/.claude/skills/blender-product-video/scripts`. Blender di default è `/Applications/Blender.app`; un'altra installazione si indica con la variabile `BLENDER=<percorso dell'eseguibile>`.
 
 ### progetto.md
 ```markdown
@@ -55,9 +56,10 @@ Fase attuale: <0–9> — <cosa manca>
 ## Brief
 Formato: 9:16 1080x1920, 24 fps · Durata: 45 s · Uso: Instagram
 Bozze: predefinite · storyboard 1-·-1 · anteprima 1-3-1 · montaggio 2-4-1 (oppure: passo passo)
-Modalità: automatica (oppure: guidata) · Budget: render bozze ≤ 3 h GPU · crediti ElevenLabs ≤ 5000 · AI ≤ 0
+Modalità: automatica (oppure: guidata, agentica, agentica senza soste) · Agenti: max 3 insieme · Budget: render bozze ≤ 3 h GPU · crediti ElevenLabs ≤ 5000 · AI ≤ 0
 Speso: render 0 h · ElevenLabs 0 · AI 0
 Sorgenti: source/… · Fedeltà: A/B/C (vedi fase 1)
+Funzionamento: funzionamento.md (fase 1d) · Riprese vere: source/video/… (b-roll, split, passaggio vero→3D)
 Ambiente: … · Atmosfera: … · Foto ref: source/…
 Palette infografiche (solo HyperFrames): #…, #… · Logo: source/… · Da evitare: …
 Racconto: …
@@ -74,15 +76,17 @@ Al posto di ogni checkpoint guardi tu il risultato (`Read` sui JPG e sui PNG di 
 | Fase | Controlla |
 |---|---|
 | 1 modello | proporzioni e colori contro le foto di riferimento, scala reale (una misura nota), nessuna parte mancante o capovolta, normali e materiali senza nero o rosa |
-| 2 scene | il soggetto resta in quadro, nessuna compenetrazione, i giunti dentro i limiti, la camera non attraversa oggetti, il movimento si legge (né troppo lento né a scatti) |
+| 1d funzionamento | ogni riga di `funzionamento.md` ha la sua fonte; quello che non si ricava è una sosta, non una scelta tua |
+| 2 scene | il moto misurato con `motion_probe.py` torna con `funzionamento.md` (assi, versi, rapporti, corse, ordine del ciclo); il soggetto resta in quadro, nessuna compenetrazione, i giunti dentro i limiti, la camera non attraversa oggetti, il movimento si legge (né troppo lento né a scatti) |
 | 3 montaggio | ordine come il racconto, niente due piani uguali di fila, un piano largo ogni 2–3 stretti, durata totale entro ±10% del brief, scene da 5–10 s e intermezzi da 2–3 s senza testo |
+| 3 riprese vere | stessa macchina e stessa versione del 3D, nello split lo stesso istante del ciclo (±2 frame), colore e contrasto vicini al render, niente tremolio né rotazione sbagliata |
 | 4 grafiche | testi dentro le zone sicure (`safe_zone.sh`), leggibili alla dimensione del telefono, solo colori della palette, misure uguali alla sorgente |
 | 5 audio | ogni scena dura quanto la sua voce più il margine (`fit_vo.py`), pronuncia di nomi e sigle, musica sotto la voce |
 Alle soste mostra all'utente anche il riepilogo dei controlli fatti.
 
 ### Percorso in automatica
-1. **Sosta 1, brief e scaletta.** Nel riepilogo del brief chiedi anche la scaletta: costruita dall'idea di storia dell'utente (la quarta domanda del brief) o, con "Decidi tu", generata da te dal racconto, con le regole della fase 2 (scene da 5–10 s, intermezzi da 2–3 s, piani alternati). La scaletta va nel riepilogo, con una riga per scena.
-2. **Da solo fino al video muto**: modello, materiali, ambiente, storyboard e anteprime di ogni scena, montaggio e render del montaggio con la qualità di `Bozze` (`preview_jpg/final.mp4`), senza testi né audio. Durante il lavoro scrivi già, scena per scena, i testi a schermo e la frase della voce (circa 2,5 parole al secondo, entro la durata della scena).
+1. **Sosta 1, brief e scaletta.** Prima del riepilogo leggi le sorgenti e scrivi la scheda di funzionamento (fase 1d): nel riepilogo metti le sue righe dedotte e le domande su quelle che non si ricavano. Chiedi anche la scaletta, con le riprese vere già al loro posto (b-roll, split, passaggio vero→3D): costruita dall'idea di storia dell'utente (la quarta domanda del brief) o, con "Decidi tu", generata da te dal racconto, con le regole della fase 2 (scene da 5–10 s, intermezzi da 2–3 s, piani alternati). La scaletta va nel riepilogo, con una riga per scena.
+2. **Da solo fino al video muto**: modello, materiali, ambiente, verifica del funzionamento di ogni scena (fase 1d), storyboard e anteprime, montaggio e render del montaggio con la qualità di `Bozze` (`preview_jpg/final.mp4`), senza testi né audio. Se ci sono riprese vere, il video muto le contiene già: le monti prima delle grafiche (fase 3, "Riprese vere"). Durante il lavoro scrivi già, scena per scena, i testi a schermo e la frase della voce (circa 2,5 parole al secondo, entro la durata della scena).
 3. **Sosta 2, i testi.** Prepara `storyboard.json` con frame, piano, testo a schermo e voce di ogni scena, e lancia `python3 $K/storyboard_pdf.py storyboard.json delivery/storyboard` nelle lingue del brief: escono lo storyboard in PDF e i `vo_<lingua>.md`. Manda all'utente il video muto, il PDF e i `.md`, e chiedi le correzioni ai testi e alla voce. Se il cliente approva lo storyboard a parte, aspetta il suo ok.
 4. **Da solo, video più testi**: grafiche HyperFrames sopra il video muto con i testi approvati (fase 4), con i suoi controlli. Render di bozza `npx hyperframes render --quality draft -o preview/testi.mp4`.
 5. **Sosta 3, video con i testi.** Mandalo e chiedi l'ok. Le correzioni tornano alla fase giusta, poi rifai questa sosta.
@@ -96,6 +100,27 @@ Alle soste mostra all'utente anche il riepilogo dei controlli fatti.
 - **"rifai questa scena"**: solo quella scena (fase 2 per l'animazione o la camera, fase 8 per rifare dei frame), poi il montaggio rifà solo i suoi shot.
 Dopo la richiesta riprendi il percorso in automatica dal punto in cui eri, e dillo in una riga. Se la richiesta tocca qualcosa già approvato a una sosta (testi, video con i testi), ripassa da quella sosta.
 
+### Modalità agentica
+Stesso percorso, stesse soste e stesse regole di budget dell'automatica. In più dividi il lavoro fra **subagenti** (strumento `Agent`, in background) e fai il regista: tieni tu `progetto.md` e decidi tu. Ogni agente riceve un compito stretto, i file da leggere e quello che deve rendere; scrive solo nei suoi file e ti torna un rapporto breve. Il suo rapporto è un'indicazione, non una prova: controlla il risultato prima di segnarlo fatto.
+
+| Agente | Quando parte | Cosa fa | Rende |
+|---|---|---|---|
+| **Funzionamento** (il più importante) | dopo il modello (1d), poi su ogni anteprima e sul montaggio | legge le sorgenti senza vedere il tuo lavoro, scrive o controlla `funzionamento.md`, poi misura il moto delle scene con `motion_probe.py` e lo confronta riga per riga | la tabella Verifica di `funzionamento.md`, con ogni scarto e la scena e i frame dove sta |
+| **Revisore visivo** | storyboard, anteprime, montaggio, video con i testi | guarda solo i frame (griglie, provini, snapshot) con la scaletta e la scheda, non il tuo ragionamento | elenco dei problemi con scena, frame e gravità (blocca / da sistemare / gusto) |
+| **Grafiche** | mentre la GPU fa il render del montaggio | costruisce le composizioni HyperFrames sul video di bozza con i testi della scaletta | `hyperframes/` con `check` pulito e gli snapshot |
+| **Audio** | dopo la scaletta | scrive le frasi della voce entro le durate, la lista degli SFX con i loro istanti e il prompt della musica; non spende crediti | `audio/vo.txt`, `audio/sfx.md`, `audio/musica.md` |
+| **Riprese vere** | appena arrivano i video | analizza le riprese (durata, fps, rotazione, stabilità, pezzi buoni con in e out, istanti del ciclo) | `source/video/riprese.md` e un provino per ripresa |
+
+Regole:
+- **Una GPU sola**: i render Blender li lanci solo tu, uno alla volta. Gli agenti lavorano sul resto, ed è lì che si guadagna tempo.
+- **Indipendenza dei controlli**: il revisore e l'agente del funzionamento non ricevono le tue conclusioni, solo i materiali; altrimenti trovano giusto quello che hai già trovato giusto tu. Un problema "blocca" torna alla fase giusta; dopo due giri senza soluzione è una sosta.
+- **Mai due agenti sugli stessi file.** Al massimo quanti ne dice la riga `Agenti` (di default 3 insieme). Gli agenti consumano token: dillo nel brief, con la modalità.
+- Le generazioni a pagamento (voce, musica, SFX, AI) le lanci tu, dentro il budget, non gli agenti.
+
+**Soste sul telefono** (agentica, e anche automatica se l'utente lo chiede). I render lunghi girano con Bash `run_in_background`. A ogni sosta manda il file da guardare con `SendUserFile` (status `proactive`: il video leggero, il PDF, il provino) e una domanda di una riga; l'utente può rispondere dal telefono ("ok", "rifai la scena 3", "stop"). Il render finale di notte funziona così: parte con l'ok della sosta 3 e la consegna arriva sul telefono alla sosta 4.
+
+**Senza soste** (riga `Modalità: agentica senza soste`, solo se l'utente lo chiede). Va dal brief alla consegna senza fermarsi: scaletta, testi e voce li decidi tu, la voce si genera dentro il budget, e nella consegna metti lo storyboard in PDF e i `vo_<lingua>.md` segnati "da approvare". Restano le fermate per una spesa fuori budget, una cancellazione, un dato che non si inventa e un problema di funzionamento che non si risolve. Consigliala solo per prove interne o per varianti di un video già approvato, mai per un primo video da mandare al cliente.
+
 ## Da dove partire
 | L'utente dice… | Vai a |
 |---|---|
@@ -103,6 +128,8 @@ Dopo la richiesta riprendi il percorso in automatica dal punto in cui eri, e dil
 | "rifai/cambia la scena X", "rifai l'intro" | 2 per quella scena (poi 8 se il finale c'è già) |
 | "storyboard", "anteprima di…" | 2, solo storyboard o anteprima |
 | "allunga le scene per la voce" | 5, `fit_vo.py` |
+| "non funziona così", "controlla che si muova come la vera" | 1d, poi 2 per le scene che sbagliano |
+| "ho dei video veri", "split screen", "b-roll" | 3, "Riprese vere" (e la scaletta in 2) |
 | "metti un'infografica / un titolo / i sottotitoli" | 4 |
 | "voce", "musica", "effetti sonori" | 5 |
 | "render finale", "passa a Metal" | 7 (controlla in `progetto.md` che ci sia l'ok della fase 6) |
@@ -126,9 +153,9 @@ Questa skill è il regista: decide fasi, domande, checkpoint e stato. Il mestier
 | 2 anteprime, 7 render finale | **rendering** |
 
 ## 0. Brief
-**Prima domanda, sempre: la modalità.** Con `AskUserQuestion`: "Automatica (consigliato): ti chiedo poco adesso, poi vado avanti da solo e ti fermo solo per il provino, il render finale e le spese" oppure "Guidata: ti chiedo a ogni fase".
+**Prima domanda, sempre: la modalità.** Con `AskUserQuestion`: "Automatica (consigliato): ti chiedo poco adesso, poi vado avanti da solo e ti fermo solo per il provino, il render finale e le spese", "Agentica: come l'automatica, ma con più agenti in parallelo che si controllano a vicenda (funzionamento, immagini, grafiche, audio) e le soste sul telefono; più veloce e più controllata, consuma più token" oppure "Guidata: ti chiedo a ogni fase". La variante senza soste dell'agentica si usa solo se l'utente la chiede.
 
-**Brief rapido (automatica).** Chiedi solo quattro cose, in un solo giro di `AskUserQuestion`: cosa c'è di sorgente (file, foto, link), **dove va il video** (Instagram/TikTok, sito o YouTube, fiera, presentazione), cosa deve capire chi guarda e **la sua idea di storia**: "Hai già un'idea di come raccontarlo? Scrivila anche in due righe (cosa si vede all'inizio, cosa si mostra, come finisce), oppure scegli Decidi tu". Questa domanda si fa sempre, prima di qualunque scaletta o storyboard: se l'utente dà un'idea, la scaletta parte da lì e la rispetta; con "Decidi tu" la costruisci dall'arco del racconto (sotto, alla voce Racconto). Il resto lo deduci dall'uso con le impostazioni qui sotto, più quello che trovi in memoria per il cliente (palette, logo, divieti):
+**Brief rapido (automatica).** Chiedi solo quattro cose, in un solo giro di `AskUserQuestion`: cosa c'è di sorgente (file, foto, link, PDF, descrizione di come funziona, video della macchina vera o riprese da inserire nel video), **dove va il video** (Instagram/TikTok, sito o YouTube, fiera, presentazione), cosa deve capire chi guarda e **la sua idea di storia**: "Hai già un'idea di come raccontarlo? Scrivila anche in due righe (cosa si vede all'inizio, cosa si mostra, come finisce), oppure scegli Decidi tu". Questa domanda si fa sempre, prima di qualunque scaletta o storyboard: se l'utente dà un'idea, la scaletta parte da lì e la rispetta; con "Decidi tu" la costruisci dall'arco del racconto (sotto, alla voce Racconto). Il resto lo deduci dall'uso con le impostazioni qui sotto, più quello che trovi in memoria per il cliente (palette, logo, divieti):
 
 | Uso | Formato | Durata | Ambiente e luce | Audio | Bozze |
 |---|---|---|---|---|---|
@@ -143,6 +170,8 @@ Le domande delle fasi successive (lingue dello storyboard e della voce, voce da 
 
 **Brief completo (guidata).** Chiedi, se non lo sai già:
 - **Sorgenti**: foto, link, CAD o disegno. Cosa deve essere fedele (misure, colori, loghi) e cosa può essere approssimato.
+- **Come funziona**: tutto quello che spiega il funzionamento (scheda tecnica o manuale in PDF, descrizione a parole, pagina del sito, video della macchina in lavoro). Serve alla fase 1d: il modello deve muoversi come la macchina vera, non solo somigliarle.
+- **Riprese vere da montare** (facoltative): video del cliente da usare come b-roll, in split screen con il 3D o per un passaggio dal vero al 3D. Arrivano prima delle grafiche, in `source/video/`, con l'ok a usarle (diritti, persone riconoscibili).
 - **Formato, prima di qualunque scena o render**: aspect ratio (9:16 1080x1920 · 16:9 1920x1080 · 1:1 1080x1080 · 4:5 1080x1350), risoluzione; gli fps sono sempre 24. Vanno impostati in ogni .blend. Per il 9:16 chiedi anche le piattaforme (Reels, Stories, TikTok o tutte): decidono la zona sicura per testi e grafiche (fase 4) e vanno nel brief, alla riga Formato.
 - **Durata totale** e uso (social, sito, fiera, presentazione).
 - **Qualità delle bozze**: chiedi con `AskUserQuestion` se fissare ora le qualità predefinite delle bozze, così non le chiedi a ogni passaggio, o se sceglierle passo passo. Opzioni: "Predefinite (consigliato)" con le proposte di partenza (storyboard `1-·-1`, anteprima di una scena `1-3-1`, montaggio `2-4-1`), "Predefinite, più veloci" (`1-·-1`, `1-2-1`, `1-3-1`), "Passo passo". L'utente può anche dare codici suoi. Il render finale si chiede comunque a parte.
@@ -176,7 +205,6 @@ Stampa `SIZE_M L x P x H`: confrontalo con una misura nota. Se è sbagliata di 1
 | **STEP / STP** | sì | **text-to-cad** (comando `cad`) | automatica: le parti restano separate con il loro nome |
 | **3MF** | sì | **text-to-cad** | automatica |
 | **GLB / glTF** | sì | niente | `m` (tiene colori e parti) |
-| **Scheda KiCad** (`.kicad_pcb`) | sì, dopo `cad kicad_pcb export <scheda>.kicad_pcb --to glb --out source/pcb.glb` | **text-to-cad** (skill **text-to-cad:pcb**) | `m`; i componenti senza modello 3D restano fuori e l'export li nomina: chiedi i loro STEP o accetta la scheda senza |
 | **Scheda KiCad** (`.kicad_pcb`) | sì, dopo `cad kicad_pcb export <scheda>.kicad_pcb --to glb --out source/pcb.glb` | **text-to-cad** (skill **text-to-cad:pcb**) | `m`; i componenti senza modello 3D restano fuori e l'export li nomina: chiedi i loro STEP o accetta la scheda senza |
 | **FBX, OBJ, STL, PLY, USD/USDZ/USDC, ABC** | sì | niente | STL e OBJ da CAD sono quasi sempre in `mm` |
 | **.blend** | sì, viene aperto e centrato | niente | `m` |
@@ -246,6 +274,30 @@ Dal brief, con **environment-artist**, **set-dressing**, **lighting**, **lookdev
 - L'ambiente è contorno: il protagonista è il prodotto. Profondità di campo e volumetrici costano tempo di render: dillo prima.
 Checkpoint: 3–4 viste statiche (fronte, 3/4, dettaglio, materiale da vicino) nell'ambientazione scelta, accanto alla foto di riferimento se c'è, con `preview.sh` su un frame (`<f> <f> 1`). Chiedi se forma, proporzioni, materiali e atmosfera vanno bene.
 
+### 1d. Funzionamento
+Il modello deve replicare **come funziona** la macchina, non solo come appare: cosa si muove, in che verso, a che velocità, in che ordine, mosso da cosa. Un ingranaggio che gira nel verso sbagliato o un pistone fuori tempo lo nota subito chi la macchina la conosce, cioè il cliente.
+
+**Scheda di funzionamento** (`funzionamento.md`), prima di animare qualunque scena. Ricavala da tutte le sorgenti:
+- **CAD**: parti mobili e i loro assi (con **text-to-cad:robot-simulation**: link, giunti, `cad model ranges <id>` per i fine corsa), accoppiamenti, numero di denti di ingranaggi e pulegge, passo di viti e cremagliere;
+- **PDF** (scheda tecnica, manuale, catalogo): corse, velocità, giri/min, cicli/min, portate, sequenza delle fasi, schemi cinematici;
+- **descrizione a parole** dell'utente o del cliente: trascrivila in righe misurabili e chiedi i numeri che mancano;
+- **sito**: `firecrawl_scrape` delle pagine prodotto e dei video incorporati;
+- **video di riferimento**: `$K/contact_sheet.sh <video> preview/ref.jpg 0.25` (un frame ogni 0,25 s) e guarda i frame: verso di rotazione, ordine dei movimenti, tempo del ciclo misurato fra due istanti uguali. Segna i tempi in secondi del video.
+
+Una riga per parte mobile:
+
+| parte | moto (rotazione / traslazione) | asse e verso | corsa o limiti | velocità | mossa da | fase del ciclo | fonte |
+|---|---|---|---|---|---|---|---|
+
+Poi il **ciclo** in ordine, con i tempi (es. "0–1,2 s pinza chiude, 1,2–3 s braccio ruota di 90°…"), i **flussi** (materiale, fluido, prodotto: da dove entrano, dove escono, in che verso) e i **vincoli** (parti che non devono mai toccarsi). Ogni riga ha la sua **fonte** (file e pagina, link, secondo del video, "detto dall'utente"); quello che deduci tu è segnato "dedotto" e va confermato; quello che non si ricava si chiede, non si inventa.
+**Cinematica coerente**: ingranaggi esterni `giri2 = giri1 · z1/z2` con verso opposto (interni: stesso verso), cinghie e catene stessa velocità lineare sulle pulegge, vite `avanzamento = giri · passo`, pignone e cremagliera `v = ω · r`. Anima tutto da una sola variabile di tempo (la proprietà `t` letta dai driver, fase 2) e scrivi i rapporti nei driver: così restano esatti anche con lo slow-mo e gli `extra`.
+**Velocità vere o leggibili**: una macchina vera può essere troppo veloce per l'occhio. Si può rallentare, ma uguale per tutte le parti della scena (i rapporti restano veri) e dicendolo a schermo ("rallentato ×4").
+
+**Verifica su ogni scena**, dopo l'animazione e prima dello storyboard da approvare:
+`blender -b <scena.blend> --python $K/motion_probe.py -- preview/<n>_moto.json [step] [first last]`
+Stampa una riga `PROBE` per ogni oggetto che si muove: rotazione totale e range per asse in gradi, giri/min medi, escursione in metri (moto relativo al genitore, con vincoli e driver). Confronta con la scheda: assi, versi, rapporti fra parti collegate, corse dentro i limiti, ordine e tempi del ciclo; nel JSON hai il valore frame per frame. Scrivi il risultato nella tabella **Verifica** in fondo a `funzionamento.md` (voce · atteso con fonte · misurato · ok/no) e correggi gli scarti prima di andare avanti. In modalità agentica lo fa l'agente del funzionamento (sopra).
+Checkpoint (guidata): la scheda con le righe dedotte da confermare, poi la tabella Verifica di ogni scena insieme al suo storyboard.
+
 ## 2. Le scene, una alla volta
 **Scaletta delle inquadrature**, prima della prima scena: una tabella con tutte le scene in ordine, e per ognuna il piano, il movimento di camera e cosa racconta (la frase del voice-over, se c'è). Falla approvare e copiala nella tabella Scene di `progetto.md`. Piani, tradotti per una macchina (skill **camera-cinematography**):
 - **ELS/LS** (totale): la macchina intera nel suo ambiente, con la scala umana se serve;
@@ -275,10 +327,10 @@ Le scene spettacolari stanno fra piani più calmi, che danno respiro e contesto.
 
 Per **ogni** scena, prima di costruirla, chiedi:
 - **Durata** in secondi.
-- **Movimenti della macchina/del prodotto**: cosa si muove, a che velocità, in che ordine (es. nastro che scorre, sportello che si apre, esploso, montaggio dei pezzi).
+- **Movimenti della macchina/del prodotto**: cosa si muove, a che velocità, in che ordine (es. nastro che scorre, sportello che si apre, esploso, montaggio dei pezzi). Il moto di funzionamento viene dalla scheda della fase 1d, non si sceglie: si sceglie solo quale parte del ciclo mostrare e se rallentarla.
 - **Inquadrature**: il piano dalla scaletta (LS, MS, MCU, CU, ECU, POV, alto/basso) e il movimento della camera. Proponi 2–3 opzioni con **camera-cinematography**, almeno una spettacolare, sempre guardando i piani della scena prima e di quella dopo.
 Costruisci con **Blender MCP** (`get_objects_summary`, `execute_blender_code`) o `blender -b file.blend --python script.py` (script in `render_scripts/`). Skill: **animation**, **geometry-nodes**, **procedural-modeling**.
-- Animazione **procedurale** (driver + geometry nodes, niente simulazioni): così si può campionare a subframe e allungare i tempi senza toccare i keyframe.
+- Animazione **procedurale** (driver + geometry nodes, niente simulazioni): così si può campionare a subframe e allungare i tempi senza toccare i keyframe. Dopo ogni scena animata, la verifica con `motion_probe.py` (fase 1d).
 - Prima di patchare un .blend salvane una copia nello scratchpad. Ogni patch è uno script Python rieseguibile.
 - Proponi le inquadrature che una ripresa vera non può dare, sono il punto di forza del 3D:
   - **sezione**: modificatore Boolean `DIFFERENCE` (solver `EXACT`, `material_mode='TRANSFER'`) con un cutter che toglie un quarto verso la camera; il materiale del cutter colora le facce tagliate, di solito un rosso scuro. Prima svuota i gusci, con un cutter interno che ha lo stesso materiale del pezzo, e aggiungi le parti interne che servono al racconto (albero, rotore, girante). Se mancano dal CAD, falle in build123d, con cuscinetti, ingranaggi e viti veri presi da bd_warehouse. Animare il cutter fa aprire la sezione in scena;
@@ -302,7 +354,6 @@ Rende un frame al secondo, con il numero di frame stampato, e crea `grid.jpg`. G
   `blender -b --factory-startup --python $K/fea_to_blend.py -- fea/surface.npz fea/fea.blend <snervamento_MPa> [scala|auto] [first] [last]`
   Il .blend contiene l'oggetto `FEA`. Fra `first` e `last` il carico entra: il pezzo si deforma e passa dal metallo ai colori. Il rosso corrisponde allo snervamento, quindi rosso vuol dire "qui cede". Aggiungi camera e luci come in ogni scena, o collega l'oggetto (`Append`) nella scena del prodotto. In sovrimpressione, con HyperFrames, metti la scala colori, il carico in N o kg e il coefficiente di sicurezza da `result.json`. La deformazione è esagerata (il fattore lo stampa lo script): dillo in un testo a schermo. Fai approvare i numeri al cliente prima del render.
 - **Movimento vero di un robot o di una macchina con giunti**: con la skill **text-to-cad:robot-simulation**, partendo dallo STEP del costruttore (la sua ricetta "from a vendor STEP": raggruppa le parti in link e trova gli assi dalla geometria). `cad model ranges <id>` trova i fine corsa di ogni giunto dove le parti si toccano; se il cliente ha la scheda tecnica con le escursioni degli assi, valgono quelle. In Blender metti il perno di ogni parte sull'asse del giunto e un vincolo `Limit Rotation` (o `Limit Location` per gli assi lineari) con quei limiti, poi anima dentro i limiti: il braccio si muove come quello vero, senza compenetrazioni. Scrivi gli assi e i limiti in `progetto.md`. URDF e MJCF servono solo se il cliente li vuole per la simulazione: non sono necessari per il video.
-- **Movimento vero di un robot o di una macchina con giunti**: con la skill **text-to-cad:robot-simulation**, partendo dallo STEP del costruttore (la sua ricetta "from a vendor STEP": raggruppa le parti in link e trova gli assi dalla geometria). `cad model ranges <id>` trova i fine corsa di ogni giunto dove le parti si toccano; se il cliente ha la scheda tecnica con le escursioni degli assi, valgono quelle. In Blender metti il perno di ogni parte sull'asse del giunto e un vincolo `Limit Rotation` (o `Limit Location` per gli assi lineari) con quei limiti, poi anima dentro i limiti: il braccio si muove come quello vero, senza compenetrazioni. Scrivi gli assi e i limiti in `progetto.md`. URDF e MJCF servono solo se il cliente li vuole per la simulazione: non sono necessari per il video.
 - **Tavola tecnica**: con la skill **text-to-cad:engineering-drawing** crea il PDF quotato dal modello, e convertilo in immagine con `sips -s format png`. Usi possibili nel video: la tavola che si dissolve nel pezzo 3D con la camera allineata alla vista frontale, oppure la tavola come piano in scena, con le linee che si accendono. Il PDF si consegna anche in fase 9.
 
 Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla successiva.
@@ -315,6 +366,16 @@ Checkpoint: ok sulla scena, segnato in `progetto.md`, prima di passare alla succ
 - `$K/contact_sheet.sh preview_jpg/final.mp4 preview/montaggio.jpg 1` per un provino.
 - Se cambiano `first`, `last`, `extra` o la risoluzione di uno shot, `render_all.sh` sposta i frame vecchi in `<shot>.old_<data>` e rifà lo shot (i vecchi frame non corrispondono più agli stessi istanti).
 Checkpoint: ordine, ritmo, transizioni. Sul provino controlla l'alternanza dei piani: niente due piani uguali di fila, un piano largo almeno ogni 2–3 piani stretti.
+
+### Riprese vere
+Video del cliente montati insieme al 3D: la macchina vera e il suo modello si spiegano a vicenda. Le riprese arrivano **prima delle grafiche**, così stanno già nel video muto della sosta 2. Vanno in `source/video/` e non si modificano.
+- **Prepararle**: `ffprobe` per durata, fps, risoluzione e rotazione; `$K/contact_sheet.sh <video> preview/<nome>_sheet.jpg 1` per vedere cosa c'è. I video da telefono hanno spesso fps variabili e una rotazione nei metadati: convertili a fps costanti uguali al progetto, `ffmpeg -i source/video/<in> -vf fps=24 -c:v libx264 -crf 16 -c:a aac hyperframes/assets/<nome>.mp4`. Scegli i pezzi buoni (in e out in secondi), stabili e a fuoco, e scrivili in `source/video/riprese.md`. Una ripresa che mostra la macchina in lavoro è anche una fonte per `funzionamento.md`.
+- **Tre usi**, da segnare nella scaletta (fase 2) con «vero», «split» o «vero→3D»:
+  - **b-roll**: la ripresa a pieno quadro fra due scene 3D (la macchina in fabbrica, l'operatore, il prodotto finito). Conta come una scena: 5–10 s, o 2–3 s se è un intermezzo;
+  - **split screen**: vero e 3D nello stesso istante, per esempio la macchina che lavora e accanto la sua sezione che mostra cosa succede dentro. **Orizzontale** (affiancati, il default nel 16:9) o **verticale** (uno sopra l'altro, il default nel 9:16): chiedi quale. Allinea il ciclo: misura il tempo del ciclo nella ripresa e fai durare uguale quello del 3D, con lo stesso istante di partenza; scarto massimo 2 frame. Inquadra la scena 3D con il prodotto nella metà centrale del quadro, perché nello split viene ritagliata (`object-fit: cover`);
+  - **passaggio vero→3D** (o al contrario): l'ultimo frame della ripresa si dissolve nel render con la camera allineata alla stessa prospettiva (altezza, lunghezza focale, angolo), poi la macchina si apre in sezione o in esploso.
+- **Dove si montano**: in HyperFrames (fase 4). Lo sfondo non è più solo `final.mp4` ma una sequenza: i pezzi di `final.mp4` (tempi da `timings.json`) e le riprese fra l'uno e l'altro; nello split due contenitori affiancati o sovrapposti. Le correzioni di colore delle riprese passano da `npx hyperframes media-treatment` (skill **media-use**), non da filtri CSS. L'audio della ripresa resta solo se serve (rumore della macchina, basso sotto la musica, `data-has-audio="true"`). Nel montaggio di bozza della sosta 2 usa `npx hyperframes render --quality draft` senza testi.
+- Mai riprese generate con l'AI al posto di quelle vere, e mai riprese di un'altra macchina o di un'altra versione senza dirlo.
 
 ### Extra AI con Higgsfield MCP (facoltativo, costa crediti)
 Il render Blender resta la base, e l'AI si usa solo dove migliora qualcosa senza cambiare il prodotto. Prima di ogni generazione controlla i crediti con `balance`, di' quanto costa e chiedi l'ok. Controlla ogni risultato fotogramma per fotogramma: l'AI può cambiare forme, loghi, scritte e numero di pezzi.
@@ -335,12 +396,12 @@ Mai su sezioni, esplosi, FEA, quote, loghi, scritte o primi piani del prodotto: 
 - Chiedi lo **stile delle grafiche**:
   - **solo HyperFrames**: pulite, precise, sempre nella palette. È il default;
   - **effetti Higgsfield + testo HyperFrames**: Higgsfield genera la parte spettacolare (transizioni, flussi di energia o di fluido, particelle, luci, sfondi animati per i titoli, intro d'impatto), sempre senza testo e senza numeri, chiedendo nel prompt i colori della palette. Sopra, HyperFrames mette titoli, numeri, misure e logo esatti. I modelli AI sbagliano le lettere e inventano cifre, quindi il testo non va mai generato. Costa crediti: chiedi l'ok, e prima prova un effetto solo. Gli effetti generati vanno in `hyperframes/assets/` e si usano come video di sfondo o in fusione (`screen`, `add`) sopra il render.
-- Costruisci in `hyperframes/` con la skill **hyperframes** (contratto di render, animazioni, overlay e audio), nel formato del brief, **solo con la palette confermata**, `final.mp4` come sfondo e i tempi presi da `timings.json`. Le misure a schermo vengono dalla sorgente, mai stimate.
+- Costruisci in `hyperframes/` con la skill **hyperframes** (contratto di render, animazioni, overlay e audio), nel formato del brief, **solo con la palette confermata**, `final.mp4` come sfondo (con le riprese vere, la sequenza della fase 3) e i tempi presi da `timings.json`. Le misure a schermo vengono dalla sorgente, mai stimate.
 - **Zona sicura nel 9:16**: le interfacce di Reels, Stories e TikTok coprono l'alto, il basso e il lato destro. `$K/safe_zone.sh <WxH> <reels|stories|tiktok|all>` stampa i margini e la regola CSS `.safe`; senza indicazioni usa `all`, la più stretta delle tre (su 1080x1920: alto 250, basso 484, sinistra 60, destra 140 px). I testi importanti (titoli, numeri, misure, sottotitoli, CTA, logo) stanno sempre dentro la zona sicura, in un contenitore `.safe` (linea verde). Gli elementi secondari e le grafiche (icone, linee, cornici, decorazioni, bordi dei box) possono sconfinare nel margine al più del 20% in alto e in basso e del 10% ai lati (linea rossa), mai oltre. Sfondi, effetti e il render 3D possono occupare tutto il frame.
 - **Nel 16:9 non ci sono zone delle piattaforme**: basta la zona sicura standard (azione al 90%, titoli e testi al 80% del frame), quella che HyperFrames già segue.
 - **Cambiare formato vuol dire rifare l'impaginazione, non copiarla.** Da 9:16 a 16:9 (o 1:1, 4:5) e viceversa:
   - **scala** testi, grafiche, callout e logo in proporzione al nuovo frame: se li lasci con gli stessi px, nel 16:9 sembrano piccoli. Nelle composizioni usa misure relative al frame (percentuali, o una variabile di scala) invece di px fissi, così il cambio di formato le porta con sé;
-  - **reimpagina** sugli spazi del nuovo formato: nel 16:9 testo e prodotto stanno affiancati, nel 9:16 uno sopra l'altro; i callout seguono dove cade il pezzo nella nuova inquadratura;
+  - **reimpagina** sugli spazi del nuovo formato: nel 16:9 testo e prodotto stanno affiancati, nel 9:16 uno sopra l'altro; i callout seguono dove cade il pezzo nella nuova inquadratura; gli split screen di solito cambiano verso (affiancati nel 16:9, sovrapposti nel 9:16);
   - **zone sicure del formato di arrivo**: verso il 9:16 sempre `safe_zone.sh` con le piattaforme del brief, verso il 16:9 la zona standard;
   - poi rifai gli snapshot di controllo (sotto) sul nuovo formato e guarda che i testi si leggano alla stessa distanza di prima.
 - **Verifica** prima di mostrare (skill **hyperframes-cli**):
@@ -402,3 +463,5 @@ Manda il `light.mp4` con SendUserFile; per file oltre 30 MB indica il percorso.
 - Blender 5.x: action a livelli → `action.layers[].strips[].channelbags[].fcurves`; l'opzione MetalRT si chiama `metalrt` (non `metal_rt`).
 - Aliasing a ruota di carro: se un movimento ripetitivo supera ~0,3 celle per frame, rallentalo o alterna i colori.
 - macOS: niente `timeout` né `sed \n`; usa un ciclo di attesa e Python.
+- Riprese da telefono: fps variabili e rotazione nei metadati fanno sbagliare durata e sincronia dello split. Convertile sempre a fps costanti prima di montarle (fase 3, "Riprese vere").
+- `motion_probe.py` misura il moto relativo al genitore: per il rapporto fra due ingranaggi confronta gli rpm di parti con lo stesso genitore, o porta i valori nello stesso riferimento.
